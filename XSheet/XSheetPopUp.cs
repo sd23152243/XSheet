@@ -15,7 +15,6 @@ namespace XSheet
     {
         public XSheetPopUp()
         {
-            ///1
             InitializeComponent();
             spreadsheetControl1.LoadDocument("tmp/tmp");
         }
