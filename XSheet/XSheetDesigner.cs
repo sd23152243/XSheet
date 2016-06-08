@@ -15,6 +15,8 @@ using DevExpress.XtraBars.Ribbon;
 using System.IO;
 using DevExpress.Spreadsheet;
 using DevExpress.XtraSpreadsheet;
+using XSheet.Action;
+using XSheet.Data;
 
 namespace XSheet
 {
@@ -57,6 +59,7 @@ namespace XSheet
                 }
             }
             tmpsheet.ActiveCell.Value = tt;
+            
         }
 
         private void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)

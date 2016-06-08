@@ -87,9 +87,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action\AbstractAction.cs" />
+    <Compile Include="Action\CommanderExecuter.cs" />
+    <Compile Include="Action\RangeActionFactory.cs" />
     <Compile Include="CfgStr\AppCfgStr.cs" />
     <Compile Include="CfgStr\ConfigStr.cs" />
+    <Compile Include="Data\XNamedRange.cs" />
+    <Compile Include="Data\XRange.cs" />
     <Compile Include="Util\DBUtil.cs" />
+    <Compile Include="Util\RangeUtil.cs" />
     <Compile Include="XSheetDesigner.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,7 +154,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Action\" />
     <Folder Include="Item\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
