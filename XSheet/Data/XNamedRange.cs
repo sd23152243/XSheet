@@ -9,9 +9,9 @@ namespace XSheet.Data
 {
     class XNamedRange:RangeActionFactory
     {
-        String rangName { get; set; }
-        List<XRange> ranges { get; set; }
-        Dictionary<string,AbstractAction> actions { get; set; }
+        public String rangeName { get; set; }
+        public List<XRange> ranges { get; set; }
+        public Dictionary<string,AbstractAction> actions { get; set; }
         String rangeType { get; set; }
 
         public AbstractAction getAction(string type)

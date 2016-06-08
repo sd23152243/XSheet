@@ -88,8 +88,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action\AbstractAction.cs" />
-    <Compile Include="Action\CommanderExecuter.cs" />
+    <Compile Include="Action\ActionBuilder.cs" />
+    <Compile Include="Action\XCommandBuilder.cs" />
     <Compile Include="Action\RangeActionFactory.cs" />
+    <Compile Include="Action\XCommand.cs" />
     <Compile Include="CfgStr\AppCfgStr.cs" />
     <Compile Include="CfgStr\ConfigStr.cs" />
     <Compile Include="Data\XNamedRange.cs" />
