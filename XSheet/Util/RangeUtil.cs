@@ -9,8 +9,17 @@ namespace XSheet.Util
 {
     class RangeUtil
     {
-        static String getRangeInName(XRange range,List<XNamedRange> names)
+        //判断某个区域是否在命名区域中
+        static String getRangeInName(XRange range, List<XNamedRange> names)
         {
+            foreach (XNamedRange name in names)
+            {
+                if (name.isInRange(range) == true)
+                {
+                    return name.rangeName;
+                }
+            }
             return null;
         }
+    }
 }
