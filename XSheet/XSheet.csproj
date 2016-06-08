@@ -124,6 +124,7 @@
     <EmbeddedResource Include="XSheetPopUp.resx">
       <DependentUpon>XSheetPopUp.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="DOC\XSheetFC流程.xlsx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
