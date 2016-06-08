@@ -8,7 +8,7 @@ namespace XSheet.CfgStr
 {
     class AppConfig
     {
-        private String AppName;
+        public String AppName { get; set; }
 
     }
 }
