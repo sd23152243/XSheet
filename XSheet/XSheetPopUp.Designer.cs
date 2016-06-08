@@ -1,4 +1,6 @@
-﻿namespace XSheet
+﻿using DevExpress.XtraEditors;
+
+namespace XSheet
 {
     partial class XSheetPopUp
     {
