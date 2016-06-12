@@ -17,16 +17,18 @@ using DevExpress.Spreadsheet;
 using DevExpress.XtraSpreadsheet;
 using XSheet.Action;
 using XSheet.Data;
+using XSheet.CfgData;
 
 namespace XSheet
 {
     public partial class XSheetDesigner : RibbonForm
     {
+        public XSheetCfgData cfgData = new XSheetCfgData();
         public XSheetDesigner()
         {
             InitializeComponent();
             InitSkinGallery();
-            IList<Range> Ranges = spreadsheetMain.ActiveCell.Dependents;
+            spreadsheetMain.Document.LoadDocument("\\\\ichart3d\\XSheetModel\\XSheet模板设计0608.xlsx");
 
         }
         void InitSkinGallery()
@@ -45,12 +47,22 @@ namespace XSheet
         private void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
             SpreadsheetControl tmpsheet = (SpreadsheetControl)sender;
-            IList<Range> Ranges = tmpsheet.ActiveCell.Dependents;
+            AreasCollection areas = tmpsheet.Selection.Areas;
+            
             DefinedNameCollection names = tmpsheet.ActiveWorksheet.DefinedNames;
+            DefinedNameCollection names2 = tmpsheet.Document.DefinedNames;
+            names.Concat<DefinedName>(names2);
             String tt = "";
-            foreach (Range range in Ranges)
+            foreach (Range range in areas)
             {
                 foreach (DefinedName name in names)
+                {
+                    if (name.Range == range)
+                    {
+                        tt += name.Name;
+                    }
+                }
+                foreach (DefinedName name in names2)
                 {
                     if (name.Range == range)
                     {

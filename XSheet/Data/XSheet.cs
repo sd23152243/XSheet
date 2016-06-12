@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XSheet.CfgStr
+namespace XSheet.Data
 {
-    class ConfigStr
+    class XSheet
     {
     }
 }

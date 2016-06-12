@@ -92,10 +92,18 @@
     <Compile Include="Action\XCommandBuilder.cs" />
     <Compile Include="Action\RangeActionFactory.cs" />
     <Compile Include="Action\XCommand.cs" />
-    <Compile Include="CfgStr\AppCfgStr.cs" />
-    <Compile Include="CfgStr\ConfigStr.cs" />
+    <Compile Include="CfgData\ActionCfgData.cs" />
+    <Compile Include="CfgData\AppCfgData.cs" />
+    <Compile Include="CfgData\BindingCfgData.cs" />
+    <Compile Include="CfgData\CommandCfgData.cs" />
+    <Compile Include="CfgData\ConfigStr.cs" />
+    <Compile Include="CfgData\RangeCfgData.cs" />
+    <Compile Include="CfgData\SheetCfgData.cs" />
+    <Compile Include="CfgData\XSheetCfgData.cs" />
+    <Compile Include="Data\App.cs" />
     <Compile Include="Data\XNamedRange.cs" />
     <Compile Include="Data\XRange.cs" />
+    <Compile Include="Data\XSheet.cs" />
     <Compile Include="Util\DBUtil.cs" />
     <Compile Include="Util\RangeUtil.cs" />
     <Compile Include="XSheetDesigner.cs">
@@ -126,9 +134,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="XSheetDesigner.zh-CN.resx">
-      <DependentUpon>XSheetDesigner.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="XSheetPopUp.resx">
       <DependentUpon>XSheetPopUp.cs</DependentUpon>
     </EmbeddedResource>
