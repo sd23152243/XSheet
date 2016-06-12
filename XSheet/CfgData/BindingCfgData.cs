@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XSheet.CfgStr
+namespace XSheet.CfgData
 {
-    class AppConfig
+    public class BindingCfgData
     {
-        public String AppName { get; set; }
-
     }
 }
