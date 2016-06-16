@@ -70,11 +70,16 @@ namespace XSheet
                     }
                 }
             }
-            tmpsheet.ActiveCell.Value = tt;
+            //tmpsheet.ActiveCell.Value = tt;
             
         }
 
         private void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_Search_Click(object sender, EventArgs e)
         {
 
         }
