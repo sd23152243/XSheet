@@ -23,12 +23,12 @@ namespace XSheet
 {
     public partial class XSheetDesigner : RibbonForm
     {
-        public XSheetCfgData cfgData = new XSheetCfgData();
+        public XSheetCfgData cfgData;
         public XSheetDesigner()
         {
             InitializeComponent();
             InitSkinGallery();
-            spreadsheetMain.Document.LoadDocument("\\\\ichart3d\\XSheetModel\\XSheet模板设计0608.xlsx");
+            spreadsheetMain.Document.LoadDocument("\\\\ichart3d\\XSheetModel\\XSheet模板设计.xlsx");
 
         }
         void InitSkinGallery()
