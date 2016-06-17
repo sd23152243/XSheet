@@ -53,7 +53,7 @@ namespace XSheet.CfgData
                 sheet.sheetName = name.Range[i, 0].DisplayText;
                 sheet.hideFlag = name.Range[i, 1].DisplayText;
                 sheet.editFlag = name.Range[i, 2].DisplayText;
-                sheets.Add(sheet);
+                sheets.Add(sheet); 
             }
             
         }
