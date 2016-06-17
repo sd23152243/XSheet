@@ -25,7 +25,7 @@ namespace XSheet
 {
     public partial class XSheetDesigner : RibbonForm
     {
-        public XSheetCfgData cfgData { get; set; }
+        public XCfgData cfgData { get; set; }
         public XApp app { get; set; }
         public XSheetDesigner()
         {
@@ -50,6 +50,7 @@ namespace XSheet
         private void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
             SpreadsheetControl tmpsheet = (SpreadsheetControl)sender;
+            
             AreasCollection areas = tmpsheet.Selection.Areas;
             
             DefinedNameCollection names = tmpsheet.ActiveWorksheet.DefinedNames;
@@ -86,6 +87,19 @@ namespace XSheet
         {
             //spreadsheetMain.ActiveWorksheet.Tables[0].Range = spreadsheetMain.ActiveWorksheet.Range["F27:G28"];
             XMLTest test = new XMLTest(spreadsheetMain);
+        }
+
+        private void btn_Download_Click(object sender, EventArgs e)
+        {
+             init();
+        }
+        
+        public void init()
+        {
+            cfgData = new XCfgData(spreadsheetMain.Document.Worksheets["Config"]);
+            app = new XApp(spreadsheetMain.Document,cfgData);
+            this.lbl_App.Text ="APP:" +app.appName;
+            this.lbl_User.Text ="当前用户:"+ app.user;
         }
     }
 }
