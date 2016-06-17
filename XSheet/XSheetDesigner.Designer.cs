@@ -1353,7 +1353,7 @@
             this.spreadsheetCommandBarCheckItem47,
             this.spreadsheetCommandBarButtonItem206});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 431;
+            this.ribbonControl.MaxItemId = 432;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -5375,6 +5375,7 @@
             // lbl_User
             // 
             resources.ApplyResources(this.lbl_User, "lbl_User");
+            this.lbl_User.LineLocation = DevExpress.XtraEditors.LineLocation.Right;
             this.lbl_User.Name = "lbl_User";
             // 
             // lbl_App
@@ -5411,6 +5412,7 @@
             resources.ApplyResources(this.btn_Download, "btn_Download");
             this.btn_Download.Image = ((System.Drawing.Image)(resources.GetObject("btn_Download.Image")));
             this.btn_Download.Name = "btn_Download";
+            this.btn_Download.Click += new System.EventHandler(this.btn_Download_Click);
             // 
             // btn_Search
             // 
