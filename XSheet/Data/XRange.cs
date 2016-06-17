@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace XSheet.Data
 {
-    class XRange
+    public class XRange
     {
         Range range { get; set; }
         public int getLeftColumnIndex()
@@ -28,7 +28,7 @@ namespace XSheet.Data
         {
             if (i ==1)
             {
-                return range.TopRowIndex - 1;
+                return range.TopRowIndex + 1;
             }
             return getTopRowIndex();
         }

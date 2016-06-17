@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace XSheet.Action
 {
-    interface RangeActionFactory
+    public interface RangeActionFactory
     {
         AbstractAction getAction(String type);
     }

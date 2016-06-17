@@ -100,10 +100,11 @@
     <Compile Include="CfgData\RangeCfgData.cs" />
     <Compile Include="CfgData\SheetCfgData.cs" />
     <Compile Include="CfgData\XSheetCfgData.cs" />
-    <Compile Include="Data\App.cs" />
+    <Compile Include="Data\XApp.cs" />
     <Compile Include="Data\XNamedRange.cs" />
     <Compile Include="Data\XRange.cs" />
     <Compile Include="Data\XSheet.cs" />
+    <Compile Include="test\XMLTest.cs" />
     <Compile Include="Util\DBUtil.cs" />
     <Compile Include="Util\RangeUtil.cs" />
     <Compile Include="XSheetDesigner.cs">
