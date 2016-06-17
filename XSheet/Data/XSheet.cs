@@ -23,21 +23,13 @@ namespace XSheet.Data
 
         public void initTables()
         {
-            try
+            if (sheet.Tables != null)
             {
-                if (sheet.Tables.Count>0)
+                foreach (Table table in sheet.Tables)
                 {
-                    foreach (Table table in sheet.Tables)
-                    {
-                        tables.Add(table.Name, table);
-                    }
-                }
-                
-            }
-            catch (Exception e)
-            {
 
-                System.Windows.Forms.MessageBox.Show(e.ToString());
+                    tables.Add(table.Name, table);
+                }
             }
             
         }
