@@ -26,15 +26,17 @@ namespace XSheet.CfgData
             names = this.cfgsheet.DefinedNames;
             app = new AppCfgData();
             InitCfg();
-
-
         }
 
         public void InitCfg()
         {
             initApp();
             initSheet();
-        }
+            initRange();
+            initBinding();
+            initCommand();
+            initAction();
+       }
 
         private void initApp()
         {
@@ -57,8 +59,77 @@ namespace XSheet.CfgData
             }
             
         }
+        private void initRange()
+        {
+            DefinedName name = SheetUtil.getNameinNames("CFG_Range", names);
+            ranges = new List<RangeCfgData>();
+            for (int i = 1; i < name.Range.RowCount; i++)
+            {
+                RangeCfgData range = new RangeCfgData();
+                range.rangeId = name.Range[i, 0].DisplayText;
+                range.sheetName = name.Range[i, 1].DisplayText;
+                range.crudpFlag = name.Range[i, 2].DisplayText;
+                range.sqlStatement = name.Range[i, 3].DisplayText;
+                range.serverName = name.Range[i, 4].DisplayText;
+                range.rangeType = name.Range[i, 5].DisplayText;
+                ranges.Add(range);
+            }
+
+        }
+
+        private void initBinding()
+        {
+            DefinedName name = SheetUtil.getNameinNames("CFG_Binding", names);
+            bindings = new List<BindingCfgData>();
+            for (int i = 1; i < name.Range.RowCount; i++)
+            {
+                BindingCfgData binding = new BindingCfgData();
+                binding.rangeName = name.Range[i, 0].DisplayText;
+                binding.commandId = name.Range[i, 0].DisplayText;
+                binding.eventType = name.Range[i, 0].DisplayText;
+                bindings.Add(binding);
+            }
+        }
+
+        private void initCommand()
+        {
+         DefinedName name = SheetUtil.getNameinNames("CFG_Command", names);
+         commands = new List<CommandCfgData>();
+            for (int i = 1; i<name.Range.RowCount; i++)
+            {
+                CommandCfgData command= new CommandCfgData();
+                command.commandID = name.Range[i, 0].DisplayText;
+                command.commandName= name.Range[i, 1].DisplayText;
+                command.sheetName = name.Range[i, 2].DisplayText;
+                command.commandDesc = name.Range[i, 3].DisplayText;
+                commands.Add(command); 
+            }
+        }
+
+        private void initAction()
+        {
+            DefinedName name = SheetUtil.getNameinNames("CFG_Action", names);
+            actions = new List<ActionCfgData>();
+            for (int i = 1; i < name.Range.RowCount; i++)
+            {
+                ActionCfgData action = new ActionCfgData();
+                action.commandId = name.Range[i, 0].DisplayText;
+                action.actionId= name.Range[i, 1].DisplayText;
+                action.actionName= name.Range[i, 2].DisplayText;
+                action.actionType= name.Range[i, 3].DisplayText;
+                action.actionDesc= name.Range[i, 4].DisplayText;
+                action.actionSRange= name.Range[i, 5].DisplayText;
+                action.actionDRange= name.Range[i, 6].DisplayText;
+                action.actionStatement= name.Range[i, 7].DisplayText;
+                action.actionParam= name.Range[i, 8].DisplayText;
+                action.actionSeq= name.Range[i, 9].DisplayText;
+               
+                actions.Add(action);
+             }
+
+        }
 
 
-       
+
     }
 }

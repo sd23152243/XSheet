@@ -15,6 +15,9 @@ namespace XSheet.Data
         public String appName { get; set; }
         public String user { get; set; }
         private Dictionary<string, XSheet> sheets;
+        private Dictionary<string, XSheet> sheets;
+        private Dictionary<string, XSheet> sheets;
+
         public IWorkbook book { get; set; }
         private XApp(){}
         
