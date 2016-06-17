@@ -101,5 +101,10 @@ namespace XSheet
             this.lbl_App.Text ="APP:" +app.appName;
             this.lbl_User.Text ="当前用户:"+ app.user;
         }
+
+        private void btn_New_Click(object sender, EventArgs e)
+        {
+            WMTest test = new WMTest();
+        }
     }
 }
