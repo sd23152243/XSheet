@@ -10,7 +10,7 @@ namespace XSheet.CfgData
     {
         public String rangeId { get; set; }
         public String sheetName { get; set; }
-        public String crudFlag { get; set; }
+        public String crudpFlag { get; set; }
         public String sqlStatement { get; set; }
         public String serverName { get; set; }
         public String rangeType { get; set; }
