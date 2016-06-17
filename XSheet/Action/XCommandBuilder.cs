@@ -8,16 +8,17 @@ using XSheet.Data;
 
 namespace XSheet.Action
 {
-    class XCommandBuilder
+    static class XCommandBuilder
     {
-        public static XCommand getCommand(String id)
+        public static XCommand getCommand(Dictionary<String, XCommand> commands,String id)
+        {
+            return commands[id];
+        }
+
+        public static XCommand getCommand(Dictionary<String, XCommand> commands,Worksheet sheet,String Event)
         {
             return null;
         }
 
-        public static XCommand getCommand(Worksheet sheet,String Event)
-        {
-            return null;
-        }
-    }
+     }
 }

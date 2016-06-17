@@ -11,7 +11,7 @@ namespace XSheet.Action
     {
         public String CommandName { get; set; }
 
-        internal Dictionary<int, AbstractAction> Actions
+        public Dictionary<int, AbstractAction> actions
         {
             get
             {
@@ -24,7 +24,6 @@ namespace XSheet.Action
             }
         }
 
-        private Dictionary<int, AbstractAction> actions;
 
         public String execute(XRange range)
         {
@@ -32,7 +31,7 @@ namespace XSheet.Action
             {
                 kv.Value.doAction(range);
             }
-            return "sucess";
+            return "success";
         }
     }
 }

@@ -3,7 +3,7 @@ using XSheet.Data;
 
 namespace XSheet.Action
 {
-    abstract class AbstractAction
+    public abstract class AbstractAction
     {
         XNamedRange sRange { get; set; }
         XNamedRange dRange { get; set; }

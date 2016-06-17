@@ -7,7 +7,7 @@ using XSheet.Action;
 
 namespace XSheet.Data
 {
-    class XNamedRange:RangeActionFactory
+    public class XNamedRange:RangeActionFactory
     {
         public String rangeName { get; set; }
         public List<XRange> ranges { get; set; }

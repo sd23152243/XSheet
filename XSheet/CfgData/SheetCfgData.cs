@@ -8,5 +8,8 @@ namespace XSheet.CfgData
 {
     public class SheetCfgData
     {
+        public String sheetName { get; set; }
+        public String hideFlag { get; set; }
+        public String editFlag { get; set; }
     }
 }

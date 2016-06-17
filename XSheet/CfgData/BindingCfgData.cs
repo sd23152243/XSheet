@@ -8,5 +8,8 @@ namespace XSheet.CfgData
 {
     public class BindingCfgData
     {
+        public String rangeName { get; set; }
+        public String commandId { get; set; }
+        public String eventType { get; set; }
     }
 }

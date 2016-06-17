@@ -18,12 +18,15 @@ using DevExpress.XtraSpreadsheet;
 using XSheet.Action;
 using XSheet.Data;
 using XSheet.CfgData;
+using XSheet.Util;
+using XSheet.test;
 
 namespace XSheet
 {
     public partial class XSheetDesigner : RibbonForm
     {
-        public XSheetCfgData cfgData;
+        public XSheetCfgData cfgData { get; set; }
+        public XApp app { get; set; }
         public XSheetDesigner()
         {
             InitializeComponent();
@@ -76,12 +79,13 @@ namespace XSheet
 
         private void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
-
+            //spreadsheetMain.ActiveWorksheet.Tables[0].Range = spreadsheetMain.ActiveWorksheet.Range["F27:G28"];
+            XMLTest test = new XMLTest(spreadsheetMain);
         }
     }
 }
