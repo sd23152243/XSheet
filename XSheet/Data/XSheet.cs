@@ -12,26 +12,11 @@ namespace XSheet.Data
     {
         public String sheetName { get; set; }
         public Worksheet sheet { get; set; }
-        public Dictionary<String, XNamedRange> names { get; set; }
-        public Dictionary<String,Table> tables { get; set; }
-        
+        public Dictionary<String, XNamed> names { get; set; }
+        public XApp app { get; set; }
         public XSheet()
         {
-            names = new Dictionary<string, XNamedRange>();
-            tables = new Dictionary<string, Table>();
-        }
-
-        public void initTables()
-        {
-            if (sheet.Tables != null)
-            {
-                foreach (Table table in sheet.Tables)
-                {
-
-                    tables.Add(table.Name, table);
-                }
-            }
-            
+            names = new Dictionary<string, XNamed>();
         }
     }
 }

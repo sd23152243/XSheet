@@ -69,9 +69,10 @@ namespace XSheet.CfgData
                 range.rangeId = name.Range[i, 0].DisplayText;
                 range.sheetName = name.Range[i, 1].DisplayText;
                 range.crudpFlag = name.Range[i, 2].DisplayText;
-                range.sqlStatement = name.Range[i, 3].DisplayText;
-                range.serverName = name.Range[i, 4].DisplayText;
-                range.rangeType = name.Range[i, 5].DisplayText;
+                range.sqlStatement = name.Range[i, 3].GetReferenceA1();
+                range.sqlPopUp = name.Range[i, 4].DisplayText;
+                range.serverName = name.Range[i, 5].DisplayText;
+                range.rangeType = name.Range[i, 6].DisplayText;
                 ranges.Add(range);
             }
 
@@ -85,8 +86,8 @@ namespace XSheet.CfgData
             {
                 BindingCfgData binding = new BindingCfgData();
                 binding.rangeName = name.Range[i, 0].DisplayText;
-                binding.commandId = name.Range[i, 0].DisplayText;
-                binding.eventType = name.Range[i, 0].DisplayText;
+                binding.commandId = name.Range[i, 1].DisplayText;
+                binding.eventType = name.Range[i, 2].DisplayText;
                 bindings.Add(binding);
             }
         }
