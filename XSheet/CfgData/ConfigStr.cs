@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XSheet.Action
+namespace XSheet.CfgData
 {
-    public interface RangeActionFactory
+    public class ConfigStr
     {
-        AbstractAction getAction(String type);
     }
 }

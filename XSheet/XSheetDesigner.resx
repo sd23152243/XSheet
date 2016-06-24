@@ -906,14 +906,8 @@
   <data name="chartToolsRibbonPageCategory1.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="skinsRibbonPageGroup.Text" xml:space="preserve">
-    <value>Skins</value>
-  </data>
   <data name="ribbonPageSkins.Text" xml:space="preserve">
     <value>Skins</value>
-  </data>
-  <data name="helpRibbonPageGroup.Text" xml:space="preserve">
-    <value>Help</value>
   </data>
   <data name="helpRibbonPage.Text" xml:space="preserve">
     <value>Help</value>
@@ -932,6 +926,12 @@
   </data>
   <data name="&gt;&gt;ribbonControl.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="skinsRibbonPageGroup.Text" xml:space="preserve">
+    <value>Skins</value>
+  </data>
+  <data name="helpRibbonPageGroup.Text" xml:space="preserve">
+    <value>Help</value>
   </data>
   <data name="formulaBarNameBoxSplitContainerControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -1026,25 +1026,6 @@
   <data name="&gt;&gt;formulaBarNameBoxSplitContainerControl.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="lbl_User.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <assembly alias="DevExpress.XtraEditors.v16.1" name="DevExpress.XtraEditors.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-  <data name="lbl_User.AutoSizeMode" type="DevExpress.XtraEditors.LabelAutoSizeMode, DevExpress.XtraEditors.v16.1">
-    <value>Horizontal</value>
-  </data>
-  <data name="lbl_User.Location" type="System.Drawing.Point, System.Drawing">
-    <value>755, 9</value>
-  </data>
-  <data name="lbl_User.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 14</value>
-  </data>
-  <data name="lbl_User.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="lbl_User.Text" xml:space="preserve">
-    <value>用户:</value>
-  </data>
   <data name="&gt;&gt;lbl_User.Name" xml:space="preserve">
     <value>lbl_User</value>
   </data>
@@ -1056,21 +1037,6 @@
   </data>
   <data name="&gt;&gt;lbl_User.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="lbl_App.AutoSizeMode" type="DevExpress.XtraEditors.LabelAutoSizeMode, DevExpress.XtraEditors.v16.1">
-    <value>Horizontal</value>
-  </data>
-  <data name="lbl_App.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 9</value>
-  </data>
-  <data name="lbl_App.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 14</value>
-  </data>
-  <data name="lbl_App.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="lbl_App.Text" xml:space="preserve">
-    <value>APP:</value>
   </data>
   <data name="&gt;&gt;lbl_App.Name" xml:space="preserve">
     <value>lbl_App</value>
@@ -1673,6 +1639,64 @@
   </data>
   <data name="&gt;&gt;spreadsheetFormulaBarPanel.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="lbl_User.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <assembly alias="DevExpress.XtraEditors.v16.1" name="DevExpress.XtraEditors.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <data name="lbl_User.AutoSizeMode" type="DevExpress.XtraEditors.LabelAutoSizeMode, DevExpress.XtraEditors.v16.1">
+    <value>Horizontal</value>
+  </data>
+  <data name="lbl_User.Location" type="System.Drawing.Point, System.Drawing">
+    <value>755, 9</value>
+  </data>
+  <data name="lbl_User.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 14</value>
+  </data>
+  <data name="lbl_User.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lbl_User.Text" xml:space="preserve">
+    <value>用户:</value>
+  </data>
+  <data name="&gt;&gt;lbl_User.Name" xml:space="preserve">
+    <value>lbl_User</value>
+  </data>
+  <data name="&gt;&gt;lbl_User.Type" xml:space="preserve">
+    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
+  <data name="&gt;&gt;lbl_User.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;lbl_User.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lbl_App.AutoSizeMode" type="DevExpress.XtraEditors.LabelAutoSizeMode, DevExpress.XtraEditors.v16.1">
+    <value>Horizontal</value>
+  </data>
+  <data name="lbl_App.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 9</value>
+  </data>
+  <data name="lbl_App.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 14</value>
+  </data>
+  <data name="lbl_App.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="lbl_App.Text" xml:space="preserve">
+    <value>APP:</value>
+  </data>
+  <data name="&gt;&gt;lbl_App.Name" xml:space="preserve">
+    <value>lbl_App</value>
+  </data>
+  <data name="&gt;&gt;lbl_App.Type" xml:space="preserve">
+    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
+  <data name="&gt;&gt;lbl_App.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;lbl_App.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <metadata name="spreadsheetBarController1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>532, 17</value>
