@@ -103,6 +103,10 @@
     <Compile Include="Data\XNamedRange.cs" />
     <Compile Include="Data\XRange.cs" />
     <Compile Include="Data\XSheet.cs" />
+    <Compile Include="test\CPU.cs" />
+    <Compile Include="test\HardDisk.cs" />
+    <Compile Include="test\PC.cs" />
+    <Compile Include="test\Person.cs" />
     <Compile Include="test\XMLTest.cs" />
     <Compile Include="Util\DBUtil.cs" />
     <Compile Include="Util\RangeUtil.cs" />
