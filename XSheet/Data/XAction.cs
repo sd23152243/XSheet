@@ -15,7 +15,7 @@ namespace XSheet.Data
         public XNamed sRange { get; set; }
         public XNamed dRange { get; set; }
         public int actionSeq { get; set; }
-        abstract public String doAction(Range selectedNamed);
+        abstract public String doAction(AreasCollection selectedNamed);
         abstract public void init();
     }
 }

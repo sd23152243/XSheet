@@ -24,13 +24,15 @@ using DevExpress.XtraEditors;
 
 namespace XSheet
 {
-    public partial class XSheetDesigner : RibbonForm
+    public partial class XSheetDesigner : RibbonForm,Observer
     {
         public XCfgData cfgData { get; set; }
         public XApp app { get; set; }
         public XSheet.Data.XSheet currentSheet{ get; set;}
         public XNamed currentXNamed { get; set; }
         public Dictionary<String, SimpleButton> buttons { get; set; }
+        public string executeState { get; set; }
+        private CommandExecuter executer;
         public XSheetDesigner()
         {
             InitializeComponent();
@@ -43,6 +45,9 @@ namespace XSheet
             buttons.Add("DELETE", btn_Delete);
             buttons.Add("EDIT", btn_Edit);
             buttons.Add("NEW", btn_New);
+            executer = new CommandExecuter();
+            executer.Attach(this);
+            executeState = "OK";
             spreadsheetMain.Document.LoadDocument("\\\\ichart3d\\XSheetModel\\XSheet模板设计.xlsx");
 
         }
@@ -61,12 +66,18 @@ namespace XSheet
 
         private void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
+            //spc.ActiveCell.Value = this.currentXNamed == null ? "null" : this.currentXNamed.Name;
+            setSelectedNamed();
+            ChangeButtonsStatu();
+            //tmpsheet.ActiveCell.Value = tt;
             
-            SpreadsheetControl spc = (SpreadsheetControl)sender;
-            
-            AreasCollection areas = spc.Selection.Areas;
-            XSheet.Data.XSheet opSheet = app.getSheets()[spc.ActiveWorksheet.Name];
-            if (currentXNamed!= null && RangeUtil.isInRange(areas,currentXNamed.getRange())<0)
+        }
+
+        private void setSelectedNamed()
+        {
+            AreasCollection areas = spreadsheetMain.Selection.Areas;
+            XSheet.Data.XSheet opSheet = app.getSheets()[spreadsheetMain.ActiveWorksheet.Name];
+            if (currentXNamed != null && RangeUtil.isInRange(areas, currentXNamed.getRange()) < 0)
             {
                 this.currentXNamed = null;
             }
@@ -74,28 +85,21 @@ namespace XSheet
             {
                 XNamed xname = dicname.Value;
                 int i = xname.isInRange(areas);
-                if (i>=0)
+                if (i >= 0)
                 {
                     this.currentXNamed = xname;
                 }
             }
 
-            //spc.ActiveCell.Value = this.currentXNamed == null ? "null" : this.currentXNamed.Name;
-            ChangeButtonsStatu();
-            //tmpsheet.ActiveCell.Value = tt;
-            
         }
 
         private void ChangeButtonsStatu()
         {
-            if (currentXNamed == null)
+            foreach (var btndic in buttons)
             {
-                foreach (var btndic in buttons)
-                {
-                    btndic.Value.Enabled = false;
-                }
+                btndic.Value.Enabled = false;
             }
-            else
+            if (currentXNamed != null && executeState == "OK")
             {
                 foreach (var commandDic in currentXNamed.commands)
                 {
@@ -103,9 +107,10 @@ namespace XSheet
                     {
                         setBtnStatuOn(commandDic.Key);
                     }
-                    
+
                 }
             }
+            
         }
         private void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
@@ -114,13 +119,13 @@ namespace XSheet
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
-            this.currentXNamed.doCommand("SEARCH", null); 
+            executer.excueteCmd(currentXNamed,"SEARCH", null);
 
         }
 
         private void btn_Download_Click(object sender, EventArgs e)
         {
-            this.currentXNamed.doCommand("Sheet_Download", null);
+            this.currentXNamed.doCommand("DOWNLOAD", null);
         }
         
         public void init()
@@ -133,9 +138,8 @@ namespace XSheet
 
         private void btn_New_Click(object sender, EventArgs e)
         {
-            WMTest test = new WMTest(this.spreadsheetMain);
+            this.currentXNamed.doCommand("NEW", null);
         }
-
 
 
 
@@ -150,6 +154,25 @@ namespace XSheet
             this.btn_Edit = new DevExpress.XtraEditors.SimpleButton();
             this.btn_New = new DevExpress.XtraEditors.SimpleButton();*/
 
+        }
+
+        public void UpdateCmdStatu(String statu)
+        {
+            this.executeState = statu;
+            ChangeButtonsStatu();
+        }
+
+        private void spreadsheetMain_ActiveSheetChanged(object sender, ActiveSheetChangedEventArgs e)
+        {
+            try
+            {
+                currentSheet = app.getSheets()[e.NewActiveSheetName];
+            }
+            catch (Exception)
+            {
+                spreadsheetMain.Document.Worksheets[e.OldActiveSheetName].Cells[0, 0].Select();
+                spreadsheetMain.Document.Worksheets.ActiveWorksheet = spreadsheetMain.Document.Worksheets[e.OldActiveSheetName];
+            }
         }
     }
 }

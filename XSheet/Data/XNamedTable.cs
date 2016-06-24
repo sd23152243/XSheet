@@ -31,7 +31,7 @@ namespace XSheet.Data
             return this.table.Range;
         }
 
-        public override void doCommand(string eventType,Range selectedRange)
+        public override void doCommand(string eventType,AreasCollection selectedRange)
         {
             XCommand command = commands[eventType.ToUpper()];
             command.execute(selectedRange); 

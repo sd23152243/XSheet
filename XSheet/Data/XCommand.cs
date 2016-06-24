@@ -18,7 +18,7 @@ namespace XSheet.Data
             actions = new Dictionary<int, XAction>();
         }
 
-        public String execute(Range selectRange)
+        public String execute(AreasCollection selectRange)
         {
             actions = actions.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
             foreach (KeyValuePair<int, XAction> kv in actions)
@@ -27,5 +27,7 @@ namespace XSheet.Data
             }
             return "success";
         }
+
+
     }
 }

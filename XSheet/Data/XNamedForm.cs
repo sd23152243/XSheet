@@ -12,7 +12,7 @@ namespace XSheet.Data
 {
     public class XNamedForm:XNamed
     {
-        public override void doCommand(String eventType,Range selectedRange)
+        public override void doCommand(String eventType,AreasCollection selectedRange)
         {
             throw new NotImplementedException();
         }
