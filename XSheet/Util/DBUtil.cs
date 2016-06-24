@@ -94,7 +94,7 @@ namespace XSheet.Util
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show(e.ToString());
+                Console.WriteLine(e.ToString());
             }
             return da;
         }

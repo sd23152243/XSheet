@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XSheet.Action
+namespace XSheet.Data
 {
-    class ActionBuilder
+    class NameRangeFactory
     {
+
     }
 }
