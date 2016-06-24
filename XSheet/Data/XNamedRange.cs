@@ -46,7 +46,7 @@ namespace XSheet.Data
             return RangeUtil.isInRange(x, this.getRange());
         }
 
-        public override void doCommand(string eventType,Range selectedRange)
+        public override void doCommand(string eventType,AreasCollection selectedRange)
         {
             XCommand command = null;
             try

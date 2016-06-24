@@ -32,7 +32,7 @@ namespace XSheet.Data
         public RangeCfgData cfg { get; set;}
         abstract public int isInRange(Range range);
         abstract public int isInRange(AreasCollection areas);
-        abstract public void doCommand(String eventType,Range selectedRange);
+        abstract public void doCommand(String eventType,AreasCollection selectedRange);
         abstract public void doResize(int rowcount, int columncount);
         public XNamed()
         {
