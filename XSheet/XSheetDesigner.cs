@@ -114,7 +114,7 @@ namespace XSheet
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
-            this.currentXNamed.doCommand("SEARCH", null);
+            this.currentXNamed.doCommand("SEARCH", null); 
 
         }
 
