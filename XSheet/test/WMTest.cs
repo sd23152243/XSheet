@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DevExpress.Spreadsheet;
+using DevExpress.XtraSpreadsheet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,17 +11,11 @@ namespace XSheet.test
 {
     class WMTest
     {
-        public WMTest()
+        public WMTest(SpreadsheetControl sheetcontrol)
         {
-            List<AppCfgData> lists1 = new List<AppCfgData>();
-            Dictionary<String, AppCfgData> dic = new Dictionary<String, AppCfgData>();
-            AppCfgData data = new AppCfgData();
-            data.appId = "1";
-            lists1.Add(data);
-            data.appName = "bbb";
-            data.appId = "2";
-            dic.Add("bbb", data);
-            System.Windows.Forms.MessageBox.Show(lists1[0].appId);
+            Range range = sheetcontrol.Document.Range["RG_Container"];
+            range.FillColor = System.Drawing.Color.Blue;
+            
         }
     }
 }

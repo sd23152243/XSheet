@@ -15,11 +15,12 @@ using DevExpress.XtraBars.Ribbon;
 using System.IO;
 using DevExpress.Spreadsheet;
 using DevExpress.XtraSpreadsheet;
-using XSheet.Action;
+using XSheet.Data.Action;
 using XSheet.Data;
 using XSheet.CfgData;
 using XSheet.Util;
 using XSheet.test;
+using DevExpress.XtraEditors;
 
 namespace XSheet
 {
@@ -27,10 +28,21 @@ namespace XSheet
     {
         public XCfgData cfgData { get; set; }
         public XApp app { get; set; }
+        public XSheet.Data.XSheet currentSheet{ get; set;}
+        public XNamed currentXNamed { get; set; }
+        public Dictionary<String, SimpleButton> buttons { get; set; }
         public XSheetDesigner()
         {
             InitializeComponent();
             InitSkinGallery();
+            buttons = new Dictionary<string, SimpleButton>();
+            buttons.Add("SUBMIT", btn_Submit);
+            buttons.Add("DOWNLOAD", btn_Download);
+            buttons.Add("SEARCH", btn_Search);
+            buttons.Add("EXECUTE", btn_Exe);
+            buttons.Add("DELETE", btn_Delete);
+            buttons.Add("EDIT", btn_Edit);
+            buttons.Add("NEW", btn_New);
             spreadsheetMain.Document.LoadDocument("\\\\ichart3d\\XSheetModel\\XSheet模板设计.xlsx");
 
         }
@@ -49,49 +61,66 @@ namespace XSheet
 
         private void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
-            SpreadsheetControl tmpsheet = (SpreadsheetControl)sender;
             
-            AreasCollection areas = tmpsheet.Selection.Areas;
+            SpreadsheetControl spc = (SpreadsheetControl)sender;
             
-            DefinedNameCollection names = tmpsheet.ActiveWorksheet.DefinedNames;
-            DefinedNameCollection names2 = tmpsheet.Document.DefinedNames;
-            names.Concat<DefinedName>(names2);
-            String tt = "";
-            foreach (Range range in areas)
+            AreasCollection areas = spc.Selection.Areas;
+            XSheet.Data.XSheet opSheet = app.getSheets()[spc.ActiveWorksheet.Name];
+            if (currentXNamed!= null && RangeUtil.isInRange(areas,currentXNamed.getRange())<0)
             {
-                foreach (DefinedName name in names)
+                this.currentXNamed = null;
+            }
+            foreach (var dicname in opSheet.names)
+            {
+                XNamed xname = dicname.Value;
+                int i = xname.isInRange(areas);
+                if (i>=0)
                 {
-                    if (name.Range == range)
-                    {
-                        tt += name.Name;
-                    }
-                }
-                foreach (DefinedName name in names2)
-                {
-                    if (name.Range == range)
-                    {
-                        tt += name.Name;
-                    }
+                    this.currentXNamed = xname;
                 }
             }
+
+            //spc.ActiveCell.Value = this.currentXNamed == null ? "null" : this.currentXNamed.Name;
+            ChangeButtonsStatu();
             //tmpsheet.ActiveCell.Value = tt;
             
         }
 
+        private void ChangeButtonsStatu()
+        {
+            if (currentXNamed == null)
+            {
+                foreach (var btndic in buttons)
+                {
+                    btndic.Value.Enabled = false;
+                }
+            }
+            else
+            {
+                foreach (var commandDic in currentXNamed.commands)
+                {
+                    if (buttons.ContainsKey(commandDic.Key.ToUpper()))
+                    {
+                        setBtnStatuOn(commandDic.Key);
+                    }
+                    
+                }
+            }
+        }
         private void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
-            
+            init();   
         }
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
-            //spreadsheetMain.ActiveWorksheet.Tables[0].Range = spreadsheetMain.ActiveWorksheet.Range["F27:G28"];
-            XMLTest test = new XMLTest(spreadsheetMain);
+            this.currentXNamed.doCommand("SEARCH", null);
+
         }
 
         private void btn_Download_Click(object sender, EventArgs e)
         {
-             init();
+            this.currentXNamed.doCommand("Sheet_Download", null);
         }
         
         public void init()
@@ -104,7 +133,23 @@ namespace XSheet
 
         private void btn_New_Click(object sender, EventArgs e)
         {
-            WMTest test = new WMTest();
+            WMTest test = new WMTest(this.spreadsheetMain);
+        }
+
+
+
+
+        private void setBtnStatuOn(String eventType)
+        {
+            buttons[eventType.ToUpper()].Enabled = true;
+            /*this.btn_Submit = new DevExpress.XtraEditors.SimpleButton();
+            this.btn_Download = new DevExpress.XtraEditors.SimpleButton();
+            this.btn_Search = new DevExpress.XtraEditors.SimpleButton();
+            this.btn_Exe = new DevExpress.XtraEditors.SimpleButton();
+            this.btn_Delete = new DevExpress.XtraEditors.SimpleButton();
+            this.btn_Edit = new DevExpress.XtraEditors.SimpleButton();
+            this.btn_New = new DevExpress.XtraEditors.SimpleButton();*/
+
         }
     }
 }
