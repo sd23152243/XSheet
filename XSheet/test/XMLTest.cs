@@ -17,7 +17,6 @@ namespace XSheet.test
 
         }
         public XMLTest(SpreadsheetControl sheetcontrol)
-
         {
             IWorkbook workbook = sheetcontrol.Document;
             Worksheet sheet = workbook.Worksheets["Config"];
@@ -25,9 +24,6 @@ namespace XSheet.test
             Range range = sheet.Range["CFG_Range"];
             String str = range[0, 3].Value.ToString();
             sheet2["B3"].Value = str.ToUpper();
-
-
-
 
             /*IWorkbook workbook = sheetcontrol.Document;
             Worksheet sheet = workbook.Worksheets["Config"];

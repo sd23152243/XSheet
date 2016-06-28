@@ -52,15 +52,14 @@ namespace XSheet.Data
             try
             {
                 command = commands[eventType.ToUpper()];
+                command.execute(selectedRange);
             }
             catch (Exception)
             {
-
-                System.Windows.Forms.MessageBox.Show("事件"+eventType+"未绑定命令");
+                //System.Windows.Forms.MessageBox.Show("事件"+eventType+"未绑定命令");
                 return;
             }
-            command.execute(selectedRange);
-
+            
         }
 
         public override void doResize(int rowcount, int columncount)
@@ -107,18 +106,24 @@ namespace XSheet.Data
             getRange().ClearFormats();
             this.dname.Range = newrange;
             RangeUtil.fillRangeBackgroud(getRange(), Color.CadetBlue);
+            for (int i = 0; i <= getRange().RowCount; i++)
+            {
+                getRange()[i, 0].Tag = i;
+            }
 
         }
 
         public override void fill(DataTable dt)
         {
+            selectedRows = new Dictionary<int, int>();
             Range range = getRange();
             Cell data1stcell = get1stDataCell(range);
             string[,] arrtmp = new string[range.RowCount, range.ColumnCount];
             range.Worksheet.Import(arrtmp, data1stcell.RowIndex, data1stcell.ColumnIndex);
             range.Worksheet.Import(dt, false, data1stcell.RowIndex, data1stcell.ColumnIndex);
-            
+            this.dt = dt;
             doResize(dt.Rows.Count, dt.Columns.Count);
+            
         }
         public virtual Cell get1stDataCell(Range range)
         {
