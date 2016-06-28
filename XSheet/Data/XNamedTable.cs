@@ -12,6 +12,7 @@ namespace XSheet.Data
     public class XNamedTable:XNamedRange
     {
         private Table table;
+        
         public override void setDefinedName(Worksheet sheet)
         {
             
@@ -33,8 +34,15 @@ namespace XSheet.Data
 
         public override void doCommand(string eventType,AreasCollection selectedRange)
         {
-            XCommand command = commands[eventType.ToUpper()];
-            command.execute(selectedRange); 
+            try
+            {
+                XCommand command = commands[eventType.ToUpper()];
+                command.execute(selectedRange);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
         public override void changeDefinedRange(Range newrange)
@@ -43,7 +51,12 @@ namespace XSheet.Data
             int bottomRowIndex = newrange.BottomRowIndex;
             int leftColumnIndex = newrange.LeftColumnIndex;
             int rightColumnIndex = newrange.RightColumnIndex;*/
-            this.table.Range = newrange;//.Worksheet.Range.FromLTRB(leftColumnIndex, topRowIndex, rightColumnIndex, bottomRowIndex);
+            this.table.Range = newrange;
+            for (int i = 0; i < this.table.DataRange.RowCount; i++)
+            {
+                this.table.DataRange[i, 0].Tag = i;
+
+            }
         }
         public override Cell get1stDataCell(Range range)
         {

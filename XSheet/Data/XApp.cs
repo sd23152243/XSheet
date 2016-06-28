@@ -17,9 +17,9 @@ namespace XSheet.Data
         public String appName { get; set; }
         public String user { get; set; }
         private Dictionary<string, XSheet> sheets;
-        private Dictionary<string, XNamed> names;
+        public Dictionary<string, XNamed> names;
         private Dictionary<string, XCommand> commands;
-        private Dictionary<string, XAction> actions;
+        public Dictionary<string, XAction> actions;
         public XCfgData cfg { get; set; }
         public IWorkbook book { get; set; }
         private XApp(){}
@@ -59,6 +59,7 @@ namespace XSheet.Data
 
                 xsheet.sheet = SheetUtil.getSheetByName(xsheet.sheetName, book.Worksheets);
                 //xsheet.initTables();
+                xsheet.app = this;
                 sheets.Add(xsheet.sheetName, xsheet);
             }
             Console.WriteLine("SheetInitComplete!");
@@ -78,9 +79,10 @@ namespace XSheet.Data
                     {
                         named.setDefinedName(xsheet.sheet);
                         named.cfg = rangedata;
+                        named.type = named.cfg.rangeType;
+                        named.sheet = xsheet;
                         xsheet.names.Add(named.Name, named);
                         names.Add(named.Name, named);
-
                     }
                     catch (Exception e)
                     {
@@ -115,7 +117,7 @@ namespace XSheet.Data
                 catch (Exception)
                 {
 
-                    MessageBox.Show("命令绑定失败，请检查命令与绑定区域配置是否正确！");
+                    MessageBox.Show("命令:"+strCmd+"绑定区域:"+ strRangeName + "失败，请检查命令与绑定区域配置是否正确！");
                 }
             }
         }
@@ -138,6 +140,7 @@ namespace XSheet.Data
                     continue;
                 }
                 action.init();
+                action.cfg = straction;
                 this.actions.Add(action.actionId, action);
                 try
                 {
@@ -169,8 +172,7 @@ namespace XSheet.Data
                 {
                     MessageBox.Show("Action："+action.actionId+"的sRange、dRange配置错误！");
                     return;
-                }
-                
+                } 
             }
         }
     }

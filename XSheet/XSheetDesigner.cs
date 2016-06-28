@@ -33,6 +33,7 @@ namespace XSheet
         public Dictionary<String, SimpleButton> buttons { get; set; }
         public string executeState { get; set; }
         private CommandExecuter executer;
+        private AreasCollection oldSelected { get; set; }
         public XSheetDesigner()
         {
             InitializeComponent();
@@ -45,6 +46,7 @@ namespace XSheet
             buttons.Add("DELETE", btn_Delete);
             buttons.Add("EDIT", btn_Edit);
             buttons.Add("NEW", btn_New);
+            //CELLCHANGE
             executer = new CommandExecuter();
             executer.Attach(this);
             executeState = "OK";
@@ -58,10 +60,7 @@ namespace XSheet
 
         private void btn_Exe_Click(object sender, EventArgs e)
         {
-            String path = System.Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            FileStream file = new FileStream(path+"/tmp", FileMode.OpenOrCreate);
-            file.Close();
-            this.spreadsheetMain.SaveDocument(path+"/tmp");
+            
         }
 
         private void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
@@ -70,7 +69,35 @@ namespace XSheet
             setSelectedNamed();
             ChangeButtonsStatu();
             //tmpsheet.ActiveCell.Value = tt;
-            
+            if (currentXNamed != null)
+            {
+                
+                AreasCollection areas = spreadsheetMain.Selection.Areas;
+                Range srange = areas[areas.Count - 1];
+                for (int row=0;row<srange.RowCount;row++)
+                {
+                    int rn = currentXNamed.getRowIndexByRange(srange[row,0]);
+                    if (rn >= 0)
+                    {
+                        currentXNamed.selectRow(rn);
+                    }
+                }
+                if (oldSelected != null)
+                {
+                    Range orange = oldSelected[oldSelected.Count - 1];
+                    for (int row = 0; row < orange.RowCount; row++)
+                    {
+                        int rn = currentXNamed.getRowIndexByRange(orange[row, 0]);
+                        if (rn >= 0)
+                        {
+                            currentXNamed.UnselectRow(rn);
+                        }
+                    }
+                }
+            }
+            oldSelected = spreadsheetMain.Selection.Areas;
+
+
         }
 
         private void setSelectedNamed()
@@ -107,41 +134,74 @@ namespace XSheet
                     {
                         setBtnStatuOn(commandDic.Key);
                     }
-
                 }
             }
-            
         }
         private void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
-            init();   
+            init();
+            if (spreadsheetMain.Document.Worksheets.ActiveWorksheet.Name != cfgData.app.defaultSheetName && cfgData.app.defaultSheetName!=null)
+            {
+                spreadsheetMain.Document.Worksheets.ActiveWorksheet = spreadsheetMain.Document.Worksheets[cfgData.app.defaultSheetName];
+            }
+            else
+            {
+                currentSheet.doLoadCommand(executer);
+            }
+            
+
         }
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
             executer.excueteCmd(currentXNamed,"SEARCH", null);
-
         }
 
         private void btn_Download_Click(object sender, EventArgs e)
         {
-            this.currentXNamed.doCommand("DOWNLOAD", null);
+            executer.excueteCmd(currentXNamed, "DOWNLOAD", null);
         }
         
+        private void btn_New_Click(object sender, EventArgs e)
+        {
+            executer.excueteCmd(currentXNamed, "NEW", null);
+        }
+
+        private void btn_Edit_Click(object sender, EventArgs e)
+        {
+            executer.excueteCmd(currentXNamed, "EDIT", null);
+        }
+
+        private void spreadsheetMain_CellValueChanged(object sender, SpreadsheetCellEventArgs e)
+        {
+            spreadsheetMain.Document.Calculate();
+            if (e.OldValue != e.Value && currentXNamed != null)
+            {
+                executer.excueteCmd(currentXNamed, "CELLCHANGE", null);
+            }
+        }
+
+        private void spreadsheetMain_MouseUp(object sender, MouseEventArgs e)
+        {
+            oldSelected = null;
+        }
+
         public void init()
         {
             cfgData = new XCfgData(spreadsheetMain.Document.Worksheets["Config"]);
-            app = new XApp(spreadsheetMain.Document,cfgData);
-            this.lbl_App.Text ="APP:" +app.appName;
-            this.lbl_User.Text ="当前用户:"+ app.user;
+            app = new XApp(spreadsheetMain.Document, cfgData);
+            this.lbl_App.Text = "APP:" + app.appName;
+            this.lbl_User.Text = "当前用户:" + app.user;
+            try
+            {
+                currentSheet = app.getSheets()[spreadsheetMain.ActiveWorksheet.Name];
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(spreadsheetMain.ActiveWorksheet.Name +" 未配置在Config文件Sheet列表中");
+            }
+            
         }
-
-        private void btn_New_Click(object sender, EventArgs e)
-        {
-            this.currentXNamed.doCommand("NEW", null);
-        }
-
-
 
         private void setBtnStatuOn(String eventType)
         {
@@ -153,7 +213,6 @@ namespace XSheet
             this.btn_Delete = new DevExpress.XtraEditors.SimpleButton();
             this.btn_Edit = new DevExpress.XtraEditors.SimpleButton();
             this.btn_New = new DevExpress.XtraEditors.SimpleButton();*/
-
         }
 
         public void UpdateCmdStatu(String statu)
@@ -167,6 +226,7 @@ namespace XSheet
             try
             {
                 currentSheet = app.getSheets()[e.NewActiveSheetName];
+                currentSheet.doLoadCommand(executer);
             }
             catch (Exception)
             {
@@ -174,5 +234,7 @@ namespace XSheet
                 spreadsheetMain.Document.Worksheets.ActiveWorksheet = spreadsheetMain.Document.Worksheets[e.OldActiveSheetName];
             }
         }
+
+        
     }
 }

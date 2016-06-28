@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Linq;
@@ -53,7 +54,7 @@ namespace XSheet.Util
             return table;
         }
 
-        private static OleDbDataAdapter getOleDbDataAdapter(String DBType, String Sql)
+        public static OleDbDataAdapter getOleDbDataAdapter(String DBType, String Sql)
         {
             OleDbDataAdapter da;
             OleDbConnection dbConn = new OleDbConnection();
@@ -75,6 +76,21 @@ namespace XSheet.Util
             }
             return da;
         }
+
+        public static DbDataAdapter getDbDataAdapter(String DBType, String Sql)
+        {
+            switch (DBType)
+            {
+                case "AS400":
+                    return getOleDbDataAdapter(DBType, Sql);
+                case "SRF-SQL":
+                case "ICHART3D":
+                    return getSqlDataAdapter(DBType, Sql);
+                default:
+                    return null;
+            }
+        }
+
 
         public static SqlDataAdapter getSqlDataAdapter(String DBType, String Sql)
         {

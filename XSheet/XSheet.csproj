@@ -100,7 +100,9 @@
     <Compile Include="CfgData\RangeCfgData.cs" />
     <Compile Include="CfgData\SheetCfgData.cs" />
     <Compile Include="CfgData\XCfgData.cs" />
+    <Compile Include="Data\Action\ActionSQLDelete.cs" />
     <Compile Include="Data\Action\ActionSQLSearch.cs" />
+    <Compile Include="Data\Action\ActionSQLUpdate.cs" />
     <Compile Include="Data\NameRangeFactory.cs" />
     <Compile Include="Data\XAction.cs" />
     <Compile Include="Data\XApp.cs" />

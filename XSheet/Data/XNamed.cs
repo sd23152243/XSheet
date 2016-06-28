@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +16,14 @@ namespace XSheet.Data
     {
         protected DefinedName dname;
         public String Name { get; set; }
+        private double oldSize { get; set; }
         public XSheet sheet { get; set; }
+        public Dictionary<int,int> selectedRows{ get; set;}
+        public Dictionary<String, XCommand> commands { get; set; }
+        public String type { get; set; }
+        public RangeCfgData cfg { get; set; }
+        public DataTable dt { get; set; }
+        public DataAdapter da { get; set; }
         public void setDefinedName(DefinedName dname)
         {
             this.dname = dname;
@@ -27,9 +36,7 @@ namespace XSheet.Data
         {
             return dname.Range;
         }
-        public Dictionary<String,XCommand> commands { get; set; }
-        private String type { get; set; }
-        public RangeCfgData cfg { get; set;}
+
         abstract public int isInRange(Range range);
         abstract public int isInRange(AreasCollection areas);
         abstract public void doCommand(String eventType,AreasCollection selectedRange);
@@ -37,6 +44,8 @@ namespace XSheet.Data
         public XNamed()
         {
             commands = new Dictionary<string, XCommand>();
+            selectedRows = new Dictionary<int, int>();
+            oldSize = -1.0;
         }
 
         public String getSqlStatement()
@@ -46,6 +55,84 @@ namespace XSheet.Data
         }
         public abstract void fill(DataTable dt);
 
-        
+        public virtual void selectRow(int rowNum){
+            if (selectedRows.ContainsKey(rowNum))
+            {
+                selectedRows[rowNum] += 1;
+            }
+            else
+            {
+                selectedRows.Add(rowNum, 1);
+            }
+            //this.getRange()[rowNum, 0].Value += ".";
+            setRoweSelectStyle(rowNum);
+        }
+
+        public virtual void UnselectRow(int rowNum)
+        {
+            if (selectedRows.ContainsKey(rowNum))
+            {
+                if (selectedRows[rowNum]>0)
+                {
+                    selectedRows[rowNum] -= 1;
+                }
+                else
+                {
+                    selectedRows[rowNum] =0;
+                }
+                
+            }
+            else
+            {
+                selectedRows.Add(rowNum, 0);
+            }
+            setRoweSelectStyle(rowNum);
+            //string value = this.getRange()[rowNum, 0].Value.ToString();
+            //this.getRange()[rowNum, 0].Value = value.Substring(0,value.Length-1);
+        }
+        //待完善
+        private void setRoweSelectStyle(int rowNum)
+        {
+            int realRow = rowNum;
+            if (this.type.ToUpper() =="TABLE")
+            {
+                realRow +=1;
+            }
+            if (selectedRows[rowNum] % 2 == 1)
+            {
+                if (oldSize <0)
+                {
+                    this.oldSize = this.getRange()[realRow, this.getRange().ColumnCount - 1].Font.Size;
+                }
+                for (int i = 0; i < this.getRange().ColumnCount; i++)
+                {
+                    this.getRange()[realRow, i].Fill.BackgroundColor = Color.Yellow;
+                }
+                
+            }
+            else
+            {
+                for (int i = 0; i < this.getRange().ColumnCount; i++)
+                {
+                    this.getRange()[realRow, i].Fill.BackgroundColor = Color.Transparent;
+                }
+            }
+        }
+
+        public virtual int getRowIndexByRange(Range range)
+        {
+            int rowNum = -1;
+            if (range.Worksheet.Name == getRange().Worksheet.Name && isInRange(range)>=0)
+            {
+                int r = range.TopRowIndex;
+                int l = getRange().LeftColumnIndex;
+                if (getRange().Worksheet[r, l].Tag != null)
+                {
+                    int.TryParse(getRange().Worksheet[r, l].Tag.ToString(), out rowNum);
+                }
+               
+            }
+            return rowNum;
+        }
     }
 }
