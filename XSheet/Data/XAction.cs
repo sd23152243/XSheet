@@ -8,7 +8,7 @@ using XSheet.CfgData;
 
 namespace XSheet.Data
 {
-    public abstract class XAction         //抽象类
+    public abstract class XAction
     {
         public String actionId { get; set; }
         public ActionCfgData cfg { get; set; }
