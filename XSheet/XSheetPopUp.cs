@@ -143,7 +143,6 @@ namespace XSheet
             {
                 MessageBox.Show(ee.Message);
             }
-            this.Dispose();
 
         }
 
