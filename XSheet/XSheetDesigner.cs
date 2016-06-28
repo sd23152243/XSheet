@@ -172,11 +172,6 @@ namespace XSheet
             executer.excueteCmd(currentXNamed, "EDIT", null);
         }
 
-        private void btn_Delete_Click(object sender, EventArgs e)
-        {
-            executer.excueteCmd(currentXNamed, "DELETE", null);
-        }
-
         private void spreadsheetMain_CellValueChanged(object sender, SpreadsheetCellEventArgs e)
         {
             spreadsheetMain.Document.Calculate();
@@ -240,6 +235,6 @@ namespace XSheet
             }
         }
 
-       
+        
     }
 }
