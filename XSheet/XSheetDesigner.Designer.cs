@@ -1353,7 +1353,7 @@
             this.spreadsheetCommandBarCheckItem47,
             this.spreadsheetCommandBarButtonItem206});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 437;
+            this.ribbonControl.MaxItemId = 436;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -5436,7 +5436,6 @@
             this.btn_Delete.Image = ((System.Drawing.Image)(resources.GetObject("btn_Delete.Image")));
             resources.ApplyResources(this.btn_Delete, "btn_Delete");
             this.btn_Delete.Name = "btn_Delete";
-            this.btn_Delete.Click += new System.EventHandler(this.btn_Delete_Click);
             // 
             // btn_Edit
             // 
