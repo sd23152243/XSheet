@@ -78,6 +78,10 @@
     <Reference Include="DevExpress.XtraGrid.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraSpreadsheet.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraTreeList.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="IBM.Data.DB2.iSeries, Version=12.0.0.0, Culture=neutral, PublicKeyToken=9cdb2ebfb1f93a26, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\IBM\Client Access\IBM.Data.DB2.iSeries.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -91,6 +95,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CfgData\CmdActRelatedCfgData.cs" />
     <Compile Include="CommandExecuter.cs" />
     <Compile Include="Data\Action\ActionFactory.cs" />
     <Compile Include="CfgData\ActionCfgData.cs" />
@@ -101,9 +106,15 @@
     <Compile Include="CfgData\SheetCfgData.cs" />
     <Compile Include="CfgData\XCfgData.cs" />
     <Compile Include="Data\Action\ActionSQLDelete.cs" />
+    <Compile Include="Data\Action\ActionSQLExecute.cs" />
     <Compile Include="Data\Action\ActionSQLSearch.cs" />
+    <Compile Include="Data\Action\ActionSQLInsert.cs" />
     <Compile Include="Data\Action\ActionSQLUpdate.cs" />
-    <Compile Include="Data\NameRangeFactory.cs" />
+    <Compile Include="Data\InterfacePopUpAction.cs" />
+    <Compile Include="Data\PopUpAction\PopUpActionSQLDelete.cs" />
+    <Compile Include="Data\PopUpAction\PopUpActionSQLInsert.cs" />
+    <Compile Include="Data\PopUpAction\PopUpActionSQLUpdate.cs" />
+    <Compile Include="Data\PopUpAction\PopUpActionFactory.cs" />
     <Compile Include="Data\XAction.cs" />
     <Compile Include="Data\XApp.cs" />
     <Compile Include="Data\XCommand.cs" />

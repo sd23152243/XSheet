@@ -48,6 +48,7 @@ namespace XSheet.Data
             initNamed();
             initCommand();
             initAction();
+            bingdAction();
         }
         private void initSheet()
         {
@@ -128,31 +129,10 @@ namespace XSheet.Data
             {
                 XAction action = ActionFactory.getAction(straction);
                 action.actionId = straction.actionId;
-                int num = 0;
-                Int32.TryParse(straction.actionSeq,out num);
-                if (num >0)
-                {
-                    action.actionSeq = num;
-                }
-                else
-                {
-                    MessageBox.Show("Action："+action.actionId+"的SeqNum配置错误");
-                    continue;
-                }
                 action.init();
                 action.cfg = straction;
                 this.actions.Add(action.actionId, action);
-                try
-                {
-                    XCommand actioncmd = commands[straction.commandId];
-                    actioncmd.actions.Add(action.actionSeq, action);
-                }
-                catch (Exception)
-                {
-
-                    MessageBox.Show("Action："+action.actionId+"与命令："+straction.commandId+"绑定失败，请检查Action配置是否正确！");
-                    return;
-                }
+               
                 try
                 {
                     XNamed actionnames = null;
@@ -174,6 +154,28 @@ namespace XSheet.Data
                     return;
                 } 
             }
+        }
+
+        private void bingdAction()
+        {
+            foreach (CmdActRelatedCfgData strcmdact in cfg.cmdacts)
+            {
+                int num = 0;
+                Int32.TryParse(strcmdact.actionSeq, out num);
+                try
+                {
+                    XCommand actioncmd = commands[strcmdact.commandId];
+                    XAction action = actions[strcmdact.actionId];
+                    actioncmd.actions.Add(action.actionSeq, action);
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("Action：" + strcmdact.actionId + "与命令：" + strcmdact.commandId + "绑定失败，请检查Action配置是否正确！");
+                    return;
+                }
+            }
+            
         }
     }
 }

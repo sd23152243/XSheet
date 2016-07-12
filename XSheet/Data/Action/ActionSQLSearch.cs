@@ -14,7 +14,7 @@ namespace XSheet.Data.Action
             Range range = dRange.getRange();
             String rangeName = dRange.Name;
             String Sql = dRange.getSqlStatement();
-            DataTable dt = DBUtil.getDataTable(dRange.cfg.serverName, Sql);
+            DataTable dt = DBUtil.getDataTable(dRange.cfg.serverName, Sql,"Text",null);
             dRange.fill(dt);
             return "suucess";
         }
