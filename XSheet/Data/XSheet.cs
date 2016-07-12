@@ -26,7 +26,7 @@ namespace XSheet.Data
         {
             foreach (var namedic in names)
             {
-                cmdexe.excueteCmd(namedic.Value, "LOAD", null);
+                cmdexe.excueteCmd(namedic.Value, "Sheet_Change", null);
             }
         }
 
