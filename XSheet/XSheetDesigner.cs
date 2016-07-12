@@ -39,13 +39,13 @@ namespace XSheet
             InitializeComponent();
             InitSkinGallery();
             buttons = new Dictionary<string, SimpleButton>();
-            buttons.Add("SUBMIT", btn_Submit);
-            buttons.Add("DOWNLOAD", btn_Download);
-            buttons.Add("SEARCH", btn_Search);
-            buttons.Add("EXECUTE", btn_Exe);
-            buttons.Add("DELETE", btn_Delete);
-            buttons.Add("EDIT", btn_Edit);
-            buttons.Add("NEW", btn_New);
+            buttons.Add("Btn_Submit".ToUpper(), btn_Submit);
+            buttons.Add("Btn_Download".ToUpper(), btn_Download);
+            buttons.Add("Btn_Search".ToUpper(), btn_Search);
+            buttons.Add("Btn_Execute".ToUpper(), btn_Exe);
+            buttons.Add("Btn_Delete".ToUpper(), btn_Delete);
+            buttons.Add("Btn_Edit".ToUpper(), btn_Edit);
+            buttons.Add("Btn_Insert".ToUpper(), btn_New);
             //CELLCHANGE
             executer = new CommandExecuter();
             executer.Attach(this);
@@ -58,10 +58,7 @@ namespace XSheet
             SkinHelper.InitSkinGallery(rgbiSkins, true);
         }
 
-        private void btn_Exe_Click(object sender, EventArgs e)
-        {
-            
-        }
+        
 
         private void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
@@ -154,22 +151,37 @@ namespace XSheet
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
-            executer.excueteCmd(currentXNamed,"SEARCH", null);
+            executer.excueteCmd(currentXNamed, "Btn_Search", null);
         }
 
         private void btn_Download_Click(object sender, EventArgs e)
         {
-            executer.excueteCmd(currentXNamed, "DOWNLOAD", null);
+            executer.excueteCmd(currentXNamed, "Btn_Download", null);
         }
         
         private void btn_New_Click(object sender, EventArgs e)
         {
-            executer.excueteCmd(currentXNamed, "NEW", null);
+            executer.excueteCmd(currentXNamed, "Btn_Insert", null);
         }
 
         private void btn_Edit_Click(object sender, EventArgs e)
         {
-            executer.excueteCmd(currentXNamed, "EDIT", null);
+            executer.excueteCmd(currentXNamed, "Btn_Edit", null);
+        }
+
+        private void btn_Delete_Click(object sender, EventArgs e)
+        {
+            executer.excueteCmd(currentXNamed, "Btn_Delete", null);
+        }
+
+        private void btn_Exe_Click(object sender, EventArgs e)
+        {
+            executer.excueteCmd(currentXNamed, "Btn_Execute", null);
+        }
+
+        private void btn_Submit_Click(object sender, EventArgs e)
+        {
+            executer.excueteCmd(currentXNamed, "Btn_Submit", null);
         }
 
         private void spreadsheetMain_CellValueChanged(object sender, SpreadsheetCellEventArgs e)
@@ -177,7 +189,7 @@ namespace XSheet
             spreadsheetMain.Document.Calculate();
             if (e.OldValue != e.Value && currentXNamed != null)
             {
-                executer.excueteCmd(currentXNamed, "CELLCHANGE", null);
+                executer.excueteCmd(currentXNamed, "Cell_Change", null);
             }
         }
 
