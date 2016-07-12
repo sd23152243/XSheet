@@ -10,7 +10,6 @@ namespace XSheet.test
 {
     class XMLTest
     {
-        private SpreadsheetControl sheetcontrol;
 
         private XMLTest()
         {

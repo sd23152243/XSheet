@@ -18,8 +18,8 @@ namespace XSheet.CfgData
         public List<BindingCfgData> bindings { get; set; }
         public List<CommandCfgData> commands { get; set; }
         public List<ActionCfgData> actions { get; set; }
-
-        private XCfgData(){}
+        public List<CmdActRelatedCfgData> cmdacts { get; set; }
+        public XCfgData(){}
         public XCfgData(Worksheet cfgsheet)
         {
             this.cfgsheet = cfgsheet;
@@ -36,6 +36,7 @@ namespace XSheet.CfgData
             initBinding();
             initCommand();
             initAction();
+            initCmdAction();
        }
 
         private void initApp()
@@ -114,19 +115,32 @@ namespace XSheet.CfgData
             for (int i = 1; i < name.Range.RowCount; i++)
             {
                 ActionCfgData action = new ActionCfgData();
-                action.commandId = name.Range[i, 0].DisplayText;
-                action.actionId= name.Range[i, 1].DisplayText;
-                action.actionName= name.Range[i, 2].DisplayText;
-                action.actionType= name.Range[i, 3].DisplayText;
-                action.actionDesc= name.Range[i, 4].DisplayText;
-                action.actionSRange= name.Range[i, 5].DisplayText;
-                action.actionDRange= name.Range[i, 6].DisplayText;
-                action.actionStatement= name.Range[i, 7].DisplayText;
-                action.actionParam= name.Range[i, 8].DisplayText;
-                action.actionSeq= name.Range[i, 9].DisplayText;
-               
+                //action.commandId = name.Range[i, 0].DisplayText;
+                action.actionId= name.Range[i, 0].DisplayText;
+                action.actionName= name.Range[i, 1].DisplayText;
+                action.actionType= name.Range[i, 2].DisplayText;
+                action.actionDesc= name.Range[i, 3].DisplayText;
+                action.actionSRange= name.Range[i, 4].DisplayText;
+                action.actionDRange= name.Range[i, 5].DisplayText;
+                action.actionStatement= name.Range[i, 6].DisplayText;
+                action.actionParam= name.Range[i, 7].GetReferenceA1();//Param为动态
                 actions.Add(action);
              }
+
+        }
+
+        private void initCmdAction()
+        {
+            DefinedName name = SheetUtil.getNameinNames("CFG_ComActRelated", names);
+            cmdacts = new List<CmdActRelatedCfgData>();
+            for (int i = 1; i < name.Range.RowCount; i++)
+            {
+                CmdActRelatedCfgData cmdact = new CmdActRelatedCfgData();
+                cmdact.commandId = name.Range[i, 0].DisplayText;
+                cmdact.actionId = name.Range[i, 1].DisplayText;
+                cmdact.actionSeq = name.Range[i, 2].DisplayText;
+                cmdacts.Add(cmdact);
+            }
 
         }
 
