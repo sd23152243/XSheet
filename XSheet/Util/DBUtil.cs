@@ -1,4 +1,4 @@
-﻿using IBM.Data.DB2.iSeries;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -94,16 +94,16 @@ namespace XSheet.Util
             switch (DBType)
             {
                 case "AS400":
-                    return getiDB2DataAdapter(DBType, Sql, sqlType);
+                    return getOleDbDataAdapter(DBType, Sql, sqlType);
                 case "SRF-SQL":
                 case "ICHART3D":
-                    return getiDB2DataAdapter(DBType, Sql, sqlType);
+                    return getSqlDataAdapter(DBType, Sql, sqlType);
                 default:
                     return getOleDbDataAdapter(DBType, Sql, sqlType);
             }
         }
 
-        public static iDB2DataAdapter getiDB2DataAdapter(String DBType, String Sql, String sqlType)
+        /*public static iDB2DataAdapter getiDB2DataAdapter(String DBType, String Sql, String sqlType)
         {
             iDB2DataAdapter da;
             iDB2Connection dbConn = new iDB2Connection();
@@ -132,7 +132,7 @@ namespace XSheet.Util
             }
             return da;
         }
-
+        */
         public static OleDbDataAdapter getOleDbDataAdapter(String DBType, String Sql,String sqlType)
         {
             OleDbDataAdapter da;
