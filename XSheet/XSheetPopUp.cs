@@ -14,6 +14,7 @@ using XSheet.CfgData;
 using System.Data.Common;
 using XSheet.Util;
 using System.Data.SqlClient;
+using XSheet.Data.PopUpAction;
 
 namespace XSheet
 {
@@ -42,18 +43,21 @@ namespace XSheet
             this.dt = dt;
             this.selectedRows = selectedRows;
             selectedRowsList = new List<int>();
-            foreach (var datarow in selectedRows)
+            if (selectedRows != null)
             {
-                if (datarow.Value % 2 == 1)
+                foreach (var datarow in selectedRows)
                 {
-                    selectedRowsList.Add(datarow.Key);
+                    if (datarow.Value % 2 == 1)
+                    {
+                        selectedRowsList.Add(datarow.Key);
+                    }
                 }
+
             }
             init();
         }
         private void init()
         {
-            
             String sheetName = xAction.dRange.Name + "_PopUp";
             String rangeName = xAction.dRange.Name + "_PopUp";
             DataTable ndt = dt.Clone();
@@ -81,68 +85,14 @@ namespace XSheet
                     sheet.VisibilityType = WorksheetVisibilityType.VeryHidden;
                 }
             }
-            foreach (var xsheetdic in app.getSheets())
-            {
-                
-            }
         }
         private void btn_Submit_Click(object sender, EventArgs e)
         {
-            String Sql = xAction.dRange.getSqlStatement();
-            DbDataAdapter da =  DBUtil.getDbDataAdapter(xAction.dRange.cfg.serverName, Sql);
-            //da.MissingMappingAction = MissingMappingAction.Passthrough;
-            //da.MissingSchemaAction = MissingSchemaAction.
-            //DataTable ndt = SheetUtil.ExportRangeStopOnEmptyRow(this.name.getRange(), true, true);
-            Range range = this.name.getRange();
-            int i = 0;
-            int topRowIndex = range.TopRowIndex;
-            int leftColumnIndex = range.LeftColumnIndex;
-            Worksheet sheet = range.Worksheet;
-            while (sheet[i+topRowIndex+1,leftColumnIndex].Value.ToString().Length>0)
-            {
-                
-                int rowindex = i + topRowIndex+1;
-                DataRow row = null;
-                if (sheet[rowindex,leftColumnIndex].Tag != null)
-                {
-                    int rowListNO = int.Parse(sheet[rowindex, leftColumnIndex].Tag.ToString());
-                    row = dt.Rows[selectedRowsList[i]];
-                }
-                else
-                {
-                    row = dt.NewRow();
-                    dt.Rows.Add(row);
-                }
-                for (int j = 0; j < dt.Columns.Count; j++)
-                {
-                    int colindex = j + leftColumnIndex;
-                    if (row[j].ToString() != sheet[rowindex, colindex].Value.ToString())
-                    {
-
-                        Type t = row[j].GetType();
-
-                        if (t.Name == "Decimal")
-                        {
-                            Decimal num = Convert.ToDecimal(sheet[rowindex, colindex].Value.ToString());
-                            row[j] = (object)num;
-                        }
-                        else
-                        {
-                            row[j] =sheet[rowindex, colindex].Value.ToString();
-                        }
-                    }
-                }
-                i++;
-            }
+            String actionName = xAction.cfg.actionType;
+            //PopUpActionFactory factory = new PopUpActionFactory();
+            InterfacePopUpAction action = PopUpActionFactory.getAction(actionName);
             
-            try
-            {
-                da.Update(dt);
-            }
-            catch (SqlException ee)
-            {
-                MessageBox.Show(ee.Message);
-            }
+            action.doAction(xAction.dRange.cfg.serverName,xAction.dRange.getSqlStatement(),name,dt, selectedRowsList);
             this.Dispose(); 
 
         }

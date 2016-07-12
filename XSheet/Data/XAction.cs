@@ -1,6 +1,7 @@
 ﻿using DevExpress.Spreadsheet;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +18,10 @@ namespace XSheet.Data
         public int actionSeq { get; set; }
         abstract public String doAction(AreasCollection selectedNamed);
         abstract public void init();
+        public String getStatement()
+        {
+            Range range = dRange.getRange().Worksheet.Workbook.Worksheets["Config"].Range[cfg.actionParam];
+            return range[0, 0].DisplayText;
+        }
     }
 }
