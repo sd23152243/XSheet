@@ -16,7 +16,7 @@ namespace XSheet.Data.PopUpAction
     {
         public XNamed dRange { get; set; }
 
-        public string doAction(String Sql,String type,XNamed dRange, DataTable dt,List<int> selectedRowsList)
+        public string doAction(String type, String Sql, XNamed dRange, DataTable dt,List<int> selectedRowsList)
         {
             this.dRange = dRange;
             DbDataAdapter da = DBUtil.getDbDataAdapter(type, Sql,"");
@@ -31,14 +31,16 @@ namespace XSheet.Data.PopUpAction
             {
                 dt.Rows[row].Delete();
             }
-            dt.AcceptChanges();
+            
             try
             {
-                da.Update(dt);
+                da.Update(dt.GetChanges());
+                dt.AcceptChanges();
             }
             catch (SqlException ee)
             {
                 MessageBox.Show(ee.Message);
+                dt.RejectChanges();
             }
             return "OK";
         }
