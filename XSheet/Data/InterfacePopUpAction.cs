@@ -9,6 +9,6 @@ namespace XSheet.Data
 {
     public interface InterfacePopUpAction
     {
-        String doAction(String sql,String type,XNamed dRange, DataTable dt, List<int> selectedRowsList);
+        String doAction(String type, String sql,XNamed dRange, DataTable dt, List<int> selectedRowsList);
     }
 }
