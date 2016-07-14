@@ -112,6 +112,7 @@ namespace XSheet
                 if (i >= 0)
                 {
                     this.currentXNamed = xname;
+                    this.currentXNamed.setSelectIndex(spreadsheetMain.Selection.TopRowIndex, spreadsheetMain.Selection.LeftColumnIndex);
                 }
             }
 

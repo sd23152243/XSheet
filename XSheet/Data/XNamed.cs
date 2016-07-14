@@ -134,5 +134,12 @@ namespace XSheet.Data
             }
             return rowNum;
         }
+
+        public virtual void setSelectIndex(int rowIndex,int colIndex)
+        {
+            String r1c1 = cfg.sqlStatement;
+            this.getRange().Worksheet.Workbook.Worksheets["Config"][r1c1].Offset(0, 4).Value = rowIndex+1;
+            this.getRange().Worksheet.Workbook.Worksheets["Config"][r1c1].Offset(0, 5).Value = colIndex+1;
+        }
     }
 }
