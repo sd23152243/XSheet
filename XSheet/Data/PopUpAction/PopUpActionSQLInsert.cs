@@ -32,16 +32,8 @@ namespace XSheet.Data.PopUpAction
             {
                 int rowindex = i + topRowIndex + 1;
                 DataRow row = null;
-                if (sheet[rowindex, leftColumnIndex].Tag != null)
-                {
-                    int rowListNO = int.Parse(sheet[rowindex, leftColumnIndex].Tag.ToString());
-                    row = dt.Rows[selectedRowsList[i]];
-                }
-                else
-                {
-                    row = dt.NewRow();
-                    dt.Rows.Add(row);
-                }
+                row = dt.NewRow();
+                dt.Rows.Add(row);
                 for (int j = 0; j < dt.Columns.Count; j++)
                 {
                     int colindex = j + leftColumnIndex;

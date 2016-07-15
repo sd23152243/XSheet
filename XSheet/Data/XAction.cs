@@ -16,6 +16,7 @@ namespace XSheet.Data
         public XNamed sRange { get; set; }
         public XNamed dRange { get; set; }
         public int actionSeq { get; set; }
+        public String flag = "OK";
         abstract public String doAction(AreasCollection selectedNamed);
         abstract public void init();
         public String getStatement()

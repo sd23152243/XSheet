@@ -20,17 +20,17 @@ namespace XSheet.Data
         {
             XNamed named = null;
             String nametype = cfg.rangeType;
-            nametype = "XSheet.Data.XNamed" + nametype.Substring(0, 1).ToUpper() + nametype.Substring(1).ToLower();
             //XNamedTable
             try
             {
+                nametype = "XSheet.Data.XNamed" + nametype.Substring(0, 1).ToUpper() + nametype.Substring(1).ToLower();
                 Type type = Type.GetType(nametype, true);
                 named = (XNamed)Activator.CreateInstance(type);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                System.Windows.Forms.MessageBox.Show("非法类型："+cfg.rangeType);
+                System.Windows.Forms.MessageBox.Show("Range："+cfg.rangeId+"包含非法类型："+cfg.rangeType);
             }
             return named;
         }

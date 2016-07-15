@@ -1353,7 +1353,7 @@
             this.spreadsheetCommandBarCheckItem47,
             this.spreadsheetCommandBarButtonItem206});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 439;
+            this.ribbonControl.MaxItemId = 440;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,

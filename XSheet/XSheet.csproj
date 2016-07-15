@@ -107,6 +107,7 @@
     <Compile Include="CfgData\RangeCfgData.cs" />
     <Compile Include="CfgData\SheetCfgData.cs" />
     <Compile Include="CfgData\XCfgData.cs" />
+    <Compile Include="Data\Action\ActionSheetSearch.cs" />
     <Compile Include="Data\Action\ActionSQLDelete.cs" />
     <Compile Include="Data\Action\ActionSQLExecute.cs" />
     <Compile Include="Data\Action\ActionSQLSearch.cs" />
