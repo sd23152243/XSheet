@@ -35,7 +35,7 @@ namespace XSheet.Util
             }
             catch (Exception)
             {
-                MessageBox.Show("未在配置Sheet找到名称为" + str + "的配置项，请确认配置");
+                MessageBox.Show("未找到名称为" + str + "的EXCEL命名区域，请确认配置");
 
             }
             return name;

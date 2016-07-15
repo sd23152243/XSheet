@@ -24,7 +24,7 @@ namespace XSheet.Data.Action
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                System.Windows.Forms.MessageBox.Show("非法类型：" + cfg.actionType);
+                System.Windows.Forms.MessageBox.Show("Action类型不存在，设置的类型为：" + cfg.actionType);
             }
             return action;
         }

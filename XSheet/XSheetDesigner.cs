@@ -32,24 +32,28 @@ namespace XSheet
         public XNamed currentXNamed { get; set; }
         public Dictionary<String, SimpleButton> buttons { get; set; }
         public string executeState { get; set; }
+        public string appstatu { get; set; }
         private CommandExecuter executer;
         private AreasCollection oldSelected { get; set; }
         public XSheetDesigner()
         {
+            this.appstatu = "OK";
             InitializeComponent();
             InitSkinGallery();
             buttons = new Dictionary<string, SimpleButton>();
+            /*提取按钮，将按钮与自定义事件名称绑定*/
             buttons.Add("Btn_Submit".ToUpper(), btn_Submit);
             buttons.Add("Btn_Download".ToUpper(), btn_Download);
             buttons.Add("Btn_Search".ToUpper(), btn_Search);
             buttons.Add("Btn_Execute".ToUpper(), btn_Exe);
             buttons.Add("Btn_Delete".ToUpper(), btn_Delete);
             buttons.Add("Btn_Edit".ToUpper(), btn_Edit);
-            buttons.Add("Btn_Insert".ToUpper(), btn_New);
+            buttons.Add("Btn_New".ToUpper(), btn_New);
             //CELLCHANGE
             executer = new CommandExecuter();
             executer.Attach(this);
             executeState = "OK";
+            /*加载文档，后续根据不同设置配置，待修改TODO*/
             spreadsheetMain.Document.LoadDocument("\\\\ichart3d\\XSheetModel\\XSheet模板设计.xlsx");
 
         }
@@ -124,7 +128,7 @@ namespace XSheet
             {
                 btndic.Value.Enabled = false;
             }
-            if (currentXNamed != null && executeState == "OK")
+            if (currentXNamed != null && executeState == "OK" && appstatu == "OK")
             {
                 foreach (var commandDic in currentXNamed.commands)
                 {
@@ -138,16 +142,17 @@ namespace XSheet
         private void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
             init();
-            if (spreadsheetMain.Document.Worksheets.ActiveWorksheet.Name != cfgData.app.defaultSheetName && cfgData.app.defaultSheetName!=null)
+            if (appstatu.ToUpper() == "OK")
             {
-                spreadsheetMain.Document.Worksheets.ActiveWorksheet = spreadsheetMain.Document.Worksheets[cfgData.app.defaultSheetName];
+                if (spreadsheetMain.Document.Worksheets.ActiveWorksheet.Name != cfgData.app.defaultSheetName && cfgData.app.defaultSheetName != null)
+                {
+                    spreadsheetMain.Document.Worksheets.ActiveWorksheet = spreadsheetMain.Document.Worksheets[cfgData.app.defaultSheetName];
+                }
+                else
+                {
+                    currentSheet.doLoadCommand(executer);
+                }
             }
-            else
-            {
-                currentSheet.doLoadCommand(executer);
-            }
-            
-
         }
 
         private void btn_Search_Click(object sender, EventArgs e)
@@ -162,7 +167,7 @@ namespace XSheet
         
         private void btn_New_Click(object sender, EventArgs e)
         {
-            executer.excueteCmd(currentXNamed, "Btn_Insert", null);
+            executer.excueteCmd(currentXNamed, "Btn_New", null);
         }
 
         private void btn_Edit_Click(object sender, EventArgs e)
@@ -202,7 +207,19 @@ namespace XSheet
         public void init()
         {
             cfgData = new XCfgData(spreadsheetMain.Document.Worksheets["Config"]);
+            this.appstatu = cfgData.flag;
+            if (appstatu != "OK")
+            {
+                MessageBox.Show("配置文件加载出错，请确认配置文件");
+                return;
+            }
             app = new XApp(spreadsheetMain.Document, cfgData);
+            this.appstatu = app.flag;
+            if (appstatu != "OK")
+            {
+                MessageBox.Show("XSheet初始化出错，请确认配置文件");
+                return;
+            }
             this.lbl_App.Text = "APP:" + app.appName;
             this.lbl_User.Text = "当前用户:" + app.user;
             try

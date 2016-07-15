@@ -17,6 +17,7 @@ namespace XSheet.Data
         public Worksheet sheet { get; set; }
         public Dictionary<String, XNamed> names { get; set; }
         public XApp app { get; set; }
+        public String hideflag { get; set; }
         public XSheet()
         {
             names = new Dictionary<string, XNamed>();
@@ -41,5 +42,24 @@ namespace XSheet.Data
             popUp.Show();
             popUp.BringToFront();
         }
+        
+        public void Hidden()
+        {
+            this.sheet.VisibilityType = WorksheetVisibilityType.Hidden;
+        }
+
+        private void VeryHidden()
+        {
+            this.sheet.VisibilityType = WorksheetVisibilityType.VeryHidden;
+        }
+
+        public void setVisable()
+        {
+            if (this.hideflag =="1")
+            {
+                VeryHidden();
+            }
+        }
+
     }
 }

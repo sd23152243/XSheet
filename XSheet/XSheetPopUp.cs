@@ -60,23 +60,33 @@ namespace XSheet
         {
             String sheetName = xAction.dRange.Name + "_PopUp";
             String rangeName = xAction.dRange.Name + "_PopUp";
-            DataTable ndt = dt.Clone();
-            foreach (int rowNum in selectedRowsList)
+            this.name = app.names[rangeName];
+            DataTable ndt = null;
+            if (dt != null)
             {
-                DataRow row = ndt.NewRow();
-                for (int i = 0; i < dt.Columns.Count; i++)
+                ndt = dt.Clone();
+                foreach (int rowNum in selectedRowsList)
                 {
-                    row[i] = dt.Rows[rowNum][i];
-                        
+                    DataRow row = ndt.NewRow();
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        row[i] = dt.Rows[rowNum][i];
+
+                    }
+                    ndt.Rows.Add(row);
                 }
-                ndt.Rows.Add(row);
+
             }
+            
             foreach (Worksheet sheet in spreadsheetControl1.Document.Worksheets)
             {
                 if (sheet.Name == sheetName)
                 {
-                    this.name = app.names[rangeName];
-                    this.name.fill(ndt);
+                    if (ndt != null)
+                    {
+                        this.name.fill(ndt);
+                    }
+                    sheet.VisibilityType = WorksheetVisibilityType.Visible;
                     //this.name = XNamedFactory.getXNamed(app.)
                     //xsheetdic.Value.names[xAction.dRange + "_PopUp"].fill(dt);
                 }
@@ -85,6 +95,7 @@ namespace XSheet
                     sheet.VisibilityType = WorksheetVisibilityType.VeryHidden;
                 }
             }
+            spreadsheetControl1.Document.Worksheets.ActiveWorksheet = spreadsheetControl1.Document.Worksheets[sheetName];
         }
         private void btn_Submit_Click(object sender, EventArgs e)
         {

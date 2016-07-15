@@ -22,6 +22,7 @@ namespace XSheet.Data
         public Dictionary<string, XAction> actions;
         public XCfgData cfg { get; set; }
         public IWorkbook book { get; set; }
+        public String flag { get; set; }
         private XApp(){}
         
         public XApp(IWorkbook book,XCfgData cfg)
@@ -31,6 +32,7 @@ namespace XSheet.Data
             names = new Dictionary<string, XNamed>();
             commands = new Dictionary<string, XCommand>();
             actions = new Dictionary<string, XAction>();
+            this.flag = "OK";
             init(cfg);
         }
 
@@ -57,13 +59,18 @@ namespace XSheet.Data
             {
                 XSheet xsheet = new XSheet();
                 xsheet.sheetName = sheetdata.sheetName;
-
+                xsheet.hideflag = sheetdata.hideFlag;
                 xsheet.sheet = SheetUtil.getSheetByName(xsheet.sheetName, book.Worksheets);
                 //xsheet.initTables();
+                if (xsheet.sheet == null)
+                {
+                    flag = "NG";
+                    return;
+                }
                 xsheet.app = this;
+                xsheet.setVisable();
                 sheets.Add(xsheet.sheetName, xsheet);
             }
-            Console.WriteLine("SheetInitComplete!");
         }
 
         private void initNamed()
@@ -74,10 +81,10 @@ namespace XSheet.Data
                 {
                     XSheet xsheet = sheets[rangedata.sheetName];
                     XNamed named = XNamedFactory.getXNamed(rangedata);
-                    named.Name = rangedata.rangeId;
-                    named.cfg = rangedata;
                     try
                     {
+                        named.Name = rangedata.rangeId;
+                        named.cfg = rangedata;
                         named.setDefinedName(xsheet.sheet);
                         named.cfg = rangedata;
                         named.type = named.cfg.rangeType;
@@ -88,7 +95,8 @@ namespace XSheet.Data
                     catch (Exception e)
                     {
                         Console.WriteLine(e.ToString());
-                        MessageBox.Show("Sheet:\"" + rangedata.sheetName + "\"中不存在命名区域：" + rangedata.rangeId);
+                        MessageBox.Show("Sheet:\"" + rangedata.sheetName + "\"中Range对应命名区域不存在或配置异异常，RangeId：" + rangedata.rangeId);
+                        return;
                     }
                 }
                 else
@@ -119,6 +127,7 @@ namespace XSheet.Data
                 {
 
                     MessageBox.Show("命令:"+strCmd+"绑定区域:"+ strRangeName + "失败，请检查命令与绑定区域配置是否正确！");
+                    return;
                 }
             }
         }
@@ -128,15 +137,21 @@ namespace XSheet.Data
             foreach (ActionCfgData straction in cfg.actions)
             {
                 XAction action = ActionFactory.getAction(straction);
+                if (action == null)
+                {
+                    this.flag = "NG";
+                    return;
+                }
                 action.actionId = straction.actionId;
                 action.init();
                 action.cfg = straction;
                 this.actions.Add(action.actionId, action);
-               
+                
                 try
                 {
                     XNamed actionnames = null;
                     XNamed actionnamed = null;
+
                     if (straction.actionSRange.Length>0)
                     {
                         actionnames = names[straction.actionSRange];
@@ -166,6 +181,7 @@ namespace XSheet.Data
                 {
                     XCommand actioncmd = commands[strcmdact.commandId];
                     XAction action = actions[strcmdact.actionId];
+                    action.actionSeq = int.Parse(strcmdact.actionSeq);
                     actioncmd.actions.Add(action.actionSeq, action);
                 }
                 catch (Exception)
@@ -176,6 +192,18 @@ namespace XSheet.Data
                 }
             }
             
+        }
+        public void setSheetVisiable()
+        {
+            foreach (var sheet in sheets)
+            {
+                sheet.Value.setVisable();
+            }
+
+        }
+        public List<String> getDocumentInfo(String Statement)
+        {
+            return null;
         }
     }
 }

@@ -20,8 +20,10 @@ namespace XSheet.CfgData
         public List<ActionCfgData> actions { get; set; }
         public List<CmdActRelatedCfgData> cmdacts { get; set; }
         public XCfgData(){}
+        public String flag;
         public XCfgData(Worksheet cfgsheet)
         {
+            flag = "OK";
             this.cfgsheet = cfgsheet;
             names = this.cfgsheet.DefinedNames;
             app = new AppCfgData();
@@ -42,6 +44,11 @@ namespace XSheet.CfgData
         private void initApp()
         {
             DefinedName name = SheetUtil.getNameinNames("CFG_APP",names);
+            if (name == null)
+            {
+                flag = "NG";
+                return;
+            }
             app.appId = name.Range[1, 0].DisplayText;
             app.appName = name.Range[1, 1].DisplayText;
         }
@@ -49,23 +56,41 @@ namespace XSheet.CfgData
         private void initSheet()
         {
             DefinedName name = SheetUtil.getNameinNames("CFG_Sheet",names);
+            if (name == null)
+            {
+                flag = "NG";
+                return;
+            }
             sheets = new List<SheetCfgData>();
             for (int i = 1; i < name.Range.RowCount; i++)
             {
+                if (name.Range[i, 0].DisplayText.Length ==0)
+                {
+                    break;
+                }
                 SheetCfgData sheet = new SheetCfgData();
                 sheet.sheetName = name.Range[i, 0].DisplayText;
                 sheet.hideFlag = name.Range[i, 1].DisplayText;
                 sheet.editFlag = name.Range[i, 2].DisplayText;
-                sheets.Add(sheet); 
+                sheets.Add(sheet);
             }
             
         }
         private void initRange()
         {
             DefinedName name = SheetUtil.getNameinNames("CFG_Range", names);
+            if (name == null)
+            {
+                flag = "NG";
+                return;
+            }
             ranges = new List<RangeCfgData>();
             for (int i = 1; i < name.Range.RowCount; i++)
             {
+                if (name.Range[i, 0].DisplayText.Length == 0)
+                {
+                    break;
+                }
                 RangeCfgData range = new RangeCfgData();
                 range.rangeId = name.Range[i, 0].DisplayText;
                 range.sheetName = name.Range[i, 1].DisplayText;
@@ -82,9 +107,18 @@ namespace XSheet.CfgData
         private void initBinding()
         {
             DefinedName name = SheetUtil.getNameinNames("CFG_Binding", names);
+            if (name == null)
+            {
+                flag = "NG";
+                return;
+            }
             bindings = new List<BindingCfgData>();
             for (int i = 1; i < name.Range.RowCount; i++)
             {
+                if (name.Range[i, 0].DisplayText.Length == 0)
+                {
+                    break;
+                }
                 BindingCfgData binding = new BindingCfgData();
                 binding.rangeName = name.Range[i, 0].DisplayText;
                 binding.commandId = name.Range[i, 1].DisplayText;
@@ -95,10 +129,19 @@ namespace XSheet.CfgData
 
         private void initCommand()
         {
-         DefinedName name = SheetUtil.getNameinNames("CFG_Command", names);
-         commands = new List<CommandCfgData>();
+            DefinedName name = SheetUtil.getNameinNames("CFG_Command", names);
+            if (name == null)
+            {
+                flag = "NG";
+                return;
+            }
+            commands = new List<CommandCfgData>();
             for (int i = 1; i<name.Range.RowCount; i++)
             {
+                if (name.Range[i, 0].DisplayText.Length == 0)
+                {
+                    break;
+                }
                 CommandCfgData command= new CommandCfgData();
                 command.commandID = name.Range[i, 0].DisplayText;
                 command.commandName= name.Range[i, 1].DisplayText;
@@ -111,9 +154,19 @@ namespace XSheet.CfgData
         private void initAction()
         {
             DefinedName name = SheetUtil.getNameinNames("CFG_Action", names);
+            
+            if (name == null)
+            {
+                flag = "NG";
+                return;
+            }
             actions = new List<ActionCfgData>();
             for (int i = 1; i < name.Range.RowCount; i++)
             {
+                if (name.Range[i, 0].DisplayText.Length == 0)
+                {
+                    break;
+                }
                 ActionCfgData action = new ActionCfgData();
                 //action.commandId = name.Range[i, 0].DisplayText;
                 action.actionId= name.Range[i, 0].DisplayText;
@@ -131,10 +184,21 @@ namespace XSheet.CfgData
 
         private void initCmdAction()
         {
+
             DefinedName name = SheetUtil.getNameinNames("CFG_ComActRelated", names);
+
+            if (name == null)
+            {
+                flag = "NG";
+                return;
+            }
             cmdacts = new List<CmdActRelatedCfgData>();
             for (int i = 1; i < name.Range.RowCount; i++)
             {
+                if (name.Range[i, 0].DisplayText.Length == 0)
+                {
+                    break;
+                }
                 CmdActRelatedCfgData cmdact = new CmdActRelatedCfgData();
                 cmdact.commandId = name.Range[i, 0].DisplayText;
                 cmdact.actionId = name.Range[i, 1].DisplayText;
