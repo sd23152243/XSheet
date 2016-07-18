@@ -68,7 +68,7 @@ namespace XSheet.Data
                     return;
                 }
                 xsheet.app = this;
-                xsheet.setVisable();
+                xsheet.setVisable("");
                 sheets.Add(xsheet.sheetName, xsheet);
             }
         }
@@ -117,10 +117,34 @@ namespace XSheet.Data
             {
                 String strCmd = bind.commandId;
                 String strRangeName = bind.rangeName;
+                XCommand cmd = null;
+                XNamed xname = null;
                 try
                 {
-                    XCommand cmd = commands[strCmd];
-                    XNamed xname = names[strRangeName];
+                    cmd = commands[strCmd];
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("绑定命令时，检测到命令配置不存在，命令ID："+ strCmd);
+                    flag = "NG";
+                    return;
+                }
+                try
+                {
+                    xname = names[strRangeName];
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("绑定命令时，检测到区域配置不存在，区域ID：" + strRangeName);
+                    flag = "NG";
+                    return;
+                }
+                
+                try
+                {
+                    
                     xname.commands.Add(bind.eventType.ToUpper(), cmd);
                 }
                 catch (Exception)
@@ -193,11 +217,11 @@ namespace XSheet.Data
             }
             
         }
-        public void setSheetVisiable()
+        public void setSheetVisiable(String Name)
         {
             foreach (var sheet in sheets)
             {
-                sheet.Value.setVisable();
+                sheet.Value.setVisable(Name);
             }
 
         }

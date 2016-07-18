@@ -53,11 +53,15 @@ namespace XSheet.Data
             this.sheet.VisibilityType = WorksheetVisibilityType.VeryHidden;
         }
 
-        public void setVisable()
+        public void setVisable(String Name)
         {
-            if (this.hideflag =="1")
+            if (this.hideflag =="1" && this.sheet.Name!= Name)
             {
                 VeryHidden();
+            }
+            else
+            {
+                this.sheet.VisibilityType = WorksheetVisibilityType.Visible;
             }
         }
 

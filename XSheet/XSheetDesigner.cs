@@ -66,10 +66,8 @@ namespace XSheet
 
         private void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
-            //spc.ActiveCell.Value = this.currentXNamed == null ? "null" : this.currentXNamed.Name;
             setSelectedNamed();
             ChangeButtonsStatu();
-            //tmpsheet.ActiveCell.Value = tt;
             if (currentXNamed != null)
             {
                 
@@ -100,7 +98,7 @@ namespace XSheet
 
 
         }
-
+        //
         private void setSelectedNamed()
         {
             AreasCollection areas = spreadsheetMain.Selection.Areas;
@@ -257,6 +255,7 @@ namespace XSheet
             {
                 currentSheet = app.getSheets()[e.NewActiveSheetName];
                 currentSheet.doLoadCommand(executer);
+                app.setSheetVisiable(e.NewActiveSheetName);
             }
             catch (Exception)
             {
@@ -265,6 +264,18 @@ namespace XSheet
             }
         }
 
-        
+        private void spreadsheetMain_HyperlinkClick(object sender, HyperlinkClickEventArgs e)
+        {
+            if(e.IsExternal== false)
+            {
+                String name = e.TargetRange.Worksheet.Name;
+                app.setSheetVisiable(name);
+            }
+        }
+
+        private void spreadsheetMain_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //MessageBox.Show(e.KeyChar.ToString());
+        }
     }
 }
