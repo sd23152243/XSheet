@@ -236,3 +236,6 @@ _Pvt_Extensions
 .fake/
 
 XSheet/Util/DBUtil.cs
+Util/DBUtil.cs
+DBUtil.cs
+*DBUtil.cs
