@@ -308,8 +308,22 @@ namespace XSheet
         {
             if(e.IsExternal== false)
             {
+                String oldName = spreadsheetMain.ActiveWorksheet.Name;
                 String name = e.TargetRange.Worksheet.Name;
                 app.setSheetVisiable(name);
+                try
+                {
+                    currentSheet = app.getSheets()[name];
+                    currentSheet.doLoadCommand(executer);
+                    app.setSheetVisiable(name);
+                }
+                catch (Exception)
+                {
+                    spreadsheetMain.Document.Worksheets[oldName].Cells[0, 0].Select();
+                    spreadsheetMain.Document.Worksheets.ActiveWorksheet = spreadsheetMain.Document.Worksheets[oldName];
+                }
+
+
             }
         }
 
