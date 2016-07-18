@@ -98,6 +98,12 @@ namespace XSheet.CfgData
                 range.sqlStatement = name.Range[i, 3].GetReferenceA1();
                 range.sqlPopUp = name.Range[i, 4].DisplayText;
                 range.serverName = name.Range[i, 5].DisplayText;
+                if (range.serverName == null || range.serverName.Length <2)
+                {
+                    System.Windows.Forms.MessageBox.Show("区域:"+range.rangeId+"服务器类型配置错误，当前配置为："+range.serverName);
+                    flag = "NG";
+                    return;
+                }
                 range.rangeType = name.Range[i, 6].DisplayText;
                 ranges.Add(range);
             }

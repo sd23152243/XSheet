@@ -66,6 +66,10 @@ namespace XSheet
 
         private void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
+            if (appstatu.ToUpper() != "OK")
+            {
+                return;
+            }
             setSelectedNamed();
             ChangeButtonsStatu();
             if (currentXNamed != null)
@@ -132,7 +136,11 @@ namespace XSheet
                 {
                     if (buttons.ContainsKey(commandDic.Key.ToUpper()))
                     {
-                        setBtnStatuOn(commandDic.Key);
+                        if (currentXNamed.dt != null || commandDic.Key == "BTN_SEARCH")
+                        {
+                            setBtnStatuOn(commandDic.Key);
+                        }
+                        
                     }
                 }
             }
@@ -155,36 +163,64 @@ namespace XSheet
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
+            if (appstatu.ToUpper() != "OK")
+            {
+                return;
+            }
             executer.excueteCmd(currentXNamed, "Btn_Search", null);
         }
 
         private void btn_Download_Click(object sender, EventArgs e)
         {
+            if (appstatu.ToUpper() != "OK")
+            {
+                return;
+            }
             executer.excueteCmd(currentXNamed, "Btn_Download", null);
         }
         
         private void btn_New_Click(object sender, EventArgs e)
         {
+            if (appstatu.ToUpper() != "OK")
+            {
+                return;
+            }
             executer.excueteCmd(currentXNamed, "Btn_New", null);
         }
 
         private void btn_Edit_Click(object sender, EventArgs e)
         {
+            if (appstatu.ToUpper() != "OK")
+            {
+                return;
+            }
             executer.excueteCmd(currentXNamed, "Btn_Edit", null);
         }
 
         private void btn_Delete_Click(object sender, EventArgs e)
         {
+            if (appstatu.ToUpper() != "OK")
+            {
+                return;
+            }
             executer.excueteCmd(currentXNamed, "Btn_Delete", null);
         }
 
         private void btn_Exe_Click(object sender, EventArgs e)
         {
+            if (appstatu.ToUpper() != "OK")
+            {
+                return;
+            }
             executer.excueteCmd(currentXNamed, "Btn_Execute", null);
         }
 
         private void btn_Submit_Click(object sender, EventArgs e)
         {
+            if (appstatu.ToUpper() != "OK")
+            {
+                return;
+            }
             executer.excueteCmd(currentXNamed, "Btn_Submit", null);
         }
 
@@ -251,6 +287,10 @@ namespace XSheet
 
         private void spreadsheetMain_ActiveSheetChanged(object sender, ActiveSheetChangedEventArgs e)
         {
+            if (appstatu.ToUpper() != "OK")
+            {
+                return;
+            }
             try
             {
                 currentSheet = app.getSheets()[e.NewActiveSheetName];

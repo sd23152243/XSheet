@@ -16,7 +16,16 @@ namespace XSheet.Data.Action
         {
             String popup = dRange.Name + "_PopUp";
             XSheet xsheet = dRange.sheet.app.getSheets()[popup];
-            XNamed named = xsheet.names[popup];
+            XNamed named = null;
+            try
+            {
+                named = xsheet.names[popup];
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("PopUpSheet:"+popup+"中未配置区域："+popup+"请确认配置");
+            }
             DataTable dt = dRange.dt;
             /*if (cfg.actionStatement == "R")
             {

@@ -42,8 +42,9 @@ namespace XSheet.Data
         }
         
         public override int isInRange(Range x)//1：参数区域在本区域内；2：参数区域在本区域内，但包含表头；-1参数区域不在本区域内
+        //x为鼠标选择区域
         {
-            return RangeUtil.isInRange(x, this.getRange());
+            return RangeUtil.isInRange(x,this.getRange());
         }
 
         public override void doCommand(string eventType,AreasCollection selectedRange)
