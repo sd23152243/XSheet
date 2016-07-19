@@ -70,6 +70,7 @@ namespace XSheet.Data.PopUpAction
             }
             catch (SqlException ee)
             {
+                dt.Clear();
                 MessageBox.Show(ee.Message);
             }
             return "OK";

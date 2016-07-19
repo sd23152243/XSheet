@@ -18,6 +18,7 @@ namespace XSheet.Data.PopUpAction
 
         public string doAction(String type, String Sql, XNamed dRange, DataTable dt,List<int> selectedRowsList)
         {
+            DataTable ndt = dt.Clone();
             this.dRange = dRange;
             DbDataAdapter da = DBUtil.getDbDataAdapter(type, Sql,"");
             //da.MissingMappingAction = MissingMappingAction.Passthrough;
@@ -32,9 +33,9 @@ namespace XSheet.Data.PopUpAction
             {
                 int rowindex = i + topRowIndex + 1;
                 DataRow row = null;
-                row = dt.NewRow();
-                dt.Rows.Add(row);
-                for (int j = 0; j < dt.Columns.Count; j++)
+                row = ndt.NewRow();
+                ndt.Rows.Add(row);
+                for (int j = 0; j < ndt.Columns.Count; j++)
                 {
                     int colindex = j + leftColumnIndex;
                     if (row[j].ToString() != sheet[rowindex, colindex].Value.ToString())
@@ -58,7 +59,7 @@ namespace XSheet.Data.PopUpAction
 
             try
             {
-                da.Update(dt);
+                da.Update(ndt);
             }
             catch (SqlException ee)
             {

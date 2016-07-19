@@ -97,10 +97,9 @@ namespace XSheet
                         }
                     }
                 }
+                executer.excueteCmd(currentXNamed, "Select_Change", null);
             }
             oldSelected = spreadsheetMain.Selection.Areas;
-
-
         }
         //
         private void setSelectedNamed()
@@ -330,6 +329,11 @@ namespace XSheet
         private void spreadsheetMain_KeyPress(object sender, KeyPressEventArgs e)
         {
             //MessageBox.Show(e.KeyChar.ToString());
+        }
+
+        private void btn_Config_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

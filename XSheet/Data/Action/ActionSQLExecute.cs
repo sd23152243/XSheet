@@ -6,6 +6,7 @@ using XSheet.Util;
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
+using System.Data.Common;
 
 namespace XSheet.Data.Action
 {
@@ -19,8 +20,10 @@ namespace XSheet.Data.Action
             List<SqlParameter> Sqlparams = new List<SqlParameter>();
             String param = this.getStatement();
             //PGR08LB.TESTPR @p1
-            Sql = "CALL PGR08LB.TESTPR1('"+param+"')";
-            DataTable dt = DBUtil.getDataTable(dRange.cfg.serverName, Sql, "",param);
+            Sql = param;
+            DbDataAdapter da = DBUtil.getDbDataAdapter(dRange.cfg.serverName, Sql, "");
+            da.SelectCommand.ExecuteNonQuery();
+            //DataTable dt = DBUtil.getDataTable(dRange.cfg.serverName, Sql, "",param);
             //dRange.fill(dt);
             return "suucess";
         }

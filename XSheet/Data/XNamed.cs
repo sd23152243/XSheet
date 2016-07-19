@@ -23,7 +23,7 @@ namespace XSheet.Data
         public String type { get; set; }
         public RangeCfgData cfg { get; set; }
         public DataTable dt { get; set; }
-        public DataAdapter da { get; set; }
+        public DbDataAdapter da { get; set; }
         public void setDefinedName(DefinedName dname)
         {
             this.dname = dname;

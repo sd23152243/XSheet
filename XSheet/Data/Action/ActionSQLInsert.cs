@@ -37,7 +37,6 @@ namespace XSheet.Data.Action
                 String Sql = cfg.actionStatement;
                 dt = DBUtil.getDataTable(dRange.cfg.serverName, Sql);
             }*/
-
             named.sheet.PopUp(this.actionId,dt, null);
             return "";
         }
