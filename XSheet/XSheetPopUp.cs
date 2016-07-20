@@ -27,18 +27,20 @@ namespace XSheet
         private XNamed name;
         private Dictionary<int, int> selectedRows;
         private List<int> selectedRowsList;
+        private String SheetName;
         private XSheetPopUp()
         {
             InitializeComponent();
             spreadsheetControl1.LoadDocument("tmp/tmp");
         }
 
-        public XSheetPopUp(String path, XCfgData cfg,String actionName,DataTable dt,Dictionary<int, int> selectedRows)
+        public XSheetPopUp(String path, XCfgData cfg,String actionName,DataTable dt,Dictionary<int, int> selectedRows,String SheetName)
         {
             InitializeComponent();
             spreadsheetControl1.LoadDocument(path);
             app = new XApp(spreadsheetControl1.Document, cfg);
             xAction = app.actions[actionName];
+            this.SheetName = SheetName;
             this.cfg = cfg;
             this.dt = dt;
             this.selectedRows = selectedRows;
@@ -58,8 +60,8 @@ namespace XSheet
         }
         private void init()
         {
-            String sheetName = xAction.dRange.Name + "_PopUp";
-            String rangeName = xAction.dRange.Name + "_PopUp";
+            String sheetName = this.SheetName;
+            String rangeName = this.SheetName;
             this.name = app.names[rangeName];
             DataTable ndt = null;
             if (dt != null)

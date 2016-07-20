@@ -38,7 +38,7 @@ namespace XSheet.Data
             FileStream file = new FileStream(path , FileMode.OpenOrCreate);
             file.Close();
             sheet.Workbook.SaveDocument(path);
-            XSheetPopUp popUp = new XSheetPopUp(path, app.cfg,ActionName,dt, selectedRows);
+            XSheetPopUp popUp = new XSheetPopUp(path, app.cfg,ActionName,dt, selectedRows,this.sheetName);
             popUp.Show();
             popUp.BringToFront();
         }

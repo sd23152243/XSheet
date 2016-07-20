@@ -14,8 +14,26 @@ namespace XSheet.Data.Action
     {
         public override string doAction(AreasCollection selectedNamed)
         {
-            String popup = dRange.Name + "_PopUp";
-            XSheet xsheet = dRange.sheet.app.getSheets()[popup];
+            String popup = dRange.Name + "_SQLUpdate";
+            XSheet xsheet = null;
+            try
+            {
+                xsheet = dRange.sheet.app.getSheets()[popup];
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    popup = dRange.Name + "_PopUp";
+                    xsheet = dRange.sheet.app.getSheets()[popup];
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("区域："+dRange.Name+"不存在");
+                    return "NG";
+                }
+            }
+            
             XNamed named = xsheet.names[popup];
             DataTable dt = dRange.dt;
             /*if (cfg.actionStatement == "R")
@@ -29,7 +47,7 @@ namespace XSheet.Data.Action
                 dt = DBUtil.getDataTable(dRange.cfg.serverName, Sql);
             }*/
             named.sheet.PopUp(this.actionId,dt, dRange.selectedRows);
-            return "";
+            return "OK";
         }
 
         public override void init()
