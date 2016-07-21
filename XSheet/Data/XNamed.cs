@@ -91,7 +91,7 @@ namespace XSheet.Data
             //this.getRange()[rowNum, 0].Value = value.Substring(0,value.Length-1);
         }
         //待完善
-        private void setRoweSelectStyle(int rowNum)
+        protected void setRoweSelectStyle(int rowNum)
         {
             int realRow = rowNum;
             for (int i = 0; i < this.getRange().RowCount; i++)
@@ -117,22 +117,26 @@ namespace XSheet.Data
             }*/
             if (selectedRows[rowNum] % 2 == 1)
             {
-                if (oldSize <0)
-                {
-                    this.oldSize = this.getRange()[realRow, this.getRange().ColumnCount - 1].Font.Size;
-                }
-                for (int i = 0; i < this.getRange().ColumnCount; i++)
-                {
-                    this.getRange()[realRow, i].Borders.SetAllBorders (Color.Blue, BorderLineStyle.MediumDashed);
-                }
-                
+                setRowBorderMashDash(realRow);
             }
             else
             {
-                for (int i = 0; i < this.getRange().ColumnCount; i++)
-                {
-                    this.getRange()[realRow, i].Borders.SetAllBorders(Color.White, BorderLineStyle.None);
-                }
+                setRowBorderNone(realRow);
+            }
+        }
+        protected void setRowBorderMashDash(int realRow)
+        {
+            for (int i = 0; i < this.getRange().ColumnCount; i++)
+            {
+                this.getRange()[realRow, i].Borders.SetAllBorders(Color.Blue, BorderLineStyle.MediumDashed);
+            }
+        }
+
+        protected void setRowBorderNone(int realRow)
+        {
+            for (int i = 0; i < this.getRange().ColumnCount; i++)
+            {
+                this.getRange()[realRow, i].Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
             }
         }
 

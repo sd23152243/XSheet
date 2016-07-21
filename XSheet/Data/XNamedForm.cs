@@ -38,7 +38,12 @@ namespace XSheet.Data
 
         public override void fill(DataTable dt)
         {
-            throw new NotImplementedException();
+            Range ranges = getRange();
+            for (int i = 0; i < ranges.Areas.Count; i++)
+            {
+                Range range = ranges.Areas[i];
+                range.Value = (CellValue)dt.Rows[0][i];
+            }
         }
 
         public override int isInRange(AreasCollection areas)

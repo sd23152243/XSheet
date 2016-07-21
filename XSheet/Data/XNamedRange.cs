@@ -123,6 +123,10 @@ namespace XSheet.Data
             range.Worksheet.Import(arrtmp, data1stcell.RowIndex, data1stcell.ColumnIndex);
             range.Worksheet.Import(dt, false, data1stcell.RowIndex, data1stcell.ColumnIndex);
             this.dt = dt;
+            for (int i = 0; i < range.RowCount; i++)
+            {
+                setRowBorderNone(i);
+            }
             doResize(dt.Rows.Count, dt.Columns.Count);
             
         }

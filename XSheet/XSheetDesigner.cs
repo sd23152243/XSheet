@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using DevExpress.Skins;
-using DevExpress.LookAndFeel;
-using DevExpress.UserSkins;
 using DevExpress.XtraBars.Helpers;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
@@ -95,7 +92,7 @@ namespace XSheet
             oldSelected = spreadsheetMain.Selection.Areas;
         }
         //
-        private void setSelectedNamed()
+        public void setSelectedNamed()
         {
             AreasCollection areas = spreadsheetMain.Selection.Areas;
             XSheet.Data.XSheet opSheet = app.getSheets()[spreadsheetMain.ActiveWorksheet.Name];
@@ -218,7 +215,8 @@ namespace XSheet
         private void spreadsheetMain_CellValueChanged(object sender, SpreadsheetCellEventArgs e)
         {
             spreadsheetMain.Document.Calculate();
-            if (e.OldValue != e.Value && currentXNamed != null)
+            setSelectedNamed();
+            if (e.OldValue != e.Value)
             {
                 executer.excueteCmd(currentXNamed, "Cell_Change", null);
             }
@@ -300,6 +298,7 @@ namespace XSheet
             {
                 String oldName = spreadsheetMain.ActiveWorksheet.Name;
                 String name = e.TargetRange.Worksheet.Name;
+                
                 app.setSheetVisiable(name);
                 try
                 {
@@ -317,7 +316,7 @@ namespace XSheet
 
         private void spreadsheetMain_KeyPress(object sender, KeyPressEventArgs e)
         {
-            MessageBox.Show(e.ToString());
+            //MessageBox.Show(e.ToString());
         }
 
         private void btn_Config_Click(object sender, EventArgs e)
