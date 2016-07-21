@@ -94,10 +94,27 @@ namespace XSheet.Data
         private void setRoweSelectStyle(int rowNum)
         {
             int realRow = rowNum;
-            if (this.type.ToUpper() =="TABLE")
+            for (int i = 0; i < this.getRange().RowCount; i++)
+            {
+                try
+                {
+                    String tmp = this.getRange()[i, 0].Tag.ToString();
+                    if (tmp != null && tmp == rowNum.ToString())
+                    {
+                        realRow = i;
+                        break;
+                    }
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+                
+            }
+            /*if (this.type.ToUpper() =="TABLE")
             {
                 realRow +=1;
-            }
+            }*/
             if (selectedRows[rowNum] % 2 == 1)
             {
                 if (oldSize <0)
@@ -106,7 +123,7 @@ namespace XSheet.Data
                 }
                 for (int i = 0; i < this.getRange().ColumnCount; i++)
                 {
-                    this.getRange()[realRow, i].Fill.BackgroundColor = Color.Yellow;
+                    this.getRange()[realRow, i].Borders.SetAllBorders (Color.Blue, BorderLineStyle.MediumDashed);
                 }
                 
             }
@@ -114,7 +131,7 @@ namespace XSheet.Data
             {
                 for (int i = 0; i < this.getRange().ColumnCount; i++)
                 {
-                    this.getRange()[realRow, i].Fill.BackgroundColor = Color.Transparent;
+                    this.getRange()[realRow, i].Borders.SetAllBorders(Color.White, BorderLineStyle.None);
                 }
             }
         }
@@ -130,7 +147,6 @@ namespace XSheet.Data
                 {
                     int.TryParse(getRange().Worksheet[r, l].Tag.ToString(), out rowNum);
                 }
-               
             }
             return rowNum;
         }

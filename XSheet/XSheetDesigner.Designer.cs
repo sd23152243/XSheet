@@ -737,6 +737,7 @@ namespace XSheet
             this.spreadsheetFormulaBarControl1 = new DevExpress.XtraSpreadsheet.SpreadsheetFormulaBarControl();
             this.spreadsheetFormulaBarPanel = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btn_Config = new DevExpress.XtraEditors.SimpleButton();
             this.lbl_User = new DevExpress.XtraEditors.LabelControl();
             this.lbl_App = new DevExpress.XtraEditors.LabelControl();
             this.splitterControl = new DevExpress.XtraEditors.SplitterControl();
@@ -761,7 +762,6 @@ namespace XSheet
             this.spreadsheetCommandBarButtonItem170 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.spreadsheetCommandBarButtonItem171 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.iHelp = new DevExpress.XtraBars.BarButtonItem();
-            this.btn_Config = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appMenu)).BeginInit();
@@ -1356,7 +1356,7 @@ namespace XSheet
             this.spreadsheetCommandBarCheckItem47,
             this.spreadsheetCommandBarButtonItem206});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 442;
+            this.ribbonControl.MaxItemId = 444;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -5381,6 +5381,12 @@ namespace XSheet
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
             // 
+            // btn_Config
+            // 
+            resources.ApplyResources(this.btn_Config, "btn_Config");
+            this.btn_Config.Name = "btn_Config";
+            this.btn_Config.Click += new System.EventHandler(this.btn_Config_Click);
+            // 
             // lbl_User
             // 
             resources.ApplyResources(this.lbl_User, "lbl_User");
@@ -5883,12 +5889,6 @@ namespace XSheet
             this.iHelp.LargeImageIndex = 7;
             this.iHelp.Name = "iHelp";
             // 
-            // btn_Config
-            // 
-            resources.ApplyResources(this.btn_Config, "btn_Config");
-            this.btn_Config.Name = "btn_Config";
-            this.btn_Config.Click += new System.EventHandler(this.btn_Config_Click);
-            // 
             // XSheetDesigner
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -5901,6 +5901,7 @@ namespace XSheet
             this.Controls.Add(this.ribbonControl);
             this.Name = "XSheetDesigner";
             this.Ribbon = this.ribbonControl;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.XSheetDesigner_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown21)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appMenu)).EndInit();

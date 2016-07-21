@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using DevExpress.Skins;
 using DevExpress.LookAndFeel;
@@ -62,8 +58,6 @@ namespace XSheet
             SkinHelper.InitSkinGallery(rgbiSkins, true);
         }
 
-        
-
         private void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
             if (appstatu.ToUpper() != "OK")
@@ -74,7 +68,6 @@ namespace XSheet
             ChangeButtonsStatu();
             if (currentXNamed != null)
             {
-                
                 AreasCollection areas = spreadsheetMain.Selection.Areas;
                 Range srange = areas[areas.Count - 1];
                 for (int row=0;row<srange.RowCount;row++)
@@ -120,7 +113,6 @@ namespace XSheet
                     this.currentXNamed.setSelectIndex(spreadsheetMain.Selection.TopRowIndex, spreadsheetMain.Selection.LeftColumnIndex);
                 }
             }
-
         }
 
         private void ChangeButtonsStatu()
@@ -263,7 +255,6 @@ namespace XSheet
             {
                 MessageBox.Show(spreadsheetMain.ActiveWorksheet.Name +" 未配置在Config文件Sheet列表中");
             }
-            
         }
 
         private void setBtnStatuOn(String eventType)
@@ -321,19 +312,22 @@ namespace XSheet
                     spreadsheetMain.Document.Worksheets[oldName].Cells[0, 0].Select();
                     spreadsheetMain.Document.Worksheets.ActiveWorksheet = spreadsheetMain.Document.Worksheets[oldName];
                 }
-
-
             }
         }
 
         private void spreadsheetMain_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //MessageBox.Show(e.KeyChar.ToString());
+            MessageBox.Show(e.ToString());
         }
 
         private void btn_Config_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void XSheetDesigner_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //MessageBox.Show("Close");
         }
     }
 }
