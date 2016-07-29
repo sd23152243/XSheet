@@ -24,7 +24,9 @@ namespace XSheet.Data
             foreach (KeyValuePair<int, XAction> kv in actions)
             {
                 kv.Value.doAction();
+                kv.Value.dRange.getRange().Worksheet.Calculate();
             }
+            
             return "success";
         }
 
