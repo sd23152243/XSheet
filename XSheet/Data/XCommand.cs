@@ -18,12 +18,12 @@ namespace XSheet.Data
             actions = new Dictionary<int, XAction>();
         }
 
-        public String execute(AreasCollection selectRange)
+        public String execute()
         {
             actions = actions.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
             foreach (KeyValuePair<int, XAction> kv in actions)
             {
-                kv.Value.doAction(selectRange);
+                kv.Value.doAction();
             }
             return "success";
         }

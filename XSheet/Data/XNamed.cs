@@ -38,8 +38,20 @@ namespace XSheet.Data
         }
 
         abstract public int isInRange(Range range);
-        abstract public int isInRange(AreasCollection areas);
-        abstract public void doCommand(String eventType,AreasCollection selectedRange);
+        public int isInRange(AreasCollection areas)
+        {
+            int i = 0;
+            foreach (Range range in areas)
+            {
+                i = isInRange(range);
+                if (i < 0)
+                {
+                    break;
+                }
+            }
+            return i;
+        }
+        abstract public void doCommand(String eventType);
         abstract public void doResize(int rowcount, int columncount);
         public XNamed()
         {
@@ -50,8 +62,15 @@ namespace XSheet.Data
 
         public String getSqlStatement()
         {
-            Range range = getRange().Worksheet.Workbook.Worksheets["Config"].Range[cfg.sqlStatement];
-            return range[0, 0].DisplayText;
+            if (this.cfg.sqlStatement.StartsWith("*"))
+            {
+                String r1a1 = cfg.sqlStatement.Remove(0, 1);
+                Console.WriteLine(r1a1);
+                Range range = getRange().Worksheet.Workbook.Range[r1a1];
+                return range[0, 0].DisplayText;
+            }
+            return cfg.sqlStatement;
+            
         }
         public abstract void fill(DataTable dt);
 
@@ -158,8 +177,12 @@ namespace XSheet.Data
         public virtual void setSelectIndex(int rowIndex,int colIndex)
         {
             String r1c1 = cfg.sqlStatement;
-            this.getRange().Worksheet.Workbook.Worksheets["Config"][r1c1].Offset(0, 4).Value = rowIndex+1;
-            this.getRange().Worksheet.Workbook.Worksheets["Config"][r1c1].Offset(0, 5).Value = colIndex+1;
+            if (r1c1 .StartsWith("*"))
+            {
+                r1c1 = r1c1.Remove(0, 1);
+                this.getRange().Worksheet[r1c1].Offset(0, 1).Value = rowIndex + 1;
+                this.getRange().Worksheet[r1c1].Offset(0, 2).Value = colIndex + 1;
+            }
         }
     }
 }

@@ -16,6 +16,7 @@ namespace XSheet.Util
         public static String getConnStr(String DBType)
         {
             String connStr;
+
             switch (DBType.ToUpper())
             {
                 case "AS400":
@@ -32,34 +33,29 @@ namespace XSheet.Util
                     connStr = "UNKNOWN DEVICE";
                     break;
             }
+            if (DBType.Contains(".xlsx"))
+            {
+                connStr = "Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + DBType + ";" + ";Extended Properties=\"Excel 12.0;HDR=YES;IMEX=2\"";
+            }
+            else if (DBType.Contains(".xls"))
+            {
+                connStr = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=" + DBType + ";" + ";Extended Properties=\"Excel 8.0;HDR=YES;IMEX=2\"";
+            }
             return connStr;
         }
         public static DataTable getDataTable(String DBType, String Sql, String sqlType, String param)
         {
-            DataSet ds = new DataSet();
             DataTable table = new DataTable();
             DbDataAdapter da = null;
             switch (DBType.ToUpper())
             {
                 case "AS400":
                     da = DBUtil.getOleDbDataAdapter(DBType, Sql, sqlType);
-                    if (param != null && param.Length > 0)
-                    {
-                        String[] paramList = param.Split(new char[3] { '#', '_', '#' });
-                        foreach (String strparam in paramList)
-                        {
-                            OleDbParameter sqlparam = new OleDbParameter("@p1", OleDbType.Char, 10);
-                            sqlparam.Direction = ParameterDirection.ReturnValue;
-                            sqlparam.Value = strparam;
-                            da.SelectCommand.Parameters.Add(sqlparam);
-                        }
-                    }
-
                     break;
                 case "SRF-SQL":
                 case "ICHART3D":
                     da = DBUtil.getSqlDataAdapter(DBType, Sql, sqlType);
-                    if (param != null && param.Length > 0)
+                    /*if (param != null && param.Length > 0)
                     {
                         String[] paramList = param.Split(new char[3] { '#', '_', '#' });
                         foreach (String strparam in paramList)
@@ -69,25 +65,22 @@ namespace XSheet.Util
                             sqlparam.Value = strparam;
                             da.SelectCommand.Parameters.Add(sqlparam);
                         }
-                    }
+                    }*/
                     break;
                 default:
+                    da = DBUtil.getOleDbDataAdapter(DBType, Sql, sqlType);
                     break;
             }
             if (da != null)
             {
-                da.Fill(ds);
-                table = ds.Tables[0];
+                da.Fill(table);
             }
             else
             {
                 table = null;
             }
-
             return table;
         }
-
-
 
         public static DbDataAdapter getDbDataAdapter(String DBType, String Sql, String sqlType)
         {
@@ -148,9 +141,10 @@ namespace XSheet.Util
             }
             else
             {
-                OleDbCommandBuilder builder = new OleDbCommandBuilder(da);
+                
                 try
                 {
+                    OleDbCommandBuilder builder = new OleDbCommandBuilder(da);
                     da.DeleteCommand = builder.GetDeleteCommand();
                     da.UpdateCommand = builder.GetUpdateCommand();
                     da.InsertCommand = builder.GetInsertCommand();

@@ -737,7 +737,6 @@ namespace XSheet
             this.spreadsheetFormulaBarControl1 = new DevExpress.XtraSpreadsheet.SpreadsheetFormulaBarControl();
             this.spreadsheetFormulaBarPanel = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btn_Config = new DevExpress.XtraEditors.SimpleButton();
             this.lbl_User = new DevExpress.XtraEditors.LabelControl();
             this.lbl_App = new DevExpress.XtraEditors.LabelControl();
             this.splitterControl = new DevExpress.XtraEditors.SplitterControl();
@@ -1356,7 +1355,7 @@ namespace XSheet
             this.spreadsheetCommandBarCheckItem47,
             this.spreadsheetCommandBarButtonItem206});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 443;
+            this.ribbonControl.MaxItemId = 453;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -5375,17 +5374,10 @@ namespace XSheet
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.btn_Config);
             this.panel2.Controls.Add(this.lbl_User);
             this.panel2.Controls.Add(this.lbl_App);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
-            // 
-            // btn_Config
-            // 
-            resources.ApplyResources(this.btn_Config, "btn_Config");
-            this.btn_Config.Name = "btn_Config";
-            this.btn_Config.Click += new System.EventHandler(this.btn_Config_Click);
             // 
             // lbl_User
             // 
@@ -6445,9 +6437,9 @@ namespace XSheet
         private DevExpress.XtraSpreadsheet.UI.MailMergeGroupingRibbonPageGroup mailMergeGroupingRibbonPageGroup1;
         private DevExpress.XtraSpreadsheet.UI.MailMergeFilteringRibbonPageGroup mailMergeFilteringRibbonPageGroup1;
         private DevExpress.XtraSpreadsheet.UI.MailMergeBindingRibbonPageGroup mailMergeBindingRibbonPageGroup1;
-        private System.Windows.Forms.Panel panel2;
+        public System.Windows.Forms.Panel panel2;
         private DevExpress.XtraBars.BarButtonItem iHelp;
-        private DevExpress.XtraEditors.PanelControl panelControl1;
+        public DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.SimpleButton btn_Delete;
         private DevExpress.XtraEditors.SimpleButton btn_Edit;
         private DevExpress.XtraEditors.SimpleButton btn_New;
@@ -6457,6 +6449,5 @@ namespace XSheet
         private DevExpress.XtraEditors.SimpleButton btn_Download;
         private DevExpress.XtraEditors.LabelControl lbl_User;
         private DevExpress.XtraEditors.LabelControl lbl_App;
-        private SimpleButton btn_Config;
     }
 }

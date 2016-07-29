@@ -82,7 +82,7 @@ namespace XSheet
             
             foreach (Worksheet sheet in spreadsheetControl1.Document.Worksheets)
             {
-                if (sheet.Name == sheetName)
+                if (sheet.Name.ToUpper() == sheetName.ToUpper())
                 {
                     if (ndt != null)
                     {
@@ -103,9 +103,9 @@ namespace XSheet
         {
             String actionName = xAction.cfg.actionType;
             //PopUpActionFactory factory = new PopUpActionFactory();
-            InterfacePopUpAction action = PopUpActionFactory.getAction(actionName);
+            AbstractPopUpAction action = PopUpActionFactory.getAction(actionName);
             
-            action.doAction(xAction.dRange.cfg.serverName,xAction.dRange.getSqlStatement(),name,dt, selectedRowsList);
+            action.doAction(xAction, name,dt, selectedRowsList);
             this.Dispose(); 
 
         }

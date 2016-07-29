@@ -10,11 +10,11 @@ namespace XSheet.Data.Action
 {
     class ActionSheetSearch : XAction
     {
-        public override string doAction(AreasCollection selectedNamed)
+        public override string doAction()
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("col0", System.Type.GetType("System.String"));
-            String Statement = getStatement();
+            String Statement = getRealStatement();
             List<String> infomList = this.dRange.sheet.app.getDocumentInfo(Statement);
             if (infomList == null)
             {

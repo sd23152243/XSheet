@@ -17,20 +17,22 @@ using DevExpress.XtraEditors;
 
 namespace XSheet
 {
-    public partial class XSheetDesigner : RibbonForm,Observer
+    public partial class XSheetDesigner : RibbonForm//,Observer
     {
-        public XCfgData cfgData { get; set; }
+        private Dictionary<String, SimpleButton> buttons { get; set; }
+        private XSheetControl control { get; set; }
+        private Dictionary<String, LabelControl> labels { get; set; }
+        /*public XCfgData cfgData { get; set; }
         public XApp app { get; set; }
         public XSheet.Data.XSheet currentSheet{ get; set;}
         public XNamed currentXNamed { get; set; }
-        public Dictionary<String, SimpleButton> buttons { get; set; }
+        
         public string executeState { get; set; }
         public string appstatu { get; set; }
         private CommandExecuter executer;
-        private AreasCollection oldSelected { get; set; }
+        private AreasCollection oldSelected { get; set; }*/
         public XSheetDesigner()
         {
-            this.appstatu = "OK";
             InitializeComponent();
             InitSkinGallery();
             buttons = new Dictionary<string, SimpleButton>();
@@ -42,12 +44,17 @@ namespace XSheet
             buttons.Add("Btn_Delete".ToUpper(), btn_Delete);
             buttons.Add("Btn_Edit".ToUpper(), btn_Edit);
             buttons.Add("Btn_New".ToUpper(), btn_New);
+
+            labels = new Dictionary<String, LabelControl>();
+            labels.Add("lbl_App", this.lbl_App);
+            labels.Add("lbl_User", this.lbl_User);
             //CELLCHANGE
-            executer = new CommandExecuter();
+            /*executer = new CommandExecuter();
             executer.Attach(this);
             executeState = "OK";
-            /*加载文档，后续根据不同设置配置，待修改TODO*/
-            spreadsheetMain.Document.LoadDocument("\\\\ichart3d\\XSheetModel\\XSheet模板设计.xlsx");
+            //加载文档，后续根据不同设置配置，待修改TODO
+            spreadsheetMain.Document.LoadDocument("\\\\ichart3d\\XSheetModel\\XSheet模板设计.xlsx");*/
+            this.control = new XSheetControl(spreadsheetMain, buttons,labels);
 
         }
         void InitSkinGallery()
@@ -57,7 +64,8 @@ namespace XSheet
 
         private void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
-            if (appstatu.ToUpper() != "OK")
+            control.spreadsheetMain_SelectionChanged(sender, e);
+            /*if (appstatu.ToUpper() != "OK")
             {
                 return;
             }
@@ -87,12 +95,13 @@ namespace XSheet
                         }
                     }
                 }
-                executer.excueteCmd(currentXNamed, "Select_Change", null);
+                executer.excueteCmd(currentXNamed, "Select_Change");
             }
-            oldSelected = spreadsheetMain.Selection.Areas;
+            oldSelected = spreadsheetMain.Selection.Areas;*/
+
         }
         //
-        public void setSelectedNamed()
+        /*public void setSelectedNamed()
         {
             AreasCollection areas = spreadsheetMain.Selection.Areas;
             XSheet.Data.XSheet opSheet = app.getSheets()[spreadsheetMain.ActiveWorksheet.Name];
@@ -132,102 +141,65 @@ namespace XSheet
                     }
                 }
             }
-        }
+        }*/
         private void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
-            init();
-            if (appstatu.ToUpper() == "OK")
-            {
-                if (spreadsheetMain.Document.Worksheets.ActiveWorksheet.Name != cfgData.app.defaultSheetName && cfgData.app.defaultSheetName != null)
-                {
-                    spreadsheetMain.Document.Worksheets.ActiveWorksheet = spreadsheetMain.Document.Worksheets[cfgData.app.defaultSheetName];
-                }
-                else
-                {
-                    currentSheet.doLoadCommand(executer);
-                }
-            }
+            control.spreadsheetMain_DocumentLoaded(sender, e);
         }
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
-            if (appstatu.ToUpper() != "OK")
-            {
-                return;
-            }
-            executer.excueteCmd(currentXNamed, "Btn_Search", null);
+            control.EventCall("Btn_Search");
         }
 
         private void btn_Download_Click(object sender, EventArgs e)
         {
-            if (appstatu.ToUpper() != "OK")
-            {
-                return;
-            }
-            executer.excueteCmd(currentXNamed, "Btn_Download", null);
+            control.EventCall("Btn_Download");
         }
         
         private void btn_New_Click(object sender, EventArgs e)
         {
-            if (appstatu.ToUpper() != "OK")
-            {
-                return;
-            }
-            executer.excueteCmd(currentXNamed, "Btn_New", null);
+            control.EventCall("Btn_New");
         }
 
         private void btn_Edit_Click(object sender, EventArgs e)
         {
-            if (appstatu.ToUpper() != "OK")
-            {
-                return;
-            }
-            executer.excueteCmd(currentXNamed, "Btn_Edit", null);
+            control.EventCall("Btn_Edit");
         }
 
         private void btn_Delete_Click(object sender, EventArgs e)
         {
-            if (appstatu.ToUpper() != "OK")
-            {
-                return;
-            }
-            executer.excueteCmd(currentXNamed, "Btn_Delete", null);
+            control.EventCall("Btn_Delete");
         }
 
         private void btn_Exe_Click(object sender, EventArgs e)
         {
-            if (appstatu.ToUpper() != "OK")
-            {
-                return;
-            }
-            executer.excueteCmd(currentXNamed, "Btn_Execute", null);
+            control.EventCall("Btn_Execute");
         }
 
         private void btn_Submit_Click(object sender, EventArgs e)
         {
-            if (appstatu.ToUpper() != "OK")
-            {
-                return;
-            }
-            executer.excueteCmd(currentXNamed, "Btn_Submit", null);
+            control.EventCall("Btn_Submit");
         }
 
         private void spreadsheetMain_CellValueChanged(object sender, SpreadsheetCellEventArgs e)
         {
-            spreadsheetMain.Document.Calculate();
+            control.spreadsheetMain_CellValueChanged(sender, e);
+            /*spreadsheetMain.Document.Calculate();
             setSelectedNamed();
             if (e.OldValue != e.Value)
             {
-                executer.excueteCmd(currentXNamed, "Cell_Change", null);
-            }
+                executer.excueteCmd(currentXNamed, "Cell_Change");
+            }*/
         }
 
         private void spreadsheetMain_MouseUp(object sender, MouseEventArgs e)
         {
-            oldSelected = null;
+            control.spreadsheetMain_MouseUp(sender, e);
+            //oldSelected = null;
         }
 
-        public void init()
+        /*public void init()
         {
             cfgData = new XCfgData(spreadsheetMain.Document.Worksheets["Config"]);
             this.appstatu = cfgData.flag;
@@ -264,7 +236,7 @@ namespace XSheet
             this.btn_Exe = new DevExpress.XtraEditors.SimpleButton();
             this.btn_Delete = new DevExpress.XtraEditors.SimpleButton();
             this.btn_Edit = new DevExpress.XtraEditors.SimpleButton();
-            this.btn_New = new DevExpress.XtraEditors.SimpleButton();*/
+            this.btn_New = new DevExpress.XtraEditors.SimpleButton();
         }
 
         public void UpdateCmdStatu(String statu)
@@ -272,29 +244,16 @@ namespace XSheet
             this.executeState = statu;
             ChangeButtonsStatu();
         }
-
+        */
         private void spreadsheetMain_ActiveSheetChanged(object sender, ActiveSheetChangedEventArgs e)
         {
-            if (appstatu.ToUpper() != "OK")
-            {
-                return;
-            }
-            try
-            {
-                currentSheet = app.getSheets()[e.NewActiveSheetName];
-                currentSheet.doLoadCommand(executer);
-                app.setSheetVisiable(e.NewActiveSheetName);
-            }
-            catch (Exception)
-            {
-                spreadsheetMain.Document.Worksheets[e.OldActiveSheetName].Cells[0, 0].Select();
-                spreadsheetMain.Document.Worksheets.ActiveWorksheet = spreadsheetMain.Document.Worksheets[e.OldActiveSheetName];
-            }
+            control.spreadsheetMain_ActiveSheetChanged(sender, e);
         }
 
         private void spreadsheetMain_HyperlinkClick(object sender, HyperlinkClickEventArgs e)
         {
-            if(e.IsExternal== false)
+            control.spreadsheetMain_HyperlinkClick(sender, e);
+            /*if(e.IsExternal== false)
             {
                 String oldName = spreadsheetMain.ActiveWorksheet.Name;
                 String name = e.TargetRange.Worksheet.Name;
@@ -311,21 +270,23 @@ namespace XSheet
                     spreadsheetMain.Document.Worksheets[oldName].Cells[0, 0].Select();
                     spreadsheetMain.Document.Worksheets.ActiveWorksheet = spreadsheetMain.Document.Worksheets[oldName];
                 }
-            }
+            }*/
         }
 
         private void spreadsheetMain_KeyPress(object sender, KeyPressEventArgs e)
         {
+            control.spreadsheetMain_KeyPress(sender, e);
             //MessageBox.Show(e.ToString());
         }
 
         private void btn_Config_Click(object sender, EventArgs e)
         {
-
+            control.btn_Config_Click(sender, e);
         }
 
         private void XSheetDesigner_FormClosed(object sender, FormClosedEventArgs e)
         {
+            control.XSheetDesigner_FormClosed(sender, e);
             //MessageBox.Show("Close");
         }
     }

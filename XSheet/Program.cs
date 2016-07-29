@@ -11,15 +11,23 @@ namespace XSheet
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             DevExpress.Skins.SkinManager.EnableFormSkins();
             DevExpress.UserSkins.BonusSkins.Register();
-
-            Application.Run(new XSheetDesigner());
+            if (args.Length == 0)
+            {
+                //Application.Run(new XSheetDesigner());
+                Application.Run(new XSheetMain());
+            }
+            else
+            {
+                Application.Run(new XSheetMain(args[0]));
+            }
+            
         }
     }
 }

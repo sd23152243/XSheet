@@ -17,6 +17,5 @@ namespace XSheet.CfgData
         public String actionDRange { get; set; }
         public String actionStatement { get; set; }
         public String actionParam { get; set; }
-
     }
 }

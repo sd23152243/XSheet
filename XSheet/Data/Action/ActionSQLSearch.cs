@@ -9,7 +9,7 @@ namespace XSheet.Data.Action
 {
     class ActionSQLSearch : XAction
     {
-        public override string doAction(AreasCollection selectedNamed)
+        public override string doAction()
         {
             Range range = dRange.getRange();
             String rangeName = dRange.Name;

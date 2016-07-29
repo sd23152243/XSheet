@@ -8,15 +8,15 @@ namespace XSheet.Data.PopUpAction
 {
     public class PopUpActionFactory
     {
-        public static InterfacePopUpAction getAction(String actionName)
+        public static AbstractPopUpAction getAction(String actionName)
         {
-            InterfacePopUpAction action = null;
+            AbstractPopUpAction action = null;
             actionName = "XSheet.Data.PopUpAction.PopUpAction" + actionName;
             //XNamedTable
             try
             {
                 Type type = Type.GetType(actionName, true);
-                action = (InterfacePopUpAction)Activator.CreateInstance(type);
+                action = (AbstractPopUpAction)Activator.CreateInstance(type);
             }
             catch (Exception e)
             {

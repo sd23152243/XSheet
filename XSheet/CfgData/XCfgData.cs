@@ -95,7 +95,8 @@ namespace XSheet.CfgData
                 range.rangeId = name.Range[i, 0].DisplayText;
                 range.sheetName = name.Range[i, 1].DisplayText;
                 range.crudpFlag = name.Range[i, 2].DisplayText;
-                range.sqlStatement = name.Range[i, 3].GetReferenceA1();
+                //range.sqlStatement = name.Range[i, 3].GetReferenceA1(); //更新，如果动态则直接维护地址，因此直接取值
+                range.sqlStatement = name.Range[i, 3].DisplayText;
                 range.sqlPopUp = name.Range[i, 4].DisplayText;
                 range.serverName = name.Range[i, 5].DisplayText;
                 if (range.serverName == null || range.serverName.Length <2)
@@ -182,7 +183,8 @@ namespace XSheet.CfgData
                 action.actionSRange= name.Range[i, 4].DisplayText;
                 action.actionDRange= name.Range[i, 5].DisplayText;
                 action.actionStatement= name.Range[i, 6].DisplayText;
-                action.actionParam= name.Range[i, 7].GetReferenceA1();//Param为动态
+                //action.actionParam= name.Range[i, 7].GetReferenceA1();// 更新，如果动态则直接维护地址，因此直接取值
+                action.actionParam = name.Range[i, 7].DisplayText;
                 actions.Add(action);
              }
 

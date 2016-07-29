@@ -85,6 +85,7 @@
     <Reference Include="DevExpress.XtraCharts.v16.1.Wizard, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraCharts.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraNavBar.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraRichEdit.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -114,6 +115,8 @@
     <Compile Include="ConfigBuilder.Designer.cs">
       <DependentUpon>ConfigBuilder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\Action\ActionCallEXE.cs" />
+    <Compile Include="Data\Action\ActionCallURL.cs" />
     <Compile Include="Data\Action\ActionFactory.cs" />
     <Compile Include="CfgData\ActionCfgData.cs" />
     <Compile Include="CfgData\AppCfgData.cs" />
@@ -123,12 +126,14 @@
     <Compile Include="CfgData\SheetCfgData.cs" />
     <Compile Include="CfgData\XCfgData.cs" />
     <Compile Include="Data\Action\ActionSheetSearch.cs" />
+    <Compile Include="Data\Action\ActionSQL.cs" />
     <Compile Include="Data\Action\ActionSQLDelete.cs" />
     <Compile Include="Data\Action\ActionSQLExecute.cs" />
     <Compile Include="Data\Action\ActionSQLSearch.cs" />
     <Compile Include="Data\Action\ActionSQLInsert.cs" />
     <Compile Include="Data\Action\ActionSQLUpdate.cs" />
-    <Compile Include="Data\InterfacePopUpAction.cs" />
+    <Compile Include="Data\AbstractPopUpAction.cs" />
+    <Compile Include="Data\Action\ActionMoveTo.cs" />
     <Compile Include="Data\PopUpAction\PopUpActionSQLDelete.cs" />
     <Compile Include="Data\PopUpAction\PopUpActionSQLInsert.cs" />
     <Compile Include="Data\PopUpAction\PopUpActionSQLUpdate.cs" />
@@ -147,8 +152,10 @@
     <Compile Include="test\WMTest.cs" />
     <Compile Include="test\XMLTest.cs" />
     <Compile Include="Util\DBUtil.cs" />
+    <Compile Include="Util\ExcelHelper.cs" />
     <Compile Include="Util\RangeUtil.cs" />
     <Compile Include="Util\SheetUtil.cs" />
+    <Compile Include="XSheetControl.cs" />
     <Compile Include="XSheetDesigner.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +164,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XSheetMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="XSheetMain.Designer.cs">
+      <DependentUpon>XSheetMain.cs</DependentUpon>
+    </Compile>
     <Compile Include="XSheetPopUp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +193,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="XSheetMain.resx">
+      <DependentUpon>XSheetMain.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="XSheetPopUp.resx">
       <DependentUpon>XSheetPopUp.cs</DependentUpon>
     </EmbeddedResource>

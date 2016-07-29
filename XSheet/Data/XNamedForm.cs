@@ -12,9 +12,20 @@ namespace XSheet.Data
 {
     public class XNamedForm:XNamed
     {
-        public override void doCommand(String eventType,AreasCollection selectedRange)
+        public override void doCommand(String eventType)
         {
-            throw new NotImplementedException();
+            XCommand command = null;
+            try
+            {
+                command = commands[eventType.ToUpper()];
+                command.execute();
+            }
+            catch (Exception e)
+            {
+                //System.Windows.Forms.MessageBox.Show("事件"+eventType+"未绑定命令");
+                Console.WriteLine(e.ToString());
+                return;
+            }
         }
 
         public override void doResize(int rowcount, int columncount)
@@ -42,13 +53,13 @@ namespace XSheet.Data
             for (int i = 0; i < ranges.Areas.Count; i++)
             {
                 Range range = ranges.Areas[i];
-                range.Value = (CellValue)dt.Rows[0][i];
+                range.Value = dt.Rows[0][i].ToString();
             }
         }
 
-        public override int isInRange(AreasCollection areas)
+        /*public override int isInRange(AreasCollection areas)
         {
             throw new NotImplementedException();
-        }
+        }*/
     }
 }

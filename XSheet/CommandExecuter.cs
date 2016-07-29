@@ -12,13 +12,13 @@ namespace XSheet
     {
         public string executeState { get; set; }
 
-        public void excueteCmd(XNamed name,String strevent,AreasCollection areas){
+        public void excueteCmd(XNamed name,String strevent){
             this.executeState = "Executing...";
             
             Notify();
             if (name != null)
             {
-                name.doCommand(strevent, areas);
+                name.doCommand(strevent);
             }
             
             this.executeState = "OK";

@@ -12,58 +12,73 @@ using XSheet.Util;
 
 namespace XSheet.Data.PopUpAction
 {
-    public class PopUpActionSQLInsert:InterfacePopUpAction
+    public class PopUpActionSQLInsert:AbstractPopUpAction
     {
         public XNamed dRange { get; set; }
 
-        public string doAction(String type, String Sql, XNamed dRange, DataTable dt,List<int> selectedRowsList)
+        public override string doAction(XAction action, XNamed dRange, DataTable dt,List<int> selectedRowsList)
         {
-            DataTable ndt = dt.Clone();
-            this.dRange = dRange;
-            DbDataAdapter da = DBUtil.getDbDataAdapter(type, Sql,"");
-            //da.MissingMappingAction = MissingMappingAction.Passthrough;
-            //da.MissingSchemaAction = MissingSchemaAction.
-            //DataTable ndt = SheetUtil.ExportRangeStopOnEmptyRow(this.name.getRange(), true, true);
+            String type = action.dRange.cfg.serverName;
+            String Sql = action.getRealStatement();
             Range range = dRange.getRange();
-            int i = 0;
-            int topRowIndex = range.TopRowIndex;
             int leftColumnIndex = range.LeftColumnIndex;
-            Worksheet sheet = range.Worksheet;
-            while (sheet[i + topRowIndex + 1, leftColumnIndex].Value.ToString().Length > 0)
+            int topRowIndex = range.TopRowIndex;
+            if (action.cfg.actionStatement == null || action.cfg.actionStatement.Length <2)//第一种情况， 当ActionStatement为空时，依据dRange中Select语句执行
             {
-                int rowindex = i + topRowIndex + 1;
-                DataRow row = null;
-                row = ndt.NewRow();
-                ndt.Rows.Add(row);
-                for (int j = 0; j < ndt.Columns.Count; j++)
+                DataTable ndt = dt.Clone();
+                this.dRange = dRange;
+                DbDataAdapter da = DBUtil.getDbDataAdapter(type, Sql, "");
+                //da.MissingMappingAction = MissingMappingAction.Passthrough;
+                //da.MissingSchemaAction = MissingSchemaAction.
+                //DataTable ndt = SheetUtil.ExportRangeStopOnEmptyRow(this.name.getRange(), true, true);
+                int i = 0;
+                
+                Worksheet sheet = range.Worksheet;
+                while (sheet[i + topRowIndex + 1, leftColumnIndex].Value.ToString().Length > 0)
                 {
-                    int colindex = j + leftColumnIndex;
-                    if (row[j].ToString() != sheet[rowindex, colindex].Value.ToString())
+                    int rowindex = i + topRowIndex + 1;
+                    DataRow row = null;
+                    row = ndt.NewRow();
+                    ndt.Rows.Add(row);
+                    for (int j = 0; j < ndt.Columns.Count; j++)
                     {
-
-                        Type t = row[j].GetType();
-
-                        if (t.Name == "Decimal")
+                        int colindex = j + leftColumnIndex;
+                        if (row[j].ToString() != sheet[rowindex, colindex].Value.ToString())
                         {
-                            Decimal num = Convert.ToDecimal(sheet[rowindex, colindex].Value.ToString());
-                            row[j] = (object)num;
-                        }
-                        else
-                        {
-                            row[j] = sheet[rowindex, colindex].Value.ToString();
+                            Type t = row[j].GetType();
+                            if (t.Name == "Decimal")
+                            {
+                                Decimal num = Convert.ToDecimal(sheet[rowindex, colindex].Value.ToString());
+                                row[j] = (object)num;
+                            }
+                            else
+                            {
+                                row[j] = sheet[rowindex, colindex].Value.ToString();
+                            }
                         }
                     }
+                    i++;
                 }
-                i++;
+                try
+                {
+                    da.Update(ndt);
+                }
+                catch (SqlException ee)
+                {
+                    MessageBox.Show(ee.Message);
+                }
             }
+            else//当ActionStatement不为空时，变更执行模式，根据实际数据，每行依次向配置文件末端插入行号，依次执行ActionStateMent
+            {
 
-            try
-            {
-                da.Update(ndt);
-            }
-            catch (SqlException ee)
-            {
-                MessageBox.Show(ee.Message);
+                int i = 1;
+                while (range.Offset(i,0)[0].DisplayText.Length>0)
+                {
+                    i++;
+                }
+                dRange.doResize(i-1, range.ColumnCount);
+                range = dRange.getRange();
+                doSqlOnly(action, range);
             }
             return "OK";
         }

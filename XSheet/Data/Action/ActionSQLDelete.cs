@@ -10,7 +10,7 @@ namespace XSheet.Data.Action
 {
     public class ActionSQLDelete : XAction
     {
-        public override string doAction(AreasCollection selectedNamed)
+        public override string doAction()
         {
             String popup = dRange.Name + "_PopUp";
             XSheet xsheet = dRange.sheet.app.getSheets()[popup];

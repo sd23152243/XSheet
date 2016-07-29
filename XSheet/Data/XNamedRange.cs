@@ -47,13 +47,13 @@ namespace XSheet.Data
             return RangeUtil.isInRange(x,this.getRange());
         }
 
-        public override void doCommand(string eventType,AreasCollection selectedRange)
+        public override void doCommand(string eventType)
         {
             XCommand command = null;
             try
             {
                 command = commands[eventType.ToUpper()];
-                command.execute(selectedRange);
+                command.execute();
             }
             catch (Exception)
             {
@@ -135,7 +135,7 @@ namespace XSheet.Data
             return range[0, 0];
         }
 
-        public override int isInRange(AreasCollection areas)
+        /*public override int isInRange(AreasCollection areas)
         {
             int i = 0;
             foreach (Range range in areas)
@@ -147,6 +147,6 @@ namespace XSheet.Data
                 }
             }
             return i;
-        }
+        }*/
     }
 }
