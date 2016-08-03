@@ -26,11 +26,12 @@ namespace XSheet
         private AreasCollection oldSelected { get; set; }
         private SpreadsheetControl spreadsheetMain { get; set; }
         private Dictionary<String, LabelControl> labels { get; set; }
+        //构造函数
         public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels)
         {
             controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\在库管理系统.xlsx");
         }
-
+        //带参数的初始化
         public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels, String path)
         {
             this.buttons = buttons;
@@ -47,15 +48,18 @@ namespace XSheet
             }
             catch (Exception e)
             {
+                
                 MessageBox.Show(e.ToString());
+                spreadsheetMain.Dispose();
             }
             
         }
-
+        //带参数的构造函数
         public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels,String path)
         {
             controlInit(spreadsheetMain, buttons, labels, path);
         }
+        //响应界面选择点变化事件
         public void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
             if (appstatu.ToUpper() != "OK")
@@ -92,7 +96,7 @@ namespace XSheet
             }
             oldSelected = spreadsheetMain.Selection.Areas;
         }
-        //
+        //根据当前选择点，判断选择区域
         public void setSelectedNamed()
         {
             AreasCollection areas = spreadsheetMain.Selection.Areas;
@@ -101,6 +105,7 @@ namespace XSheet
             {
                 this.currentXNamed = null;
             }
+            //遍历当前Sheet全部命名区域，依次判断是否在区域范围内
             foreach (var dicname in opSheet.names)
             {
                 XNamed xname = dicname.Value;
@@ -108,11 +113,13 @@ namespace XSheet
                 if (i >= 0)
                 {
                     this.currentXNamed = xname;
+                    //当选择点为命名区域时，将当前坐标写入单元格
                     this.currentXNamed.setSelectIndex(spreadsheetMain.Selection.TopRowIndex, spreadsheetMain.Selection.LeftColumnIndex);
+                    break;//如果判断到第一个区域，将该区域存储为currentXNamed，退出循环判断
                 }
             }
         }
-
+        //函数，根据当前各类情况，改变各个按钮的状态
         private void ChangeButtonsStatu()
         {
             foreach (var btndic in buttons)
@@ -134,6 +141,7 @@ namespace XSheet
                 }
             }
         }
+        //文档加载事件，用于初始化
         public void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
             init();
@@ -150,7 +158,7 @@ namespace XSheet
             }
             spreadsheetMain.Document.Calculate();
         }
-
+        //通用事件响应，用于调用各类事件
         public void EventCall(String Event)
         {
             if (appstatu.ToUpper() != "OK")
@@ -159,7 +167,7 @@ namespace XSheet
             }
             executer.excueteCmd(currentXNamed, Event);
         }
-
+        //单元格内容变更事件响应
         public void spreadsheetMain_CellValueChanged(object sender, SpreadsheetCellEventArgs e)
         {
             spreadsheetMain.Document.Calculate();
@@ -169,12 +177,16 @@ namespace XSheet
                 executer.excueteCmd(currentXNamed, "Cell_Change");
             }
         }
-
+        //鼠标按键抬起事件响应，用于释放简单资源
         public void spreadsheetMain_MouseUp(object sender, MouseEventArgs e)
         {
             oldSelected = null;
+            if (currentXNamed != null)
+            {
+                this.currentXNamed.drawSelectedRows();//在鼠标松开后，同一绘制选择
+            }
         }
-
+        //控制器初始化，读取Config，初始化整个APP
         public void init()
         {
             cfgData = new XCfgData(spreadsheetMain.Document.Worksheets["Config"]);
@@ -202,7 +214,7 @@ namespace XSheet
                 MessageBox.Show(spreadsheetMain.ActiveWorksheet.Name + " 未配置在Config文件Sheet列表中");
             }
         }
-
+        //私有方法，将传入按钮设为可用
         private void setBtnStatuOn(String eventType)
         {
             buttons[eventType.ToUpper()].Enabled = true;
@@ -214,13 +226,13 @@ namespace XSheet
             this.btn_Edit = new DevExpress.XtraEditors.SimpleButton();
             this.btn_New = new DevExpress.XtraEditors.SimpleButton();*/
         }
-
+        //封装方法，当状态变化时，调用按钮状态改变
         public void UpdateCmdStatu(String statu)
         {
             this.executeState = statu;
             ChangeButtonsStatu();
         }
-
+        //Sheet激活时触发，用于响应Sheet切换事件
         public void spreadsheetMain_ActiveSheetChanged(object sender, ActiveSheetChangedEventArgs e)
         {
             if (appstatu.ToUpper() != "OK")
@@ -239,7 +251,7 @@ namespace XSheet
                 spreadsheetMain.Document.Worksheets.ActiveWorksheet = spreadsheetMain.Document.Worksheets[e.OldActiveSheetName];
             }
         }
-
+        //超链接事件响应
         public void spreadsheetMain_HyperlinkClick(object sender, HyperlinkClickEventArgs e)
         {
             if (e.IsExternal == false)
@@ -261,17 +273,17 @@ namespace XSheet
                 }
             }
         }
-
+        //键盘事件响应，未完成
         public void spreadsheetMain_KeyPress(object sender, KeyPressEventArgs e)
         {
             //MessageBox.Show(e.ToString());
         }
-
+        //测试按钮响应，正式环境隐藏
         public void btn_Config_Click(object sender, EventArgs e)
         {
 
         }
-
+        //关闭事件响应
         public void XSheetDesigner_FormClosed(object sender, FormClosedEventArgs e)
         {
             //MessageBox.Show("Close");

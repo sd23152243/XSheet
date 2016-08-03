@@ -18,7 +18,8 @@ namespace XSheet.Data
         public String Name { get; set; }
         private double oldSize { get; set; }
         public XSheet sheet { get; set; }
-        public Dictionary<int,int> selectedRows{ get; set;}
+        public Dictionary<int,int> selectedRows{ get; set;}//KEY存放行号，value存放选中次数
+        public Dictionary<int, int> drawRows { get; set; }//KEY存放行号，value存放选中次数
         public Dictionary<String, XCommand> commands { get; set; }
         public String type { get; set; }
         public RangeCfgData cfg { get; set; }
@@ -34,7 +35,16 @@ namespace XSheet.Data
         }
         public virtual Range getRange()
         {
-            return dname.Range;
+            try
+            {
+                return dname.Range;
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.ToString());
+                return null;
+            }
+            
         }
 
         abstract public int isInRange(Range range);
@@ -60,7 +70,7 @@ namespace XSheet.Data
             oldSize = -1.0;
         }
 
-        public String getSqlStatement()
+        public virtual String getSqlStatement()
         {
             if (this.cfg.sqlStatement.StartsWith("*"))
             {
@@ -84,7 +94,7 @@ namespace XSheet.Data
                 selectedRows.Add(rowNum, 1);
             }
             //this.getRange()[rowNum, 0].Value += ".";
-            setRoweSelectStyle(rowNum);
+            // 优化流程，不再于选择是设置勾选，改为松开鼠标后统一绘图 setRoweSelectStyle(rowNum);
         }
 
         public virtual void UnselectRow(int rowNum)
@@ -105,57 +115,24 @@ namespace XSheet.Data
             {
                 selectedRows.Add(rowNum, 0);
             }
-            setRoweSelectStyle(rowNum);
-            //string value = this.getRange()[rowNum, 0].Value.ToString();
-            //this.getRange()[rowNum, 0].Value = value.Substring(0,value.Length-1);
-        }
-        //待完善
-        protected void setRoweSelectStyle(int rowNum)
-        {
-            int realRow = rowNum;
-            for (int i = 0; i < this.getRange().RowCount; i++)
-            {
-                try
-                {
-                    String tmp = this.getRange()[i, 0].Tag.ToString();
-                    if (tmp != null && tmp == rowNum.ToString())
-                    {
-                        realRow = i;
-                        break;
-                    }
-                }
-                catch (Exception)
-                {
-                    continue;
-                }
-                
-            }
-            /*if (this.type.ToUpper() =="TABLE")
-            {
-                realRow +=1;
-            }*/
-            if (selectedRows[rowNum] % 2 == 1)
-            {
-                setRowBorderMashDash(realRow);
-            }
-            else
-            {
-                setRowBorderNone(realRow);
-            }
-        }
-        protected void setRowBorderMashDash(int realRow)
-        {
-            for (int i = 0; i < this.getRange().ColumnCount; i++)
-            {
-                this.getRange()[realRow, i].Borders.SetAllBorders(Color.Blue, BorderLineStyle.MediumDashed);
-            }
-        }
 
-        protected void setRowBorderNone(int realRow)
+            // setRoweSelectStyle(rowNum); 优化流程，不再于选择是设置勾选，改为松开鼠标后统一绘图
+        }
+        //功能，将某行设置为被选边框
+        protected void setRowBorderSelect(Range range)
         {
-            for (int i = 0; i < this.getRange().ColumnCount; i++)
+            if (range != null)
             {
-                this.getRange()[realRow, i].Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
+                range.Borders.SetAllBorders(Color.DarkBlue, BorderLineStyle.Double);
+            }
+            
+        }
+        //功能，将某行设置以为无边框
+        protected void setRowBorderNone(Range range)
+        {
+            if (range != null)
+            {
+                range.Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
             }
         }
 
@@ -173,16 +150,85 @@ namespace XSheet.Data
             }
             return rowNum;
         }
-
+        //将当前坐标写入前台单元格
         public virtual void setSelectIndex(int rowIndex,int colIndex)
         {
             String r1c1 = cfg.sqlStatement;
             if (r1c1 .StartsWith("*"))
             {
                 r1c1 = r1c1.Remove(0, 1);
-                this.getRange().Worksheet[r1c1].Offset(0, 1).Value = rowIndex + 1;
-                this.getRange().Worksheet[r1c1].Offset(0, 2).Value = colIndex + 1;
+                this.getRange().Worksheet[r1c1].Offset(0, 1).Value = rowIndex ;
+                this.getRange().Worksheet[r1c1].Offset(0, 2).Value = colIndex ;
             }
+        }
+        //绘图接口，根据当前状况绘图,存在 RANGE 和 TABLE 冲突，后续调整架构
+        public virtual void drawSelectedRows()
+        {
+            Dictionary<int, int> tmp = new Dictionary<int, int>();
+            if (selectedRows == null)
+            {
+                selectedRows = new Dictionary<int, int>();
+            }
+            foreach (var rowId in selectedRows)
+            {
+                if (!drawRows.ContainsKey(rowId.Key))
+                {
+                    tmp.Add(rowId.Key, rowId.Value);
+                    drawRows.Add(rowId.Key, rowId.Value);
+                }
+                else if (drawRows[rowId.Key] % 2 != rowId.Value)
+                {
+                    tmp.Add(rowId.Key, rowId.Value);
+                }
+                drawRows[rowId.Key] = rowId.Value;
+            }
+            drawByRowList(tmp);
+        }
+        //实际绘图功能，根据定义列表绘制选择标记
+        protected  void drawByRowList(Dictionary<int, int> tmp)
+        {
+            Range rangeD = null ;
+            Range rangeN = null ;
+            //rangetest.Borders.SetAllBorders(Color.Beige, BorderLineStyle.Double);*/
+            foreach (var item in tmp)
+            {
+                int row = item.Key + 1;
+                if (item.Value%2 == 1)
+                {
+                    if (rangeD == null)
+                    {
+                        rangeD = getRowRange(row);
+                    }
+                    else
+                    {
+                        rangeD = rangeD.Union(getRowRange(row));
+                    }
+                }
+                else
+                {
+                    if (rangeN == null)
+                    {
+                        rangeN = getRowRange(row);
+                    }
+                    else
+                    {
+                        rangeN = rangeN.Union(getRowRange(row));
+                    }
+                }
+            }
+            setRowBorderSelect(rangeD);
+            setRowBorderNone(rangeN);
+            Table table = getRange().Worksheet.Tables[0];
+            
+        }
+
+        private Range getRowRange(int rowNum)
+        {
+            int rowindex = rowNum + getRange().TopRowIndex;
+            int lcolindex = getRange().LeftColumnIndex;
+            int rcolindex = getRange().RightColumnIndex;
+            Range range = getRange().Worksheet.Range.FromLTRB(lcolindex, rowindex, rcolindex, rowindex);
+            return range;
         }
     }
 }

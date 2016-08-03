@@ -23,10 +23,18 @@ namespace XSheet.Data
             actions = actions.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
             foreach (KeyValuePair<int, XAction> kv in actions)
             {
-                kv.Value.doAction();
+                try
+                {
+                    kv.Value.doAction();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    return "false";
+                }
+                
                 kv.Value.dRange.getRange().Worksheet.Calculate();
             }
-            
             return "success";
         }
 

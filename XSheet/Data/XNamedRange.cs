@@ -117,36 +117,26 @@ namespace XSheet.Data
         public override void fill(DataTable dt)
         {
             selectedRows = new Dictionary<int, int>();
+            drawRows = new Dictionary<int, int>();
             Range range = getRange();
             Cell data1stcell = get1stDataCell(range);
             string[,] arrtmp = new string[range.RowCount, range.ColumnCount];
             range.Worksheet.Import(arrtmp, data1stcell.RowIndex, data1stcell.ColumnIndex);
             range.Worksheet.Import(dt, false, data1stcell.RowIndex, data1stcell.ColumnIndex);
             this.dt = dt;
-            for (int i = 0; i < range.RowCount; i++)
+            range.Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
+            
+            /*for (int i = 0; i < range.RowCount; i++)
             {
                 setRowBorderNone(i);
-            }
+            }*/
             doResize(dt.Rows.Count, dt.Columns.Count);
-            
         }
         public virtual Cell get1stDataCell(Range range)
         {
             return range[0, 0];
         }
 
-        /*public override int isInRange(AreasCollection areas)
-        {
-            int i = 0;
-            foreach (Range range in areas)
-            {
-                i = isInRange(range);
-                if (i<0)
-                {
-                    break;
-                }
-            }
-            return i;
-        }*/
+        
     }
 }
