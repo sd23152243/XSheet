@@ -70,31 +70,9 @@ namespace XSheet
             ChangeButtonsStatu();
             if (currentXNamed != null)
             {
-                AreasCollection areas = spreadsheetMain.Selection.Areas;
-                Range srange = areas[areas.Count - 1];
-                for (int row = 0; row < srange.RowCount; row++)
-                {
-                    int rn = currentXNamed.getRowIndexByRange(srange[row, 0]);
-                    if (rn >= 0)
-                    {
-                        currentXNamed.selectRow(rn);
-                    }
-                }
-                if (oldSelected != null)
-                {
-                    Range orange = oldSelected[oldSelected.Count - 1];
-                    for (int row = 0; row < orange.RowCount; row++)
-                    {
-                        int rn = currentXNamed.getRowIndexByRange(orange[row, 0]);
-                        if (rn >= 0)
-                        {
-                            currentXNamed.UnselectRow(rn);
-                        }
-                    }
-                }
                 executer.excueteCmd(currentXNamed, "Select_Change");
             }
-            oldSelected = spreadsheetMain.Selection.Areas;
+            //oldSelected = spreadsheetMain.Selection.Areas;
         }
         //根据当前选择点，判断选择区域
         public void setSelectedNamed()
@@ -179,10 +157,31 @@ namespace XSheet
         }
         //鼠标按键抬起事件响应，用于释放简单资源
         public void spreadsheetMain_MouseUp(object sender, MouseEventArgs e)
-        {
-            oldSelected = null;
+        {            
             if (currentXNamed != null)
             {
+                AreasCollection areas = spreadsheetMain.Selection.Areas;
+                Range srange = areas[areas.Count - 1];
+                for (int row = 0; row < srange.RowCount; row++)
+                {
+                    int rn = currentXNamed.getRowIndexByRange(srange[row, 0]);
+                    if (rn >= 0)
+                    {
+                        currentXNamed.selectRow(rn);
+                    }
+                }
+                /*if (oldSelected != null)
+                {
+                    Range orange = oldSelected[oldSelected.Count - 1];
+                    for (int row = 0; row < orange.RowCount; row++)
+                    {
+                        int rn = currentXNamed.getRowIndexByRange(orange[row, 0]);
+                        if (rn >= 0)
+                        {
+                            currentXNamed.UnselectRow(rn);
+                        }
+                    }
+                }*/
                 this.currentXNamed.drawSelectedRows();//在鼠标松开后，同一绘制选择
             }
         }
@@ -274,14 +273,22 @@ namespace XSheet
             }
         }
         //键盘事件响应，未完成
-        public void spreadsheetMain_KeyPress(object sender, KeyPressEventArgs e)
+        public void spreadsheetMain_KeyDown(object sender, KeyEventArgs e)
         {
-            //MessageBox.Show(e.ToString());
+            if (currentXNamed != null)
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    executer.excueteCmd(currentXNamed, "Enter_Press");
+                }
+            }
+            
+            
         }
         //测试按钮响应，正式环境隐藏
         public void btn_Config_Click(object sender, EventArgs e)
         {
-
+            
         }
         //关闭事件响应
         public void XSheetDesigner_FormClosed(object sender, FormClosedEventArgs e)

@@ -31,10 +31,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XSheetMain));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbl_User = new DevExpress.XtraEditors.LabelControl();
+            this.lbl_App = new DevExpress.XtraEditors.LabelControl();
             this.spreadsheetMain = new DevExpress.XtraSpreadsheet.SpreadsheetControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.lbl_App = new DevExpress.XtraEditors.LabelControl();
-            this.lbl_User = new DevExpress.XtraEditors.LabelControl();
             this.btn_Submit = new DevExpress.XtraEditors.SimpleButton();
             this.btn_Download = new DevExpress.XtraEditors.SimpleButton();
             this.btn_Search = new DevExpress.XtraEditors.SimpleButton();
@@ -57,6 +57,24 @@
             this.panel1.Size = new System.Drawing.Size(1033, 30);
             this.panel1.TabIndex = 0;
             // 
+            // lbl_User
+            // 
+            this.lbl_User.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_User.Location = new System.Drawing.Point(871, 10);
+            this.lbl_User.Name = "lbl_User";
+            this.lbl_User.Size = new System.Drawing.Size(52, 14);
+            this.lbl_User.TabIndex = 1;
+            this.lbl_User.Text = "当前用户:";
+            // 
+            // lbl_App
+            // 
+            this.lbl_App.Location = new System.Drawing.Point(12, 10);
+            this.lbl_App.Name = "lbl_App";
+            this.lbl_App.Size = new System.Drawing.Size(26, 14);
+            this.lbl_App.TabIndex = 0;
+            this.lbl_App.Text = "App:";
+            // 
             // spreadsheetMain
             // 
             this.spreadsheetMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -71,6 +89,7 @@
             this.spreadsheetMain.ActiveSheetChanged += new DevExpress.Spreadsheet.ActiveSheetChangedEventHandler(this.spreadsheetMain_ActiveSheetChanged);
             this.spreadsheetMain.CellValueChanged += new DevExpress.XtraSpreadsheet.CellValueChangedEventHandler(this.spreadsheetMain_CellValueChanged);
             this.spreadsheetMain.HyperlinkClick += new DevExpress.XtraSpreadsheet.HyperlinkClickEventHandler(this.spreadsheetMain_HyperlinkClick);
+            this.spreadsheetMain.KeyDown += new System.Windows.Forms.KeyEventHandler(this.spreadsheetMain_KeyDown);
             this.spreadsheetMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.spreadsheetMain_MouseUp);
             // 
             // panelControl1
@@ -87,24 +106,6 @@
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(1033, 49);
             this.panelControl1.TabIndex = 2;
-            // 
-            // lbl_App
-            // 
-            this.lbl_App.Location = new System.Drawing.Point(12, 10);
-            this.lbl_App.Name = "lbl_App";
-            this.lbl_App.Size = new System.Drawing.Size(26, 14);
-            this.lbl_App.TabIndex = 0;
-            this.lbl_App.Text = "App:";
-            // 
-            // lbl_User
-            // 
-            this.lbl_User.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_User.Location = new System.Drawing.Point(871, 10);
-            this.lbl_User.Name = "lbl_User";
-            this.lbl_User.Size = new System.Drawing.Size(52, 14);
-            this.lbl_User.TabIndex = 1;
-            this.lbl_User.Text = "当前用户:";
             // 
             // btn_Submit
             // 

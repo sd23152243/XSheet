@@ -273,12 +273,6 @@ namespace XSheet
             }*/
         }
 
-        private void spreadsheetMain_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            control.spreadsheetMain_KeyPress(sender, e);
-            //MessageBox.Show(e.ToString());
-        }
-
         private void btn_Config_Click(object sender, EventArgs e)
         {
             control.btn_Config_Click(sender, e);
@@ -288,6 +282,11 @@ namespace XSheet
         {
             control.XSheetDesigner_FormClosed(sender, e);
             //MessageBox.Show("Close");
+        }
+
+        private void spreadsheetMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            
         }
     }
 }

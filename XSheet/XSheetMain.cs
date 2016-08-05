@@ -115,5 +115,10 @@ namespace XSheet
         {
             control.spreadsheetMain_HyperlinkClick(sender, e);
         }
+
+        private void spreadsheetMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            control.spreadsheetMain_KeyDown(sender, e);
+        }
     }
 }

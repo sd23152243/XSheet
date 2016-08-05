@@ -46,6 +46,7 @@ namespace XSheet.Data
             }
             
         }
+        public Dictionary<String,XAction> actions{ get; set; }
 
         abstract public int isInRange(Range range);
         public int isInRange(AreasCollection areas)
