@@ -14,6 +14,8 @@ using XSheet.CfgData;
 using XSheet.Util;
 using XSheet.test;
 using DevExpress.XtraEditors;
+using System.Drawing;
+using DevExpress.Utils.Menu;
 
 namespace XSheet
 {
@@ -195,7 +197,15 @@ namespace XSheet
 
         private void spreadsheetMain_MouseUp(object sender, MouseEventArgs e)
         {
-            control.spreadsheetMain_MouseUp(sender, e);
+            if (e.Button == MouseButtons.Right)
+            {
+                Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
+                popupSpread.ShowPopup(p);
+            }
+            else
+            {
+                control.spreadsheetMain_MouseUp(sender, e);
+            }
             //oldSelected = null;
         }
 
@@ -287,6 +297,28 @@ namespace XSheet
         private void spreadsheetMain_KeyDown(object sender, KeyEventArgs e)
         {
             
+        }
+
+        private void dropDownButton1_Click(object sender, EventArgs e)
+        {
+            alertcontrolMain.Show(this, "test", "HelloWorld");
+            btn_tt.DropDownControl = CreateDXPopupMenu();
+        }
+
+        private DXPopupMenu CreateDXPopupMenu()
+        {
+            DXPopupMenu menu = new DXPopupMenu();
+            menu.Items.Add(new DXMenuItem("Item", OnItemClick));
+            menu.Items.Add(new DXMenuCheckItem("CheckItem", false, null, OnItemClick));
+            DXSubMenuItem subMenu = new DXSubMenuItem("SubMenu");
+            subMenu.Items.Add(new DXMenuItem("SubItem", OnItemClick));
+            menu.Items.Add(subMenu);
+            return menu;
+        }
+        private void OnItemClick(object sender, EventArgs e)
+        {
+            DXMenuItem item = sender as DXMenuItem;
+            XtraMessageBox.Show(item.Caption);
         }
     }
 }

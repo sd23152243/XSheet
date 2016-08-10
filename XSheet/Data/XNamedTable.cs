@@ -47,10 +47,6 @@ namespace XSheet.Data
 
         public override void changeDefinedRange(Range newrange)
         {
-            /*int topRowIndex = newrange.TopRowIndex;
-            int bottomRowIndex = newrange.BottomRowIndex;
-            int leftColumnIndex = newrange.LeftColumnIndex;
-            int rightColumnIndex = newrange.RightColumnIndex;*/
             this.table.Range = newrange;
             for (int i = 0; i < this.table.DataRange.RowCount; i++)
             {

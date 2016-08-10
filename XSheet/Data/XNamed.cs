@@ -124,7 +124,8 @@ namespace XSheet.Data
         {
             if (range != null)
             {
-                range.Borders.SetAllBorders(Color.DarkBlue, BorderLineStyle.Double);
+                //range.Borders.SetAllBorders(Color.DarkBlue, BorderLineStyle.Double);
+                range.Style.Fill.BackgroundColor = Color.Yellow;
             }
             
         }
@@ -133,7 +134,8 @@ namespace XSheet.Data
         {
             if (range != null)
             {
-                range.Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
+                //range.Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
+                range.Style.Fill.BackgroundColor = Color.Transparent;
             }
         }
 

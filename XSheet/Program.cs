@@ -20,8 +20,8 @@ namespace XSheet
             DevExpress.UserSkins.BonusSkins.Register();
             if (args.Length == 0)
             {
-                //Application.Run(new XSheetDesigner());
-                Application.Run(new XSheetMain());
+                Application.Run(new XSheetDesigner());
+                //Application.Run(new XSheetMain());
             }
             else
             {

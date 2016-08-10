@@ -617,8 +617,8 @@ namespace XSheet
             this.spreadsheetCommandBarButtonItem183 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.spreadsheetCommandBarButtonItem184 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.spreadsheetCommandBarButtonItem185 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
-            this.spreadsheetCommandBarButtonItem186 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
-            this.spreadsheetCommandBarButtonItem187 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
+            this.btn_Undo = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
+            this.btn_Redo = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.spreadsheetCommandBarButtonItem188 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.spreadsheetCommandBarButtonItem189 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.spreadsheetCommandBarSubItem39 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarSubItem();
@@ -648,6 +648,9 @@ namespace XSheet
             this.spreadsheetCommandBarButtonItem205 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.spreadsheetCommandBarCheckItem47 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarCheckItem();
             this.spreadsheetCommandBarButtonItem206 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
+            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
+            this.executeList = new DevExpress.XtraBars.BarSubItem();
             this.ribbonImageCollectionLarge = new DevExpress.Utils.ImageCollection(this.components);
             this.pivotTableToolsRibbonPageCategory1 = new DevExpress.XtraSpreadsheet.UI.PivotTableToolsRibbonPageCategory();
             this.pivotTableDesignRibbonPage1 = new DevExpress.XtraSpreadsheet.UI.PivotTableDesignRibbonPage();
@@ -741,6 +744,7 @@ namespace XSheet
             this.lbl_App = new DevExpress.XtraEditors.LabelControl();
             this.splitterControl = new DevExpress.XtraEditors.SplitterControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.btn_tt = new DevExpress.XtraEditors.DropDownButton();
             this.btn_Submit = new DevExpress.XtraEditors.SimpleButton();
             this.btn_Download = new DevExpress.XtraEditors.SimpleButton();
             this.btn_Search = new DevExpress.XtraEditors.SimpleButton();
@@ -761,6 +765,13 @@ namespace XSheet
             this.spreadsheetCommandBarButtonItem170 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.spreadsheetCommandBarButtonItem171 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.iHelp = new DevExpress.XtraBars.BarButtonItem();
+            this.alertcontrolMain = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
+            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.popupSpread = new DevExpress.XtraBars.PopupMenu(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appMenu)).BeginInit();
@@ -806,6 +817,8 @@ namespace XSheet
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetBarController1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupSpread)).BeginInit();
             this.SuspendLayout();
             // 
             // stylesRibbonPageGroup1
@@ -1323,8 +1336,8 @@ namespace XSheet
             this.spreadsheetCommandBarButtonItem183,
             this.spreadsheetCommandBarButtonItem184,
             this.spreadsheetCommandBarButtonItem185,
-            this.spreadsheetCommandBarButtonItem186,
-            this.spreadsheetCommandBarButtonItem187,
+            this.btn_Undo,
+            this.btn_Redo,
             this.spreadsheetCommandBarButtonItem188,
             this.spreadsheetCommandBarButtonItem189,
             this.spreadsheetCommandBarSubItem39,
@@ -1353,9 +1366,12 @@ namespace XSheet
             this.spreadsheetCommandBarButtonItem204,
             this.spreadsheetCommandBarButtonItem205,
             this.spreadsheetCommandBarCheckItem47,
-            this.spreadsheetCommandBarButtonItem206});
+            this.spreadsheetCommandBarButtonItem206,
+            this.barButtonItem1,
+            this.barButtonItem2,
+            this.executeList});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 454;
+            this.ribbonControl.MaxItemId = 315;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -4487,17 +4503,17 @@ namespace XSheet
             this.spreadsheetCommandBarButtonItem185.Id = 375;
             this.spreadsheetCommandBarButtonItem185.Name = "spreadsheetCommandBarButtonItem185";
             // 
-            // spreadsheetCommandBarButtonItem186
+            // btn_Undo
             // 
-            this.spreadsheetCommandBarButtonItem186.CommandName = "FileUndo";
-            this.spreadsheetCommandBarButtonItem186.Id = 376;
-            this.spreadsheetCommandBarButtonItem186.Name = "spreadsheetCommandBarButtonItem186";
+            this.btn_Undo.CommandName = "FileUndo";
+            this.btn_Undo.Id = 376;
+            this.btn_Undo.Name = "btn_Undo";
             // 
-            // spreadsheetCommandBarButtonItem187
+            // btn_Redo
             // 
-            this.spreadsheetCommandBarButtonItem187.CommandName = "FileRedo";
-            this.spreadsheetCommandBarButtonItem187.Id = 377;
-            this.spreadsheetCommandBarButtonItem187.Name = "spreadsheetCommandBarButtonItem187";
+            this.btn_Redo.CommandName = "FileRedo";
+            this.btn_Redo.Id = 377;
+            this.btn_Redo.Name = "btn_Redo";
             // 
             // spreadsheetCommandBarButtonItem188
             // 
@@ -4704,6 +4720,24 @@ namespace XSheet
             this.spreadsheetCommandBarButtonItem206.Id = 406;
             this.spreadsheetCommandBarButtonItem206.Name = "spreadsheetCommandBarButtonItem206";
             this.spreadsheetCommandBarButtonItem206.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            // 
+            // barButtonItem1
+            // 
+            resources.ApplyResources(this.barButtonItem1, "barButtonItem1");
+            this.barButtonItem1.Id = 455;
+            this.barButtonItem1.Name = "barButtonItem1";
+            // 
+            // barButtonItem2
+            // 
+            resources.ApplyResources(this.barButtonItem2, "barButtonItem2");
+            this.barButtonItem2.Id = 456;
+            this.barButtonItem2.Name = "barButtonItem2";
+            // 
+            // executeList
+            // 
+            resources.ApplyResources(this.executeList, "executeList");
+            this.executeList.Id = 313;
+            this.executeList.Name = "executeList";
             // 
             // ribbonImageCollectionLarge
             // 
@@ -4982,8 +5016,9 @@ namespace XSheet
             this.commonRibbonPageGroup1.ItemLinks.Add(this.spreadsheetCommandBarButtonItem183);
             this.commonRibbonPageGroup1.ItemLinks.Add(this.spreadsheetCommandBarButtonItem184);
             this.commonRibbonPageGroup1.ItemLinks.Add(this.spreadsheetCommandBarButtonItem185);
-            this.commonRibbonPageGroup1.ItemLinks.Add(this.spreadsheetCommandBarButtonItem186);
-            this.commonRibbonPageGroup1.ItemLinks.Add(this.spreadsheetCommandBarButtonItem187);
+            this.commonRibbonPageGroup1.ItemLinks.Add(this.btn_Undo);
+            this.commonRibbonPageGroup1.ItemLinks.Add(this.btn_Redo);
+            this.commonRibbonPageGroup1.ItemLinks.Add(this.renameTableItem1);
             this.commonRibbonPageGroup1.Name = "commonRibbonPageGroup1";
             // 
             // infoRibbonPageGroup1
@@ -5398,6 +5433,7 @@ namespace XSheet
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.btn_tt);
             this.panelControl1.Controls.Add(this.btn_Submit);
             this.panelControl1.Controls.Add(this.btn_Download);
             this.panelControl1.Controls.Add(this.btn_Search);
@@ -5407,6 +5443,15 @@ namespace XSheet
             this.panelControl1.Controls.Add(this.btn_New);
             resources.ApplyResources(this.panelControl1, "panelControl1");
             this.panelControl1.Name = "panelControl1";
+            // 
+            // btn_tt
+            // 
+            this.btn_tt.Image = ((System.Drawing.Image)(resources.GetObject("btn_tt.Image")));
+            this.btn_tt.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
+            resources.ApplyResources(this.btn_tt, "btn_tt");
+            this.btn_tt.MenuManager = this.ribbonControl;
+            this.btn_tt.Name = "btn_tt";
+            this.btn_tt.Click += new System.EventHandler(this.dropDownButton1_Click);
             // 
             // btn_Submit
             // 
@@ -5774,8 +5819,8 @@ namespace XSheet
             this.spreadsheetBarController1.BarItems.Add(this.spreadsheetCommandBarButtonItem183);
             this.spreadsheetBarController1.BarItems.Add(this.spreadsheetCommandBarButtonItem184);
             this.spreadsheetBarController1.BarItems.Add(this.spreadsheetCommandBarButtonItem185);
-            this.spreadsheetBarController1.BarItems.Add(this.spreadsheetCommandBarButtonItem186);
-            this.spreadsheetBarController1.BarItems.Add(this.spreadsheetCommandBarButtonItem187);
+            this.spreadsheetBarController1.BarItems.Add(this.btn_Undo);
+            this.spreadsheetBarController1.BarItems.Add(this.btn_Redo);
             this.spreadsheetBarController1.BarItems.Add(this.spreadsheetCommandBarButtonItem188);
             this.spreadsheetBarController1.BarItems.Add(this.spreadsheetCommandBarButtonItem189);
             this.spreadsheetBarController1.BarItems.Add(this.spreadsheetCommandBarSubItem39);
@@ -5881,6 +5926,43 @@ namespace XSheet
             this.iHelp.LargeImageIndex = 7;
             this.iHelp.Name = "iHelp";
             // 
+            // barManager1
+            // 
+            this.barManager1.DockControls.Add(this.barDockControlTop);
+            this.barManager1.DockControls.Add(this.barDockControlBottom);
+            this.barManager1.DockControls.Add(this.barDockControlLeft);
+            this.barManager1.DockControls.Add(this.barDockControlRight);
+            this.barManager1.Form = this;
+            this.barManager1.MaxItemId = 0;
+            // 
+            // barDockControlTop
+            // 
+            this.barDockControlTop.CausesValidation = false;
+            resources.ApplyResources(this.barDockControlTop, "barDockControlTop");
+            // 
+            // barDockControlBottom
+            // 
+            this.barDockControlBottom.CausesValidation = false;
+            resources.ApplyResources(this.barDockControlBottom, "barDockControlBottom");
+            // 
+            // barDockControlLeft
+            // 
+            this.barDockControlLeft.CausesValidation = false;
+            resources.ApplyResources(this.barDockControlLeft, "barDockControlLeft");
+            // 
+            // barDockControlRight
+            // 
+            this.barDockControlRight.CausesValidation = false;
+            resources.ApplyResources(this.barDockControlRight, "barDockControlRight");
+            // 
+            // popupSpread
+            // 
+            this.popupSpread.ItemLinks.Add(this.btn_Redo);
+            this.popupSpread.ItemLinks.Add(this.btn_Undo);
+            this.popupSpread.ItemLinks.Add(this.executeList);
+            this.popupSpread.Name = "popupSpread";
+            this.popupSpread.Ribbon = this.ribbonControl;
+            // 
             // XSheetDesigner
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -5891,6 +5973,10 @@ namespace XSheet
             this.Controls.Add(this.popupControlContainer1);
             this.Controls.Add(this.popupControlContainer2);
             this.Controls.Add(this.ribbonControl);
+            this.Controls.Add(this.barDockControlLeft);
+            this.Controls.Add(this.barDockControlRight);
+            this.Controls.Add(this.barDockControlBottom);
+            this.Controls.Add(this.barDockControlTop);
             this.Name = "XSheetDesigner";
             this.Ribbon = this.ribbonControl;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.XSheetDesigner_FormClosed);
@@ -5941,6 +6027,8 @@ namespace XSheet
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetBarController1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupSpread)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -6314,8 +6402,8 @@ namespace XSheet
         private DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem spreadsheetCommandBarButtonItem183;
         private DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem spreadsheetCommandBarButtonItem184;
         private DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem spreadsheetCommandBarButtonItem185;
-        private DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem spreadsheetCommandBarButtonItem186;
-        private DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem spreadsheetCommandBarButtonItem187;
+        private DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem btn_Undo;
+        private DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem btn_Redo;
         private DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem spreadsheetCommandBarButtonItem188;
         private DevExpress.XtraSpreadsheet.UI.PivotTableToolsRibbonPageCategory pivotTableToolsRibbonPageCategory1;
         private DevExpress.XtraSpreadsheet.UI.PivotTableDesignRibbonPage pivotTableDesignRibbonPage1;
@@ -6449,5 +6537,16 @@ namespace XSheet
         private DevExpress.XtraEditors.SimpleButton btn_Download;
         private DevExpress.XtraEditors.LabelControl lbl_User;
         private DevExpress.XtraEditors.LabelControl lbl_App;
+        private DropDownButton btn_tt;
+        private DevExpress.XtraBars.Alerter.AlertControl alertcontrolMain;
+        private DevExpress.XtraBars.BarManager barManager1;
+        private DevExpress.XtraBars.BarDockControl barDockControlTop;
+        private DevExpress.XtraBars.BarDockControl barDockControlBottom;
+        private DevExpress.XtraBars.BarDockControl barDockControlLeft;
+        private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem2;
+        private DevExpress.XtraBars.PopupMenu popupSpread;
+        private DevExpress.XtraBars.BarSubItem executeList;
     }
 }

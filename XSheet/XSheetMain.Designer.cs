@@ -54,14 +54,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1033, 30);
+            this.panel1.Size = new System.Drawing.Size(1020, 30);
             this.panel1.TabIndex = 0;
             // 
             // lbl_User
             // 
             this.lbl_User.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_User.Location = new System.Drawing.Point(871, 10);
+            this.lbl_User.Location = new System.Drawing.Point(858, 10);
             this.lbl_User.Name = "lbl_User";
             this.lbl_User.Size = new System.Drawing.Size(52, 14);
             this.lbl_User.TabIndex = 1;
@@ -81,7 +81,7 @@
             this.spreadsheetMain.Location = new System.Drawing.Point(0, 30);
             this.spreadsheetMain.Name = "spreadsheetMain";
             this.spreadsheetMain.Options.Culture = new System.Globalization.CultureInfo("zh-CN");
-            this.spreadsheetMain.Size = new System.Drawing.Size(1033, 581);
+            this.spreadsheetMain.Size = new System.Drawing.Size(1020, 581);
             this.spreadsheetMain.TabIndex = 1;
             this.spreadsheetMain.Text = "spreadsheetControl1";
             this.spreadsheetMain.DocumentLoaded += new System.EventHandler(this.spreadsheetMain_DocumentLoaded);
@@ -104,14 +104,14 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelControl1.Location = new System.Drawing.Point(0, 611);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1033, 49);
+            this.panelControl1.Size = new System.Drawing.Size(1020, 49);
             this.panelControl1.TabIndex = 2;
             // 
             // btn_Submit
             // 
             this.btn_Submit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Submit.Image = ((System.Drawing.Image)(resources.GetObject("btn_Submit.Image")));
-            this.btn_Submit.Location = new System.Drawing.Point(929, 4);
+            this.btn_Submit.Location = new System.Drawing.Point(916, 4);
             this.btn_Submit.Name = "btn_Submit";
             this.btn_Submit.Size = new System.Drawing.Size(92, 38);
             this.btn_Submit.TabIndex = 2;
@@ -122,7 +122,7 @@
             // 
             this.btn_Download.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Download.Image = ((System.Drawing.Image)(resources.GetObject("btn_Download.Image")));
-            this.btn_Download.Location = new System.Drawing.Point(813, 5);
+            this.btn_Download.Location = new System.Drawing.Point(800, 5);
             this.btn_Download.Name = "btn_Download";
             this.btn_Download.Size = new System.Drawing.Size(110, 38);
             this.btn_Download.TabIndex = 3;
@@ -133,7 +133,7 @@
             // 
             this.btn_Search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.btn_Search.Image = ((System.Drawing.Image)(resources.GetObject("btn_Search.Image")));
-            this.btn_Search.Location = new System.Drawing.Point(578, 5);
+            this.btn_Search.Location = new System.Drawing.Point(572, 5);
             this.btn_Search.Name = "btn_Search";
             this.btn_Search.Size = new System.Drawing.Size(92, 38);
             this.btn_Search.TabIndex = 4;
@@ -144,7 +144,7 @@
             // 
             this.btn_Exe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.btn_Exe.Image = ((System.Drawing.Image)(resources.GetObject("btn_Exe.Image")));
-            this.btn_Exe.Location = new System.Drawing.Point(477, 5);
+            this.btn_Exe.Location = new System.Drawing.Point(471, 5);
             this.btn_Exe.Name = "btn_Exe";
             this.btn_Exe.Size = new System.Drawing.Size(92, 38);
             this.btn_Exe.TabIndex = 5;
@@ -188,7 +188,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.ClientSize = new System.Drawing.Size(1033, 660);
+            this.ClientSize = new System.Drawing.Size(1020, 660);
             this.Controls.Add(this.spreadsheetMain);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.panel1);

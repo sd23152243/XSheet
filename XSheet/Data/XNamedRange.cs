@@ -124,8 +124,7 @@ namespace XSheet.Data
             range.Worksheet.Import(arrtmp, data1stcell.RowIndex, data1stcell.ColumnIndex);
             range.Worksheet.Import(dt, false, data1stcell.RowIndex, data1stcell.ColumnIndex);
             this.dt = dt;
-            range.Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
-            
+            //range.Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
             /*for (int i = 0; i < range.RowCount; i++)
             {
                 setRowBorderNone(i);
