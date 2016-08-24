@@ -5,16 +5,17 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using XSheet.Data;
+using XSheet.v2.Data;
+using XSheet.v2.Data.XSheetRange;
 
 namespace XSheet.Util
 {
     public class RangeUtil
     {
         //判断某个区域是否在命名区域中
-        public static XNamed getNamedByRange(Range range, List<XNamedForm> names)
+        public static XRange getNamedByRange(Range range, List<XRangeForm> names)
         {
-            foreach (XNamedForm name in names)
+            foreach (XRangeForm name in names)
             {
                 if (name.isInRange(range) >0)
                 {

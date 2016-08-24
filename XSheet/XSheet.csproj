@@ -78,10 +78,10 @@
     <Reference Include="DevExpress.Office.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.RichEdit.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Sparkline.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Sparkline.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Spreadsheet.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraBars.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraCharts.v16.1.Wizard, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraCharts.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -97,90 +97,83 @@
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UIAutomationClient" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CfgData\CmdActRelatedCfgData.cs" />
-    <Compile Include="CommandExecuter.cs" />
-    <Compile Include="ConfigBuilder.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ConfigBuilder.Designer.cs">
-      <DependentUpon>ConfigBuilder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Action\ActionCallEXE.cs" />
-    <Compile Include="Data\Action\ActionCallURL.cs" />
-    <Compile Include="Data\Action\ActionFactory.cs" />
-    <Compile Include="CfgData\ActionCfgData.cs" />
-    <Compile Include="CfgData\AppCfgData.cs" />
-    <Compile Include="CfgData\BindingCfgData.cs" />
-    <Compile Include="CfgData\CommandCfgData.cs" />
-    <Compile Include="CfgData\RangeCfgData.cs" />
-    <Compile Include="CfgData\SheetCfgData.cs" />
-    <Compile Include="CfgData\XCfgData.cs" />
-    <Compile Include="Data\Action\ActionSheetSearch.cs" />
-    <Compile Include="Data\Action\ActionSQL.cs" />
-    <Compile Include="Data\Action\ActionSQLDelete.cs" />
-    <Compile Include="Data\Action\ActionSQLExecute.cs" />
-    <Compile Include="Data\Action\ActionSQLSearch.cs" />
-    <Compile Include="Data\Action\ActionSQLInsert.cs" />
-    <Compile Include="Data\Action\ActionSQLUpdate.cs" />
-    <Compile Include="Data\AbstractPopUpAction.cs" />
-    <Compile Include="Data\Action\ActionMoveTo.cs" />
-    <Compile Include="Data\PopUpAction\PopUpActionSQLDelete.cs" />
-    <Compile Include="Data\PopUpAction\PopUpActionSQLInsert.cs" />
-    <Compile Include="Data\PopUpAction\PopUpActionSQLUpdate.cs" />
-    <Compile Include="Data\PopUpAction\PopUpActionFactory.cs" />
-    <Compile Include="Data\XAction.cs" />
-    <Compile Include="Data\XApp.cs" />
-    <Compile Include="Data\XCommand.cs" />
-    <Compile Include="Data\XNamed.cs" />
-    <Compile Include="Data\XNamedFactory.cs" />
-    <Compile Include="Data\XNamedForm.cs" />
-    <Compile Include="Data\XNamedRange.cs" />
-    <Compile Include="Data\XNamedTable.cs" />
-    <Compile Include="Data\XSheet.cs" />
+    <Compile Include="v2\Data\CommandExecuter.cs" />
+    <Compile Include="v2\Data\XSheetAction\ActionCallEXE.cs" />
+    <Compile Include="v2\Data\XSheetAction\ActionCallURL.cs" />
+    <Compile Include="v2\Data\XSheetAction\ActionFactory.cs" />
+    <Compile Include="v2\CfgBean\ActionCfg.cs" />
+    <Compile Include="v2\CfgBean\AppCfg.cs" />
+    <Compile Include="v2\CfgBean\CommandCfg.cs" />
+    <Compile Include="v2\CfgBean\DataCfg.cs" />
+    <Compile Include="v2\CfgBean\SheetCfg.cs" />
+    <Compile Include="v2\CfgBean\XCfgData.cs" />
+    <Compile Include="v2\Data\XSheetAction\ActionSheetSearch.cs" />
+    <Compile Include="v2\Data\XSheetAction\ActionSQL.cs" />
+    <Compile Include="v2\Data\XSheetAction\ActionSQLDelete.cs" />
+    <Compile Include="v2\Data\XSheetAction\ActionSQLExecute.cs" />
+    <Compile Include="v2\Data\XSheetAction\ActionSQLSearch.cs" />
+    <Compile Include="v2\Data\XSheetAction\ActionSQLInsert.cs" />
+    <Compile Include="v2\Data\XSheetAction\ActionSQLUpdate.cs" />
+    <Compile Include="v2\Data\XSheetAction\ActionMoveTo.cs" />
+    <Compile Include="v2\Privilege\CheckPrivilege.cs" />
+    <Compile Include="v2\Task\CommandTask.cs" />
+    <Compile Include="v2\Util\LogWriter.cs" />
+    <Compile Include="v2\Task\TaskObserver.cs" />
+    <Compile Include="v2\Task\TaskQueue.cs" />
+    <Compile Include="v2\Task\TaskSubject.cs" />
+    <Compile Include="v2\Data\XData.cs" />
+    <Compile Include="v2\Data\XAction.cs" />
+    <Compile Include="v2\Data\XApp.cs" />
+    <Compile Include="v2\Data\XCommand.cs" />
+    <Compile Include="v2\Data\XRange.cs" />
+    <Compile Include="v2\Data\XSheetRange\XRangeFactory.cs" />
+    <Compile Include="v2\Data\XSheetRange\XRangeForm.cs" />
+    <Compile Include="v2\Data\XSheetRange\XRangeRG.cs" />
+    <Compile Include="v2\Data\XSheetRange\XRangeTB.cs" />
+    <Compile Include="v2\Data\XRSheet.cs" />
     <Compile Include="Observer.cs" />
     <Compile Include="Subject.cs" />
     <Compile Include="test\WMTest.cs" />
     <Compile Include="test\XMLTest.cs" />
+    <Compile Include="Util\ConfigUtil.cs" />
     <Compile Include="Util\DBUtil.cs" />
+    <Compile Include="Util\DESUtil.cs" />
     <Compile Include="Util\ExcelHelper.cs" />
     <Compile Include="Util\RangeUtil.cs" />
-    <Compile Include="Util\SheetUtil.cs" />
-    <Compile Include="XSheetControl.cs" />
-    <Compile Include="XSheetDesigner.cs">
+    <Compile Include="v2\Util\SheetUtil.cs" />
+    <Compile Include="v2\Control\XSheetControl.cs" />
+    <Compile Include="v2\Form\XSheetDesigner.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="XSheetDesigner.Designer.cs">
+    <Compile Include="v2\Form\XSheetDesigner.Designer.cs">
       <DependentUpon>XSheetDesigner.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XSheetMain.cs">
+    <Compile Include="v2\Form\XSheetMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="XSheetMain.Designer.cs">
+    <Compile Include="v2\Form\XSheetMain.Designer.cs">
       <DependentUpon>XSheetMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="XSheetPopUp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="XSheetPopUp.Designer.cs">
-      <DependentUpon>XSheetPopUp.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="ConfigBuilder.resx">
-      <DependentUpon>ConfigBuilder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="XSheetDesigner.resx">
+    <Compile Include="v2\Util\SystemInfo.cs" />
+    <EmbeddedResource Include="v2\Form\XSheetDesigner.resx">
       <DependentUpon>XSheetDesigner.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
@@ -194,12 +187,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="XSheetMain.resx">
+    <EmbeddedResource Include="v2\Form\XSheetMain.resx">
       <DependentUpon>XSheetMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="XSheetPopUp.resx">
-      <DependentUpon>XSheetPopUp.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="DBConn.config" />
     <None Include="DOC\XSheetFC流程.xlsx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -223,7 +214,10 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CfgData\" />
+    <Folder Include="Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="dll\DevExpress.Docs.v16.1.dll" />
   </ItemGroup>

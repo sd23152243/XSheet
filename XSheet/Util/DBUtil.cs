@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,9 +16,8 @@ namespace XSheet.Util
     {
         public static String getConnStr(String DBType)
         {
-            String connStr;
-
-            switch (DBType.ToUpper())
+            String connStr = "";
+            /*switch (DBType.ToUpper())
             {
                 case "AS400":
                     //Provider=IBMDA400;
@@ -32,7 +32,7 @@ namespace XSheet.Util
                 default:
                     connStr = "UNKNOWN DEVICE";
                     break;
-            }
+            }*/
             if (DBType.Contains(".xlsx"))
             {
                 connStr = "Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + DBType + ";" + ";Extended Properties=\"Excel 12.0;HDR=YES;IMEX=2\"";
@@ -41,35 +41,37 @@ namespace XSheet.Util
             {
                 connStr = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=" + DBType + ";" + ";Extended Properties=\"Excel 8.0;HDR=YES;IMEX=2\"";
             }
+            else
+            {
+                try
+                {
+                    connStr = ConfigUtil.GetConnectionString(DBType.ToUpper());
+                    String privoder = ConfigUtil.GetProviderName(DBType.ToUpper());
+                    if (privoder != "System.Data.SqlClient")
+                    {
+                        connStr = "Provider="+privoder +";"+ ConfigUtil.GetConnectionString(DBType.ToUpper());
+                    }
+                    //System.Windows.Forms.MessageBox.Show(connStr);
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show("链接类型："+DBType+"不存在");
+                    Console.WriteLine(e.ToString());
+                }
+              
+            }
             return connStr;
         }
         public static DataTable getDataTable(String DBType, String Sql, String sqlType, String param)
         {
             DataTable table = new DataTable();
             DbDataAdapter da = null;
-            switch (DBType.ToUpper())
+            if (ConfigUtil.GetProviderName(DBType.ToUpper()) == "System.Data.SqlClient")
             {
-                case "AS400":
-                    da = DBUtil.getOleDbDataAdapter(DBType, Sql, sqlType);
-                    break;
-                case "SRF-SQL":
-                case "ICHART3D":
-                    da = DBUtil.getSqlDataAdapter(DBType, Sql, sqlType);
-                    /*if (param != null && param.Length > 0)
-                    {
-                        String[] paramList = param.Split(new char[3] { '#', '_', '#' });
-                        foreach (String strparam in paramList)
-                        {
-                            SqlParameter sqlparam = new SqlParameter("@p1", SqlDbType.Char);
-                            sqlparam.Direction = ParameterDirection.ReturnValue;
-                            sqlparam.Value = strparam;
-                            da.SelectCommand.Parameters.Add(sqlparam);
-                        }
-                    }*/
-                    break;
-                default:
-                    da = DBUtil.getOleDbDataAdapter(DBType, Sql, sqlType);
-                    break;
+                da = DBUtil.getSqlDataAdapter(DBType, Sql, sqlType);
+            }
+            else{
+                da = DBUtil.getOleDbDataAdapter(DBType, Sql, sqlType);
             }
             if (da != null)
             {
