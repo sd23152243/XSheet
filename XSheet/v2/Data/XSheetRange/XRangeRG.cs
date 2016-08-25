@@ -49,11 +49,6 @@ namespace XSheet.v2.Data.XSheetRange
             return RangeUtil.isInRange(range, this.getRange());
         }
 
-        public override void doCommand(string eventType)
-        {
-                        
-        }
-
         public override void doResize(int rowcount, int columncount)
         {
             Range range = getRange();

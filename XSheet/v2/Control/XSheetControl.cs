@@ -12,6 +12,7 @@ using XSheet.Data;
 using XSheet.Util;
 using XSheet.v2.Data.XSheetRange;
 using XSheet.v2.Data;
+using XSheet.v2.Privilege;
 
 namespace XSheet.v2.Control
 {
@@ -30,6 +31,8 @@ namespace XSheet.v2.Control
         private AreasCollection oldSelected { get; set; }//记录上次选择的区域
         private SpreadsheetControl spreadsheetMain { get; set; }//spreadsheet主控件
         private Dictionary<String, LabelControl> labels { get; set; }//各标签页
+        private String curUserPrivilege { get; set; }
+        private XSheetUser user { get; set; }
         //构造函数
         public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels)
         {
@@ -41,8 +44,9 @@ namespace XSheet.v2.Control
             this.buttons = buttons;
             this.labels = labels;
             this.spreadsheetMain = spreadsheetMain;
+            this.user = new XSheetUser(System.Environment.UserDomainName, System.Environment.UserName, System.Environment.MachineName, System.Environment.OSVersion.ToString());
             //CELLCHANGE
-            executer = new CommandExecuter();
+            executer = new CommandExecuter(user);
             executer.Attach(this);
             executeState = "OK";
             appstatu = "OK";
@@ -64,91 +68,24 @@ namespace XSheet.v2.Control
         {
             controlInit(spreadsheetMain, buttons, labels, path);
         }
-        //响应界面选择点变化事件
-        public void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
-        {
-            if (appstatu.ToUpper() != "OK")
-            {
-                return;
-            }
-            setSelectedNamed();
-            ChangeButtonsStatu();
-            if (currentXRange != null)
-            {
-                executer.excueteCmd(currentXRange, "Select_Change");
-            }
-            //oldSelected = spreadsheetMain.Selection.Areas;
-        }
-        //根据当前选择点，判断选择区域
-        public void setSelectedNamed()
-        {
-            AreasCollection areas = spreadsheetMain.Selection.Areas;
-            XRSheet opSheet = app.getSheets()[spreadsheetMain.ActiveWorksheet.Name];
-            if (currentXRange != null && RangeUtil.isInRange(areas, currentXRange.getRange()) < 0)
-            {
-                this.currentXRange = null;
-            }
-            //遍历当前Sheet全部命名区域，依次判断是否在区域范围内
-            foreach (var dicname in opSheet.ranges)
-            {
-                XRange xname = dicname.Value;
-                int i = xname.isInRange(areas);
-                if (i >= 0)
-                {
-                    this.currentXRange = xname;
-                    //当选择点为命名区域时，将当前坐标写入单元格
-                    //this.currentXRange.onMouseDown();
-                    break;//如果判断到第一个区域，将该区域存储为currentXRange，退出循环判断
-                }
-            }
-        }
-        //函数，根据当前各类情况，改变各个按钮的状态
-        private void ChangeButtonsStatu()
-        {
-            foreach (var btndic in buttons)
-            {
-                btndic.Value.Enabled = false;
-            }
-            if (currentXRange != null && executeState == "OK" && appstatu == "OK")
-            {
-                foreach (var commandDic in currentXRange.commands)
-                {
-                    if (buttons.ContainsKey(commandDic.Key.ToUpper()))
-                    {
-                        if (currentXRange.isDataValied() || commandDic.Key == "BTN_SEARCH")
-                        {
-                            setBtnStatuOn(commandDic.Key);
-                        }
-
-                    }
-                }
-            }
-        }
         //文档加载事件，用于初始化
         public void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
             init();
             if (appstatu.ToUpper() == "OK")
             {
-                /*if (spreadsheetMain.Document.Worksheets.ActiveWorksheet.Name != cfgData.app.defaultSheetName && cfgData.app.defaultSheetName != null)
-                {
-                    spreadsheetMain.Document.Worksheets.ActiveWorksheet = spreadsheetMain.Document.Worksheets[cfgData.app.defaultSheetName];
-                }
-                else
-                {
-                }*/
-                currentSheet.doLoadCommand(executer);
+                executer.excueteCmd(currentSheet, SysEvent.Sheet_Init);
         }
             spreadsheetMain.Document.Calculate();
         }
         //通用事件响应，用于调用各类事件
-        public void EventCall(String Event)
+        public void EventCall(SysEvent e)
         {
             if (appstatu.ToUpper() != "OK")
             {
                 return;
             }
-            executer.excueteCmd(currentXRange, Event);
+            executer.excueteCmd(currentXRange, e);
         }
         //单元格内容变更事件响应
         public void spreadsheetMain_CellValueChanged(object sender, SpreadsheetCellEventArgs e)
@@ -157,7 +94,7 @@ namespace XSheet.v2.Control
             setSelectedNamed();
             if (e.OldValue != e.Value)
             {
-                executer.excueteCmd(currentXRange, "Cell_Change");
+                executer.excueteCmd(currentXRange, SysEvent.Cell_Change);
             }
         }
         //鼠标按键抬起事件响应，用于释放简单资源
@@ -196,11 +133,11 @@ namespace XSheet.v2.Control
                 MessageBox.Show("XSheet初始化出错，请确认配置文件");
                 return;
             }
-            labels["lbl_App"].Text = "APP:" + app.appName;
-            labels["lbl_User"].Text = "当前用户:" + app.user;
+            labels["lbl_App"].Text = "APP:" + app.getFullAppName();
+            labels["lbl_User"].Text = "当前用户:" + this.user.getFullUserName();
             try
             {
-                currentSheet = app.getSheets()[spreadsheetMain.ActiveWorksheet.Name];
+                currentSheet = app.getRSheetByName(spreadsheetMain.ActiveWorksheet.Name);
             }
             catch (Exception)
             {
@@ -234,8 +171,8 @@ namespace XSheet.v2.Control
             }
             try
             {
-                currentSheet = app.getSheets()[e.NewActiveSheetName];
-                currentSheet.doLoadCommand(executer);
+                currentSheet = app.getRSheetByName(e.NewActiveSheetName);
+                executer.excueteCmd(currentSheet, SysEvent.Sheet_Change);
                 app.setSheetVisiable(e.NewActiveSheetName);
             }
             catch (Exception)
@@ -255,8 +192,8 @@ namespace XSheet.v2.Control
                 app.setSheetVisiable(name);
                 try
                 {
-                    currentSheet = app.getSheets()[name];
-                    currentSheet.doLoadCommand(executer);
+                    currentSheet = app.getRSheetByName(name);
+                    executer.excueteCmd(currentSheet, SysEvent.Sheet_Init);
                     app.setSheetVisiable(name);
                 }
                 catch (Exception)
@@ -273,7 +210,7 @@ namespace XSheet.v2.Control
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    executer.excueteCmd(currentXRange, "Enter_Press");
+                    executer.excueteCmd(currentXRange, SysEvent.Key_Enter);
                 }
             }
             
@@ -296,6 +233,66 @@ namespace XSheet.v2.Control
         public void ChangeMuiltSingle(String sts)
         {
             //TODO
+        }
+        //响应界面选择点变化事件
+        public void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
+        {
+            if (appstatu.ToUpper() != "OK")
+            {
+                return;
+            }
+            setSelectedNamed();
+            ChangeButtonsStatu();
+            if (currentXRange != null)
+            {
+                executer.excueteCmd(currentXRange, SysEvent.Select_Change);
+            }
+            //oldSelected = spreadsheetMain.Selection.Areas;
+        }
+        //根据当前选择点，判断选择区域
+        public void setSelectedNamed()
+        {
+            AreasCollection areas = spreadsheetMain.Selection.Areas;
+            XRSheet opSheet = app.getRSheetByName(spreadsheetMain.ActiveWorksheet.Name);
+            if (currentXRange != null && RangeUtil.isInRange(areas, currentXRange.getRange()) < 0)
+            {
+                this.currentXRange = null;
+            }
+            //遍历当前Sheet全部命名区域，依次判断是否在区域范围内
+            foreach (var dicname in opSheet.ranges)
+            {
+                XRange xname = dicname.Value;
+                int i = xname.isInRange(areas);
+                if (i >= 0)
+                {
+                    this.currentXRange = xname;
+                    //当选择点为命名区域时，将当前坐标写入单元格
+                    //this.currentXRange.onMouseDown();
+                    break;//如果判断到第一个区域，将该区域存储为currentXRange，退出循环判断
+                }
+            }
+        }
+        //函数，根据当前各类情况，改变各个按钮的状态
+        private void ChangeButtonsStatu()
+        {
+            foreach (var btndic in buttons)
+            {
+                btndic.Value.Enabled = false;
+            }
+            /*if (currentXRange != null && executeState == "OK" && appstatu == "OK")
+            {
+                foreach (var commandDic in currentXRange.commands)
+                {
+                    String strevent = commandDic.Key.ToString();
+                    if (buttons.ContainsKey(strevent))
+                    {
+                        if (currentXRange.isDataValied() || commandDic.Key == "BTN_SEARCH")
+                        {
+                            setBtnStatuOn(commandDic.Key);
+                        }
+                    }
+                }
+            }*/
         }
     }
 }

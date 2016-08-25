@@ -23,10 +23,7 @@ namespace XSheet.v2.Form
         {
             buttons = new Dictionary<string, SimpleButton>();
             /*提取按钮，将按钮与自定义事件名称绑定*/
-            buttons.Add("Btn_Submit".ToUpper(), btn_Submit);
-            buttons.Add("Btn_Download".ToUpper(), btn_Download);
             buttons.Add("Btn_Search".ToUpper(), btn_Search);
-            buttons.Add("Btn_Execute".ToUpper(), btn_Exe);
             buttons.Add("Btn_Delete".ToUpper(), btn_Delete);
             buttons.Add("Btn_Edit".ToUpper(), btn_Edit);
             buttons.Add("Btn_New".ToUpper(), btn_New);
@@ -45,38 +42,29 @@ namespace XSheet.v2.Form
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
-            control.EventCall("Btn_Search");
-        }
-
-        private void btn_Download_Click(object sender, EventArgs e)
-        {
-            control.EventCall("Btn_Download");
+            control.EventCall(Data.SysEvent.Btn_Search);
         }
 
         private void btn_New_Click(object sender, EventArgs e)
         {
-            control.EventCall("Btn_New");
+            control.EventCall(Data.SysEvent.Btn_New);
         }
 
         private void btn_Edit_Click(object sender, EventArgs e)
         {
-            control.EventCall("Btn_Edit");
+            control.EventCall(Data.SysEvent.Btn_Edit);
         }
 
         private void btn_Delete_Click(object sender, EventArgs e)
         {
-            control.EventCall("Btn_Delete");
+            control.EventCall(Data.SysEvent.Btn_Delete);
         }
 
         private void btn_Exe_Click(object sender, EventArgs e)
         {
-            control.EventCall("Btn_Execute");
+            control.EventCall(Data.SysEvent.Btn_Exe);
         }
 
-        private void btn_Submit_Click(object sender, EventArgs e)
-        {
-            control.EventCall("Btn_Submit");
-        }
 
         private void spreadsheetMain_ActiveSheetChanged(object sender, DevExpress.Spreadsheet.ActiveSheetChangedEventArgs e)
         {

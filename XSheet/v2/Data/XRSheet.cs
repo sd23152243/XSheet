@@ -24,11 +24,11 @@ namespace XSheet.v2.Data
             this.sheetName = sheet.Name;
         }
 
-        public void doLoadCommand(CommandExecuter cmdexe)
+        public void doLoadCommand(CommandExecuter cmdexe,String curUserPrivilege)
         {
             foreach (var range in ranges.Values)
             {
-                cmdexe.excueteCmd(range, "Sheet_Change");
+                cmdexe.excueteCmd(range, SysEvent.Sheet_Init);
             }
         }
 

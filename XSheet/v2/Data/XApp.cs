@@ -16,8 +16,8 @@ namespace XSheet.Data
 {
     public class XApp
     {
-        public String appName { get; set; }
-        public String user { get; set; }
+        public String AppName { get { return cfg.app.AppName; } }
+        public String AppID { get { return cfg.app.AppID; } }
         public Dictionary<string, XRSheet> rsheets { get; set; }
         public Dictionary<string, XRange> ranges { get; set; }
         public Dictionary<string, XCommand> commands { get; set; }
@@ -37,26 +37,16 @@ namespace XSheet.Data
             this.flag = "OK";
             init(cfg);
         }
-
-        public Dictionary<string, XRSheet> getSheets()
-        {
-            return rsheets;
-        }
-
         public void init(XCfgData cfg)
         {
             this.cfg = cfg;
-            this.appName = cfg.app.AppName + "(" + cfg.app.AppID + ")";
-            this.user = WindowsIdentity.GetCurrent().Name;
+            
             initRange();
             initSheet();
             initCommand();
             initAction();
             BindAction();
         }
-
-        
-
         private void initRange()
         {
             foreach (DataCfg cfg in cfg.datas)
@@ -176,7 +166,6 @@ namespace XSheet.Data
             return sheet;
         }
 
-
         public XRange getRangeByName(String name)
         {
             XRange range = null;
@@ -203,6 +192,11 @@ namespace XSheet.Data
                 System.Windows.Forms.MessageBox.Show("Command：" + name + "未注册!请检查配置！");
             }
             return cmd;
+        }
+
+        public String getFullAppName()
+        {
+            return AppName + "(" + AppID + ")";
         }
     }
 }

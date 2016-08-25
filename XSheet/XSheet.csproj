@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="v2\Data\CommandExecuter.cs" />
+    <Compile Include="v2\Data\SysEvent.cs" />
     <Compile Include="v2\Data\XSheetAction\ActionCallEXE.cs" />
     <Compile Include="v2\Data\XSheetAction\ActionCallURL.cs" />
     <Compile Include="v2\Data\XSheetAction\ActionFactory.cs" />
@@ -131,7 +132,8 @@
     <Compile Include="v2\Data\XSheetAction\ActionSQLInsert.cs" />
     <Compile Include="v2\Data\XSheetAction\ActionSQLUpdate.cs" />
     <Compile Include="v2\Data\XSheetAction\ActionMoveTo.cs" />
-    <Compile Include="v2\Privilege\CheckPrivilege.cs" />
+    <Compile Include="v2\Privilege\UserPrivilege.cs" />
+    <Compile Include="v2\Privilege\XSheetUser.cs" />
     <Compile Include="v2\Task\CommandTask.cs" />
     <Compile Include="v2\Util\LogWriter.cs" />
     <Compile Include="v2\Task\TaskObserver.cs" />
@@ -214,10 +216,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CfgData\" />
-    <Folder Include="Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="dll\DevExpress.Docs.v16.1.dll" />
   </ItemGroup>

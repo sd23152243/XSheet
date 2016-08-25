@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using XSheet.Data;
+using XSheet.v2.Privilege;
 
 namespace XSheet.v2.Task
 {
@@ -15,15 +16,15 @@ namespace XSheet.v2.Task
         public DateTime submitTime { get; set; }
         public DateTime startTime { get; set; }
         public DateTime endTime { get; set; }
-        public String owner { get; set; }
+        public XSheetUser user { get; set; }
         public String statu { get; set; }
-
+        public UserPrivilege up { get; set; }
         private CommandTask(){}
 
-        public CommandTask(XCommand cmd,String owner)
+        public CommandTask(XCommand cmd, XSheetUser user)
         {
             this.cmd = cmd;
-            this.owner = owner;
+            this.user = user;
             this.submitTime = DateTime.Now;
         }
         
@@ -41,7 +42,7 @@ namespace XSheet.v2.Task
 
         private void doTaskSync()
         {
-            cmd.execute();
+            cmd.execute(user);
         }
 
         private void doTaskAsync()

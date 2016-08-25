@@ -15,8 +15,8 @@ namespace XSheet.v2.Data
     {
         protected DefinedName dname;//实际sheet中的DefinedName
         public String Name { get; set; }//DefinedName 名称
-        public XRSheet sheet { get; set; }//DefinedName 所在的位置
-        public Dictionary<String, XCommand> commands { get; set; }//Name中所绑定的Command，String为事件，XCommand为事件对应命令
+        public XRSheet rsheet { get; set; }//DefinedName 所在的位置
+        public Dictionary<SysEvent, XCommand> commands { get; set; }//Name中所绑定的Command，String为事件，XCommand为事件对应命令
         public String type { get; set; }//Xname所对应的类型，Table/Range/Form
         public DataCfg cfg { get; set; }//从配置Sheet中读取的配置信息
         protected XData data { get; set; }//当前Range中所包含的
@@ -53,11 +53,10 @@ namespace XSheet.v2.Data
             }
             return i;
         }
-        abstract public void doCommand(String eventType);
         abstract public void doResize(int rowcount, int columncount);
         public XRange()
         {
-            commands = new Dictionary<string, XCommand>();
+            commands = new Dictionary<SysEvent, XCommand>();
             data = new XData();
         }
 
@@ -89,7 +88,23 @@ namespace XSheet.v2.Data
 
         public DbDataAdapter getDbDataAdapter(String sql)
         {
-            return DBUtil.getDbDataAdapter(cfg.ServerName, sql, "");
+            //TODO
+            Console.WriteLine("XRange.cs 93 unFinish");
+            return null;
+        }
+
+        public XCommand getCommandByEvent(SysEvent e)
+        {
+            XCommand cmd;
+            try
+            {
+                 cmd= commands[e];
+            }
+            catch (Exception)
+            {
+                cmd = null;
+            }
+            return cmd;
         }
     }
 }

@@ -33,19 +33,6 @@ namespace XSheet.v2.Data.XSheetRange
             return this.table.DataRange;
         }
 
-        public override void doCommand(string eventType)
-        {
-            try
-            {
-                XCommand command = commands[eventType.ToUpper()];
-                command.execute();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-        }
-
         public void changeDefinedRange(Range newrange)
         {
             this.table.Range = newrange;
@@ -56,7 +43,6 @@ namespace XSheet.v2.Data.XSheetRange
             }
         }
         
-
         public  int getIndexAddedDataCount(int dataCount)
         {
             int rowIndex = table.Range.TopRowIndex;

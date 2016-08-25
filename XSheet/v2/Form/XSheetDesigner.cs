@@ -111,37 +111,27 @@ namespace XSheet.v2.Form
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
-            control.EventCall("Btn_Search");
-        }
-
-        private void btn_Download_Click(object sender, EventArgs e)
-        {
-            control.EventCall("Btn_Download");
+            control.EventCall(Data.SysEvent.Btn_Search);
         }
         
         private void btn_New_Click(object sender, EventArgs e)
         {
-            control.EventCall("Btn_New");
+            control.EventCall(Data.SysEvent.Btn_New);
         }
 
         private void btn_Edit_Click(object sender, EventArgs e)
         {
-            control.EventCall("Btn_Edit");
+            control.EventCall(Data.SysEvent.Btn_Edit);
         }
 
         private void btn_Delete_Click(object sender, EventArgs e)
         {
-            control.EventCall("Btn_Delete");
+            control.EventCall(Data.SysEvent.Btn_Delete);
         }
 
         private void btn_Exe_Click(object sender, EventArgs e)
         {
-            control.EventCall("Btn_Execute");
-        }
-
-        private void btn_Submit_Click(object sender, EventArgs e)
-        {
-            control.EventCall("Btn_Submit");
+            control.EventCall(Data.SysEvent.Btn_Exe);
         }
 
         private void spreadsheetMain_CellValueChanged(object sender, SpreadsheetCellEventArgs e)

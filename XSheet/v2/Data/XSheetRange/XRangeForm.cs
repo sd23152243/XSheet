@@ -9,22 +9,6 @@ namespace XSheet.v2.Data.XSheetRange
 {
     public class XRangeForm:XRange
     {
-        public override void doCommand(String eventType)
-        {
-            XCommand command = null;
-            try
-            {
-                command = commands[eventType.ToUpper()];
-                command.execute();
-            }
-            catch (Exception)
-            {
-                //System.Windows.Forms.MessageBox.Show("事件"+eventType+"未绑定命令");
-                Console.WriteLine("Name:"+this.cfg.RangeName+"未绑定"+eventType+"事件");
-                return;
-            }
-        }
-
         public override void doResize(int rowcount, int columncount)
         {
             return ;
