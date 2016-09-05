@@ -5,18 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using DevExpress.Spreadsheet;
 using System.Data;
+using XSheet.Util;
+using System.Windows.Forms;
 using XSheet.v2.Data;
 using XSheet.v2.Data.XSheetRange;
 
-namespace XSheet.Data.Action
+namespace XSheet.v2.Data.XSheetAction
 {
-    public class ActionSQLDelete : XAction
+    public class ActionSQL_Insert : XAction
     {
         public override string doAction()
         {
-            
-            //TODO
-            return "";
+            if (getRealStatement() == "")
+            {
+                dRange.doInsert();
+                return "OK";
+            }
+            return "false";
         }
     }
 }

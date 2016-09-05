@@ -6,9 +6,9 @@ using XSheet.Util;
 using System.Data;
 using XSheet.v2.Data;
 
-namespace XSheet.Data.Action
+namespace XSheet.v2.Data.XSheetAction
 {
-    class ActionSQLSearch : XAction
+    class ActionSQL_Search : XAction
     {
         public override string doAction()
         {
@@ -17,7 +17,15 @@ namespace XSheet.Data.Action
             String Sql = dRange.getSqlStatement();
             Console.WriteLine(Sql);*/
             //DataTable dt = DBUtil.getDataTable(dRange.cfg.serverName, Sql,"Text",null);
-            dRange.fill();
+            String statment = getRealStatement();
+            if (statment == "")
+            {
+                dRange.fill();
+            }
+            else
+            {
+                dRange.fill(statment);
+            }
             return "suucess";
         }
     }

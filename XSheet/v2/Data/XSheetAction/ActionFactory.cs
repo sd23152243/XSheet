@@ -15,7 +15,7 @@ namespace XSheet.Data.Action
             XAction action = null;
             String nametype = cfg.ActionType;
             
-            nametype = "XSheet.v2.Data.Action.Action" + nametype;
+            nametype = "XSheet.v2.Data.XSheetAction.Action" + nametype;
             //XNamedTable
             try
             {
@@ -26,7 +26,7 @@ namespace XSheet.Data.Action
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                System.Windows.Forms.MessageBox.Show("Action类型不存在，设置的类型为：" + cfg.ActionType);
+                System.Windows.Forms.MessageBox.Show("Action类型不存在，设置的类型为：" + cfg.ActionType+"\n"+e.ToString());
             }
             return action;
         }

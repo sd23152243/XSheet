@@ -28,7 +28,7 @@ namespace XSheet.v2.Data
         {
             foreach (var range in ranges.Values)
             {
-                cmdexe.excueteCmd(range, SysEvent.Sheet_Init);
+                cmdexe.executeCmd(range, SysEvent.Sheet_Init);
             }
         }
 
@@ -66,5 +66,9 @@ namespace XSheet.v2.Data
             }
         }
 
+        public XRange SearchRangeByName(string name)
+        {
+            return app.getRangeByName(name);
+        }
     }
 }

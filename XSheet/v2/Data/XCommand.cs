@@ -15,16 +15,21 @@ namespace XSheet.Data
 {
     public class XCommand:TaskSubject
     {
+        public int CommandSeq { get; set; }
         public String CommandName { get; set; }
         public CommandCfg cfg { get; set; }
         public Dictionary<int, XAction> actions{ get; set;}
-        public Boolean sync { get; set;}
+        public Boolean Async { get; set;}
+        public SysEvent e;
         private XRSheet rsheet = null;
         public XCommand(CommandCfg cfg)
         {
             actions = new Dictionary<int, XAction>();
             this.cfg = cfg;
-            //TODO
+            this.CommandName = cfg.CommandName;
+            this.CommandSeq = int.Parse(cfg.CommandSeq);
+            this.Async = cfg.Async.Length > 0 ? true : false;
+            this.e = (SysEvent)Enum.Parse(typeof(SysEvent), cfg.EventType, true);
             setSheet();
         }
         private void setSheet()
@@ -41,7 +46,6 @@ namespace XSheet.Data
                     MessageBox.Show(String.Format("Command {0} 中 Action {1} 与之前Action sRange不一致，请确认配置！",CommandName,action.ActionName));
                     return;
                 }
-                
             }
             this.rsheet = rsheet;
         }
@@ -76,6 +80,11 @@ namespace XSheet.Data
             }
             FinishNotify();
             return ans;
+        }
+
+        public void MoveTo()
+        {
+            //TODO
         }
     }
 }

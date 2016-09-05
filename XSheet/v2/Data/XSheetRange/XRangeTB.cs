@@ -6,12 +6,15 @@ using System.Data;
 using System.Drawing;
 using XSheet.Data;
 using XSheet.v2.CfgBean;
+using XSheet.v2.Util;
+using System.Linq;
 
 namespace XSheet.v2.Data.XSheetRange
 {
     public class XRangeTB: XRange
     {
         private Table table;
+        private Boolean isFilled = false;
         public Dictionary<int, int> selectedRows { get; set; }//KEY存放行号，value存放选中次数
         public Dictionary<int, int> drawRows { get; set; }//KEY存放行号，value存放选中次数
         public void setDefinedName(Worksheet sheet)
@@ -30,7 +33,16 @@ namespace XSheet.v2.Data.XSheetRange
 
         public override Range getRange()
         {
-            return this.table.DataRange;
+            Range range = null;
+            try
+            {
+                range =this.table.DataRange;
+            }
+            catch (Exception)
+            {
+                System.Windows.Forms.MessageBox.Show(String.Format("Table:{0} 获取区域失败",this.Name));
+            }
+            return range;
         }
 
         public void changeDefinedRange(Range newrange)
@@ -64,26 +76,16 @@ namespace XSheet.v2.Data.XSheetRange
             return RangeUtil.isInRange(range, this.getRange());
         }
 
-        public override void doResize(int rowcount, int columncount)
+        public override void doResize(int rowcount)
         {
-            Range range = this.table.Range;
-            String rfA1 = range.GetReferenceA1(ReferenceElement.ColumnAbsolute | ReferenceElement.RowAbsolute);
-
-            String[] tmp = rfA1.Split('$');
-            if (tmp.Length > 5)
+            if (!isFilled)
             {
-                System.Windows.Forms.MessageBox.Show("当前区域:" + Name + "定义不规范，当前定义类型为" + rfA1 + "Range类型定义应为$A$1:$C$10");
+                AlertUtil.Show("错误！", "Table" + Name + "需先查询才能Update");
                 return;
             }
-            else if (tmp.Length == 3)
-            {
-                rfA1 = rfA1 + ":" + rfA1;
-                tmp = rfA1.Split('$');
-            }
+            Range range = this.table.Range;
 
-            int rowIndex = getIndexAddedDataCount(rowcount);
-            tmp[tmp.Length - 1] = rowIndex.ToString();
-            Range newrange = range.Worksheet.Range[string.Join("$", tmp)];
+            Range newrange = RangeUtil.rangeResize(range, rowcount);
             changeDefinedRange(newrange);
         }
 
@@ -95,6 +97,7 @@ namespace XSheet.v2.Data.XSheetRange
             Cell data1stcell = range[0, 0];
             string[,] arrtmp = new string[range.RowCount, range.ColumnCount];
             range.Worksheet.Import(arrtmp, data1stcell.RowIndex, data1stcell.ColumnIndex);
+            range.FillColor = Color.White;
             range.Worksheet.Import(dt,false, data1stcell.RowIndex, data1stcell.ColumnIndex);
             this.data.setData(dt);
             range.Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
@@ -102,13 +105,15 @@ namespace XSheet.v2.Data.XSheetRange
             {
                 setRowBorderNone(i);
             }*/
-            doResize(dt.Rows.Count, dt.Columns.Count);
+            this.isFilled = true;
+            doResize(dt.Rows.Count+1);
         }
 
         public override String getType()
         {
             return "Table";
         }
+
         public override bool isSelectable()
         {
             return true;
@@ -185,13 +190,21 @@ namespace XSheet.v2.Data.XSheetRange
             drawByRowList(tmp);
         }
 
-        public override void init(DataCfg cfg)
+        protected override void p_init()
         {
-            throw new NotImplementedException();
         }
 
-        public virtual void selectRow(int rowNum)
+        public virtual void selectRow(int rowNum, Boolean isMutil)
         {
+            if (isMutil == false)
+            {
+                List<int> list = new List<int>();
+                list.AddRange(selectedRows.Keys);
+                foreach (int key in list)
+                {
+                    selectedRows[key] = 0;
+                }
+            }
             if (selectedRows.ContainsKey(rowNum))
             {
                 selectedRows[rowNum] += 1;
@@ -200,7 +213,6 @@ namespace XSheet.v2.Data.XSheetRange
             {
                 selectedRows.Add(rowNum, 1);
             }
-
             //this.getRange()[rowNum, 0].Value += ".";
             // 优化流程，不再于选择是设置勾选，改为松开鼠标后统一绘图 setRoweSelectStyle(rowNum);
         }
@@ -223,7 +235,6 @@ namespace XSheet.v2.Data.XSheetRange
             {
                 selectedRows.Add(rowNum, 0);
             }
-
             // setRoweSelectStyle(rowNum); 优化流程，不再于选择是设置勾选，改为松开鼠标后统一绘图
         }
         //功能，将某行设置为被选边框
@@ -261,16 +272,26 @@ namespace XSheet.v2.Data.XSheetRange
             return rowNum;
         }
 
-        public override void onSelect()
+        public override void onSelect(Boolean isMutil)
         {
-            AreasCollection areas = this.dname.Range.Worksheet.Selection.Areas;
-            Range srange = areas[areas.Count - 1];
+            AreasCollection areas = this.table.Range.Worksheet.Selection.Areas;
+            Range srange = null;
+
+            if (isMutil ==true)
+            {
+                srange = areas[areas.Count - 1];
+            }
+            else
+            {
+                srange = areas[areas.Count - 1][0];
+            }
+            
             for (int row = 0; row < srange.RowCount; row++)
             {
                 int rn = getRowIndexByRange(srange[row, 0]);
                 if (rn >= 0)
                 {
-                    selectRow(rn);
+                    selectRow(rn, isMutil);
                 }
             }
 
@@ -279,12 +300,181 @@ namespace XSheet.v2.Data.XSheetRange
 
         public override void fill()
         {
-            throw new NotImplementedException();
+            String sql = cfg.InitStatement;
+            fill(sql);
         }
 
         public override void fill(string sql)
         {
-            throw new NotImplementedException();
+            data.search(getRealStatement(sql));
+            fill(data.getDataTable());
+        }
+
+        protected override Boolean LocateRange(IWorkbook book)
+        {
+            foreach (Worksheet sheet in book.Worksheets)
+            {
+                foreach (Table table in sheet.Tables)
+                {
+                    if (table.Name == this.Name)
+                    {
+                        this.table = table;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public override bool setRange(Range range)
+        {
+            table.Range = range;
+            return true;
+        }
+        //返回C R RO U D P CS CM US PM
+        public override List<string> getValiedLFunList()
+        {
+            List<string> list = new List<string>();
+            foreach (char item in cfg.CRUDP)
+            {
+                list.Add(item.ToString());
+            }
+            if (cfg.CRUDP.Contains("C"))
+            {
+                if (rsheet.app.ranges.ContainsKey(Name+"_CS"))
+                {
+                    list.Add("CS");
+                }
+                if (rsheet.app.ranges.ContainsKey(Name + "_CM"))
+                {
+                    list.Add("CM");
+                }
+            }
+            if (cfg.CRUDP.Contains("U"))
+            {
+                if (rsheet.app.ranges.ContainsKey(Name + "_US"))
+                {
+                    list.Add("US");
+                }
+            }
+            if (getCommandByEvent(SysEvent.Btn_Search)!= null && getCommandByEvent(SysEvent.Btn_Search).Count>1)
+            {
+                list.Add("RO");
+            }
+            if (getCommandByEvent(SysEvent.Btn_Exe)!= null )
+            {
+                
+                if( getCommandByEvent(SysEvent.Btn_Exe).Count > 1)
+                {
+                    list.Add("PM");
+                }
+            }
+            else
+            {
+                list.Remove("P");
+            }
+            return list;
+        }
+
+        public override void newData(int count)
+        {
+            int rowcouont = table.Range.RowCount;
+            rowcouont = rowcouont + count;
+            doResize(rowcouont);
+        }
+
+        public override void doUpdate()
+        {
+            DataTable dt = data.getDataTable();
+            foreach (var item in selectedRows)
+            {
+                if (item.Value%2 == 0)
+                {
+                    continue;
+                }
+                DataRow row = dt.Rows[item.Key];
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    string strRange = getRowRange(item.Key)[j].Value.ToString();
+                    if (row[j].ToString() == strRange)
+                    {
+                        continue;
+                    }
+                    Type t = row[j].GetType();
+
+                    if (t.Name == "Decimal")
+                    {
+                        Decimal num = Convert.ToDecimal(strRange);
+                        row[j] = (object)num;
+                    }
+                    else
+                    {
+                        row[j] = strRange;
+                    }
+                }
+            }
+            data.setData(dt);
+            data.update();
+        }
+
+        public override void doDelete()
+        {
+            DataTable dt = data.getDataTable();
+            selectedRows = selectedRows.OrderByDescending(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
+            foreach (var item in selectedRows)
+            {
+                if (item.Value % 2 == 0)
+                {
+                    continue;
+                }
+                dt.Rows[item.Key].Delete();
+            }
+            data.setData(dt);
+            data.delete();
+        }
+
+        public override void doInsert()
+        {
+            DataTable dt = data.getDataTable();
+            int dcount = getDataTable().Rows.Count;
+            int maxcount = getRange().RowCount;
+            for (int i= dcount;i<maxcount;i++)
+            {
+                DataRow templet = dt.Rows[0];
+                DataRow row = dt.NewRow();
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    string strRange = getRowRange(i)[j].Value.ToString();
+                    Type t = templet[j].GetType();
+
+                    if (t.Name == "Decimal")
+                    {
+                        Decimal num = Convert.ToDecimal(strRange);
+                        row[j] = (object)num;
+                    }
+                    else
+                    {
+                        row[j] = strRange;
+                    }
+                    
+                }
+                dt.Rows.Add(row);
+            }
+            data.setData(dt);
+            data.update();
+        }
+
+        public override List<string> getSelectedValueByColIndex(int col)
+        {
+            List<String> list = new List<string>();
+            foreach (var item in selectedRows)
+            {
+                if (item.Value%2 == 1)
+                {
+                    list.Add(getRowRange(item.Key)[col].DisplayText);
+                }
+            }
+            return list;
         }
     }
 }

@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using System.Data.Common;
 using XSheet.v2.Data;
 
-namespace XSheet.Data.Action
+namespace XSheet.v2.Data.XSheetAction
 {
-    class ActionSQLExecute : XAction
+    class ActionSQL_Execute : XAction
     {
         public override string doAction()
         {

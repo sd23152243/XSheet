@@ -12,6 +12,7 @@ using DevExpress.XtraEditors;
 using System.Drawing;
 using DevExpress.Utils.Menu;
 using XSheet.v2.Control;
+using XSheet.v2.Data;
 
 namespace XSheet.v2.Form
 {
@@ -40,7 +41,8 @@ namespace XSheet.v2.Form
             buttons.Add("Btn_Delete".ToUpper(), btn_Delete);
             buttons.Add("Btn_Edit".ToUpper(),dbtn_Edit);
             buttons.Add("Btn_New".ToUpper(), dbtn_New);
-
+            buttons.Add("Btn_Cancel".ToUpper(), btn_Cancel);
+            buttons.Add("Btn_Save".ToUpper(), btn_Save);
             labels = new Dictionary<String, LabelControl>();
             labels.Add("lbl_App", this.lbl_App);
             labels.Add("lbl_User", this.lbl_User);
@@ -50,8 +52,10 @@ namespace XSheet.v2.Form
             executeState = "OK";
             //加载文档，后续根据不同设置配置，待修改TODO
             spreadsheetMain.Document.LoadDocument("\\\\ichart3d\\XSheetModel\\XSheet模板设计.xlsx");*/
-            this.control = new XSheetControl(spreadsheetMain, buttons,labels);
-
+            Dictionary<String, PopupMenu> menus = new Dictionary<string, PopupMenu>();
+            menus.Add("Normal", popupSpread);
+            menus.Add("CfgData", popupDataCfg);
+            this.control = new XSheetControl(spreadsheetMain, buttons,labels,menus,rightClickBarManager,this, alertcontrolMain);
         }
         void InitSkinGallery()
         {
@@ -62,48 +66,7 @@ namespace XSheet.v2.Form
         {
             control.spreadsheetMain_SelectionChanged(sender, e);
         }
-        //
-        /*public void setSelectedNamed()
-        {
-            AreasCollection areas = spreadsheetMain.Selection.Areas;
-            XSheet.Data.XSheet opSheet = app.getSheets()[spreadsheetMain.ActiveWorksheet.Name];
-            if (currentXNamed != null && RangeUtil.isInRange(areas, currentXNamed.getRange()) < 0)
-            {
-                this.currentXNamed = null;
-            }
-            foreach (var dicname in opSheet.names)
-            {
-                XNamed xname = dicname.Value;
-                int i = xname.isInRange(areas);
-                if (i >= 0)
-                {
-                    this.currentXNamed = xname;
-                    this.currentXNamed.setSelectIndex(spreadsheetMain.Selection.TopRowIndex, spreadsheetMain.Selection.LeftColumnIndex);
-                }
-            }
-        }
-
-        private void ChangeButtonsStatu()
-        {
-            foreach (var btndic in buttons)
-            {
-                btndic.Value.Enabled = false;
-            }
-            if (currentXNamed != null && executeState == "OK" && appstatu == "OK")
-            {
-                foreach (var commandDic in currentXNamed.commands)
-                {
-                    if (buttons.ContainsKey(commandDic.Key.ToUpper()))
-                    {
-                        if (currentXNamed.dt != null || commandDic.Key == "BTN_SEARCH")
-                        {
-                            setBtnStatuOn(commandDic.Key);
-                        }
-                        
-                    }
-                }
-            }
-        }*/
+        
         private void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
             control.spreadsheetMain_DocumentLoaded(sender, e);
@@ -111,27 +74,27 @@ namespace XSheet.v2.Form
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
-            control.EventCall(Data.SysEvent.Btn_Search);
+            control.EventCall(SysEvent.Btn_Search);
         }
         
         private void btn_New_Click(object sender, EventArgs e)
         {
-            control.EventCall(Data.SysEvent.Btn_New);
+            control.EventCall(SysEvent.Btn_New);
         }
 
         private void btn_Edit_Click(object sender, EventArgs e)
         {
-            control.EventCall(Data.SysEvent.Btn_Edit);
+            control.EventCall(SysEvent.Btn_Edit);
         }
 
         private void btn_Delete_Click(object sender, EventArgs e)
         {
-            control.EventCall(Data.SysEvent.Btn_Delete);
+            control.EventCall(SysEvent.Btn_Delete);
         }
 
         private void btn_Exe_Click(object sender, EventArgs e)
         {
-            control.EventCall(Data.SysEvent.Btn_Exe);
+            control.EventCall(SysEvent.Btn_Exe);
         }
 
         private void spreadsheetMain_CellValueChanged(object sender, SpreadsheetCellEventArgs e)
@@ -147,67 +110,10 @@ namespace XSheet.v2.Form
 
         private void spreadsheetMain_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
-                popupSpread.ShowPopup(p);
-                IList<Table>tables =spreadsheetMain.ActiveWorksheet.Tables.GetTables(spreadsheetMain.ActiveCell);
-                //todo
-               
-            }
-            else
-            {
-                control.spreadsheetMain_MouseUp(sender, e);
-            }
+            control.spreadsheetMain_MouseUp(sender, e);
             //oldSelected = null;
         }
 
-        /*public void init()
-        {
-            cfgData = new XCfgData(spreadsheetMain.Document.Worksheets["Config"]);
-            this.appstatu = cfgData.flag;
-            if (appstatu != "OK")
-            {
-                MessageBox.Show("配置文件加载出错，请确认配置文件");
-                return;
-            }
-            app = new XApp(spreadsheetMain.Document, cfgData);
-            this.appstatu = app.flag;
-            if (appstatu != "OK")
-            {
-                MessageBox.Show("XSheet初始化出错，请确认配置文件");
-                return;
-            }
-            this.lbl_App.Text = "APP:" + app.appName;
-            this.lbl_User.Text = "当前用户:" + app.user;
-            try
-            {
-                currentSheet = app.getSheets()[spreadsheetMain.ActiveWorksheet.Name];
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(spreadsheetMain.ActiveWorksheet.Name +" 未配置在Config文件Sheet列表中");
-            }
-        }
-
-        private void setBtnStatuOn(String eventType)
-        {
-            buttons[eventType.ToUpper()].Enabled = true;
-            /*this.btn_Submit = new DevExpress.XtraEditors.SimpleButton();
-            this.btn_Download = new DevExpress.XtraEditors.SimpleButton();
-            this.btn_Search = new DevExpress.XtraEditors.SimpleButton();
-            this.btn_Exe = new DevExpress.XtraEditors.SimpleButton();
-            this.btn_Delete = new DevExpress.XtraEditors.SimpleButton();
-            this.btn_Edit = new DevExpress.XtraEditors.SimpleButton();
-            this.btn_New = new DevExpress.XtraEditors.SimpleButton();
-        }
-
-        public void UpdateCmdStatu(String statu)
-        {
-            this.executeState = statu;
-            ChangeButtonsStatu();
-        }
-        */
         private void spreadsheetMain_ActiveSheetChanged(object sender, ActiveSheetChangedEventArgs e)
         {
             control.spreadsheetMain_ActiveSheetChanged(sender, e);
@@ -231,12 +137,17 @@ namespace XSheet.v2.Form
 
         private void spreadsheetMain_KeyDown(object sender, KeyEventArgs e)
         {
+            showMessage();
+        }
+
+        private void showMessage()
+        {
+            alertcontrolMain.Show(this, "test", "HelloWorld");
             
         }
 
-        private void dropDownButton1_Click(object sender, EventArgs e)
+        private void testttt()
         {
-            alertcontrolMain.Show(this, "test", "HelloWorld");
             dbtn_Execute.DropDownControl = CreateDXPopupMenu();
         }
 
@@ -258,12 +169,28 @@ namespace XSheet.v2.Form
 
         private void ts_multiSelect_CheckedChanged(object sender, ItemClickEventArgs e)
         {
-            MessageBox.Show(ts_multiSelect.Checked.ToString());
+            //alertcontrolMain.Show(this,"notice",ts_multiSelect.Checked.ToString());
+            control.ChangeMuiltSingle(ts_multiSelect.Checked);
         }
 
-        private void simpleButton1_Click(object sender, EventArgs e)
+        private void btn_DesignSearch_ItemClick(object sender, ItemClickEventArgs e)
         {
 
+        }
+
+        private void btn_Cancel_Click(object sender, EventArgs e)
+        {
+            control.EventCall(SysEvent.Btn_Cancel);
+        }
+
+        private void btn_Save_Click(object sender, EventArgs e)
+        {
+            control.EventCall(SysEvent.Btn_Save);
+        }
+
+        private void dbtn_Execute_Click(object sender, EventArgs e)
+        {
+            control.EventCall(SysEvent.Btn_Exe);
         }
     }
 }

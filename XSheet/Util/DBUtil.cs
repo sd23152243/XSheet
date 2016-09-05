@@ -84,7 +84,13 @@ namespace XSheet.Util
             
             return table;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="DBType">服务器</param>
+        /// <param name="Sql">Sql语句</param>
+        /// <param name="sqlType">PROCEDURE时为存储过程,其他时候为SQL语句</param>
+        /// <returns></returns>
         public static DbDataAdapter getDbDataAdapter(String DBType, String Sql, String sqlType)
         {
             switch (DBType.ToUpper())

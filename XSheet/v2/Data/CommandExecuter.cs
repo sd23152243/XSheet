@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using XSheet.Data;
 using XSheet.v2.Data;
 using XSheet.v2.Privilege;
+using XSheet.v2.Task;
 
 namespace XSheet
 {
@@ -18,31 +19,66 @@ namespace XSheet
         {
             this.user = user;
         }
-        public void excueteCmd(XRange range,SysEvent e){
-            this.executeState = "Executing...";
-            Notify();
+        public void executeCmd(XRange range,SysEvent e,int id){
+            
             if (range != null)
             {
-                XCommand cmd = range.getCommandByEvent(e);
-                if (cmd != null)
-                {
-                    cmd.execute(user);
-                }
+                XCommand cmd = range.getCommandByEvent(e,id);
+                executeCmd(cmd);   
             }
-            
-            this.executeState = "OK";
-            Notify();
         }
 
-        public void excueteCmd(XRSheet rsheet, SysEvent e)
+
+        public void executeCmd(XRSheet rsheet, SysEvent e)
         {
             if (e == SysEvent.Sheet_Init)
             {
                 foreach (XRange range in rsheet.ranges.Values)
                 {
-                    excueteCmd(range, e);
+                    executeCmd(range, e);
                 }
             }
+        }
+
+        public void executeCmd(XRange range ,SysEvent e)
+        {
+            Dictionary<int, XCommand> cmds = range.getCommandByEvent(e);
+            if (cmds != null )
+            {
+                foreach (XCommand cmd in cmds.Values)
+                {
+                    if (CheckPrivilege(cmd))
+                    {
+                        executeCmd(cmd);
+                    }
+                }
+            }
+        }
+
+        private bool CheckPrivilege(XCommand cmd)
+        {
+            String privilege = observers[0].GetUserPrivilege();
+            foreach (char a in cmd.cfg.CRUDP)
+            {
+                if (privilege.IndexOf(a)<0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public void executeCmd(XCommand cmd)
+        {
+            this.executeState = "Executing...";
+            Notify();
+            if (cmd != null)
+            {
+                CommandTask task = new CommandTask(cmd, user);
+                task.doTask();
+            }
+            this.executeState = "OK";
+            Notify();
         }
 
         public override void Notify()

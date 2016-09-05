@@ -281,8 +281,6 @@ namespace XSheet.v2.Form
             this.commandBarGalleryDropDown21 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
             this.ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.appMenu = new DevExpress.XtraBars.Ribbon.ApplicationMenu(this.components);
-            this.popupControlContainer2 = new DevExpress.XtraBars.PopupControlContainer(this.components);
-            this.buttonEdit = new DevExpress.XtraEditors.ButtonEdit();
             this.iExit = new DevExpress.XtraBars.BarButtonItem();
             this.popupControlContainer1 = new DevExpress.XtraBars.PopupControlContainer(this.components);
             this.someLabelControl2 = new DevExpress.XtraEditors.LabelControl();
@@ -341,7 +339,7 @@ namespace XSheet.v2.Form
             this.spreadsheetCommandBarButtonItem30 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.spreadsheetCommandBarButtonItem31 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
-            this.renameTableItem1 = new DevExpress.XtraSpreadsheet.UI.RenameTableItem();
+            this.btnDesignSearch = new DevExpress.XtraSpreadsheet.UI.RenameTableItem();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.spreadsheetCommandBarCheckItem8 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarCheckItem();
             this.spreadsheetCommandBarCheckItem9 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarCheckItem();
@@ -653,6 +651,7 @@ namespace XSheet.v2.Form
             this.executeList = new DevExpress.XtraBars.BarSubItem();
             this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
             this.ts_multiSelect = new DevExpress.XtraBars.BarToggleSwitchItem();
+            this.btn_DesignSearch = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonImageCollectionLarge = new DevExpress.Utils.ImageCollection(this.components);
             this.pivotTableToolsRibbonPageCategory1 = new DevExpress.XtraSpreadsheet.UI.PivotTableToolsRibbonPageCategory();
             this.pivotTableDesignRibbonPage1 = new DevExpress.XtraSpreadsheet.UI.PivotTableDesignRibbonPage();
@@ -737,11 +736,14 @@ namespace XSheet.v2.Form
             this.mailMergeGroupingRibbonPageGroup1 = new DevExpress.XtraSpreadsheet.UI.MailMergeGroupingRibbonPageGroup();
             this.mailMergeFilteringRibbonPageGroup1 = new DevExpress.XtraSpreadsheet.UI.MailMergeFilteringRibbonPageGroup();
             this.mailMergeBindingRibbonPageGroup1 = new DevExpress.XtraSpreadsheet.UI.MailMergeBindingRibbonPageGroup();
+            this.popupControlContainer2 = new DevExpress.XtraBars.PopupControlContainer(this.components);
+            this.buttonEdit = new DevExpress.XtraEditors.ButtonEdit();
             this.formulaBarNameBoxSplitContainerControl = new DevExpress.XtraEditors.SplitContainerControl();
             this.spreadsheetNameBoxControl = new DevExpress.XtraSpreadsheet.SpreadsheetNameBoxControl();
             this.spreadsheetFormulaBarControl1 = new DevExpress.XtraSpreadsheet.SpreadsheetFormulaBarControl();
             this.spreadsheetFormulaBarPanel = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbl_statu = new DevExpress.XtraEditors.LabelControl();
             this.cbox_app = new System.Windows.Forms.ComboBox();
             this.lbl_User = new DevExpress.XtraEditors.LabelControl();
             this.lbl_App = new DevExpress.XtraEditors.LabelControl();
@@ -751,8 +753,8 @@ namespace XSheet.v2.Form
             this.dbtn_Edit = new DevExpress.XtraEditors.DropDownButton();
             this.dbtn_New = new DevExpress.XtraEditors.DropDownButton();
             this.dbtn_Execute = new DevExpress.XtraEditors.DropDownButton();
-            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.btn_Save = new DevExpress.XtraEditors.SimpleButton();
+            this.btn_Cancel = new DevExpress.XtraEditors.SimpleButton();
             this.btn_Delete = new DevExpress.XtraEditors.SimpleButton();
             this.spreadsheetBarController1 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetBarController();
             this.spreadsheetCommandBarButtonItem151 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
@@ -768,20 +770,16 @@ namespace XSheet.v2.Form
             this.spreadsheetCommandBarButtonItem171 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.iHelp = new DevExpress.XtraBars.BarButtonItem();
             this.alertcontrolMain = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
-            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+            this.popupSpread = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.popupDataCfg = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.rightClickBarManager = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-            this.popupSpread = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.vScrollBar1 = new DevExpress.XtraEditors.VScrollBar();
-            this.vScrollBar2 = new DevExpress.XtraEditors.VScrollBar();
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appMenu)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.popupControlContainer2)).BeginInit();
-            this.popupControlContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupControlContainer1)).BeginInit();
             this.popupControlContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonImageCollection)).BeginInit();
@@ -813,6 +811,9 @@ namespace XSheet.v2.Form
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown23)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown24)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonImageCollectionLarge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupControlContainer2)).BeginInit();
+            this.popupControlContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.formulaBarNameBoxSplitContainerControl)).BeginInit();
             this.formulaBarNameBoxSplitContainerControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetNameBoxControl.Properties)).BeginInit();
@@ -821,8 +822,9 @@ namespace XSheet.v2.Form
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetBarController1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupSpread)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupDataCfg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rightClickBarManager)).BeginInit();
             this.SuspendLayout();
             // 
             // stylesRibbonPageGroup1
@@ -1075,7 +1077,7 @@ namespace XSheet.v2.Form
             this.spreadsheetCommandBarButtonItem30,
             this.spreadsheetCommandBarButtonItem31,
             this.barStaticItem1,
-            this.renameTableItem1,
+            this.btnDesignSearch,
             this.spreadsheetCommandBarCheckItem8,
             this.spreadsheetCommandBarCheckItem9,
             this.spreadsheetCommandBarCheckItem10,
@@ -1375,9 +1377,10 @@ namespace XSheet.v2.Form
             this.barButtonItem2,
             this.executeList,
             this.barButtonItem3,
-            this.ts_multiSelect});
+            this.ts_multiSelect,
+            this.btn_DesignSearch});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 326;
+            this.ribbonControl.MaxItemId = 338;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -1407,30 +1410,11 @@ namespace XSheet.v2.Form
             // 
             // appMenu
             // 
-            this.appMenu.BottomPaneControlContainer = this.popupControlContainer2;
             this.appMenu.ItemLinks.Add(this.iExit);
             this.appMenu.Name = "appMenu";
             this.appMenu.Ribbon = this.ribbonControl;
             this.appMenu.RightPaneControlContainer = this.popupControlContainer1;
             this.appMenu.ShowRightPane = true;
-            // 
-            // popupControlContainer2
-            // 
-            this.popupControlContainer2.Appearance.BackColor = ((System.Drawing.Color)(resources.GetObject("popupControlContainer2.Appearance.BackColor")));
-            this.popupControlContainer2.Appearance.Options.UseBackColor = true;
-            this.popupControlContainer2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.popupControlContainer2.Controls.Add(this.buttonEdit);
-            resources.ApplyResources(this.popupControlContainer2, "popupControlContainer2");
-            this.popupControlContainer2.Name = "popupControlContainer2";
-            this.popupControlContainer2.Ribbon = this.ribbonControl;
-            // 
-            // buttonEdit
-            // 
-            resources.ApplyResources(this.buttonEdit, "buttonEdit");
-            this.buttonEdit.MenuManager = this.ribbonControl;
-            this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
             // 
             // iExit
             // 
@@ -1865,11 +1849,11 @@ namespace XSheet.v2.Form
             this.barStaticItem1.Name = "barStaticItem1";
             this.barStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
-            // renameTableItem1
+            // btnDesignSearch
             // 
-            this.renameTableItem1.Edit = this.repositoryItemTextEdit1;
-            this.renameTableItem1.Id = 111;
-            this.renameTableItem1.Name = "renameTableItem1";
+            this.btnDesignSearch.Edit = this.repositoryItemTextEdit1;
+            this.btnDesignSearch.Id = 111;
+            this.btnDesignSearch.Name = "btnDesignSearch";
             // 
             // repositoryItemTextEdit1
             // 
@@ -3398,6 +3382,7 @@ namespace XSheet.v2.Form
             this.spreadsheetMain.MenuManager = this.ribbonControl;
             this.spreadsheetMain.Name = "spreadsheetMain";
             this.spreadsheetMain.Options.Culture = new System.Globalization.CultureInfo("zh-CN");
+            this.rightClickBarManager.SetPopupContextMenu(this.spreadsheetMain, this.popupDataCfg);
             this.spreadsheetMain.DocumentLoaded += new System.EventHandler(this.spreadsheetMain_DocumentLoaded);
             this.spreadsheetMain.SelectionChanged += new System.EventHandler(this.spreadsheetMain_SelectionChanged);
             this.spreadsheetMain.ActiveSheetChanged += new DevExpress.Spreadsheet.ActiveSheetChangedEventHandler(this.spreadsheetMain_ActiveSheetChanged);
@@ -4758,6 +4743,13 @@ namespace XSheet.v2.Form
             this.ts_multiSelect.Name = "ts_multiSelect";
             this.ts_multiSelect.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.ts_multiSelect_CheckedChanged);
             // 
+            // btn_DesignSearch
+            // 
+            resources.ApplyResources(this.btn_DesignSearch, "btn_DesignSearch");
+            this.btn_DesignSearch.Id = 327;
+            this.btn_DesignSearch.Name = "btn_DesignSearch";
+            this.btn_DesignSearch.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_DesignSearch_ItemClick);
+            // 
             // ribbonImageCollectionLarge
             // 
             resources.ApplyResources(this.ribbonImageCollectionLarge, "ribbonImageCollectionLarge");
@@ -4912,7 +4904,7 @@ namespace XSheet.v2.Form
             // tablePropertiesRibbonPageGroup1
             // 
             this.tablePropertiesRibbonPageGroup1.ItemLinks.Add(this.barStaticItem1);
-            this.tablePropertiesRibbonPageGroup1.ItemLinks.Add(this.renameTableItem1);
+            this.tablePropertiesRibbonPageGroup1.ItemLinks.Add(this.btnDesignSearch);
             this.tablePropertiesRibbonPageGroup1.Name = "tablePropertiesRibbonPageGroup1";
             // 
             // tableToolsRibbonPageGroup1
@@ -5037,7 +5029,7 @@ namespace XSheet.v2.Form
             this.commonRibbonPageGroup1.ItemLinks.Add(this.spreadsheetCommandBarButtonItem185);
             this.commonRibbonPageGroup1.ItemLinks.Add(this.btn_Undo);
             this.commonRibbonPageGroup1.ItemLinks.Add(this.btn_Redo);
-            this.commonRibbonPageGroup1.ItemLinks.Add(this.renameTableItem1);
+            this.commonRibbonPageGroup1.ItemLinks.Add(this.btnDesignSearch);
             this.commonRibbonPageGroup1.Name = "commonRibbonPageGroup1";
             // 
             // infoRibbonPageGroup1
@@ -5391,6 +5383,24 @@ namespace XSheet.v2.Form
             this.mailMergeBindingRibbonPageGroup1.ItemLinks.Add(this.spreadsheetCommandBarButtonItem206);
             this.mailMergeBindingRibbonPageGroup1.Name = "mailMergeBindingRibbonPageGroup1";
             // 
+            // popupControlContainer2
+            // 
+            this.popupControlContainer2.Appearance.BackColor = ((System.Drawing.Color)(resources.GetObject("popupControlContainer2.Appearance.BackColor")));
+            this.popupControlContainer2.Appearance.Options.UseBackColor = true;
+            this.popupControlContainer2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.popupControlContainer2.Controls.Add(this.buttonEdit);
+            resources.ApplyResources(this.popupControlContainer2, "popupControlContainer2");
+            this.popupControlContainer2.Name = "popupControlContainer2";
+            this.popupControlContainer2.Ribbon = this.ribbonControl;
+            // 
+            // buttonEdit
+            // 
+            resources.ApplyResources(this.buttonEdit, "buttonEdit");
+            this.buttonEdit.MenuManager = this.ribbonControl;
+            this.buttonEdit.Name = "buttonEdit";
+            this.buttonEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            // 
             // formulaBarNameBoxSplitContainerControl
             // 
             resources.ApplyResources(this.formulaBarNameBoxSplitContainerControl, "formulaBarNameBoxSplitContainerControl");
@@ -5428,11 +5438,18 @@ namespace XSheet.v2.Form
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.lbl_statu);
             this.panel2.Controls.Add(this.cbox_app);
             this.panel2.Controls.Add(this.lbl_User);
             this.panel2.Controls.Add(this.lbl_App);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
+            // 
+            // lbl_statu
+            // 
+            this.lbl_statu.LineVisible = true;
+            resources.ApplyResources(this.lbl_statu, "lbl_statu");
+            this.lbl_statu.Name = "lbl_statu";
             // 
             // cbox_app
             // 
@@ -5463,8 +5480,8 @@ namespace XSheet.v2.Form
             this.panelControl1.Controls.Add(this.dbtn_Edit);
             this.panelControl1.Controls.Add(this.dbtn_New);
             this.panelControl1.Controls.Add(this.dbtn_Execute);
-            this.panelControl1.Controls.Add(this.simpleButton2);
-            this.panelControl1.Controls.Add(this.simpleButton1);
+            this.panelControl1.Controls.Add(this.btn_Save);
+            this.panelControl1.Controls.Add(this.btn_Cancel);
             this.panelControl1.Controls.Add(this.btn_Delete);
             resources.ApplyResources(this.panelControl1, "panelControl1");
             this.panelControl1.Name = "panelControl1";
@@ -5475,7 +5492,7 @@ namespace XSheet.v2.Form
             this.dbtn_Search.Image = ((System.Drawing.Image)(resources.GetObject("dbtn_Search.Image")));
             this.dbtn_Search.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.dbtn_Search.Name = "dbtn_Search";
-            this.dbtn_Search.Click += new System.EventHandler(this.btn_Edit_Click);
+            this.dbtn_Search.Click += new System.EventHandler(this.btn_Search_Click);
             // 
             // dbtn_Edit
             // 
@@ -5487,6 +5504,7 @@ namespace XSheet.v2.Form
             // 
             // dbtn_New
             // 
+            this.dbtn_New.DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.Hide;
             this.dbtn_New.Image = ((System.Drawing.Image)(resources.GetObject("dbtn_New.Image")));
             this.dbtn_New.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             resources.ApplyResources(this.dbtn_New, "dbtn_New");
@@ -5500,21 +5518,21 @@ namespace XSheet.v2.Form
             this.dbtn_Execute.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.dbtn_Execute.MenuManager = this.ribbonControl;
             this.dbtn_Execute.Name = "dbtn_Execute";
-            this.dbtn_Execute.Click += new System.EventHandler(this.dropDownButton1_Click);
+            this.dbtn_Execute.Click += new System.EventHandler(this.dbtn_Execute_Click);
             // 
-            // simpleButton2
+            // btn_Save
             // 
-            resources.ApplyResources(this.simpleButton2, "simpleButton2");
-            this.simpleButton2.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton2.Image")));
-            this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Click += new System.EventHandler(this.btn_Delete_Click);
+            resources.ApplyResources(this.btn_Save, "btn_Save");
+            this.btn_Save.Image = ((System.Drawing.Image)(resources.GetObject("btn_Save.Image")));
+            this.btn_Save.Name = "btn_Save";
+            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
-            // simpleButton1
+            // btn_Cancel
             // 
-            resources.ApplyResources(this.simpleButton1, "simpleButton1");
-            this.simpleButton1.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.Image")));
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
+            resources.ApplyResources(this.btn_Cancel, "btn_Cancel");
+            this.btn_Cancel.Image = ((System.Drawing.Image)(resources.GetObject("btn_Cancel.Image")));
+            this.btn_Cancel.Name = "btn_Cancel";
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // btn_Delete
             // 
@@ -5574,7 +5592,7 @@ namespace XSheet.v2.Form
             this.spreadsheetBarController1.BarItems.Add(this.spreadsheetCommandBarButtonItem30);
             this.spreadsheetBarController1.BarItems.Add(this.spreadsheetCommandBarButtonItem31);
             this.spreadsheetBarController1.BarItems.Add(this.barStaticItem1);
-            this.spreadsheetBarController1.BarItems.Add(this.renameTableItem1);
+            this.spreadsheetBarController1.BarItems.Add(this.btnDesignSearch);
             this.spreadsheetBarController1.BarItems.Add(this.spreadsheetCommandBarCheckItem8);
             this.spreadsheetBarController1.BarItems.Add(this.spreadsheetCommandBarCheckItem9);
             this.spreadsheetBarController1.BarItems.Add(this.spreadsheetCommandBarCheckItem10);
@@ -5947,14 +5965,29 @@ namespace XSheet.v2.Form
             this.iHelp.LargeImageIndex = 7;
             this.iHelp.Name = "iHelp";
             // 
-            // barManager1
+            // popupSpread
             // 
-            this.barManager1.DockControls.Add(this.barDockControlTop);
-            this.barManager1.DockControls.Add(this.barDockControlBottom);
-            this.barManager1.DockControls.Add(this.barDockControlLeft);
-            this.barManager1.DockControls.Add(this.barDockControlRight);
-            this.barManager1.Form = this;
-            this.barManager1.MaxItemId = 0;
+            this.popupSpread.ItemLinks.Add(this.btn_Redo);
+            this.popupSpread.ItemLinks.Add(this.btn_Undo);
+            this.popupSpread.ItemLinks.Add(this.executeList);
+            this.popupSpread.ItemLinks.Add(this.ts_multiSelect);
+            this.popupSpread.Name = "popupSpread";
+            this.popupSpread.Ribbon = this.ribbonControl;
+            // 
+            // popupDataCfg
+            // 
+            this.popupDataCfg.ItemLinks.Add(this.btn_DesignSearch);
+            this.popupDataCfg.Name = "popupDataCfg";
+            this.popupDataCfg.Ribbon = this.ribbonControl;
+            // 
+            // rightClickBarManager
+            // 
+            this.rightClickBarManager.DockControls.Add(this.barDockControlTop);
+            this.rightClickBarManager.DockControls.Add(this.barDockControlBottom);
+            this.rightClickBarManager.DockControls.Add(this.barDockControlLeft);
+            this.rightClickBarManager.DockControls.Add(this.barDockControlRight);
+            this.rightClickBarManager.Form = this;
+            this.rightClickBarManager.MaxItemId = 0;
             // 
             // barDockControlTop
             // 
@@ -5976,35 +6009,12 @@ namespace XSheet.v2.Form
             this.barDockControlRight.CausesValidation = false;
             resources.ApplyResources(this.barDockControlRight, "barDockControlRight");
             // 
-            // popupSpread
-            // 
-            this.popupSpread.ItemLinks.Add(this.btn_Redo);
-            this.popupSpread.ItemLinks.Add(this.btn_Undo);
-            this.popupSpread.ItemLinks.Add(this.executeList);
-            this.popupSpread.ItemLinks.Add(this.ts_multiSelect);
-            this.popupSpread.Name = "popupSpread";
-            this.popupSpread.Ribbon = this.ribbonControl;
-            // 
-            // vScrollBar1
-            // 
-            resources.ApplyResources(this.vScrollBar1, "vScrollBar1");
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Opacity = 1F;
-            // 
-            // vScrollBar2
-            // 
-            resources.ApplyResources(this.vScrollBar2, "vScrollBar2");
-            this.vScrollBar2.Name = "vScrollBar2";
-            this.vScrollBar2.Opacity = 1F;
-            // 
             // XSheetDesigner
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
             this.Appearance.Options.UseFont = true;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.vScrollBar2);
-            this.Controls.Add(this.vScrollBar1);
             this.Controls.Add(this.spreadsheetFormulaBarPanel);
             this.Controls.Add(this.popupControlContainer1);
             this.Controls.Add(this.popupControlContainer2);
@@ -6019,9 +6029,6 @@ namespace XSheet.v2.Form
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown21)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appMenu)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.popupControlContainer2)).EndInit();
-            this.popupControlContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupControlContainer1)).EndInit();
             this.popupControlContainer1.ResumeLayout(false);
             this.popupControlContainer1.PerformLayout();
@@ -6054,6 +6061,9 @@ namespace XSheet.v2.Form
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown23)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown24)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonImageCollectionLarge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupControlContainer2)).EndInit();
+            this.popupControlContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.formulaBarNameBoxSplitContainerControl)).EndInit();
             this.formulaBarNameBoxSplitContainerControl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetNameBoxControl.Properties)).EndInit();
@@ -6063,8 +6073,9 @@ namespace XSheet.v2.Form
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetBarController1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupSpread)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupDataCfg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rightClickBarManager)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -6145,7 +6156,7 @@ namespace XSheet.v2.Form
         private DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem spreadsheetCommandBarButtonItem30;
         private DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem spreadsheetCommandBarButtonItem31;
         private DevExpress.XtraBars.BarStaticItem barStaticItem1;
-        private DevExpress.XtraSpreadsheet.UI.RenameTableItem renameTableItem1;
+        private DevExpress.XtraSpreadsheet.UI.RenameTableItem btnDesignSearch;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         private DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarCheckItem spreadsheetCommandBarCheckItem8;
         private DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarCheckItem spreadsheetCommandBarCheckItem9;
@@ -6569,11 +6580,6 @@ namespace XSheet.v2.Form
         private DevExpress.XtraEditors.LabelControl lbl_App;
         private DropDownButton dbtn_Execute;
         private DevExpress.XtraBars.Alerter.AlertControl alertcontrolMain;
-        private DevExpress.XtraBars.BarManager barManager1;
-        private DevExpress.XtraBars.BarDockControl barDockControlTop;
-        private DevExpress.XtraBars.BarDockControl barDockControlBottom;
-        private DevExpress.XtraBars.BarDockControl barDockControlLeft;
-        private DevExpress.XtraBars.BarDockControl barDockControlRight;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
         private DevExpress.XtraBars.PopupMenu popupSpread;
@@ -6581,12 +6587,18 @@ namespace XSheet.v2.Form
         private DropDownButton dbtn_New;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private DevExpress.XtraBars.BarToggleSwitchItem ts_multiSelect;
-        private VScrollBar vScrollBar2;
-        private VScrollBar vScrollBar1;
         private System.Windows.Forms.ComboBox cbox_app;
         private DropDownButton dbtn_Edit;
         private DropDownButton dbtn_Search;
-        private SimpleButton simpleButton2;
-        private SimpleButton simpleButton1;
+        private SimpleButton btn_Save;
+        private SimpleButton btn_Cancel;
+        private DevExpress.XtraBars.BarButtonItem btn_DesignSearch;
+        private LabelControl lbl_statu;
+        private DevExpress.XtraBars.PopupMenu popupDataCfg;
+        private DevExpress.XtraBars.BarManager rightClickBarManager;
+        private DevExpress.XtraBars.BarDockControl barDockControlTop;
+        private DevExpress.XtraBars.BarDockControl barDockControlBottom;
+        private DevExpress.XtraBars.BarDockControl barDockControlLeft;
+        private DevExpress.XtraBars.BarDockControl barDockControlRight;
     }
 }

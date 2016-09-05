@@ -9,5 +9,7 @@ namespace XSheet
     public interface Observer
     {
         void UpdateCmdStatu(String statu);
+
+        String GetUserPrivilege();
     }
 }

@@ -21,8 +21,14 @@ namespace XSheet
             DevExpress.UserSkins.BonusSkins.Register();
             if (args.Length == 0)
             {
-                Application.Run(new XSheetDesigner());
-                //Application.Run(new XSheetMain());
+                try
+                {
+                    Application.Run(new XSheetDesigner());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                }
             }
             else
             {

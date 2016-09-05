@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using XSheet.Data;
@@ -22,10 +23,20 @@ namespace XSheet.v2.Data
         public String flag = "OK";
         public XApp app { get; set; }
         public XCommand cmd { get; set; }
+
         //初始化接口
         public virtual void init(ActionCfg cfg,XApp app)
         {
-            //TODO
+            this.cfg = cfg;
+            this.ActionName = cfg.ActionName;
+            try
+            {
+                this.actionSeq = int.Parse(cfg.ActSeq);
+            }
+            catch
+            {
+                MessageBox.Show(String.Format("Action {0} Seq设置异常，设置值为{}1",ActionName,cfg.ActSeq));
+            }
             try
             {
                 if (cfg.SRange.Length > 0)
@@ -44,17 +55,7 @@ namespace XSheet.v2.Data
             }
 
 
-            try
-            {
-                this.cmd = app.getCommandByName(cfg.CommandName);
-                cmd.actions.Add(actionSeq, this);
-            }
-            catch (Exception)
-            {
-
-                MessageBox.Show("Action：" + ActionName + "与命令：" +cfg.CommandName + "绑定失败，请检查Action配置是否正确！");
-                return;
-            }
+            
 
         }
 
@@ -62,9 +63,9 @@ namespace XSheet.v2.Data
 
         protected virtual String getRealStatement()
         {
-            String sql = "";
-            
-            return sql;
+            String statement = cfg.ActionStatement;
+
+            return dRange.getRealStatement(statement);
         }
 
         public virtual void setSelectIndex(int rowIndex)

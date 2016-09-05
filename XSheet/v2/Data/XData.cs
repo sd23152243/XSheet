@@ -1,39 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XSheet.Util;
 
 namespace XSheet.v2.Data
 {
     public class XData
     {
-        public String BaseStatement { get; set; }
         private DataTable dt;
-        public IDataAdapter da { get; set; }
-        public String serverName { get; set; }
-        public String XSQL { get; set; }
-        public List<String> XSQLParams { get; set; }
-        private Boolean autoable { get; set; }
-        public void search()
+        public DbDataAdapter da { get; set; }
+        public String ServerName { get; set; }
+        //public List<String> XSQLParams { get; set; }
+        public String DBName { get; set; }
+        public List<String> avaliableList = new List<string>();
+        public void search(String Sql)
         {
-
+            avaliableList = new List<string>();
+            da = DBUtil.getDbDataAdapter(ServerName, Sql, "");
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            dt = ds.Tables[0];
+            avaliableList.Add("R");
+            if (da.UpdateCommand != null)
+            {
+                avaliableList.Add("U");
+            }
+            if (da.InsertCommand != null)
+            {
+                avaliableList.Add("C");
+            }
+            if (da.DeleteCommand != null)
+            {
+                avaliableList.Add("D");
+            }
         } 
 
         public void delete()
         {
-            
+            da.Update(dt.GetChanges());
+            dt.AcceptChanges();
         }
 
         public void update()
         {
-
+            da.Update(dt.GetChanges());
+            dt.AcceptChanges();
         }
 
         public void insert()
         {
-
+            da.Update(dt.GetChanges());
+            dt.AcceptChanges();
         }
 
 
@@ -62,9 +83,14 @@ namespace XSheet.v2.Data
             this.dt = dt;
         }
 
-        public DataTable getData()
+        public DataTable getDataTable()
         {
             return this.dt;
+        }
+
+        internal void init()
+        {
+            throw new NotImplementedException();
         }
     }
 }

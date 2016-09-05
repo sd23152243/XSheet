@@ -19,25 +19,16 @@ namespace XSheet.v2.Data.XSheetRange
         {
             return getRange().LeftColumnIndex;
         }
-
+        private DefinedName dname;
         public int getRightColumnIndex()
         {
             return getRange().RightColumnIndex; ;
         }
 
-        public int getTopRowIndex()
+        public int getTopRowIndex()// 输入参数1，表示获取除标题行的首行
         {
-            return getRange().TopRowIndex; ;
+            return getRange().TopRowIndex+1 ;
         }
-        public int getTopRowIndex(int i)// 输入参数1，表示获取除标题行的首行
-        {
-            if (i == 1)
-            {
-                return getRange().TopRowIndex + 1;
-            }
-            return getTopRowIndex();
-        }
-
         public int getBottomRowIndex()
         {
             return getRange().BottomRowIndex; ;
@@ -49,56 +40,14 @@ namespace XSheet.v2.Data.XSheetRange
             return RangeUtil.isInRange(range, this.getRange());
         }
 
-        public override void doResize(int rowcount, int columncount)
+        public override void doResize(int rowcount)
         {
             Range range = getRange();
             //range.Fill.BackgroundColor = Color.White;
-            String rfA1 = range.GetReferenceA1(ReferenceElement.ColumnAbsolute | ReferenceElement.RowAbsolute);
             
-            String[] tmp = rfA1.Split('$');
-            if (tmp.Length>5)
-            {
-                System.Windows.Forms.MessageBox.Show("当前区域:"+Name+"定义不规范，当前定义类型为"+ rfA1 + "Range类型定义应为$A$1:$C$10");
-                return;
-            }
-            else if (tmp.Length == 3)
-            {
-                rfA1 = rfA1 + ":" + rfA1;
-                tmp = rfA1.Split('$');
-            }
+            dname.Range = RangeUtil.rangeResize(range,rowcount);
+        }
         
-            
-            int rowIndex = getIndexAddedDataCount(rowcount);
-            tmp[tmp.Length - 1] = rowIndex.ToString();
-            Range newrange = range.Worksheet.Range[string.Join("$", tmp)];
-            changeDefinedRange(newrange);
-        }
-        public virtual int getIndexAddedDataCount(int dataCount)
-        {
-            int rowIndex = getRange().TopRowIndex;
-            if (dataCount == 0)
-            {
-                rowIndex++;
-            }
-            else
-            {
-                rowIndex += dataCount;
-            }
-            return rowIndex;
-        }
-
-
-        public virtual void changeDefinedRange(Range newrange)
-        {
-            getRange().ClearFormats();
-            this.dname.Range = newrange;
-            for (int i = 0; i <= getRange().RowCount; i++)
-            {
-                getRange()[i, 0].Tag = i;
-            }
-
-        }
-
         public override void fill(DataTable dt)
         {
             Range range = getRange();
@@ -112,7 +61,7 @@ namespace XSheet.v2.Data.XSheetRange
             {
                 setRowBorderNone(i);
             }*/
-            doResize(dt.Rows.Count, dt.Columns.Count);
+            doResize(dt.Rows.Count);
         }
         public virtual Cell get1stDataCell(Range range)
         {
@@ -137,12 +86,12 @@ namespace XSheet.v2.Data.XSheetRange
             return range;
         }
 
-        public override void init(DataCfg cfg)
+        protected override void p_init()
         {
             throw new NotImplementedException();
         }
 
-        public override void onSelect()
+        public override void onSelect(Boolean isMutil)
         {
             throw new NotImplementedException();
         }
@@ -153,6 +102,58 @@ namespace XSheet.v2.Data.XSheetRange
         }
 
         public override void fill()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Boolean LocateRange(IWorkbook book)
+        {
+            if (book.DefinedNames.Contains(this.Name))
+            {
+                this.dname = book.DefinedNames.GetDefinedName(Name);
+                return true;
+            }
+            return false;
+        }
+
+        public override Range getRange()
+        {
+            return getRange();
+        }
+
+        public override bool setRange(Range range)
+        {
+            dname.Range = range;
+            return true;
+        }
+
+        public override List<string> getValiedLFunList()
+        {
+            return new List<string> { "R" };
+        }
+
+        public override void newData(int count)
+        {
+            int rowcount = getRange().RowCount + count;
+            doResize(rowcount);
+        }
+
+        public override void doUpdate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void doDelete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void doInsert()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override List<string> getSelectedValueByColIndex(int col)
         {
             throw new NotImplementedException();
         }

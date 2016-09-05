@@ -13,9 +13,9 @@ namespace XSheet.Util
     public class RangeUtil
     {
         //判断某个区域是否在命名区域中
-        public static XRange getNamedByRange(Range range, List<XRangeForm> names)
+        public static XRange getNamedByRange(Range range, List<XRangeFR> names)
         {
-            foreach (XRangeForm name in names)
+            foreach (XRangeFR name in names)
             {
                 if (name.isInRange(range) >0)
                 {
@@ -51,6 +51,7 @@ namespace XSheet.Util
             }
             return range;
         }
+        //0表示正常 <0异常
         public static int isInRange(AreasCollection areas,Range range)
         {
             int i = 0;
@@ -96,8 +97,6 @@ namespace XSheet.Util
                 result = result + 16;
             }
             return result * flag;
-
-
         }
 
         public static void fillRangeBackgroud(Range range,Color color)
@@ -109,6 +108,45 @@ namespace XSheet.Util
 
             //Complete updating range formatting.
             range.EndUpdateFormatting(rangeFormatting);
+        }
+
+
+        public static Range rangeResize(Range range,int rowcount)
+        {
+            //range.Fill.BackgroundColor = Color.White;
+            String rfA1 = range.GetReferenceA1(ReferenceElement.ColumnAbsolute | ReferenceElement.RowAbsolute);
+
+            String[] tmp = rfA1.Split('$');
+            if (tmp.Length > 5)
+            {
+                System.Windows.Forms.MessageBox.Show("当前区域:" + rfA1 + "定义不规范 定义应为$A$1:$C$10");
+                return range;
+            }
+            else if (tmp.Length == 3)
+            {
+                rfA1 = rfA1 + ":" + rfA1;
+                tmp = rfA1.Split('$');
+            }
+
+
+            int rowIndex = getIndexAddedDataCount(range,rowcount);
+            tmp[tmp.Length - 1] = rowIndex.ToString();
+            Range newrange = range.Worksheet.Range[string.Join("$", tmp)];
+            return newrange;
+        }
+
+        private static int getIndexAddedDataCount(Range range ,int dataCount)
+        {
+            int rowIndex = range.TopRowIndex;
+            if (dataCount == 0)
+            {
+                rowIndex++;
+            }
+            else
+            {
+                rowIndex += dataCount;
+            }
+            return rowIndex;
         }
     }
 }

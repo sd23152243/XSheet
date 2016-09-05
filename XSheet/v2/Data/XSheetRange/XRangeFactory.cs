@@ -23,14 +23,15 @@ namespace XSheet.v2.Data.XSheetRange
             //XNamedTable
             try
             {
-                nametype = "XSheet.v2.Data.XSheetRange" + nametype.Substring(0, 1).ToUpper() + nametype.Substring(1).ToLower();
+                nametype = "XSheet.v2.Data.XSheetRange.XRange" + nametype.ToUpper();
+                Console.WriteLine(nametype);
                 Type type = Type.GetType(nametype, true);
                 named = (XRange)Activator.CreateInstance(type);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                System.Windows.Forms.MessageBox.Show("DATA："+cfg.DataName+"包含非法前缀："+nametype);
+                System.Windows.Forms.MessageBox.Show("DATA："+cfg.DataName+"无法识别类型："+nametype);
             }
             return named;
         }

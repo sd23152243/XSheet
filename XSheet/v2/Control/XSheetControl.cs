@@ -13,10 +13,14 @@ using XSheet.Util;
 using XSheet.v2.Data.XSheetRange;
 using XSheet.v2.Data;
 using XSheet.v2.Privilege;
+using DevExpress.XtraBars;
+using System.Drawing;
+using DevExpress.XtraBars.Alerter;
+using XSheet.v2.Util;
 
 namespace XSheet.v2.Control
 {
-    class XSheetControl: Observer
+    class XSheetControl : Observer
     {
         public XCfgData cfgData { get; set; }//读取的配置项文件
         public XApp app { get; set; }//当前app内容
@@ -24,8 +28,6 @@ namespace XSheet.v2.Control
         public XRange currentXRange { get; set; }//当前选中Range
         public Dictionary<String, SimpleButton> buttons { get; set; }//按钮统一管理
         public string executeState { get; set; }//app执行状态，是否处于空闲等
-        public string appstatu { get; set; }//app当前状态,是否存在配置错误等
-        public string appmode { get; set; }//app当前模式，单选还是多选
         private CommandExecuter executer;//通用命令调度器
         private AreasCollection currSelected { get; set; }//记录当前选择的区域
         private AreasCollection oldSelected { get; set; }//记录上次选择的区域
@@ -33,23 +35,32 @@ namespace XSheet.v2.Control
         private Dictionary<String, LabelControl> labels { get; set; }//各标签页
         private String curUserPrivilege { get; set; }
         private XSheetUser user { get; set; }
+        private Dictionary<String, PopupMenu> menus { get; set; }
+        private BarManager rightClickBarManager { get; set; }
+        private Boolean muiltiFlag = false;
+        private XtraForm form;
+        private AlertControl alert;
         //构造函数
-        public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels)
+        public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels,Dictionary<String,PopupMenu> menus,BarManager barmanager, XtraForm form,AlertControl alert)
         {
-            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\XSheetTemplate20160822.xlsx");
+            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\XSheetTemplate20160822.xlsx",menus,barmanager,form,alert);
         }
         //带参数的初始化
-        public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels, String path)
+        public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager,XtraForm form, AlertControl alert)
         {
             this.buttons = buttons;
             this.labels = labels;
             this.spreadsheetMain = spreadsheetMain;
+            this.menus = menus;
+            this.rightClickBarManager = barmanager;
+            AlertUtil.setAlert(alert, form);
             this.user = new XSheetUser(System.Environment.UserDomainName, System.Environment.UserName, System.Environment.MachineName, System.Environment.OSVersion.ToString());
+            this.form = form;
+            this.alert = alert;
             //CELLCHANGE
             executer = new CommandExecuter(user);
             executer.Attach(this);
             executeState = "OK";
-            appstatu = "OK";
             /*加载文档，后续根据不同设置配置，待修改TODO*/
             try
             {
@@ -57,51 +68,165 @@ namespace XSheet.v2.Control
             }
             catch (Exception e)
             {
-                
                 MessageBox.Show(e.ToString());
                 spreadsheetMain.Dispose();
             }
-            
+
         }
         //带参数的构造函数
-        public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels,String path)
+        public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager, XtraForm form, AlertControl alert)
         {
-            controlInit(spreadsheetMain, buttons, labels, path);
+            controlInit(spreadsheetMain, buttons, labels, path, menus, barmanager,form,alert);
         }
         //文档加载事件，用于初始化
         public void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
             init();
-            if (appstatu.ToUpper() == "OK")
+
+            if ((int)app.statu > 0)
             {
-                executer.excueteCmd(currentSheet, SysEvent.Sheet_Init);
-        }
+                executer.executeCmd(currentSheet, SysEvent.Sheet_Init);
+            }
             spreadsheetMain.Document.Calculate();
         }
         //通用事件响应，用于调用各类事件
         public void EventCall(SysEvent e)
         {
-            if (appstatu.ToUpper() != "OK")
+            if (e == SysEvent.Btn_New)
             {
-                return;
+                if (currentXRange.getDataTable() == null)
+                {
+                    executer.executeCmd(currentXRange, SysEvent.Btn_Search);
+                }
+                ChangeToStatu(SysStatu.Insert);
+                currentXRange.newData(1);
             }
-            executer.excueteCmd(currentXRange, e);
+            else  if(e== SysEvent.Btn_Edit)
+            {
+                ChangeToStatu(SysStatu.Update);
+            }
+            else if(e == SysEvent.Btn_Delete)
+            {
+                ChangeToStatu(SysStatu.Delete);
+            }
+            else if (e == SysEvent.Btn_Search)
+            {
+                executer.executeCmd(currentXRange, e, 0);
+            }
+            else if(e == SysEvent.Btn_Save)
+            {
+                switch (app.statu)
+                {
+                    case SysStatu.Designer:
+                        break;
+                    case SysStatu.Single:
+                        break;
+                    case SysStatu.Muilti:
+                        break;
+                    case SysStatu.Update:
+                        executer.executeCmd(currentXRange, SysEvent.Btn_Edit, 0);
+                        executer.executeCmd(currentXRange, SysEvent.Btn_Search, 0);
+                        ChangeToStatu(muiltiFlag ? SysStatu.Muilti : SysStatu.Single);
+                        break;
+                    case SysStatu.Delete:
+                        executer.executeCmd(currentXRange, SysEvent.Btn_Delete, 0);
+                        executer.executeCmd(currentXRange, SysEvent.Btn_Search, 0);
+                        ChangeToStatu(muiltiFlag ? SysStatu.Muilti : SysStatu.Single);
+                        break;
+                    case SysStatu.Insert:
+                        executer.executeCmd(currentXRange, SysEvent.Btn_New, 0);
+                        executer.executeCmd(currentXRange, SysEvent.Btn_Search, 0);
+                        ChangeToStatu(muiltiFlag ? SysStatu.Muilti : SysStatu.Single);
+                        break;
+                    case SysStatu.Error:
+                        break;
+                    case SysStatu.AppError:
+                        break;
+                    case SysStatu.RangeError:
+                        break;
+                    case SysStatu.SheetError:
+                        break;
+                    case SysStatu.CommandError:
+                        break;
+                    case SysStatu.ActionError:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if (app.statu > 0)
+            {
+                if (e == SysEvent.Btn_Cancel)
+                {
+                    ChangeToStatu(muiltiFlag ? SysStatu.Muilti : SysStatu.Single);
+                    executer.executeCmd(currentXRange, SysEvent.Btn_Search, 0);
+                }
+                else if (e == SysEvent.Btn_Save)
+                {
+                    executer.executeCmd(currentXRange, e);
+                    ChangeToStatu(muiltiFlag ? SysStatu.Muilti : SysStatu.Single);
+                }
+                
+                
+            }
+            return;
         }
         //单元格内容变更事件响应
         public void spreadsheetMain_CellValueChanged(object sender, SpreadsheetCellEventArgs e)
         {
-            spreadsheetMain.Document.Calculate();
-            setSelectedNamed();
-            if (e.OldValue != e.Value)
+            if (app.statu > 0)
             {
-                executer.excueteCmd(currentXRange, SysEvent.Cell_Change);
+                spreadsheetMain.Document.Calculate();
+                setSelectedNamed();
+                if (currentXRange != null && e.OldValue != e.Value)
+                {
+                    if (currentXRange.getType() != "Table")
+                    {
+                        executer.executeCmd(currentXRange, SysEvent.Cell_Change);
+                    }
+                    else
+                    {
+                        
+                        if (app.statu == SysStatu.Insert )//INSERT 状态只允许新增区域修改数据
+                        {
+                            int dcount = currentXRange.getDataTable().Rows.Count;
+                            int selectRowCount = spreadsheetMain.SelectedCell.TopRowIndex - currentXRange.getRange().TopRowIndex;
+                            if (selectRowCount < dcount)
+                            {
+                                spreadsheetMain.SelectedCell.Value = e.OldValue;
+                            }
+                        }
+                        else if(app.statu != SysStatu.Update)//非UPDATE状态不允许修改数据
+                        {
+                            spreadsheetMain.SelectedCell.Value = e.OldValue;
+                        }
+                        else//Update修改数据,修改后修改区域变色
+                        {
+                            spreadsheetMain.SelectedCell.FillColor = Color.Yellow;
+                        }
+                    }
+                }
             }
         }
         //鼠标按键抬起事件响应，用于释放简单资源
         public void spreadsheetMain_MouseUp(object sender, MouseEventArgs e)
-        {            
-            if (currentXRange != null && currentXRange.isSelectable() == true)
+        {
+            if (e.Button == MouseButtons.Right)
             {
+                Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
+                IList<Table> tables = spreadsheetMain.ActiveWorksheet.Tables.GetTables(spreadsheetMain.ActiveCell);
+                //todo
+            }
+            else if (currentXRange != null && currentXRange.isSelectable() == true)
+            {
+                if ((int)app.statu==3 || (int)app.statu == 4)
+                {
+                    currentXRange.onSelect(true);
+                }
+                else if((int)app.statu != 5)
+                {
+                    currentXRange.onSelect(muiltiFlag);
+                }
                 
             }
         }
@@ -115,34 +240,18 @@ namespace XSheet.v2.Control
             }
             catch (Exception)
             {
-
                 MessageBox.Show("当前App中缺少Config配置页，请确认文件未损坏货配置页名称正确");
             }
-            
             cfgData = new XCfgData(cfgsheet);
-            this.appstatu = cfgData.flag;
-            if (appstatu != "OK")
-            {
-                MessageBox.Show("配置文件加载出错，请确认配置文件");
-                return;
-            }
             app = new XApp(spreadsheetMain.Document, cfgData);
-            this.appstatu = app.flag;
-            if (appstatu != "OK")
-            {
-                MessageBox.Show("XSheet初始化出错，请确认配置文件");
-                return;
-            }
             labels["lbl_App"].Text = "APP:" + app.getFullAppName();
             labels["lbl_User"].Text = "当前用户:" + this.user.getFullUserName();
-            try
+            if (app.statu == SysStatu.Designer)
             {
-                currentSheet = app.getRSheetByName(spreadsheetMain.ActiveWorksheet.Name);
+                MessageBox.Show("进入设计者模式！");
+                return;
             }
-            catch (Exception)
-            {
-                MessageBox.Show(spreadsheetMain.ActiveWorksheet.Name + " 未配置在Config文件Sheet列表中");
-            }
+            RefreshCurrentSheet();
         }
         //私有方法，将传入按钮设为可用
         private void setBtnStatuOn(String eventType)
@@ -165,14 +274,15 @@ namespace XSheet.v2.Control
         //Sheet激活时触发，用于响应Sheet切换事件
         public void spreadsheetMain_ActiveSheetChanged(object sender, ActiveSheetChangedEventArgs e)
         {
-            if (appstatu.ToUpper() != "OK")
+            RefreshCurrentSheet();
+            if (app.statu == SysStatu.Designer)
             {
                 return;
             }
             try
             {
                 currentSheet = app.getRSheetByName(e.NewActiveSheetName);
-                executer.excueteCmd(currentSheet, SysEvent.Sheet_Change);
+                executer.executeCmd(currentSheet, SysEvent.Sheet_Change);
                 app.setSheetVisiable(e.NewActiveSheetName);
             }
             catch (Exception)
@@ -181,6 +291,7 @@ namespace XSheet.v2.Control
                 spreadsheetMain.Document.Worksheets.ActiveWorksheet = spreadsheetMain.Document.Worksheets[e.OldActiveSheetName];
             }
         }
+
         //超链接事件响应
         public void spreadsheetMain_HyperlinkClick(object sender, HyperlinkClickEventArgs e)
         {
@@ -193,7 +304,7 @@ namespace XSheet.v2.Control
                 try
                 {
                     currentSheet = app.getRSheetByName(name);
-                    executer.excueteCmd(currentSheet, SysEvent.Sheet_Init);
+                    executer.executeCmd(currentSheet, SysEvent.Sheet_Init);
                     app.setSheetVisiable(name);
                 }
                 catch (Exception)
@@ -206,20 +317,19 @@ namespace XSheet.v2.Control
         //键盘事件响应
         public void spreadsheetMain_KeyDown(object sender, KeyEventArgs e)
         {
+            RefreshCurrentSheet();
             if (currentXRange != null)
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    executer.excueteCmd(currentXRange, SysEvent.Key_Enter);
+                    executer.executeCmd(currentXRange, SysEvent.Key_Enter);
                 }
             }
-            
-            
         }
         //测试按钮响应，正式环境隐藏
         public void btn_Config_Click(object sender, EventArgs e)
         {
-            if (this.currentXRange!= null)
+            if (this.currentXRange != null)
             {
                 Range range = currentXRange.getRange();
             }
@@ -229,23 +339,26 @@ namespace XSheet.v2.Control
         {
             //TODO 后续加入判断，当前是否存在未执行完任务
         }
-        //切换当前单选/多选状态
-        public void ChangeMuiltSingle(String sts)
+        //切换当前单选/多选状态,b 为true 多选， false 单选
+        public void ChangeMuiltSingle(Boolean b)
         {
-            //TODO
+            muiltiFlag = b;
+            if ((int)app.statu > 0 && (int)app.statu<=2)
+            {
+                ChangeToStatu(b ? SysStatu.Muilti : SysStatu.Single);
+            }
         }
         //响应界面选择点变化事件
         public void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
-            if (appstatu.ToUpper() != "OK")
+            if ((int)app.statu > 0)
             {
-                return;
-            }
-            setSelectedNamed();
-            ChangeButtonsStatu();
-            if (currentXRange != null)
-            {
-                executer.excueteCmd(currentXRange, SysEvent.Select_Change);
+                setSelectedNamed();
+                ChangeButtonsStatu();
+                if (currentXRange != null)
+                {
+                    executer.executeCmd(currentXRange, SysEvent.Select_Change);
+                }
             }
             //oldSelected = spreadsheetMain.Selection.Areas;
         }
@@ -258,17 +371,37 @@ namespace XSheet.v2.Control
             {
                 this.currentXRange = null;
             }
-            //遍历当前Sheet全部命名区域，依次判断是否在区域范围内
-            foreach (var dicname in opSheet.ranges)
+            rightClickBarManager.SetPopupContextMenu(spreadsheetMain, null);
+            if (currentSheet.sheetName == "Config")
             {
-                XRange xname = dicname.Value;
-                int i = xname.isInRange(areas);
-                if (i >= 0)
+                foreach (Table item in currentSheet.sheet.Tables)
                 {
-                    this.currentXRange = xname;
-                    //当选择点为命名区域时，将当前坐标写入单元格
-                    //this.currentXRange.onMouseDown();
-                    break;//如果判断到第一个区域，将该区域存储为currentXRange，退出循环判断
+                    if (item.Name == "CFG_DATA")
+                    {
+                        if (RangeUtil.isInRange(areas, item.DataRange) >=0)
+                        {
+                            rightClickBarManager.SetPopupContextMenu(spreadsheetMain, menus["CfgData"]);
+                        }
+                        break;
+                    }
+                }
+                
+            }
+            else
+            {
+                //遍历当前Sheet全部命名区域，依次判断是否在区域范围内
+                foreach (var dicname in opSheet.ranges)
+                {
+                    XRange xname = dicname.Value;
+                    int i = xname.isInRange(areas);
+                    if (i >= 0)
+                    {
+                        this.currentXRange = xname;
+                        rightClickBarManager.SetPopupContextMenu(spreadsheetMain, menus["Normal"]);
+                        //当选择点为命名区域时，将当前坐标写入单元格
+                        //this.currentXRange.onMouseDown();
+                        break;//如果判断到第一个区域，将该区域存储为currentXRange，退出循环判断
+                    }
                 }
             }
         }
@@ -279,20 +412,86 @@ namespace XSheet.v2.Control
             {
                 btndic.Value.Enabled = false;
             }
-            /*if (currentXRange != null && executeState == "OK" && appstatu == "OK")
+            ((DropDownButton)buttons["BTN_SEARCH"]).DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.Hide;
+            ((DropDownButton)buttons["BTN_EDIT"]).DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.Hide;
+            ((DropDownButton)buttons["BTN_EXECUTE"]).DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.Hide;
+            if (currentXRange != null && executeState == "OK")
             {
-                foreach (var commandDic in currentXRange.commands)
+                if ((int)app.statu > 0 && (int)app.statu <=2)
                 {
-                    String strevent = commandDic.Key.ToString();
-                    if (buttons.ContainsKey(strevent))
+                    List<String> valiedList = currentXRange.getValiedLFunList();
+                    valiedList = filtFunlistByPrivilege(valiedList);
+                    foreach (String item in valiedList)
                     {
-                        if (currentXRange.isDataValied() || commandDic.Key == "BTN_SEARCH")
+                        switch (item)
                         {
-                            setBtnStatuOn(commandDic.Key);
+                            case "R":
+                                buttons["BTN_SEARCH"].Enabled = true;
+                                break;
+                            case "C":
+                                buttons["BTN_NEW"].Enabled = true;
+                                break;
+                            case "U":
+                                buttons["BTN_EDIT"].Enabled = true;
+                                break;
+                            case "D":
+                                buttons["BTN_DELETE"].Enabled = true;
+                                break;
+                            case "P":
+                                buttons["BTN_EXECUTE"].Enabled = true;
+                                break;
+                            case "RO":
+                                ((DropDownButton)buttons["BTN_SEARCH"]).DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.Default;
+                                break;
+                            default:
+                                break;
                         }
                     }
                 }
-            }*/
+                else if ((int)app.statu>2)
+                {
+                    if (app.statu == SysStatu.Insert)
+                    {
+                        buttons["BTN_NEW"].Enabled = true;
+                    }
+                    buttons["BTN_CANCEL"].Enabled = true;
+                    buttons["BTN_SAVE"].Enabled = true;
+
+                }                
+            }
+        }
+        //刷新当前Sheet
+        private void RefreshCurrentSheet()
+        {
+            this.currentSheet = app.getRSheetByName(spreadsheetMain.ActiveWorksheet.Name);
+            curUserPrivilege = user.getPrivilege(currentSheet);
+        }
+        //获取用户权限
+        public string GetUserPrivilege()
+        {
+            return user.getPrivilege(currentSheet);
+        }
+
+        public List<string> filtFunlistByPrivilege(List<String> funcList)
+        {
+            String privilege = GetUserPrivilege();
+            for (int i = funcList.Count-1; i >=0; i--)
+            {
+                if (!privilege.Contains(funcList[i][0]))
+                {
+                    funcList.RemoveAt(i);
+                }
+            }
+            return funcList;
+        }
+
+        //状态变化
+        private void ChangeToStatu(SysStatu newstatu)
+        {
+            app.statu = newstatu;
+            labels["lbl_User"].Text = app.statu.ToString();
+            AlertUtil.Show( "状态变更", "状态变更为" + newstatu);
+            ChangeButtonsStatu();
         }
     }
 }

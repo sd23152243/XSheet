@@ -17,6 +17,8 @@ namespace XSheet.v2.Data
         Btn_New=6,
         Btn_Exe=7,
         Key_Enter=8,
-        Select_Change=9
+        Select_Change=9,
+        Btn_Cancel =10,
+        Btn_Save = 11
     }
 }

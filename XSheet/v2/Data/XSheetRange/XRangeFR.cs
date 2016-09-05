@@ -4,20 +4,20 @@ using DevExpress.Spreadsheet;
 using XSheet.Util;
 using XSheet.Data;
 using XSheet.v2.CfgBean;
+using System.Collections.Generic;
 
 namespace XSheet.v2.Data.XSheetRange
 {
-    public class XRangeForm:XRange
+    public class XRangeFR:XRange
     {
-        public override void doResize(int rowcount, int columncount)
+        public override void doResize(int rowcount)
         {
-            return ;
+            throw new NotImplementedException();
         }
 
         public override int isInRange(Range range)
         {
             AreasCollection areas = getRange().Areas;
-            
             foreach (Range irange in areas)
             { 
                 if (RangeUtil.isInRange(irange,getRange()) > 0)
@@ -42,16 +42,18 @@ namespace XSheet.v2.Data.XSheetRange
         {
             return "Form";
         }
+
         public override bool isSelectable()
         {
             return false;
         }
 
-        public override void init(DataCfg cfg)
+        protected override void p_init()
         {
             throw new NotImplementedException();
         }
-        public override void onSelect()
+
+        public override void onSelect(Boolean isMutil)
         {
             throw new NotImplementedException();
         }
@@ -62,6 +64,51 @@ namespace XSheet.v2.Data.XSheetRange
         }
 
         public override void fill()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Boolean LocateRange(IWorkbook book)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Range getRange()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool setRange(Range range)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override List<string> getValiedLFunList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void newData(int count)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void doUpdate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void doDelete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void doInsert()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override List<string> getSelectedValueByColIndex(int col)
         {
             throw new NotImplementedException();
         }

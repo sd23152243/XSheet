@@ -8,8 +8,9 @@ namespace XSheet.v2.CfgBean
 {
     public class DataCfg
     {
-        //DataName	ObjectName	ObjectType	DBName	ServerName	RangeName	CRUDP	SVK	InitStatement
+        //DataName DataDescription	ObjectName	ObjectType	DBName	ServerName	RangeName	CRUDP	SVK	InitStatement
         public String DataName { get; set; }//数据名称
+        public String DataDescription { get; set; }//数据描述
         public String ObjectName { get; set; }//数据对象（表、视图、存储过程）名称
         public String ObjectType { get; set; }//数据类型（表、视图、存储过程）
         public String DBName { get; set; }//对象数据库名称

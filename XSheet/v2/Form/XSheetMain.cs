@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 
 using XSheet.v2.Control;
+using XSheet.v2.Data;
 
 namespace XSheet.v2.Form
 {
@@ -16,7 +17,7 @@ namespace XSheet.v2.Form
         {
             InitializeComponent();
             init();
-            this.control = new XSheetControl(spreadsheetMain, buttons, labels);
+            this.control = new XSheetControl(spreadsheetMain, buttons, labels,null,null,this,null);
         }
 
         private void init()
@@ -37,32 +38,32 @@ namespace XSheet.v2.Form
         {
             InitializeComponent();
             init();
-            this.control = new XSheetControl(spreadsheetMain, buttons, labels,path);
+            this.control = new XSheetControl(spreadsheetMain, buttons, labels,path,null,null,this,null);
         }
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
-            control.EventCall(Data.SysEvent.Btn_Search);
+            control.EventCall(SysEvent.Btn_Search);
         }
 
         private void btn_New_Click(object sender, EventArgs e)
         {
-            control.EventCall(Data.SysEvent.Btn_New);
+            control.EventCall(SysEvent.Btn_New);
         }
 
         private void btn_Edit_Click(object sender, EventArgs e)
         {
-            control.EventCall(Data.SysEvent.Btn_Edit);
+            control.EventCall(SysEvent.Btn_Edit);
         }
 
         private void btn_Delete_Click(object sender, EventArgs e)
         {
-            control.EventCall(Data.SysEvent.Btn_Delete);
+            control.EventCall(SysEvent.Btn_Delete);
         }
 
         private void btn_Exe_Click(object sender, EventArgs e)
         {
-            control.EventCall(Data.SysEvent.Btn_Exe);
+            control.EventCall(SysEvent.Btn_Exe);
         }
 
 

@@ -10,14 +10,18 @@ using System.Windows.Forms;
 using XSheet.v2.Data;
 using XSheet.v2.Data.XSheetRange;
 
-namespace XSheet.Data.Action
+namespace XSheet.v2.Data.XSheetAction
 {
-    public class ActionSQLInsert : XAction
+    public class ActionSQL_Update : XAction
     {
         public override string doAction()
         {
-            //TODO
-            return "";
+            if (getRealStatement() == "")
+            {
+                dRange.doUpdate();
+            }
+
+            return "OK";
         }
     }
 }

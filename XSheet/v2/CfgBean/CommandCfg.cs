@@ -15,6 +15,7 @@ namespace XSheet.v2.CfgBean
         public String CommandDesc { get; set; }
         public String CRUDP { get; set; }
         public String Async { get; set; }
+        public String CommandSeq { get; set; }
         public String NeedLog { get; set; }
     }
 }

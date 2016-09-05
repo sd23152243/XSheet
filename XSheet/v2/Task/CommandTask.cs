@@ -30,13 +30,13 @@ namespace XSheet.v2.Task
         
         public void doTask()
         {
-            if (cmd.sync == true)
+            if (cmd.Async == true)
             {
-                doTaskSync();
+                doTaskAsync();
             }
             else
             {
-                doTaskAsync();
+                doTaskSync();
             }
         }
 
