@@ -20,11 +20,11 @@ namespace XSheet.v2.Data.XSheetAction
             String statment = getRealStatement();
             if (statment == "")
             {
-                dRange.fill();
+                dRange.doSearch();
             }
             else
             {
-                dRange.fill(statment);
+                dRange.doSearch(statment);
             }
             return "suucess";
         }

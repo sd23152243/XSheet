@@ -133,9 +133,9 @@ namespace XSheet.v2.Data
         }
         public abstract void fill(DataTable dt);
 
-        public abstract void fill(String sql);
+        /*public abstract void fill(String sql);
 
-        public abstract void fill();
+        public abstract void fill();*/
 
         public virtual DataTable getDataTable()
         {
@@ -178,12 +178,12 @@ namespace XSheet.v2.Data
                 return null;
             }
         }
-
+        /*
         public void setDefaultCommand(XCommand cmd)//设置默认命令，即当查找事件存在命令，则不设置，不存在则设置
         {
             throw new NotImplementedException();
         }
-
+        */
         public void setCommand(XCommand cmd)//设置命令
         {
             Dictionary<int,XCommand> cmds = getCommandByEvent(cmd.e);
@@ -216,10 +216,21 @@ namespace XSheet.v2.Data
         }
 
         public abstract List<String> getValiedLFunList();//接口，获取当前Range可用功能列表 返回C R U D P CS CM US RO
+
+        public abstract void doSearch();
+
         public abstract void doUpdate();
 
         public abstract void doInsert();
 
         public abstract void doDelete();
+
+        public abstract void doSearch(String sql);
+
+        public abstract void doUpdate(String sql);
+
+        public abstract void doInsert(String sql);
+
+        public abstract void doDelete(String sql);
     }
 }

@@ -298,13 +298,13 @@ namespace XSheet.v2.Data.XSheetRange
             drawSelectedRows();//在鼠标松开后，同一绘制选择
         }
 
-        public override void fill()
+        public override void doSearch()
         {
             String sql = cfg.InitStatement;
-            fill(sql);
+            doSearch(sql);
         }
 
-        public override void fill(string sql)
+        public override void doSearch(string sql)
         {
             data.search(getRealStatement(sql));
             fill(data.getDataTable());
@@ -475,6 +475,21 @@ namespace XSheet.v2.Data.XSheetRange
                 }
             }
             return list;
+        }
+
+        public override void doUpdate(string sql)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void doInsert(string sql)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void doDelete(string sql)
+        {
+            throw new NotImplementedException();
         }
     }
 }

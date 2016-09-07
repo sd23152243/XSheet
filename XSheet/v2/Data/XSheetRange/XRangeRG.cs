@@ -96,16 +96,6 @@ namespace XSheet.v2.Data.XSheetRange
             throw new NotImplementedException();
         }
 
-        public override void fill(string sql)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void fill()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override Boolean LocateRange(IWorkbook book)
         {
             if (book.DefinedNames.Contains(this.Name))
@@ -154,6 +144,31 @@ namespace XSheet.v2.Data.XSheetRange
         }
 
         public override List<string> getSelectedValueByColIndex(int col)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void doSearch()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void doSearch(string sql)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void doUpdate(string sql)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void doInsert(string sql)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void doDelete(string sql)
         {
             throw new NotImplementedException();
         }
