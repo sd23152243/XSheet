@@ -17,6 +17,7 @@ using DevExpress.XtraBars;
 using System.Drawing;
 using DevExpress.XtraBars.Alerter;
 using XSheet.v2.Util;
+using DevExpress.Utils.Menu;
 
 namespace XSheet.v2.Control
 {
@@ -90,7 +91,7 @@ namespace XSheet.v2.Control
             spreadsheetMain.Document.Calculate();
         }
         //通用事件响应，用于调用各类事件
-        public void EventCall(SysEvent e)
+        public void EventCall(SysEvent e,int i)
         {
             if (e == SysEvent.Btn_New)
             {
@@ -111,7 +112,7 @@ namespace XSheet.v2.Control
             }
             else if (e == SysEvent.Btn_Search)
             {
-                executer.executeCmd(currentXRange, e, 0);
+                executer.executeCmd(currentXRange, e, i);
             }
             else if(e == SysEvent.Btn_Save)
             {
@@ -124,18 +125,15 @@ namespace XSheet.v2.Control
                     case SysStatu.Muilti:
                         break;
                     case SysStatu.Update:
-                        executer.executeCmd(currentXRange, SysEvent.Btn_Edit, 0);
-                        executer.executeCmd(currentXRange, SysEvent.Btn_Search, 0);
+                        executer.executeCmd(currentXRange, SysEvent.Btn_Edit, i);
                         ChangeToStatu(muiltiFlag ? SysStatu.Muilti : SysStatu.Single);
                         break;
                     case SysStatu.Delete:
-                        executer.executeCmd(currentXRange, SysEvent.Btn_Delete, 0);
-                        executer.executeCmd(currentXRange, SysEvent.Btn_Search, 0);
+                        executer.executeCmd(currentXRange, SysEvent.Btn_Delete, i);
                         ChangeToStatu(muiltiFlag ? SysStatu.Muilti : SysStatu.Single);
                         break;
                     case SysStatu.Insert:
-                        executer.executeCmd(currentXRange, SysEvent.Btn_New, 0);
-                        executer.executeCmd(currentXRange, SysEvent.Btn_Search, 0);
+                        executer.executeCmd(currentXRange, SysEvent.Btn_New, i);
                         ChangeToStatu(muiltiFlag ? SysStatu.Muilti : SysStatu.Single);
                         break;
                     case SysStatu.Error:
@@ -427,6 +425,12 @@ namespace XSheet.v2.Control
                         {
                             case "R":
                                 buttons["BTN_SEARCH"].Enabled = true;
+                                Dictionary<int,XCommand > cmds = currentXRange.getCommandByEvent(SysEvent.Btn_Search);
+                                if (cmds.Count>1)
+                                {
+                                    ((DropDownButton)buttons["BTN_SEARCH"]).DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.Default;
+                                    ((DropDownButton)buttons["BTN_SEARCH"]).DropDownControl = CreateDXPopupMenu(cmds);
+                                }
                                 break;
                             case "C":
                                 buttons["BTN_NEW"].Enabled = true;
@@ -460,6 +464,33 @@ namespace XSheet.v2.Control
                 }                
             }
         }
+
+        private IDXDropDownControl CreateDXPopupMenu(Dictionary<int, XCommand> cmds)
+        {
+            DXPopupMenu menu = new DXPopupMenu();
+            foreach (var item in cmds)
+            {
+                if (item.Key==0)
+                {
+                    continue;
+                }
+                DXMenuItem ditem = new DXMenuItem();
+                ditem.Caption = item.Key.ToString()+":"+item.Value.CommandName;
+                ditem.Click += OnItemClick;
+                ditem.Tag =item.Value.e;
+                menu.Items.Add(ditem);
+            }
+            
+            return menu;
+        }
+
+        private void OnItemClick(object sender, EventArgs e)
+        {
+            DXMenuItem item = (DXMenuItem)sender;
+            int i = int.Parse(item.Caption.Split(':')[0]);
+            EventCall((SysEvent)item.Tag, i);
+        }
+
         //刷新当前Sheet
         private void RefreshCurrentSheet()
         {

@@ -92,5 +92,25 @@ namespace XSheet.v2.Data
         {
             throw new NotImplementedException();
         }
+
+        internal void Refresh()
+        {
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            dt = ds.Tables[0];
+            avaliableList.Add("R");
+            if (da.UpdateCommand != null)
+            {
+                avaliableList.Add("U");
+            }
+            if (da.InsertCommand != null)
+            {
+                avaliableList.Add("C");
+            }
+            if (da.DeleteCommand != null)
+            {
+                avaliableList.Add("D");
+            }
+        }
     }
 }

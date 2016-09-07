@@ -78,6 +78,10 @@ namespace XSheet.v2.Data.XSheetRange
 
         public override void doResize(int rowcount)
         {
+            if (rowcount == 1)
+            {
+                rowcount = 2;
+            }
             if (!isFilled)
             {
                 AlertUtil.Show("错误！", "Table" + Name + "需先查询才能Update");

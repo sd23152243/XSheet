@@ -43,27 +43,27 @@ namespace XSheet.v2.Form
 
         private void btn_Search_Click(object sender, EventArgs e)
         {
-            control.EventCall(SysEvent.Btn_Search);
+            control.EventCall(SysEvent.Btn_Search,0);
         }
 
         private void btn_New_Click(object sender, EventArgs e)
         {
-            control.EventCall(SysEvent.Btn_New);
+            control.EventCall(SysEvent.Btn_New,0);
         }
 
         private void btn_Edit_Click(object sender, EventArgs e)
         {
-            control.EventCall(SysEvent.Btn_Edit);
+            control.EventCall(SysEvent.Btn_Edit,0);
         }
 
         private void btn_Delete_Click(object sender, EventArgs e)
         {
-            control.EventCall(SysEvent.Btn_Delete);
+            control.EventCall(SysEvent.Btn_Delete,0);
         }
 
         private void btn_Exe_Click(object sender, EventArgs e)
         {
-            control.EventCall(SysEvent.Btn_Exe);
+            control.EventCall(SysEvent.Btn_Exe,0);
         }
 
 

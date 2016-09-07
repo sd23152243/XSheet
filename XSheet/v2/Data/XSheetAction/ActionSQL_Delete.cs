@@ -14,8 +14,13 @@ namespace XSheet.v2.Data.XSheetAction
     {
         public override string doAction()
         {
-
-            throw new NotImplementedException();
+            if (getRealStatement() == "")
+            {
+                dRange.doDelete();
+                dRange.Refresh();
+                return "OK";
+            }
+            return "false";
         }
     }
 }

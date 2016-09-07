@@ -19,6 +19,7 @@ namespace XSheet.v2.Data.XSheetAction
             if (getRealStatement() == "")
             {
                 dRange.doInsert();
+                dRange.Refresh();
                 return "OK";
             }
             return "false";

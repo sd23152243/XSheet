@@ -19,6 +19,7 @@ namespace XSheet.v2.Data.XSheetAction
             if (getRealStatement() == "")
             {
                 dRange.doUpdate();
+                dRange.Refresh();
             }
 
             return "OK";

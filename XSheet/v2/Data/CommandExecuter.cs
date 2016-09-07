@@ -31,7 +31,8 @@ namespace XSheet
 
         public void executeCmd(XRSheet rsheet, SysEvent e)
         {
-            if (e == SysEvent.Sheet_Init)
+            //TODO Sheet_Init 与Sheet_Change区分
+            if (e == SysEvent.Sheet_Init|| e == SysEvent.Sheet_Change)
             {
                 foreach (XRange range in rsheet.ranges.Values)
                 {

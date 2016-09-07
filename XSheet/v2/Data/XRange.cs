@@ -232,5 +232,11 @@ namespace XSheet.v2.Data
         public abstract void doInsert(String sql);
 
         public abstract void doDelete(String sql);
+
+        public virtual void Refresh()
+        {
+            data.Refresh();
+            fill(data.getDataTable());
+        }
     }
 }
