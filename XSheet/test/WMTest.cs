@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using XSheet.CfgData;
+using XSheet.v2.CfgBean;
 using XSheet.Util;
 
 namespace XSheet.test
