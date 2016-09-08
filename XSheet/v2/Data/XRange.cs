@@ -238,5 +238,7 @@ namespace XSheet.v2.Data
             data.Refresh();
             fill(data.getDataTable());
         }
+
+        internal abstract void onUpdateSelect(bool v);
     }
 }

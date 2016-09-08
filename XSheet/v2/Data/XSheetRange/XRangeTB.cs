@@ -198,20 +198,30 @@ namespace XSheet.v2.Data.XSheetRange
         {
         }
 
-        public virtual void selectRow(int rowNum, Boolean isMutil)
+        public virtual void selectRow(int rowNum, int stat)//0表示单选，1表示多选，2表示多选且选择后无法取消
         {
-            if (isMutil == false)
+            if (stat == 0)
             {
                 List<int> list = new List<int>();
                 list.AddRange(selectedRows.Keys);
                 foreach (int key in list)
                 {
-                    selectedRows[key] = 0;
+                    if (key != rowNum)
+                    {
+                        selectedRows[key] = 0;
+                    }
                 }
             }
             if (selectedRows.ContainsKey(rowNum))
             {
-                selectedRows[rowNum] += 1;
+                if (stat == 1)
+                {
+                    selectedRows[rowNum] += 1;
+                }
+                else
+                {
+                    selectedRows[rowNum] = 1;
+                }
             }
             else
             {
@@ -295,12 +305,28 @@ namespace XSheet.v2.Data.XSheetRange
                 int rn = getRowIndexByRange(srange[row, 0]);
                 if (rn >= 0)
                 {
-                    selectRow(rn, isMutil);
+                    selectRow(rn, isMutil?1:0);
                 }
             }
 
             drawSelectedRows();//在鼠标松开后，同一绘制选择
         }
+
+        internal override void onUpdateSelect(bool v)
+        {
+            AreasCollection areas = this.table.Range.Worksheet.Selection.Areas;
+            Range srange = null;
+            srange = areas[areas.Count - 1][0];
+            for (int row = 0; row < srange.RowCount; row++)
+            {
+                int rn = getRowIndexByRange(srange[row, 0]);
+                if (rn >= 0)
+                {
+                    selectRow(rn, 2);
+                }
+            }
+        }
+
 
         public override void doSearch()
         {
@@ -341,9 +367,12 @@ namespace XSheet.v2.Data.XSheetRange
             List<string> list = new List<string>();
             foreach (char item in cfg.CRUDP)
             {
-                list.Add(item.ToString());
+                if (data.avaliableList.Contains(item.ToString()) || item == 'P')
+                {
+                    list.Add(item.ToString());
+                }
             }
-            if (cfg.CRUDP.Contains("C"))
+            if (list.Contains("C"))
             {
                 if (rsheet.app.ranges.ContainsKey(Name+"_CS"))
                 {
@@ -354,7 +383,7 @@ namespace XSheet.v2.Data.XSheetRange
                     list.Add("CM");
                 }
             }
-            if (cfg.CRUDP.Contains("U"))
+            if (list.Contains("U"))
             {
                 if (rsheet.app.ranges.ContainsKey(Name + "_US"))
                 {
@@ -446,6 +475,10 @@ namespace XSheet.v2.Data.XSheetRange
             {
                 DataRow templet = dt.Rows[0];
                 DataRow row = dt.NewRow();
+                if (getRowRange(i)[0].Value.ToString().Length<1)
+                {
+                    break;
+                }
                 for (int j = 0; j < dt.Columns.Count; j++)
                 {
                     string strRange = getRowRange(i)[j].Value.ToString();
@@ -495,5 +528,7 @@ namespace XSheet.v2.Data.XSheetRange
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

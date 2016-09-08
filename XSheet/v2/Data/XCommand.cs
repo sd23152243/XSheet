@@ -52,7 +52,8 @@ namespace XSheet.Data
         public String execute(XSheetUser user)
         {
             StartNotify();
-            String ans = "success";
+            String ans = "OK";
+            int nextid=-1;
             foreach (char item in cfg.CRUDP)
             {
                 if (!user.getPrivilege(rsheet).Contains(item))
@@ -67,12 +68,13 @@ namespace XSheet.Data
             {
                 try
                 {
-                    kv.Value.doAction();
+                    ans = kv.Value.doAction();
+                    if
                 }
                 catch (Exception e)
                 {
                     System.Windows.Forms.MessageBox.Show(e.ToString());
-                    ans= "false";
+                    ans= "FAILED";
                     break;
                 }
                 

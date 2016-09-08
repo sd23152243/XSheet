@@ -743,8 +743,8 @@ namespace XSheet.v2.Form
             this.spreadsheetFormulaBarControl1 = new DevExpress.XtraSpreadsheet.SpreadsheetFormulaBarControl();
             this.spreadsheetFormulaBarPanel = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.lbl_statu = new DevExpress.XtraEditors.LabelControl();
-            this.cbox_app = new System.Windows.Forms.ComboBox();
             this.lbl_User = new DevExpress.XtraEditors.LabelControl();
             this.lbl_App = new DevExpress.XtraEditors.LabelControl();
             this.splitterControl = new DevExpress.XtraEditors.SplitterControl();
@@ -819,6 +819,7 @@ namespace XSheet.v2.Form
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetNameBoxControl.Properties)).BeginInit();
             this.spreadsheetFormulaBarPanel.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetBarController1)).BeginInit();
@@ -1380,7 +1381,7 @@ namespace XSheet.v2.Form
             this.ts_multiSelect,
             this.btn_DesignSearch});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 338;
+            this.ribbonControl.MaxItemId = 344;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -5438,24 +5439,28 @@ namespace XSheet.v2.Form
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.comboBoxEdit1);
             this.panel2.Controls.Add(this.lbl_statu);
-            this.panel2.Controls.Add(this.cbox_app);
             this.panel2.Controls.Add(this.lbl_User);
             this.panel2.Controls.Add(this.lbl_App);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
+            // 
+            // comboBoxEdit1
+            // 
+            resources.ApplyResources(this.comboBoxEdit1, "comboBoxEdit1");
+            this.comboBoxEdit1.MenuManager = this.ribbonControl;
+            this.comboBoxEdit1.Name = "comboBoxEdit1";
+            this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(((DevExpress.XtraEditors.Controls.ButtonPredefines)(resources.GetObject("comboBoxEdit1.Properties.Buttons"))))});
+            this.comboBoxEdit1.Properties.Items.AddRange(new object[] {
+            resources.GetString("comboBoxEdit1.Properties.Items")});
             // 
             // lbl_statu
             // 
             this.lbl_statu.LineVisible = true;
             resources.ApplyResources(this.lbl_statu, "lbl_statu");
             this.lbl_statu.Name = "lbl_statu";
-            // 
-            // cbox_app
-            // 
-            this.cbox_app.FormattingEnabled = true;
-            resources.ApplyResources(this.cbox_app, "cbox_app");
-            this.cbox_app.Name = "cbox_app";
             // 
             // lbl_User
             // 
@@ -6070,6 +6075,7 @@ namespace XSheet.v2.Form
             this.spreadsheetFormulaBarPanel.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetBarController1)).EndInit();
@@ -6587,7 +6593,6 @@ namespace XSheet.v2.Form
         private DropDownButton dbtn_New;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private DevExpress.XtraBars.BarToggleSwitchItem ts_multiSelect;
-        private System.Windows.Forms.ComboBox cbox_app;
         private DropDownButton dbtn_Edit;
         private DropDownButton dbtn_Search;
         private SimpleButton btn_Save;
@@ -6600,5 +6605,6 @@ namespace XSheet.v2.Form
         private DevExpress.XtraBars.BarDockControl barDockControlBottom;
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private ComboBoxEdit comboBoxEdit1;
     }
 }

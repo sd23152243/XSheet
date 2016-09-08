@@ -545,6 +545,33 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>950, 630</value>
   </data>
+  <data name="comboBoxEdit1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>45, 9</value>
+  </data>
+  <data name="comboBoxEdit1.Properties.Buttons" type="DevExpress.XtraEditors.Controls.ButtonPredefines, DevExpress.Utils.v16.1">
+    <value>Combo</value>
+  </data>
+  <data name="comboBoxEdit1.Properties.Items" xml:space="preserve">
+    <value>数据工厂基础版</value>
+  </data>
+  <data name="comboBoxEdit1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="comboBoxEdit1.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;comboBoxEdit1.Name" xml:space="preserve">
+    <value>comboBoxEdit1</value>
+  </data>
+  <data name="&gt;&gt;comboBoxEdit1.Type" xml:space="preserve">
+    <value>DevExpress.XtraEditors.ComboBoxEdit, DevExpress.XtraEditors.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
+  <data name="&gt;&gt;comboBoxEdit1.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;comboBoxEdit1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="lbl_statu.Location" type="System.Drawing.Point, System.Drawing">
     <value>420, 9</value>
   </data>
@@ -567,27 +594,6 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;lbl_statu.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="cbox_app.Location" type="System.Drawing.Point, System.Drawing">
-    <value>44, 5</value>
-  </data>
-  <data name="cbox_app.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 25</value>
-  </data>
-  <data name="cbox_app.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;cbox_app.Name" xml:space="preserve">
-    <value>cbox_app</value>
-  </data>
-  <data name="&gt;&gt;cbox_app.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbox_app.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;cbox_app.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="lbl_User.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -598,7 +604,7 @@
     <value>Horizontal</value>
   </data>
   <data name="lbl_User.Location" type="System.Drawing.Point, System.Drawing">
-    <value>755, 9</value>
+    <value>667, 9</value>
   </data>
   <data name="lbl_User.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 14</value>

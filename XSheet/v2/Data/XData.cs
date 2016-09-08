@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XSheet.Util;
+using XSheet.v2.Util;
 
 namespace XSheet.v2.Data
 {
@@ -16,11 +17,22 @@ namespace XSheet.v2.Data
         public String ServerName { get; set; }
         //public List<String> XSQLParams { get; set; }
         public String DBName { get; set; }
+        private DbConnection conn ;
+        private DbTransaction DBTrans;
         public List<String> avaliableList = new List<string>();
-        public void search(String Sql)
+        public XData()
         {
             avaliableList = new List<string>();
-            da = DBUtil.getDbDataAdapter(ServerName, Sql, "");
+            avaliableList.Add("R");
+        }
+        public void search(String Sql)
+        {
+            avaliableList.Clear();
+            conn = DBUtil.getConnection(ServerName);
+            conn.Open();
+            DBTrans = conn.BeginTransaction();
+            conn.Close();
+            da = DBUtil.getDbDataAdapter(ServerName, Sql, "",conn);
             DataSet ds = new DataSet();
             da.Fill(ds);
             dt = ds.Tables[0];
@@ -41,20 +53,52 @@ namespace XSheet.v2.Data
 
         public void delete()
         {
-            da.Update(dt.GetChanges());
-            dt.AcceptChanges();
+            conn.Open();
+            da.DeleteCommand.Transaction = DBTrans;
+            try
+            {
+                da.Update(dt.GetChanges());
+                dt.AcceptChanges();
+                DBTrans.Commit();
+            }
+            catch (Exception e)
+            {
+
+                AlertUtil.Show("error", e.ToString());
+            }
+            conn.Close();
         }
 
         public void update()
         {
-            da.Update(dt.GetChanges());
-            dt.AcceptChanges();
+            da.UpdateCommand.Transaction = DBTrans;
+            try
+            {
+                da.Update(dt.GetChanges());
+                dt.AcceptChanges();
+                DBTrans.Commit();
+            }
+            catch (Exception e)
+            {
+
+                AlertUtil.Show("error", e.ToString());
+            }
         }
 
         public void insert()
         {
-            da.Update(dt.GetChanges());
-            dt.AcceptChanges();
+            da.InsertCommand.Transaction = DBTrans;
+            try
+            {
+                da.Update(dt.GetChanges());
+                dt.AcceptChanges();
+                DBTrans.Commit();
+            }
+            catch (Exception e)
+            {
+
+                AlertUtil.Show("error", e.ToString());
+            }
         }
 
 

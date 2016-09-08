@@ -62,16 +62,16 @@ namespace XSheet.Util
             }
             return connStr;
         }
-        public static DataTable getDataTable(String DBType, String Sql, String sqlType, String param)
+        public static DataTable getDataTable(String DBType, String Sql, String sqlType, String param,DbConnection conn)
         {
             DataTable table = new DataTable();
             DbDataAdapter da = null;
             if (ConfigUtil.GetProviderName(DBType.ToUpper()) == "System.Data.SqlClient")
             {
-                da = DBUtil.getSqlDataAdapter(DBType, Sql, sqlType);
+                da = DBUtil.getSqlDataAdapter(conn, Sql, sqlType);
             }
             else{
-                da = DBUtil.getOleDbDataAdapter(DBType, Sql, sqlType);
+                da = DBUtil.getOleDbDataAdapter(conn, Sql, sqlType);
             }
             if (da != null)
             {
@@ -91,18 +91,23 @@ namespace XSheet.Util
         /// <param name="Sql">Sql语句</param>
         /// <param name="sqlType">PROCEDURE时为存储过程,其他时候为SQL语句</param>
         /// <returns></returns>
-        public static DbDataAdapter getDbDataAdapter(String DBType, String Sql, String sqlType)
+        public static DbDataAdapter getDbDataAdapter(String DBType, String Sql, String sqlType, DbConnection dbConn)
         {
+            DbDataAdapter da = null;
             switch (DBType.ToUpper())
             {
                 case "AS400":
-                    return getOleDbDataAdapter(DBType, Sql, sqlType);
+                    da =  getOleDbDataAdapter(dbConn, Sql, sqlType);
+                    break;
                 case "SRF-SQL":
                 case "ICHART3D":
-                    return getSqlDataAdapter(DBType, Sql, sqlType);
+                    da =  getSqlDataAdapter(dbConn, Sql, sqlType);
+                    break;
                 default:
-                    return getOleDbDataAdapter(DBType, Sql, sqlType);
+                    da = getOleDbDataAdapter(dbConn, Sql, sqlType);
+                    break;
             }
+            return da;
         }
 
         /*public static iDB2DataAdapter getiDB2DataAdapter(String DBType, String Sql, String sqlType)
@@ -135,16 +140,15 @@ namespace XSheet.Util
             return da;
         }
         */
-        public static OleDbDataAdapter getOleDbDataAdapter(String DBType, String Sql, String sqlType)
+        public static OleDbDataAdapter getOleDbDataAdapter(DbConnection Conn, String Sql, String SqlType)
         {
             OleDbDataAdapter da;
-            OleDbConnection dbConn = new OleDbConnection();
-            dbConn.ConnectionString = getConnStr(DBType);
+            OleDbConnection dbConn = (OleDbConnection)Conn;
             //dbConn.ConnectionString = "Provider=IBMDA400;Database=R21AFLBZ;Hostname=172.31.71.37;Uid=ITSDTS;Pwd=STD008;";
-            if (dbConn.State != System.Data.ConnectionState.Open)
+            if (dbConn.State != ConnectionState.Open)
                 dbConn.Open();
             da = new OleDbDataAdapter(Sql, dbConn);
-            if (sqlType.ToUpper() == "PROCEDURE")
+            if (SqlType.ToUpper() == "PROCEDURE")
             {
                 da.SelectCommand.CommandType = CommandType.StoredProcedure;
             }
@@ -167,16 +171,15 @@ namespace XSheet.Util
             return da;
         }
 
-        public static SqlDataAdapter getSqlDataAdapter(String DBType, String Sql, String sqlType)
+        public static SqlDataAdapter getSqlDataAdapter(DbConnection Conn, String Sql,String SqlType)
         {
             SqlDataAdapter da;
-            SqlConnection dbConn = new SqlConnection();
-            dbConn.ConnectionString = getConnStr(DBType);
+            SqlConnection dbConn = (SqlConnection)Conn;
             //dbConn.ConnectionString = "Provider=IBMDA400;Database=R21AFLBZ;Hostname=172.31.71.37;Uid=ITSDTS;Pwd=STD008;";
             if (dbConn.State != System.Data.ConnectionState.Open)
                 dbConn.Open();
             da = new SqlDataAdapter(Sql, dbConn);
-            if (sqlType.ToUpper() == "PROCEDURE")
+            if (SqlType.ToUpper() == "PROCEDURE")
             {
                 da.SelectCommand.CommandType = CommandType.StoredProcedure;
             }
@@ -194,7 +197,28 @@ namespace XSheet.Util
                     Console.WriteLine(e.ToString());
                 }
             }
+            dbConn.Close();
             return da;
+        }
+
+        public static DbConnection getConnection(String DBType)
+        {
+            DbConnection dbConn = null;
+            switch (DBType.ToUpper())
+            {
+                case "AS400":
+                    dbConn = new OleDbConnection();
+                    break;
+                case "SRF-SQL":
+                case "ICHART3D":
+                    dbConn = new SqlConnection();
+                    break;
+                default:
+                    dbConn = new OleDbConnection();
+                    break;
+            }
+            dbConn.ConnectionString = getConnStr(DBType);
+            return dbConn;
         }
     }
 }

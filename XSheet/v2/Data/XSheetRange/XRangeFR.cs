@@ -127,5 +127,10 @@ namespace XSheet.v2.Data.XSheetRange
         {
             throw new NotImplementedException();
         }
+
+        internal override void onUpdateSelect(bool v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -175,7 +175,7 @@ namespace XSheet.v2.Form
 
         private void btn_DesignSearch_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            control.EventCall(SysEvent.Event_Search, 0);
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)

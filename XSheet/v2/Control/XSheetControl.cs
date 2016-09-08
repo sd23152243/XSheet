@@ -116,6 +116,7 @@ namespace XSheet.v2.Control
             }
             else if(e == SysEvent.Btn_Save)
             {
+                
                 switch (app.statu)
                 {
                     case SysStatu.Designer:
@@ -161,11 +162,36 @@ namespace XSheet.v2.Control
                 }
                 else if (e == SysEvent.Btn_Save)
                 {
-                    executer.executeCmd(currentXRange, e);
-                    ChangeToStatu(muiltiFlag ? SysStatu.Muilti : SysStatu.Single);
+                    String ans = executer.executeCmd(currentXRange, e);
+                    if (ans== "OK")
+                    {
+                        ChangeToStatu(muiltiFlag ? SysStatu.Muilti : SysStatu.Single);
+                    }
+                    else
+                    {
+
+                    }
+                    
                 }
-                
-                
+            }
+            else if(e == SysEvent.Event_Search)
+            {
+                Table table = null;
+                for (int ti = 0; ti < spreadsheetMain.ActiveWorksheet.Tables.Count; i++)
+                {
+                    if (spreadsheetMain.ActiveWorksheet.Tables[ti].Name == "CFG_DATA")
+                    {
+                        table = spreadsheetMain.ActiveWorksheet.Tables[ti];
+                        break;
+                    }
+                }
+                if (table == null)
+                {
+                    return;
+                }
+                int row = spreadsheetMain.SelectedCell[0].TopRowIndex - table.Range.TopRowIndex;
+                int col = spreadsheetMain.SelectedCell[0].LeftColumnIndex - table.Range.LeftColumnIndex;
+                //取数据
             }
             return;
         }
@@ -201,6 +227,7 @@ namespace XSheet.v2.Control
                         else//Update修改数据,修改后修改区域变色
                         {
                             spreadsheetMain.SelectedCell.FillColor = Color.Yellow;
+                            currentXRange.onUpdateSelect(true);
                         }
                     }
                 }
@@ -217,11 +244,11 @@ namespace XSheet.v2.Control
             }
             else if (currentXRange != null && currentXRange.isSelectable() == true)
             {
-                if ((int)app.statu==3 || (int)app.statu == 4)
+                if (app.statu==SysStatu.Delete)
                 {
                     currentXRange.onSelect(true);
                 }
-                else if((int)app.statu != 5)
+                else if(app.statu != SysStatu.Update && app.statu != SysStatu.Insert )
                 {
                     currentXRange.onSelect(muiltiFlag);
                 }
@@ -242,7 +269,7 @@ namespace XSheet.v2.Control
             }
             cfgData = new XCfgData(cfgsheet);
             app = new XApp(spreadsheetMain.Document, cfgData);
-            labels["lbl_App"].Text = "APP:" + app.getFullAppName();
+            //labels["lbl_App"].Text = "APP:" + app.getFullAppName();
             labels["lbl_User"].Text = "当前用户:" + this.user.getFullUserName();
             if (app.statu == SysStatu.Designer)
             {
@@ -431,6 +458,10 @@ namespace XSheet.v2.Control
                                     ((DropDownButton)buttons["BTN_SEARCH"]).DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.Default;
                                     ((DropDownButton)buttons["BTN_SEARCH"]).DropDownControl = CreateDXPopupMenu(cmds);
                                 }
+                                else
+                                {
+                                    ((DropDownButton)buttons["BTN_SEARCH"]).DropDownControl = null;
+                                }
                                 break;
                             case "C":
                                 buttons["BTN_NEW"].Enabled = true;
@@ -502,7 +533,7 @@ namespace XSheet.v2.Control
         {
             return user.getPrivilege(currentSheet);
         }
-
+        //根据权限过滤功能
         public List<string> filtFunlistByPrivilege(List<String> funcList)
         {
             String privilege = GetUserPrivilege();

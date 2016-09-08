@@ -90,7 +90,7 @@ namespace XSheet.Data
                 if (range.cfg.CRUDP.Contains("C") && range.getCommandByEvent(SysEvent.Btn_Delete) == null)
                 {
                     CommandCfg cmdDelete = MakeDefaultCMD("Btn_Delete", range.Name, "D");
-                    ActionCfg actDelete = MakeDefaultAct(cmdDelete.CommandName, range.Name, "D", "SQL_Update");
+                    ActionCfg actDelete = MakeDefaultAct(cmdDelete.CommandName, range.Name, "D", "SQL_Delete");
                     initCommand(cmdDelete);
                     initAction(actDelete);
                 }

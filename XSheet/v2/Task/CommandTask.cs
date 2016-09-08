@@ -28,28 +28,32 @@ namespace XSheet.v2.Task
             this.submitTime = DateTime.Now;
         }
         
-        public void doTask()
+        public String doTask()
         {
+            String ans = "";
             if (cmd.Async == true)
             {
-                doTaskAsync();
+                ThreadStart threadStart = new ThreadStart(doTaskAsync);
+                Thread thread = new Thread(threadStart);
+                thread.Start();
+                return "OK";
             }
             else
             {
-                doTaskSync();
+                ans = doTaskSync();
+                return ans;
             }
         }
 
-        private void doTaskSync()
+        private String doTaskSync()
         {
-            cmd.execute(user);
+            String ans = cmd.execute(user);
+            return ans;
         }
 
         private void doTaskAsync()
         {
-            ThreadStart threadStart = new ThreadStart(doTaskSync);
-            Thread thread = new Thread(threadStart);
-            thread.Start();
+            String ans = cmd.execute(user);
         }
 
         public void UpdateStartime()

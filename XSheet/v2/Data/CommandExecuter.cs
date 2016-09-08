@@ -41,8 +41,9 @@ namespace XSheet
             }
         }
 
-        public void executeCmd(XRange range ,SysEvent e)
+        public String executeCmd(XRange range ,SysEvent e)
         {
+            String ans = "";
             Dictionary<int, XCommand> cmds = range.getCommandByEvent(e);
             if (cmds != null )
             {
@@ -50,10 +51,15 @@ namespace XSheet
                 {
                     if (CheckPrivilege(cmd))
                     {
-                        executeCmd(cmd);
+                        ans = executeCmd(cmd);
+                        if (ans.ToUpper() != "OK")
+                        {
+                            return "FAILED";
+                        }
                     }
                 }
             }
+            return ans;
         }
 
         private bool CheckPrivilege(XCommand cmd)
@@ -69,17 +75,19 @@ namespace XSheet
             return true;
         }
 
-        public void executeCmd(XCommand cmd)
+        public String executeCmd(XCommand cmd)
         {
             this.executeState = "Executing...";
+            String ans = "OK";
             Notify();
             if (cmd != null)
             {
                 CommandTask task = new CommandTask(cmd, user);
-                task.doTask();
+                ans = task.doTask();
             }
             this.executeState = "OK";
             Notify();
+            return ans;
         }
 
         public override void Notify()
