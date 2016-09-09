@@ -122,5 +122,10 @@ namespace XSheet.v2.Data.XSheetRange
         {
             throw new NotImplementedException();
         }
+
+        public override void ResetSelected()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

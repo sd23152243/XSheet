@@ -81,8 +81,65 @@ namespace XSheet.v2.Data
             }
             return ans;
         }
+        public String insert()
+        {
+            String ans = "OK";
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+            DBTrans = conn.BeginTransaction();
+            da.InsertCommand.Transaction = DBTrans;
+            try
+            {
+                da.Update(dt.GetChanges());
+                dt.AcceptChanges();
+                DBTrans.Commit();
+                ans = "OK";
+            }
+            catch (Exception e)
+            {
+                DBTrans.Rollback();
+                Console.WriteLine(e.ToString());
+                AlertUtil.Show("DataUpdateError", e.ToString());
+                ans = "FAILED";
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return ans;
+        }
+        public String delete()
+        {
+            String ans = "OK";
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+            DBTrans = conn.BeginTransaction();
+            da.DeleteCommand.Transaction = DBTrans;
+            try
+            {
+                da.Update(dt.GetChanges());
+                dt.AcceptChanges();
+                DBTrans.Commit();
+                ans = "OK";
+            }
+            catch (Exception e)
+            {
+                DBTrans.Rollback();
+                Console.WriteLine(e.ToString());
+                AlertUtil.Show("DataUpdateError", e.ToString());
+                ans = "FAILED";
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return ans;
+        }
 
-       
 
         public DataTable select(string filterExpression)
         {

@@ -296,5 +296,7 @@ namespace XSheet.v2.Data
         }
 
         public abstract void onUpdateSelect(bool v);
+
+        public abstract void ResetSelected();
     }
 }

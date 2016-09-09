@@ -169,5 +169,10 @@ namespace XSheet.v2.Data.XSheetRange
             AlertUtil.Show("warning!", "Range区域不允许单独执行SQL");
             return "OK";
         }
+
+        public override void ResetSelected()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

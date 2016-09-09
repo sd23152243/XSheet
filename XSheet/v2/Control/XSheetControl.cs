@@ -552,6 +552,7 @@ namespace XSheet.v2.Control
         {
             app.statu = newstatu;
             labels["lbl_User"].Text = app.statu.ToString();
+            currentXRange.ResetSelected();
             AlertUtil.Show( "状态变更", "状态变更为" + newstatu);
             ChangeButtonsStatu();
         }

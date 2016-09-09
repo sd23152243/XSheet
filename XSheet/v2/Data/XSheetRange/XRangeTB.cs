@@ -98,6 +98,7 @@ namespace XSheet.v2.Data.XSheetRange
             selectedRows = new Dictionary<int, int>();
             drawRows = new Dictionary<int, int>();
             Range range = getRange();
+            
             Cell data1stcell = range[0, 0];
             string[,] arrtmp = new string[range.RowCount, range.ColumnCount];
             range.Worksheet.Import(arrtmp, data1stcell.RowIndex, data1stcell.ColumnIndex);
@@ -111,6 +112,8 @@ namespace XSheet.v2.Data.XSheetRange
             }*/
             this.isFilled = true;
             doResize(dt.Rows.Count+1);
+            getRange().FillColor = Color.White;
+            
         }
 
         public override String getType()
@@ -257,7 +260,7 @@ namespace XSheet.v2.Data.XSheetRange
             if (range != null)
             {
                 range.Borders.SetAllBorders(Color.DarkBlue, BorderLineStyle.Double);
-                //range.Style.Fill.BackgroundColor = Color.Yellow;
+                range.FillColor = Color.Gray;
             }
 
         }
@@ -267,7 +270,7 @@ namespace XSheet.v2.Data.XSheetRange
             if (range != null)
             {
                 range.Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
-                //range.Style.Fill.BackgroundColor = Color.Transparent;
+                range.FillColor = Color.White;
             }
         }
 
@@ -515,7 +518,7 @@ namespace XSheet.v2.Data.XSheetRange
                 dt.Rows[item.Key].Delete();
             }
             data.setData(dt);
-            return data.update();
+            return data.delete();
         }
 
         public override String doInsert()
@@ -550,7 +553,7 @@ namespace XSheet.v2.Data.XSheetRange
                 dt.Rows.Add(row);
             }
             data.setData(dt);
-            return data.update();
+            return data.insert();
         }
 
         public override List<string> getSelectedValueByColIndex(int col)
@@ -570,6 +573,17 @@ namespace XSheet.v2.Data.XSheetRange
         public override String ExecuteSql(List<String> sqls)
         {
             return data.Execute(sqls);
+        }
+
+        public override void ResetSelected()
+        {
+            List<int> rows = new List<int>();
+            rows.AddRange(selectedRows.Keys);
+            foreach (int row in rows)
+            {
+                selectedRows[row] = 0; 
+            }
+            drawSelectedRows();
         }
     }
 }
