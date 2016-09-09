@@ -68,6 +68,9 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>20160909043144450_easyicon_net_128.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Charts.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -198,6 +201,7 @@
     <EmbeddedResource Include="v2\Form\XSheetMain.resx">
       <DependentUpon>XSheetMain.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="DBConn.config" />
     <None Include="DOC\XSheetFC流程.xlsx" />
     <None Include="Properties\Settings.settings">
@@ -224,6 +228,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="20160909043144450_easyicon_net_128.ico" />
     <Content Include="dll\DevExpress.Docs.v16.1.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
