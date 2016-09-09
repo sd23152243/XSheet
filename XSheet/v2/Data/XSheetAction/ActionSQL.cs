@@ -22,7 +22,7 @@ namespace XSheet.Data.Action
                 //Range range = action.dRange.getRange();
                 setSelectIndex(range.TopRowIndex + row);
                 range.Worksheet.Workbook.Calculate();
-                String Sql = getRealStatement();
+                String Sql = getRealStatement()[0];
                 Console.WriteLine(Sql);
                 try
                 {

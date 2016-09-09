@@ -25,7 +25,7 @@ namespace XSheet.v2.Data
             avaliableList = new List<string>();
             avaliableList.Add("R");
         }
-        public void search(String Sql)
+        public String search(String Sql)
         {
             avaliableList.Clear();
             conn = DBUtil.getConnection(ServerName);
@@ -49,58 +49,40 @@ namespace XSheet.v2.Data
             {
                 avaliableList.Add("D");
             }
+            return "OK";
         } 
 
-        public void delete()
+        public String update()
         {
-            conn.Open();
-            da.DeleteCommand.Transaction = DBTrans;
-            try
+            String ans = "OK";
+            if (conn.State != ConnectionState.Open)
             {
-                da.Update(dt.GetChanges());
-                dt.AcceptChanges();
-                DBTrans.Commit();
+                conn.Open();
             }
-            catch (Exception e)
-            {
-
-                AlertUtil.Show("error", e.ToString());
-            }
-            conn.Close();
-        }
-
-        public void update()
-        {
+            DBTrans = conn.BeginTransaction();
             da.UpdateCommand.Transaction = DBTrans;
             try
             {
                 da.Update(dt.GetChanges());
                 dt.AcceptChanges();
                 DBTrans.Commit();
+                ans = "OK"; 
             }
             catch (Exception e)
             {
-
-                AlertUtil.Show("error", e.ToString());
+                DBTrans.Rollback();
+                Console.WriteLine(e.ToString());
+                AlertUtil.Show("DataUpdateError", e.ToString());
+                ans = "FAILED";
             }
+            finally
+            {
+                conn.Close();
+            }
+            return ans;
         }
 
-        public void insert()
-        {
-            da.InsertCommand.Transaction = DBTrans;
-            try
-            {
-                da.Update(dt.GetChanges());
-                dt.AcceptChanges();
-                DBTrans.Commit();
-            }
-            catch (Exception e)
-            {
-
-                AlertUtil.Show("error", e.ToString());
-            }
-        }
-
+       
 
         public DataTable select(string filterExpression)
         {
@@ -137,7 +119,7 @@ namespace XSheet.v2.Data
             throw new NotImplementedException();
         }
 
-        internal void Refresh()
+        public void Refresh()
         {
             DataSet ds = new DataSet();
             da.Fill(ds);
@@ -155,6 +137,37 @@ namespace XSheet.v2.Data
             {
                 avaliableList.Add("D");
             }
+        }
+
+        public String Execute(List<String> sqls)
+        {
+            String ans = "OK";
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+            DBTrans = conn.BeginTransaction();
+            DbCommand cmd = DBUtil.getCommand(sqls[0], ServerName, conn);
+            cmd.Transaction = DBTrans;
+            try
+            {
+                foreach (String sql in sqls)
+                {
+                    cmd.CommandText = sql;
+                    cmd.ExecuteNonQuery();
+                }
+                DBTrans.Commit();
+            }
+            catch (Exception)
+            {
+                ans = "FAILED";
+                DBTrans.Rollback();
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return ans;
         }
     }
 }

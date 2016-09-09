@@ -5,6 +5,7 @@ using DevExpress.Spreadsheet;
 using XSheet.Util;
 using System.Data;
 using XSheet.v2.Data;
+using System.Collections.Generic;
 
 namespace XSheet.v2.Data.XSheetAction
 {
@@ -17,8 +18,8 @@ namespace XSheet.v2.Data.XSheetAction
             String Sql = dRange.getSqlStatement();
             Console.WriteLine(Sql);*/
             //DataTable dt = DBUtil.getDataTable(dRange.cfg.serverName, Sql,"Text",null);
-            String statment = getRealStatement();
-            if (statment == "")
+            List<String> statment = getRealStatement();
+            if (statment[0] == "")
             {
                 dRange.doSearch();
             }

@@ -14,7 +14,7 @@ namespace XSheet.v2.Data.XSheetAction
     {
         public override string doAction()
         {
-            if (getRealStatement() == "")
+            if (getRealStatement()[0] == "")
             {
                 dRange.doDelete();
                 dRange.Refresh();

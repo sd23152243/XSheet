@@ -11,7 +11,7 @@ namespace XSheet.Data.Action
     {
         public override string doAction()
         {
-            System.Diagnostics.Process.Start(getRealStatement(), getRealStatement());
+            System.Diagnostics.Process.Start(getRealStatement()[0]);
             return "OK";
         }
     }

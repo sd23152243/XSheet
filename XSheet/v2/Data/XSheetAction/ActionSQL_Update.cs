@@ -16,12 +16,16 @@ namespace XSheet.v2.Data.XSheetAction
     {
         public override string doAction()
         {
-            if (getRealStatement() == "")
+            List<String> sqls = getRealStatement();
+            if (sqls[0] == "")
             {
                 dRange.doUpdate();
                 dRange.Refresh();
             }
-
+            else
+            {
+                dRange.ExecuteSql(sqls);
+            }
             return "OK";
         }
     }

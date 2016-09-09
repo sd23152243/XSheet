@@ -83,17 +83,17 @@ namespace XSheet.v2.Data.XSheetRange
             throw new NotImplementedException();
         }
 
-        public override void doUpdate()
+        public override String doUpdate()
         {
             throw new NotImplementedException();
         }
 
-        public override void doDelete()
+        public override String doDelete()
         {
             throw new NotImplementedException();
         }
 
-        public override void doInsert()
+        public override String doInsert()
         {
             throw new NotImplementedException();
         }
@@ -103,32 +103,22 @@ namespace XSheet.v2.Data.XSheetRange
             throw new NotImplementedException();
         }
 
-        public override void doSearch()
+        public override String doSearch()
         {
             throw new NotImplementedException();
         }
 
-        public override void doSearch(string sql)
+        public override void onUpdateSelect(bool v)
         {
             throw new NotImplementedException();
         }
 
-        public override void doUpdate(string sql)
+        public override string doSearch(List<string> sqls)
         {
             throw new NotImplementedException();
         }
 
-        public override void doInsert(string sql)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void doDelete(string sql)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal override void onUpdateSelect(bool v)
+        public override string ExecuteSql(List<string> sqls)
         {
             throw new NotImplementedException();
         }

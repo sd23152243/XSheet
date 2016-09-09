@@ -16,7 +16,8 @@ namespace XSheet.v2.Data.XSheetAction
     {
         public override string doAction()
         {
-            if (getRealStatement() == "")
+            List<String> statements = getRealStatement();
+            if (statements[0] == "")
             {
                 try
                 {
@@ -29,6 +30,18 @@ namespace XSheet.v2.Data.XSheetAction
                     return "FAILED";
                 }
                 
+            }
+            else
+            {
+                try
+                {
+                    dRange.ExecuteSql(statements);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
             }
             return "OK";
         }

@@ -10,6 +10,7 @@ using XSheet.Util;
 using System.Data;
 using XSheet.Data;
 using XSheet.v2.CfgBean;
+using XSheet.v2.Util;
 
 namespace XSheet.v2.Data.XSheetRange
 {
@@ -128,17 +129,17 @@ namespace XSheet.v2.Data.XSheetRange
             doResize(rowcount);
         }
 
-        public override void doUpdate()
+        public override String doUpdate()
         {
             throw new NotImplementedException();
         }
 
-        public override void doDelete()
+        public override String doDelete()
         {
             throw new NotImplementedException();
         }
 
-        public override void doInsert()
+        public override String doInsert()
         {
             throw new NotImplementedException();
         }
@@ -148,34 +149,25 @@ namespace XSheet.v2.Data.XSheetRange
             throw new NotImplementedException();
         }
 
-        public override void doSearch()
+        public override String doSearch()
         {
             throw new NotImplementedException();
         }
 
-        public override void doSearch(string sql)
+        public override String doSearch(List<String> sql)
         {
             throw new NotImplementedException();
         }
 
-        public override void doUpdate(string sql)
+        public override void onUpdateSelect(bool v)
         {
             throw new NotImplementedException();
         }
 
-        public override void doInsert(string sql)
+        public override String ExecuteSql(List<String> Sqls)
         {
-            throw new NotImplementedException();
-        }
-
-        public override void doDelete(string sql)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal override void onUpdateSelect(bool v)
-        {
-            throw new NotImplementedException();
+            AlertUtil.Show("warning!", "Range区域不允许单独执行SQL");
+            return "OK";
         }
     }
 }

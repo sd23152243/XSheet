@@ -20,11 +20,14 @@ namespace XSheet.v2.Data
         public XRSheet rsheet { get; set; }//DefinedName 所在的位置
         private String InitStatement { get; set; }
         //Name中所绑定的Command，String为事件，XCommand为事件对应命令
-        private Dictionary<SysEvent, Dictionary<int, XCommand>> commands = new Dictionary<SysEvent, Dictionary<int, XCommand>>();
+        protected Dictionary<SysEvent, Dictionary<int, XCommand>> commands = new Dictionary<SysEvent, Dictionary<int, XCommand>>();
         public DataCfg cfg { get; set; }//从配置Sheet中读取的配置信息
         protected XData data { get; set; }//当前Range中所包含的
         //public DbDataAdapter da { get; set; }
         private Workbook book;
+
+        
+
         protected abstract void p_init();
         public Dictionary<String, XAction> actions { get; set; }
         public abstract Range getRange();
@@ -65,19 +68,19 @@ namespace XSheet.v2.Data
 
         public abstract Boolean setRange(Range range);
 
-        public virtual String getRealStatement(String statement)
+        public virtual List<String> getRealStatement(String statement)
         {
             //return getRange().Worksheet.Workbook.Worksheets["Config"].Range[cfg.InitStatement][0].DisplayText;  
             String tableName = null;
             List<List<String>> lists = new List<List<string>>();
-            String result="";
+            List<String> result = new List<string>() ;
             if (statement.Length > 0)
             {
-                
+
                 Regex reg = new Regex("@#(.+?)#@");
                 MatchCollection matches = reg.Matches(statement);
-                
-                if (matches.Count>0)
+
+                if (matches.Count > 0)
                 {
                     foreach (Match match in matches)
                     {
@@ -112,25 +115,82 @@ namespace XSheet.v2.Data
                         {
                             tmp = tmp.Replace(matches[j].Value, lists[j][i]);
                         }
-                        if (result == "")
+                        result.Add(tmp);
+                    }
+                }
+                else
+                {
+                    result.Add(statement);
+                }
+            }
+            else
+            {
+                result.Add("");
+            }
+            return result;
+        }
+
+        public virtual String getRealStatement(String statement,int seq)
+        {
+            String tableName = null;
+            List<List<String>> lists = new List<List<string>>();
+            String result = "";
+            if (statement.Length > 0)
+            {
+                Regex reg = new Regex("@#(.+?)#@");
+                MatchCollection matches = reg.Matches(statement);
+
+                if (matches.Count > 0)
+                {
+                    foreach (Match match in matches)
+                    {
+                        String[] strParams = match.Groups[1].Value.Split('$');
+                        if (tableName == null)
                         {
-                            result = tmp;
+                            tableName = strParams[0];
                         }
-                        else
+                        else if (tableName != strParams[0])
                         {
-                            result += "UNION ALL " + tmp;
+                            AlertUtil.Show("禁止参数来源于多张表", "监测到当前命令参数存在" + tableName + "," + strParams + "，请检查Action配置");
+                            return null;
                         }
+                        int col = -1;
+                        try
+                        {
+                            col = int.Parse(strParams[1]);
+                        }
+                        catch (Exception e)
+                        {
+                            AlertUtil.Show("error", e.ToString());
+                            return null;
+                        }
+
+                        List<String> values = getValueByTableCol(tableName, col);
+                        lists.Add(values);
+                    }
+                    int i = seq;
+                    String tmp = statement;
+                    for (int j = 0; j < matches.Count; j++)
+                    {
+                        tmp = tmp.Replace(matches[j].Value, lists[j][i]);
+                    }
+                    if (result == "")
+                    {
+                        result = tmp;
+                    }
+                    else
+                    {
+                        result += "UNION ALL " + tmp;
                     }
                 }
                 else
                 {
                     result = statement;
                 }
-
             }
-            
             return result;
         }
+
         public abstract void fill(DataTable dt);
 
         /*public abstract void fill(String sql);
@@ -217,21 +277,17 @@ namespace XSheet.v2.Data
 
         public abstract List<String> getValiedLFunList();//接口，获取当前Range可用功能列表 返回C R U D P CS CM US RO
 
-        public abstract void doSearch();
+        public abstract String doSearch();
 
-        public abstract void doUpdate();
+        public abstract String doUpdate();
 
-        public abstract void doInsert();
+        public abstract String doInsert();
 
-        public abstract void doDelete();
+        public abstract String doDelete();
 
-        public abstract void doSearch(String sql);
+        public abstract String doSearch(List<String> sqls);
 
-        public abstract void doUpdate(String sql);
-
-        public abstract void doInsert(String sql);
-
-        public abstract void doDelete(String sql);
+        public abstract String ExecuteSql(List<String> sqls);
 
         public virtual void Refresh()
         {
@@ -239,6 +295,6 @@ namespace XSheet.v2.Data
             fill(data.getDataTable());
         }
 
-        internal abstract void onUpdateSelect(bool v);
+        public abstract void onUpdateSelect(bool v);
     }
 }

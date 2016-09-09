@@ -12,7 +12,7 @@ namespace XSheet.Data.Action
     {
         public override string doAction()
         {
-            String statement = getRealStatement();
+            String statement = getRealStatement()[0];
             try
             {
                 Range moveToRange = dRange.getRange().Worksheet[statement];

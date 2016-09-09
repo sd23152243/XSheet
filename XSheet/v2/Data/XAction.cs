@@ -61,7 +61,7 @@ namespace XSheet.v2.Data
 
         public abstract string doAction();
 
-        protected virtual String getRealStatement()
+        protected virtual List<String> getRealStatement()
         {
             String statement = cfg.ActionStatement;
 

@@ -312,7 +312,7 @@ namespace XSheet.v2.Data.XSheetRange
             drawSelectedRows();//在鼠标松开后，同一绘制选择
         }
 
-        internal override void onUpdateSelect(bool v)
+        public override void onUpdateSelect(bool v)
         {
             AreasCollection areas = this.table.Range.Worksheet.Selection.Areas;
             Range srange = null;
@@ -328,16 +328,22 @@ namespace XSheet.v2.Data.XSheetRange
         }
 
 
-        public override void doSearch()
+        public override String doSearch()
         {
-            String sql = cfg.InitStatement;
-            doSearch(sql);
+            List<String> sqls = getRealStatement(cfg.InitStatement);
+            return doSearch(sqls);
         }
 
-        public override void doSearch(string sql)
+        public override String doSearch(List<String> sqls)
         {
-            data.search(getRealStatement(sql));
+            String sql = sqls[0];
+            for(int i= 1 ; i< sqls.Count; i++)
+            {
+                sql = sql+ " UNION ALL " + sqls[i];
+            }
+            String ans = data.search(sql);
             fill(data.getDataTable());
+            return ans;
         }
 
         protected override Boolean LocateRange(IWorkbook book)
@@ -365,6 +371,7 @@ namespace XSheet.v2.Data.XSheetRange
         public override List<string> getValiedLFunList()
         {
             List<string> list = new List<string>();
+            List<string> cmdFunc = getCommandFunList();
             foreach (char item in cfg.CRUDP)
             {
                 if (data.avaliableList.Contains(item.ToString()) || item == 'P')
@@ -409,6 +416,51 @@ namespace XSheet.v2.Data.XSheetRange
             return list;
         }
 
+        private List<string> getCommandFunList()
+        {
+            List<String> list = new List<string>();
+            foreach (SysEvent e in commands.Keys)
+            {
+                switch (e)
+                {
+                    case SysEvent.Sheet_Init:
+                        break;
+                    case SysEvent.Sheet_Change:
+                        break;
+                    case SysEvent.Cell_Change:
+                        break;
+                    case SysEvent.Btn_Search:
+                        list.Add("R");
+                        break;
+                    case SysEvent.Btn_Edit:
+                        list.Add("U");
+                        break;
+                    case SysEvent.Btn_Delete:
+                        list.Add("D");
+                        break;
+                    case SysEvent.Btn_New:
+                        list.Add("C");
+                        break;
+                    case SysEvent.Btn_Exe:
+                        list.Add("P");
+                        break;
+                    case SysEvent.Key_Enter:
+                        break;
+                    case SysEvent.Select_Change:
+                        break;
+                    case SysEvent.Btn_Cancel:
+                        break;
+                    case SysEvent.Btn_Save:
+                        break;
+                    case SysEvent.Event_Search:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return list;
+        }
+
         public override void newData(int count)
         {
             int rowcouont = table.Range.RowCount;
@@ -416,7 +468,7 @@ namespace XSheet.v2.Data.XSheetRange
             doResize(rowcouont);
         }
 
-        public override void doUpdate()
+        public override String doUpdate()
         {
             DataTable dt = data.getDataTable();
             foreach (var item in selectedRows)
@@ -447,10 +499,10 @@ namespace XSheet.v2.Data.XSheetRange
                 }
             }
             data.setData(dt);
-            data.update();
+            return data.update();
         }
 
-        public override void doDelete()
+        public override String doDelete()
         {
             DataTable dt = data.getDataTable();
             selectedRows = selectedRows.OrderByDescending(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
@@ -463,10 +515,10 @@ namespace XSheet.v2.Data.XSheetRange
                 dt.Rows[item.Key].Delete();
             }
             data.setData(dt);
-            data.delete();
+            return data.update();
         }
 
-        public override void doInsert()
+        public override String doInsert()
         {
             DataTable dt = data.getDataTable();
             int dcount = getDataTable().Rows.Count;
@@ -498,7 +550,7 @@ namespace XSheet.v2.Data.XSheetRange
                 dt.Rows.Add(row);
             }
             data.setData(dt);
-            data.update();
+            return data.update();
         }
 
         public override List<string> getSelectedValueByColIndex(int col)
@@ -514,21 +566,10 @@ namespace XSheet.v2.Data.XSheetRange
             return list;
         }
 
-        public override void doUpdate(string sql)
-        {
-            throw new NotImplementedException();
-        }
 
-        public override void doInsert(string sql)
+        public override String ExecuteSql(List<String> sqls)
         {
-            throw new NotImplementedException();
+            return data.Execute(sqls);
         }
-
-        public override void doDelete(string sql)
-        {
-            throw new NotImplementedException();
-        }
-
-        
     }
 }

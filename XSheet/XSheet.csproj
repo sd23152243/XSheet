@@ -158,8 +158,8 @@
     <Compile Include="Subject.cs" />
     <Compile Include="test\WMTest.cs" />
     <Compile Include="test\XMLTest.cs" />
-    <Compile Include="Util\ConfigUtil.cs" />
-    <Compile Include="Util\DBUtil.cs" />
+    <Compile Include="v2\Util\ConfigUtil.cs" />
+    <Compile Include="v2\Util\DBUtil.cs" />
     <Compile Include="Util\DESUtil.cs" />
     <Compile Include="Util\ExcelHelper.cs" />
     <Compile Include="Util\RangeUtil.cs" />

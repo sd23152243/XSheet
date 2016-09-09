@@ -17,7 +17,7 @@ namespace XSheet.v2.Data.XSheetAction
         {
             Range range = dRange.getRange();
             String rangeName = dRange.Name;
-            String Sql = getRealStatement();
+            String Sql = getRealStatement()[0];
             List<SqlParameter> Sqlparams = new List<SqlParameter>();
             //String param = this.getStatement();
             //PGR08LB.TESTPR @p1

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace XSheet.Util
+namespace XSheet.v2.Util
 {
     class ConfigUtil
     {

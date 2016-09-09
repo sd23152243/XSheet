@@ -445,7 +445,7 @@ namespace XSheet.v2.Control
                 if ((int)app.statu > 0 && (int)app.statu <=2)
                 {
                     List<String> valiedList = currentXRange.getValiedLFunList();
-                    valiedList = filtFunlistByPrivilege(valiedList);
+                    valiedList = filterFunlistByPrivilege(valiedList);
                     foreach (String item in valiedList)
                     {
                         switch (item)
@@ -534,7 +534,7 @@ namespace XSheet.v2.Control
             return user.getPrivilege(currentSheet);
         }
         //根据权限过滤功能
-        public List<string> filtFunlistByPrivilege(List<String> funcList)
+        public List<string> filterFunlistByPrivilege(List<String> funcList)
         {
             String privilege = GetUserPrivilege();
             for (int i = funcList.Count-1; i >=0; i--)

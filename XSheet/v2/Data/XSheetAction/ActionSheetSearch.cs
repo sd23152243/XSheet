@@ -15,7 +15,7 @@ namespace XSheet.Data.Action
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("col0", System.Type.GetType("System.String"));
-            String Statement = getRealStatement();
+            String Statement = getRealStatement()[0];
             List<String> infomList = null;//TODO this.dRange.sheet.app.getDocumentInfo(Statement);
             if (infomList == null)
             {
