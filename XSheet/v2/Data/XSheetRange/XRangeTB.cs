@@ -342,7 +342,7 @@ namespace XSheet.v2.Data.XSheetRange
             String sql = sqls[0];
             for(int i= 1 ; i< sqls.Count; i++)
             {
-                sql = sql+ " UNION ALL " + sqls[i];
+                sql = sql+ " UNION " + sqls[i];
             }
             String ans = data.search(sql);
             fill(data.getDataTable());

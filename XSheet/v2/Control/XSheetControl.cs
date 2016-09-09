@@ -236,6 +236,8 @@ namespace XSheet.v2.Control
         //鼠标按键抬起事件响应，用于释放简单资源
         public void spreadsheetMain_MouseUp(object sender, MouseEventArgs e)
         {
+            setSelectedNamed();
+            ChangeButtonsStatu();
             if (e.Button == MouseButtons.Right)
             {
                 Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
@@ -251,6 +253,10 @@ namespace XSheet.v2.Control
                 else if(app.statu != SysStatu.Update && app.statu != SysStatu.Insert )
                 {
                     currentXRange.onSelect(muiltiFlag);
+                    if (currentXRange != null && currentXRange.getDataTable() != null)
+                    {
+                        executer.executeCmd(currentXRange, SysEvent.Select_Change);
+                    }
                 }
                 
             }
@@ -376,15 +382,7 @@ namespace XSheet.v2.Control
         //响应界面选择点变化事件
         public void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
-            if ((int)app.statu > 0)
-            {
-                setSelectedNamed();
-                ChangeButtonsStatu();
-                if (currentXRange != null)
-                {
-                    executer.executeCmd(currentXRange, SysEvent.Select_Change);
-                }
-            }
+            
             //oldSelected = spreadsheetMain.Selection.Areas;
         }
         //根据当前选择点，判断选择区域
@@ -521,7 +519,6 @@ namespace XSheet.v2.Control
             int i = int.Parse(item.Caption.Split(':')[0]);
             EventCall((SysEvent)item.Tag, i);
         }
-
         //刷新当前Sheet
         private void RefreshCurrentSheet()
         {
