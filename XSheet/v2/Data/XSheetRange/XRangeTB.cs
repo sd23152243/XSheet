@@ -469,6 +469,8 @@ namespace XSheet.v2.Data.XSheetRange
             int rowcouont = table.Range.RowCount;
             rowcouont = rowcouont + count;
             doResize(rowcouont);
+            Range range = getRowRange(getRange().RowCount-1);
+            range.FillColor = Color.Yellow;
         }
 
         public override String doUpdate()
