@@ -69,7 +69,10 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>20160909043144450_easyicon_net_128.ico</ApplicationIcon>
+    <ApplicationIcon>rocket_traffic_ship_128px_1174356_easyicon.net.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -230,6 +233,7 @@
   <ItemGroup>
     <Content Include="20160909043144450_easyicon_net_128.ico" />
     <Content Include="dll\DevExpress.Docs.v16.1.dll" />
+    <Content Include="rocket_traffic_ship_128px_1174356_easyicon.net.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

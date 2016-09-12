@@ -37,11 +37,11 @@ namespace XSheet.v2.CfgBean
                 data.ObjectType = dataCfgTable.Range[i, 3].DisplayText;
                 data.DBName = dataCfgTable.Range[i, 4].DisplayText;
                 data.ServerName = dataCfgTable.Range[i, 5].DisplayText;
-                data.BaseSQLStatement = dataCfgTable.Range[i, 6].DisplayText;
+                data.BaseSQLStatement = dataCfgTable.Range[i, 6].GetReferenceA1();
                 data.RangeName = dataCfgTable.Range[i, 7].DisplayText;
                 data.CRUDP = dataCfgTable.Range[i, 8].DisplayText;
                 data.SVK = dataCfgTable.Range[i, 9].DisplayText;
-                data.InitStatement = dataCfgTable.Range[i, 10].DisplayText;
+                data.InitStatement = dataCfgTable.Range[i, 10].GetReferenceA1();
                 if (data.ServerName == null || data.ServerName.Length < 2)
                 {
                     System.Windows.Forms.MessageBox.Show("区域:" + data.DataName + "服务器类型配置错误，当前配置为：" + data.ServerName);
@@ -120,7 +120,7 @@ namespace XSheet.v2.CfgBean
                 action.Invalid = actCfgTable.Range[i, 8].DisplayText;
                 action.OnSuccess = actCfgTable.Range[i, 9].DisplayText;
                 action.OnFail = actCfgTable.Range[i, 10].DisplayText;
-                action.ActionStatement = actCfgTable.Range[i, 11].DisplayText;
+                action.ActionStatement = actCfgTable.Range[i, 11].GetReferenceA1();
                 actions.Add(action);
             }
             return actions;

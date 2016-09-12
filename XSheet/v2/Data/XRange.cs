@@ -76,7 +76,8 @@ namespace XSheet.v2.Data
             List<String> result = new List<string>() ;
             if (statement.Length > 0)
             {
-
+                rsheet.app.getSheetByName("Config").Calculate();
+                statement = rsheet.app.getSheetByName("Config")[statement][0].DisplayText;
                 Regex reg = new Regex("@#(.+?)#@");
                 MatchCollection matches = reg.Matches(statement);
 
