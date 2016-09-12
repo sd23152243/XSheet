@@ -1381,7 +1381,7 @@ namespace XSheet.v2.Form
             this.ts_multiSelect,
             this.btn_DesignSearch});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 345;
+            this.ribbonControl.MaxItemId = 347;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -5455,6 +5455,7 @@ namespace XSheet.v2.Form
             new DevExpress.XtraEditors.Controls.EditorButton(((DevExpress.XtraEditors.Controls.ButtonPredefines)(resources.GetObject("comboBoxEdit1.Properties.Buttons"))))});
             this.comboBoxEdit1.Properties.Items.AddRange(new object[] {
             resources.GetString("comboBoxEdit1.Properties.Items")});
+            this.comboBoxEdit1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             // 
             // lbl_statu
             // 

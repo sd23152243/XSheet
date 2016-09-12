@@ -238,27 +238,30 @@ namespace XSheet.v2.Control
         {
             setSelectedNamed();
             ChangeButtonsStatu();
-            if (e.Button == MouseButtons.Right)
+            if (currentSheet.sheet.SelectedChart == null && currentSheet.sheet.SelectedPicture == null)
             {
-                Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
-                IList<Table> tables = spreadsheetMain.ActiveWorksheet.Tables.GetTables(spreadsheetMain.ActiveCell);
-                //todo
-            }
-            else if (currentXRange != null && currentXRange.isSelectable() == true)
-            {
-                if (app.statu==SysStatu.Delete)
+                if (e.Button == MouseButtons.Right)
                 {
-                    currentXRange.onSelect(true);
+                    Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
+                    IList<Table> tables = spreadsheetMain.ActiveWorksheet.Tables.GetTables(spreadsheetMain.ActiveCell);
+                    //todo
                 }
-                else if(app.statu != SysStatu.Update && app.statu != SysStatu.Insert )
+                else if (currentXRange != null && currentXRange.isSelectable() == true)
                 {
-                    currentXRange.onSelect(muiltiFlag);
-                    if (currentXRange != null && currentXRange.getDataTable() != null)
+                    if (app.statu==SysStatu.Delete)
                     {
-                        executer.executeCmd(currentXRange, SysEvent.Select_Change);
+                        currentXRange.onSelect(true);
                     }
-                }
+                    else if(app.statu != SysStatu.Update && app.statu != SysStatu.Insert )
+                    {
+                        currentXRange.onSelect(muiltiFlag);
+                        if (currentXRange != null && currentXRange.getDataTable() != null)
+                        {
+                            executer.executeCmd(currentXRange, SysEvent.Select_Change);
+                        }
+                    }
                 
+                }
             }
         }
         //控制器初始化，读取Config，初始化整个APP

@@ -64,6 +64,7 @@ namespace XSheet.v2.Form
 
         private void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
+            
             control.spreadsheetMain_SelectionChanged(sender, e);
         }
         
@@ -137,12 +138,6 @@ namespace XSheet.v2.Form
 
         private void spreadsheetMain_KeyDown(object sender, KeyEventArgs e)
         {
-            showMessage();
-        }
-
-        private void showMessage()
-        {
-            alertcontrolMain.Show(this, "test", "HelloWorld");
             
         }
 
