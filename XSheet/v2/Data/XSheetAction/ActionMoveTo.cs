@@ -18,6 +18,7 @@ namespace XSheet.Data.Action
                 Range moveToRange = dRange.getRange().Worksheet[statement];
                 moveToRange.Worksheet.Workbook.Worksheets.ActiveWorksheet = moveToRange.Worksheet;
                 moveToRange.Select();
+                moveToRange.Worksheet.ScrollTo(moveToRange);
             }
             catch (Exception e)
             {

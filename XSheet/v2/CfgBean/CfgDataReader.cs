@@ -47,6 +47,10 @@ namespace XSheet.v2.CfgBean
                     System.Windows.Forms.MessageBox.Show("区域:" + data.DataName + "服务器类型配置错误，当前配置为：" + data.ServerName);
                     return null;
                 }
+                if (data.RangeName.Length ==0 )
+                {
+                    break;
+                }
                 datas.Add(data);
             }
             return datas;

@@ -18,6 +18,8 @@ using System.Drawing;
 using DevExpress.XtraBars.Alerter;
 using XSheet.v2.Util;
 using DevExpress.Utils.Menu;
+using System.Data;
+using System.Data.Common;
 
 namespace XSheet.v2.Control
 {
@@ -153,6 +155,51 @@ namespace XSheet.v2.Control
                         break;
                 }
             }
+            else if (e == SysEvent.Event_Search)
+            {
+                Table table = null;
+                for (int ti = 0; ti < spreadsheetMain.ActiveWorksheet.Tables.Count; ti++)
+                {
+                    if (spreadsheetMain.ActiveWorksheet.Tables[ti].Name == "CFG_DATA")
+                    {
+                        table = spreadsheetMain.ActiveWorksheet.Tables[ti];
+                        break;
+                    }
+                }
+                if (table == null)
+                {
+                    return;
+                }
+                int row = spreadsheetMain.SelectedCell[0].TopRowIndex - table.Range.TopRowIndex-1;
+                int col = spreadsheetMain.SelectedCell[0].LeftColumnIndex - table.Range.LeftColumnIndex;
+                //取数据
+                string text = table.DataRange[row, 6].DisplayText;
+                string name = table.DataRange[row, 7].DisplayText;
+                string DBType = table.DataRange[row, 5].DisplayText;
+                List<string> sql = new List<string>();
+                sql.Add(text);
+                XRange targetRange = app.getRangeByName(name);
+                if (targetRange!= null)
+                {
+                    targetRange.doSearch(sql);
+                    targetRange.DspShow();
+                }
+                else
+                {
+                    DateTime time = new DateTime();
+                    time = DateTime.Now;
+                    string sheetName = time.ToString("yyyyMMddHHmmss");
+                    spreadsheetMain.Document.Worksheets.Add(sheetName);
+                    Worksheet sheet = spreadsheetMain.Document.Worksheets[sheetName];
+                    DbConnection conn = DBUtil.getConnection(DBType);
+                    DataTable dt = DBUtil.getDataTable(DBType, sql[0], "","", conn);
+                    sheet.Import(dt, true, 0, 0);
+                    Table ntable = sheet.Tables.Add(sheet.Range.FromLTRB(0, 0, dt.Columns.Count, dt.Rows.Count), true);
+                    ntable.Name = table.DataRange[row, 0].DisplayText;
+                    table.DataRange[row, 7].Value = table.DataRange[row, 0].DisplayText;
+                    ChangeToStatu(SysStatu.Designer);
+                }
+            }
             else if (app.statu > 0)
             {
                 if (e == SysEvent.Btn_Cancel)
@@ -174,25 +221,7 @@ namespace XSheet.v2.Control
                     
                 }
             }
-            else if(e == SysEvent.Event_Search)
-            {
-                Table table = null;
-                for (int ti = 0; ti < spreadsheetMain.ActiveWorksheet.Tables.Count; i++)
-                {
-                    if (spreadsheetMain.ActiveWorksheet.Tables[ti].Name == "CFG_DATA")
-                    {
-                        table = spreadsheetMain.ActiveWorksheet.Tables[ti];
-                        break;
-                    }
-                }
-                if (table == null)
-                {
-                    return;
-                }
-                int row = spreadsheetMain.SelectedCell[0].TopRowIndex - table.Range.TopRowIndex;
-                int col = spreadsheetMain.SelectedCell[0].LeftColumnIndex - table.Range.LeftColumnIndex;
-                //取数据
-            }
+            
             return;
         }
         //单元格内容变更事件响应
@@ -236,23 +265,18 @@ namespace XSheet.v2.Control
         //鼠标按键抬起事件响应，用于释放简单资源
         public void spreadsheetMain_MouseUp(object sender, MouseEventArgs e)
         {
+
             setSelectedNamed();
             ChangeButtonsStatu();
             if (currentSheet.sheet.SelectedChart == null && currentSheet.sheet.SelectedPicture == null)
             {
-                if (e.Button == MouseButtons.Right)
+                if (e.Button != MouseButtons.Right && currentXRange != null && currentXRange.isSelectable() == true)
                 {
-                    Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
-                    IList<Table> tables = spreadsheetMain.ActiveWorksheet.Tables.GetTables(spreadsheetMain.ActiveCell);
-                    //todo
-                }
-                else if (currentXRange != null && currentXRange.isSelectable() == true)
-                {
-                    if (app.statu==SysStatu.Delete)
+                    if (app.statu == SysStatu.Delete)
                     {
                         currentXRange.onSelect(true);
                     }
-                    else if(app.statu != SysStatu.Update && app.statu != SysStatu.Insert )
+                    else if (app.statu != SysStatu.Update && app.statu != SysStatu.Insert)
                     {
                         currentXRange.onSelect(muiltiFlag);
                         if (currentXRange != null && currentXRange.getDataTable() != null)
@@ -260,7 +284,6 @@ namespace XSheet.v2.Control
                             executer.executeCmd(currentXRange, SysEvent.Select_Change);
                         }
                     }
-                
                 }
             }
         }
@@ -385,14 +408,14 @@ namespace XSheet.v2.Control
         //响应界面选择点变化事件
         public void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
-            
+            setSelectedNamed();
+            ChangeButtonsStatu();
             //oldSelected = spreadsheetMain.Selection.Areas;
         }
         //根据当前选择点，判断选择区域
         public void setSelectedNamed()
         {
             AreasCollection areas = spreadsheetMain.Selection.Areas;
-            XRSheet opSheet = app.getRSheetByName(spreadsheetMain.ActiveWorksheet.Name);
             if (currentXRange != null && RangeUtil.isInRange(areas, currentXRange.getRange()) < 0)
             {
                 this.currentXRange = null;
@@ -400,21 +423,18 @@ namespace XSheet.v2.Control
             rightClickBarManager.SetPopupContextMenu(spreadsheetMain, null);
             if (currentSheet.sheetName == "Config")
             {
-                foreach (Table item in currentSheet.sheet.Tables)
+                IList<Table> tables = spreadsheetMain.ActiveWorksheet.Tables.GetTables(spreadsheetMain.ActiveCell);
+                if (tables.Count >0 && tables[0].Name == "CFG_DATA")
                 {
-                    if (item.Name == "CFG_DATA")
+                    if (RangeUtil.isInRange(areas, tables[0].DataRange) >=0)
                     {
-                        if (RangeUtil.isInRange(areas, item.DataRange) >=0)
-                        {
-                            rightClickBarManager.SetPopupContextMenu(spreadsheetMain, menus["CfgData"]);
-                        }
-                        break;
+                        rightClickBarManager.SetPopupContextMenu(spreadsheetMain, menus["CfgData"]);
                     }
                 }
-                
             }
-            else
+            else if((int)app.statu>0)
             {
+                XRSheet opSheet = app.getRSheetByName(spreadsheetMain.ActiveWorksheet.Name);
                 //遍历当前Sheet全部命名区域，依次判断是否在区域范围内
                 foreach (var dicname in opSheet.ranges)
                 {
@@ -552,7 +572,10 @@ namespace XSheet.v2.Control
         {
             app.statu = newstatu;
             labels["lbl_User"].Text = app.statu.ToString();
-            currentXRange.ResetSelected();
+            if (currentXRange != null)
+            {
+                currentXRange.ResetSelected();
+            }
             AlertUtil.Show( "状态变更", "状态变更为" + newstatu);
             ChangeButtonsStatu();
         }

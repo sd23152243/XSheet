@@ -207,6 +207,13 @@ namespace XSheet.v2.Data
             return data.getDataTable();
         }
 
+        public void DspShow()
+        {
+            Range range = getRange();
+            range.Worksheet.Workbook.Worksheets.ActiveWorksheet = range.Worksheet;
+            range.Worksheet.ScrollTo(range[-1,0]);
+        }
+
         public virtual Boolean isDataValied()
         {
             return data.isValied();
