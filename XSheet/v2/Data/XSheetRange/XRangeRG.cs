@@ -93,7 +93,7 @@ namespace XSheet.v2.Data.XSheetRange
 
         public override void onSelect(Boolean isMutil)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         protected override Boolean LocateRange(IWorkbook book)
@@ -130,22 +130,22 @@ namespace XSheet.v2.Data.XSheetRange
 
         public override String doUpdate()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override String doDelete()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override String doInsert()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override List<string> getSelectedValueByColIndex(int col)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override String doSearch()
@@ -160,7 +160,7 @@ namespace XSheet.v2.Data.XSheetRange
 
         public override void onUpdateSelect(bool v)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public override String ExecuteSql(List<String> Sqls)
