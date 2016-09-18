@@ -1381,7 +1381,7 @@ namespace XSheet.v2.Form
             this.ts_multiSelect,
             this.btn_DesignSearch});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 347;
+            this.ribbonControl.MaxItemId = 348;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,

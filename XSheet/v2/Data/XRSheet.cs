@@ -17,6 +17,7 @@ namespace XSheet.v2.Data
         public Dictionary<String, XRange> ranges { get; set; }
         public XApp app { get; set; }
         public String hideflag { get; set; }
+        private bool initflag = false;
         public XRSheet(Worksheet sheet)
         {
             ranges = new Dictionary<string, XRange>();
@@ -24,14 +25,14 @@ namespace XSheet.v2.Data
             this.sheetName = sheet.Name;
         }
 
-        public void doLoadCommand(CommandExecuter cmdexe,String curUserPrivilege)
+        public void setInited()
         {
-            foreach (var range in ranges.Values)
-            {
-                cmdexe.executeCmd(range, SysEvent.Sheet_Init);
-            }
+            this.initflag = true;
         }
-
+        public bool getInitFlag()
+        {
+            return initflag;
+        }
         /*public void PopUp(String ActionName,DataTable dt,Dictionary<int,int> selectedRows)
         {
             String path = System.Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);

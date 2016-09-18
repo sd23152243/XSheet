@@ -34,6 +34,10 @@ namespace XSheet
             //TODO Sheet_Init 与Sheet_Change区分
             if (e == SysEvent.Sheet_Init|| e == SysEvent.Sheet_Change)
             {
+                if (rsheet.getInitFlag() == false)
+                {
+                    rsheet.setInited();
+                }
                 foreach (XRange range in rsheet.ranges.Values)
                 {
                     executeCmd(range, e);

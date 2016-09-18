@@ -46,7 +46,7 @@ namespace XSheet.v2.Control
         //构造函数
         public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels,Dictionary<String,PopupMenu> menus,BarManager barmanager, XtraForm form,AlertControl alert)
         {
-            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\XSheetTemplate20160822.xlsx",menus,barmanager,form,alert);
+            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\在库管理系统2.xlsx",menus,barmanager,form,alert);
         }
         //带参数的初始化
         public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager,XtraForm form, AlertControl alert)
@@ -339,6 +339,11 @@ namespace XSheet.v2.Control
             try
             {
                 currentSheet = app.getRSheetByName(e.NewActiveSheetName);
+
+                if (currentSheet.getInitFlag() == false)
+                {
+                    executer.executeCmd(currentSheet, SysEvent.Sheet_Init);
+                }
                 executer.executeCmd(currentSheet, SysEvent.Sheet_Change);
                 app.setSheetVisiable(e.NewActiveSheetName);
             }
@@ -566,7 +571,6 @@ namespace XSheet.v2.Control
             }
             return funcList;
         }
-
         //状态变化
         private void ChangeToStatu(SysStatu newstatu)
         {
