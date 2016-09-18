@@ -89,7 +89,6 @@ namespace XSheet.v2.Data.XSheetRange
 
         protected override void p_init()
         {
-            throw new NotImplementedException();
         }
 
         public override void onSelect(Boolean isMutil)
@@ -109,7 +108,7 @@ namespace XSheet.v2.Data.XSheetRange
 
         public override Range getRange()
         {
-            return getRange();
+            return dname.Range;
         }
 
         public override bool setRange(Range range)

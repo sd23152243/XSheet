@@ -42,9 +42,9 @@ namespace XSheet.v2.CfgBean
                 data.CRUDP = dataCfgTable.Range[i, 8].DisplayText;
                 data.SVK = dataCfgTable.Range[i, 9].DisplayText;
                 data.InitStatement = dataCfgTable.Range[i, 10].GetReferenceA1();
-                if (data.ServerName == null || data.ServerName.Length < 2)
+                if ((data.ServerName == null || data.ServerName.Length < 2) && data.DataName.Split('_')[0] =="TB")
                 {
-                    System.Windows.Forms.MessageBox.Show("区域:" + data.DataName + "服务器类型配置错误，当前配置为：" + data.ServerName);
+                    Console.WriteLine("区域:" + data.DataName + "服务器类型配置错误，当前配置为：" + data.ServerName);
                     return null;
                 }
                 if (data.RangeName.Length ==0 )
