@@ -150,12 +150,20 @@ namespace XSheet.v2.Data.XSheetRange
 
         public override String doSearch()
         {
-            throw new NotImplementedException();
+            List<String> sqls = getRealStatement(cfg.InitStatement);
+            return doSearch(sqls);
         }
 
-        public override String doSearch(List<String> sql)
+        public override String doSearch(List<String> sqls)
         {
-            throw new NotImplementedException();
+            String sql = sqls[0];
+            for (int i = 1; i < sqls.Count; i++)
+            {
+                sql = sql + " UNION " + sqls[i];
+            }
+            String ans = data.search(sql);
+            fill(data.getDataTable());
+            return ans;
         }
 
         public override void onUpdateSelect(bool v)
