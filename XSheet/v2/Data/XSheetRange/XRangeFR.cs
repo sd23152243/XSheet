@@ -50,12 +50,12 @@ namespace XSheet.v2.Data.XSheetRange
 
         protected override void p_init()
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public override void onSelect(Boolean isMutil)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         protected override Boolean LocateRange(IWorkbook book)
@@ -108,7 +108,7 @@ namespace XSheet.v2.Data.XSheetRange
             throw new NotImplementedException();
         }
 
-        public override void onUpdateSelect(bool v)
+        public override void onUpdateSelect()
         {
             throw new NotImplementedException();
         }

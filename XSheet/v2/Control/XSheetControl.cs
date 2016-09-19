@@ -256,7 +256,7 @@ namespace XSheet.v2.Control
                         else//Update修改数据,修改后修改区域变色
                         {
                             spreadsheetMain.SelectedCell.FillColor = Color.Yellow;
-                            currentXRange.onUpdateSelect(true);
+                            currentXRange.onUpdateSelect();
                         }
                     }
                 }

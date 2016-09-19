@@ -166,14 +166,15 @@ namespace XSheet.v2.Data.XSheetRange
             return ans;
         }
 
-        public override void onUpdateSelect(bool v)
+        public override void onUpdateSelect()
         {
+            AlertUtil.Show("XRangeRG Warning!", "Range区域不允许onUpdateSelect");
             return;
         }
 
         public override String ExecuteSql(List<String> Sqls)
         {
-            AlertUtil.Show("warning!", "Range区域不允许单独执行SQL");
+            AlertUtil.Show("XRangeRG Warning!", "Range区域不允许单独执行SQL");
             return "OK";
         }
 

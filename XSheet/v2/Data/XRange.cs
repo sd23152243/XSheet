@@ -307,7 +307,7 @@ namespace XSheet.v2.Data
             fill(data.getDataTable());
         }
 
-        public abstract void onUpdateSelect(bool v);
+        public abstract void onUpdateSelect();
 
         public abstract void ResetSelected();
     }

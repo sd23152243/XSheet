@@ -88,7 +88,6 @@ namespace XSheet.v2.Data.XSheetRange
                 return;
             }
             Range range = this.table.Range;
-
             Range newrange = RangeUtil.rangeResize(range, rowcount);
             changeDefinedRange(newrange);
         }
@@ -100,7 +99,7 @@ namespace XSheet.v2.Data.XSheetRange
             Range range = getRange();
             
             Cell data1stcell = range[0, 0];
-            string[,] arrtmp = new string[range.RowCount, range.ColumnCount];
+            string[,] arrtmp = new string[range.RowCount, dt.Columns.Count];
             range.Worksheet.Import(arrtmp, data1stcell.RowIndex, data1stcell.ColumnIndex);
             range.FillColor = Color.White;
             range.Worksheet.Import(dt,false, data1stcell.RowIndex, data1stcell.ColumnIndex);
@@ -128,11 +127,41 @@ namespace XSheet.v2.Data.XSheetRange
 
         private Range getRowRange(int rowNum)
         {
-            int rowindex = rowNum + getRange().TopRowIndex;
+            int rowindex = getRange().TopRowIndex + rowNum;
             int lcolindex = getRange().LeftColumnIndex;
             int rcolindex = getRange().RightColumnIndex;
             Range range = getRange().Worksheet.Range.FromLTRB(lcolindex, rowindex, rcolindex, rowindex);
             return range;
+
+        }
+        private Range getRowRangeByIndex(int rowNum)
+        {
+            int rowindex = -1;
+            Range rangetmp = getRange();
+            for (int i = 0;i < rangetmp.RowCount;i++)
+            {
+                int tmp;
+                if (int.TryParse(rangetmp[i, 0].Tag.ToString(),out tmp))
+                {
+                    if (tmp == rowNum)
+                    {
+                        rowindex = i;
+                        break;
+                    }
+                }
+            }
+            if (rowindex>=0)
+            {
+                int factindex = getRange().TopRowIndex + rowindex;
+                int lcolindex = getRange().LeftColumnIndex;
+                int rcolindex = getRange().RightColumnIndex;
+                Range range = getRange().Worksheet.Range.FromLTRB(lcolindex, factindex, rcolindex, factindex);
+                return range;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         //实际绘图功能，根据定义列表绘制选择标记
@@ -148,29 +177,27 @@ namespace XSheet.v2.Data.XSheetRange
                 {
                     if (rangeD == null)
                     {
-                        rangeD = getRowRange(row);
+                        rangeD = getRowRangeByIndex(row);
                     }
                     else
                     {
-                        rangeD = rangeD.Union(getRowRange(row));
+                        rangeD = rangeD.Union(getRowRangeByIndex(row));
                     }
                 }
                 else
                 {
                     if (rangeN == null)
                     {
-                        rangeN = getRowRange(row);
+                        rangeN = getRowRangeByIndex(row);
                     }
                     else
                     {
-                        rangeN = rangeN.Union(getRowRange(row));
+                        rangeN = rangeN.Union(getRowRangeByIndex(row));
                     }
                 }
             }
             setRowBorderSelect(rangeD);
             setRowBorderNone(rangeN);
-            Table table = getRange().Worksheet.Tables[0];
-
         }
 
         //绘图接口，根据当前状况绘图,存在 RANGE 和 TABLE 冲突，后续调整架构
@@ -259,7 +286,7 @@ namespace XSheet.v2.Data.XSheetRange
         {
             if (range != null)
             {
-                range.Borders.SetAllBorders(Color.DarkBlue, BorderLineStyle.Double);
+                //range.Borders.SetAllBorders(Color.DarkBlue, BorderLineStyle.Double);
                 range.FillColor = Color.Gray;
             }
 
@@ -269,12 +296,12 @@ namespace XSheet.v2.Data.XSheetRange
         {
             if (range != null)
             {
-                range.Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
+                //range.Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
                 range.FillColor = Color.White;
             }
         }
 
-        public virtual int getRowIndexByRange(Range range)
+        private int getRowIndexByRange(Range range)
         {
             int rowNum = -1;
             if (range.Worksheet.Name == getRange().Worksheet.Name && isInRange(range) >= 0)
@@ -315,7 +342,7 @@ namespace XSheet.v2.Data.XSheetRange
             drawSelectedRows();//在鼠标松开后，同一绘制选择
         }
 
-        public override void onUpdateSelect(bool v)
+        public override void onUpdateSelect()
         {
             AreasCollection areas = this.table.Range.Worksheet.Selection.Areas;
             Range srange = null;
@@ -485,7 +512,7 @@ namespace XSheet.v2.Data.XSheetRange
                 DataRow row = dt.Rows[item.Key];
                 for (int j = 0; j < dt.Columns.Count; j++)
                 {
-                    string strRange = getRowRange(item.Key)[j].Value.ToString();
+                    string strRange = getRowRangeByIndex(item.Key)[j].Value.ToString();
                     if (row[j].ToString() == strRange)
                     {
                         continue;
@@ -565,7 +592,7 @@ namespace XSheet.v2.Data.XSheetRange
             {
                 if (item.Value%2 == 1)
                 {
-                    list.Add(getRowRange(item.Key)[col].DisplayText);
+                    list.Add(getRowRangeByIndex(item.Key)[col].DisplayText);
                 }
             }
             return list;
