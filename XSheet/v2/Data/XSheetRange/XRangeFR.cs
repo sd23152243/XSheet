@@ -21,7 +21,7 @@ namespace XSheet.v2.Data.XSheetRange
             AreasCollection areas = getRange().Areas;
             foreach (Range irange in areas)
             { 
-                if (RangeUtil.isInRange(irange,getRange()) > 0)
+                if (RangeUtil.isInRange(range,irange) > 0)
                 {
                     return 1;
                 }

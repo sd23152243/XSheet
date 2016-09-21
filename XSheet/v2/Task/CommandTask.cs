@@ -20,7 +20,6 @@ namespace XSheet.v2.Task
         public String statu { get; set; }
         public UserPrivilege up { get; set; }
         private CommandTask(){}
-
         public CommandTask(XCommand cmd, XSheetUser user)
         {
             this.cmd = cmd;
