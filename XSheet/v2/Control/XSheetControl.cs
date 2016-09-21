@@ -301,7 +301,7 @@ namespace XSheet.v2.Control
             }
             cfgData = new XCfgData(cfgsheet);
             app = new XApp(spreadsheetMain.Document, cfgData);
-            //labels["lbl_App"].Text = "APP:" + app.getFullAppName();
+            labels["lbl_App"].Text = "APP:" + app.getFullAppName();
             labels["lbl_User"].Text = "当前用户:" + this.user.getFullUserName();
             if (app.statu == SysStatu.Designer)
             {

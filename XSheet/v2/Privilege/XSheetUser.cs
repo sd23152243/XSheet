@@ -16,12 +16,12 @@ namespace XSheet.v2.Privilege
         public XSheetUser(String domain,String name)
         {
             this.UserName = name;
-            this.UserDomain = UserDomain;
+            this.UserDomain = domain;
         }
         public XSheetUser(String domain, String name,String machineName,String OSVersion)
         {
             this.UserName = name;
-            this.UserDomain = UserDomain;
+            this.UserDomain = domain;
             this.machineName = machineName;
             this.OSVersion = OSVersion;
         }
