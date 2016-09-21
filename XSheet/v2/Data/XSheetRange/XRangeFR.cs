@@ -10,9 +10,10 @@ namespace XSheet.v2.Data.XSheetRange
 {
     public class XRangeFR:XRange
     {
+        private DefinedName dname;
         public override void doResize(int rowcount)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public override int isInRange(Range range)
@@ -60,72 +61,208 @@ namespace XSheet.v2.Data.XSheetRange
 
         protected override Boolean LocateRange(IWorkbook book)
         {
-            throw new NotImplementedException();
+            if (book.DefinedNames.Contains(this.Name))
+            {
+                this.dname = book.DefinedNames.GetDefinedName(Name);
+                return true;
+            }
+            return false;
         }
 
         public override Range getRange()
         {
-            throw new NotImplementedException();
+            return dname.Range;
         }
 
         public override bool setRange(Range range)
         {
-            throw new NotImplementedException();
+            dname.Range = range;
+            return true;
         }
 
         public override List<string> getValiedLFunList()
         {
-            throw new NotImplementedException();
+            List<string> list = new List<string>();
+            List<string> cmdFunc = getCommandFunList();
+            foreach (char item in cfg.CRUDP)
+            {
+                if (data.avaliableList.Contains(item.ToString()) || item == 'P')
+                {
+                    list.Add(item.ToString());
+                }
+            }
+           
+            if (getCommandByEvent(SysEvent.Btn_Search) != null && getCommandByEvent(SysEvent.Btn_Search).Count > 1)
+            {
+                list.Add("RO");
+            }
+            if (getCommandByEvent(SysEvent.Btn_Exe) != null)
+            {
+
+                if (getCommandByEvent(SysEvent.Btn_Exe).Count > 1)
+                {
+                    list.Add("PM");
+                }
+            }
+            else
+            {
+                list.Remove("P");
+            }
+            return list;
+        }
+
+        private List<string> getCommandFunList()
+        {
+            List<String> list = new List<string>();
+            foreach (SysEvent e in commands.Keys)
+            {
+                switch (e)
+                {
+                    case SysEvent.Sheet_Init:
+                        break;
+                    case SysEvent.Sheet_Change:
+                        break;
+                    case SysEvent.Cell_Change:
+                        break;
+                    case SysEvent.Btn_Search:
+                        list.Add("R");
+                        break;
+                    case SysEvent.Btn_Edit:
+                        list.Add("U");
+                        break;
+                    case SysEvent.Btn_Delete:
+                        list.Add("D");
+                        break;
+                    case SysEvent.Btn_New:
+                        list.Add("C");
+                        break;
+                    case SysEvent.Btn_Exe:
+                        list.Add("P");
+                        break;
+                    case SysEvent.Key_Enter:
+                        break;
+                    case SysEvent.Select_Change:
+                        break;
+                    case SysEvent.Btn_Cancel:
+                        break;
+                    case SysEvent.Btn_Save:
+                        break;
+                    case SysEvent.Event_Search:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return list;
         }
 
         public override void newData(int count)
         {
-            throw new NotImplementedException();
+            foreach (Range range in getRange().Areas)
+            {
+                range.Value = "";
+            }
         }
 
         public override String doUpdate()
         {
-            throw new NotImplementedException();
+            DataTable dt = data.getDataTable();
+            DataRow row = dt.Rows[0];
+            for (int j = 0; j < dt.Columns.Count; j++)
+            {
+                string strRange = getRange().Areas[j].Value.ToString();
+                if (row[j].ToString() == strRange)
+                {
+                    continue;
+                }
+                Type t = row[j].GetType();
+
+                if (t.Name == "Decimal")
+                {
+                    Decimal num = Convert.ToDecimal(strRange);
+                    row[j] = (object)num;
+                }
+                else
+                {
+                    row[j] = strRange;
+                }
+            }
+            data.setData(dt);
+            return data.update();
         }
 
         public override String doDelete()
         {
-            throw new NotImplementedException();
+            DataTable dt = data.getDataTable();
+            dt.Rows[0].Delete();
+            data.setData(dt);
+            return data.delete();
         }
 
         public override String doInsert()
         {
-            throw new NotImplementedException();
+            DataTable dt = data.getDataTable();
+            int dcount = getDataTable().Rows.Count;
+            int maxcount = getRange().RowCount;
+            DataRow templet = dt.Rows[0];
+            DataRow row = dt.NewRow();
+            for (int j = 0; j < dt.Columns.Count; j++)
+            {
+                string strRange = getRange().Areas[j].Value.ToString();
+                Type t = templet[j].GetType();
+
+                if (t.Name == "Decimal")
+                {
+                    Decimal num = Convert.ToDecimal(strRange);
+                    row[j] = (object)num;
+                }
+                else
+                {
+                    row[j] = strRange;
+                }
+
+            }
+            dt.Rows.Add(row);
+            data.setData(dt);
+            return data.insert();
         }
 
         public override List<string> getSelectedValueByColIndex(int col)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override String doSearch()
         {
-            throw new NotImplementedException();
+            List<String> sqls = getRealStatement(cfg.InitStatement);
+            return doSearch(sqls);
         }
 
         public override void onUpdateSelect()
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public override string doSearch(List<string> sqls)
         {
-            throw new NotImplementedException();
+            String sql = sqls[0];
+            for (int i = 1; i < sqls.Count; i++)
+            {
+                sql = sql + " UNION " + sqls[i];
+            }
+            String ans = data.search(sql);
+            fill(data.getDataTable());
+            return ans;
         }
 
         public override string ExecuteSql(List<string> sqls)
         {
-            throw new NotImplementedException();
+            return data.Execute(sqls);
         }
 
         public override void ResetSelected()
         {
-            throw new NotImplementedException();
+            return;
         }
     }
 }

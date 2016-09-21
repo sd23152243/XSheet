@@ -231,7 +231,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="20160909043144450_easyicon_net_128.ico" />
     <Content Include="dll\DevExpress.Docs.v16.1.dll" />
     <Content Include="rocket_traffic_ship_128px_1174356_easyicon.net.ico" />
   </ItemGroup>
