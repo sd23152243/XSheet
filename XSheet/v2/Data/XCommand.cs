@@ -56,11 +56,8 @@ namespace XSheet.Data
             int nextid=-1;
             foreach (char item in cfg.CRUDP)
             {
-                if (!user.getPrivilege(rsheet).Contains(item))
-                {
-                    ans = "No privilege!";
-                    return ans;
-                }
+                ans = "No privilege!";
+                return ans;
             }
 
             actions = actions.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);

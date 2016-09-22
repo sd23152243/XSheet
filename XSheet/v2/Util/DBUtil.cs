@@ -64,6 +64,10 @@ namespace XSheet.v2.Util
         }
         public static DataTable getDataTable(String DBType, String Sql, String sqlType, String param,DbConnection conn)
         {
+            if (conn == null)
+            {
+                conn = getConnection(DBType);
+            }
             DataTable table = new DataTable();
             DbDataAdapter da = null;
             if (ConfigUtil.GetProviderName(DBType.ToUpper()) == "System.Data.SqlClient")
@@ -211,6 +215,7 @@ namespace XSheet.v2.Util
                     break;
                 case "SRF-SQL":
                 case "ICHART3D":
+                case "MAIN":
                     dbConn = new SqlConnection();
                     break;
                 default:

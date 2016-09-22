@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XSheet.v2.Data;
+using XSheet.v2.Util;
 
 namespace XSheet.v2.Privilege
 {
@@ -27,7 +29,8 @@ namespace XSheet.v2.Privilege
         }
         public String getPrivilege(XRSheet sheet)
         {
-            //TODO
+            String execute = String.Format("EXEC	XSHEET.[dbo].[sp_CheckRight] '{0}', '{1}', '{2}','{3}'", UserDomain, UserName, sheet.app.AppID, sheet.sheetName);
+            DataTable dt = DBUtil.getDataTable("MAIN", execute, "", null,null);
             return "CRUDP";
         }
 
