@@ -12,7 +12,7 @@ namespace XSheet.v2.Form
     {
         private Dictionary<String, SimpleButton> buttons { get; set; }
         private XSheetControl control { get; set; }
-        private Dictionary<String, LabelControl> labels { get; set; }
+        private Dictionary<String, Label> labels { get; set; }
         public XSheetMain()
         {
             InitializeComponent();
@@ -29,9 +29,9 @@ namespace XSheet.v2.Form
             buttons.Add("Btn_Edit".ToUpper(), btn_Edit);
             buttons.Add("Btn_New".ToUpper(), btn_New);
 
-            labels = new Dictionary<String, LabelControl>();
-            labels.Add("lbl_App", this.lbl_App);
-            labels.Add("lbl_User", this.lbl_User);
+            labels = new Dictionary<String, Label>();
+            //labels.Add("lbl_App", this.lbl_App);
+            //labels.Add("lbl_User", this.lbl_User);
         }
 
         public XSheetMain(String path)

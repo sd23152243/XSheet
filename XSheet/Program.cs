@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.LookAndFeel;
 using XSheet.v2.Form;
+using System.IO;
 
 namespace XSheet
 {
@@ -32,7 +33,12 @@ namespace XSheet
             }
             else
             {
-                Application.Run(new XSheetMain(args[0]));
+                String param = args[0];
+                if (Directory.Exists(param))
+                {
+                    Application.Run(new XSheetDesigner(args[0]));
+                }
+                Application.Run(new XSheetMain());
             }
             
         }

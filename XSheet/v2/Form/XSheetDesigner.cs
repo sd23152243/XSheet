@@ -20,7 +20,8 @@ namespace XSheet.v2.Form
     {
         private Dictionary<String, SimpleButton> buttons { get; set; }
         private XSheetControl control { get; set; }
-        private Dictionary<String, LabelControl> labels { get; set; }
+        private Dictionary<String, Label> labels { get; set; }
+        Dictionary<String, PopupMenu> menus = new Dictionary<string, PopupMenu>();
         /*public XCfgData cfgData { get; set; }
         public XApp app { get; set; }
         public XSheet.Data.XSheet currentSheet{ get; set;}
@@ -34,30 +35,50 @@ namespace XSheet.v2.Form
         {
             InitializeComponent();
             InitSkinGallery();
+            setDefaultParam();
+            string path = "\\\\ichart3d\\XSheetModel\\在库管理系统2.xlsx";
+            this.control = new XSheetControl(spreadsheetMain, buttons, labels, path, menus, rightClickBarManager, this, alertcontrolMain);
+            timer100ms.Start();
+        }
+        public XSheetDesigner(string path)
+        {
+            InitializeComponent();
+            InitSkinGallery();
+            setDefaultParam();
+            
+            this.control = new XSheetControl(spreadsheetMain, buttons,labels,path,menus,rightClickBarManager,this, alertcontrolMain);
+            timer100ms.Start();
+        }
+
+        private void setDefaultParam()
+        {
             buttons = new Dictionary<string, SimpleButton>();
             /*提取按钮，将按钮与自定义事件名称绑定*/
             buttons.Add("Btn_Search".ToUpper(), dbtn_Search);
             buttons.Add("Btn_Execute".ToUpper(), dbtn_Execute);
             buttons.Add("Btn_Delete".ToUpper(), btn_Delete);
-            buttons.Add("Btn_Edit".ToUpper(),dbtn_Edit);
+            buttons.Add("Btn_Edit".ToUpper(), dbtn_Edit);
             buttons.Add("Btn_New".ToUpper(), dbtn_New);
             buttons.Add("Btn_Cancel".ToUpper(), btn_Cancel);
             buttons.Add("Btn_Save".ToUpper(), btn_Save);
-            labels = new Dictionary<String, LabelControl>();
-            labels.Add("lbl_App", this.lbl_App);
+            labels = new Dictionary<String, Label>();
+            labels.Add("lbl_AppID", this.lbl_Appid);
             labels.Add("lbl_User", this.lbl_User);
+            labels.Add("lbl_AppName", this.lbl_AppName);
+            labels.Add("lbl_Time", this.lbl_Time);
+            labels.Add("lbl_Version", this.lbl_Version);
             //CELLCHANGE
-            
+
             /*executer = new CommandExecuter();
             executer.Attach(this);
             executeState = "OK";
             //加载文档，后续根据不同设置配置，待修改TODO
             spreadsheetMain.Document.LoadDocument("\\\\ichart3d\\XSheetModel\\XSheet模板设计.xlsx");*/
-            Dictionary<String, PopupMenu> menus = new Dictionary<string, PopupMenu>();
+            
             menus.Add("Normal", popupSpread);
             menus.Add("CfgData", popupDataCfg);
-            this.control = new XSheetControl(spreadsheetMain, buttons,labels,menus,rightClickBarManager,this, alertcontrolMain);
         }
+
         void InitSkinGallery()
         {
             SkinHelper.InitSkinGallery(rgbiSkins, true);
@@ -187,6 +208,11 @@ namespace XSheet.v2.Form
         private void dbtn_Execute_Click(object sender, EventArgs e)
         {
             control.EventCall(SysEvent.Btn_Exe,0);
+        }
+
+        private void timer100ms_Tick(object sender, EventArgs e)
+        {
+            this.lbl_Time.Text = DateTime.Now.ToLongTimeString();
         }
     }
 }

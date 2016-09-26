@@ -103,6 +103,10 @@ namespace XSheet.v2.Data.XSheetRange
                 this.dname = book.DefinedNames.GetDefinedName(Name);
                 return true;
             }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("无法找到"+this.Name+"所对应的区域");
+            }
             return false;
         }
 

@@ -136,6 +136,10 @@ namespace XSheet.Data
                 {
                     range.init(cfg,book);
                     ranges.Add(range.Name, range);
+                    if (range.getRange() == null)
+                    {
+                        statu = SysStatu.Designer;
+                    }
                     
                 }
                 catch (Exception e)
@@ -154,15 +158,16 @@ namespace XSheet.Data
             foreach (SheetCfg sheetdata in cfg.sheets)
             {
                 Worksheet sheet = getSheetByName(sheetdata.SheetName);
-                XRSheet xsheet = new XRSheet(sheet);
-                xsheet.hideflag = sheetdata.NeedHide;
+                
                 
                 //xsheet.initTables();
-                if (xsheet.sheet == null)
+                if (sheet == null)
                 {
                     statu = SysStatu.Designer;
                     return;
                 }
+                XRSheet xsheet = new XRSheet(sheet);
+                xsheet.hideflag = sheetdata.NeedHide;
                 xsheet.app = this;
                 xsheet.setVisable("");
                 rsheets.Add(xsheet.sheetName, xsheet);
@@ -171,13 +176,17 @@ namespace XSheet.Data
         }
         private void LoadRangeToSheet()
         {
-            foreach (XRange xrange in ranges.Values)
+            if (statu>0)
             {
-                String sheetname = xrange.getRange().Worksheet.Name;
-                XRSheet xrsheet = getRSheetByName(sheetname);
-                xrsheet.ranges.Add(xrange.Name, xrange);
-                xrange.rsheet = xrsheet;
+                foreach (XRange xrange in ranges.Values)
+                {
+                    String sheetname = xrange.getRange().Worksheet.Name;
+                    XRSheet xrsheet = getRSheetByName(sheetname);
+                    xrsheet.ranges.Add(xrange.Name, xrange);
+                    xrange.rsheet = xrsheet;
+                }
             }
+            
         }
         //初始化全部command
         private void initCommands()
@@ -247,7 +256,14 @@ namespace XSheet.Data
             }
             catch (Exception)
             {
+                rsheet = new XRSheet(book.Worksheets.ActiveWorksheet);
                 System.Windows.Forms.MessageBox.Show("Sheet：" + name + "未注册!请检查配置！");
+                statu = SysStatu.Designer;
+                if (rsheet.sheetName != name)
+                {
+                    return null;
+                }
+                rsheets.Add(rsheet.sheet.Name, rsheet);
             }
             return rsheet;
         }

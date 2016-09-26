@@ -537,7 +537,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>82</value>
+    <value>25</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>7, 17</value>
@@ -545,63 +545,176 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>950, 630</value>
   </data>
-  <data name="lbl_User.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Right</value>
+  <data name="lbl_AppName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
   </data>
-  <assembly alias="DevExpress.XtraEditors.v16.1" name="DevExpress.XtraEditors.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-  <data name="lbl_User.AutoSizeMode" type="DevExpress.XtraEditors.LabelAutoSizeMode, DevExpress.XtraEditors.v16.1">
-    <value>Horizontal</value>
+  <data name="lbl_AppName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 15pt</value>
   </data>
-  <data name="lbl_User.Location" type="System.Drawing.Point, System.Drawing">
-    <value>813, 9</value>
+  <data name="lbl_AppName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="lbl_User.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 14</value>
+  <data name="lbl_AppName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>384, 5</value>
   </data>
-  <data name="lbl_User.TabIndex" type="System.Int32, mscorlib">
+  <data name="lbl_AppName.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
+  </data>
+  <data name="lbl_AppName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 26</value>
+  </data>
+  <data name="lbl_AppName.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lbl_AppName.Text" xml:space="preserve">
+    <value>AppName</value>
+  </data>
+  <data name="lbl_AppName.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbl_AppName.Name" xml:space="preserve">
+    <value>lbl_AppName</value>
+  </data>
+  <data name="&gt;&gt;lbl_AppName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_AppName.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;lbl_AppName.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lbl_Version.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="lbl_Version.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_Version.Location" type="System.Drawing.Point, System.Drawing">
+    <value>798, 5</value>
+  </data>
+  <data name="lbl_Version.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
+  </data>
+  <data name="lbl_Version.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 26</value>
+  </data>
+  <data name="lbl_Version.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lbl_Version.Text" xml:space="preserve">
+    <value>version</value>
+  </data>
+  <data name="lbl_Version.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lbl_Version.Name" xml:space="preserve">
+    <value>lbl_Version</value>
+  </data>
+  <data name="&gt;&gt;lbl_Version.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_Version.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;lbl_Version.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lbl_Time.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_Time.Location" type="System.Drawing.Point, System.Drawing">
+    <value>189, 5</value>
+  </data>
+  <data name="lbl_Time.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
+  </data>
+  <data name="lbl_Time.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 26</value>
+  </data>
+  <data name="lbl_Time.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lbl_Time.Text" xml:space="preserve">
+    <value>time</value>
+  </data>
+  <data name="lbl_Time.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;lbl_Time.Name" xml:space="preserve">
+    <value>lbl_Time</value>
+  </data>
+  <data name="&gt;&gt;lbl_Time.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_Time.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;lbl_Time.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="lbl_User.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_User.Location" type="System.Drawing.Point, System.Drawing">
+    <value>77, 5</value>
+  </data>
+  <data name="lbl_User.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
+  </data>
+  <data name="lbl_User.Size" type="System.Drawing.Size, System.Drawing">
+    <value>93, 26</value>
+  </data>
+  <data name="lbl_User.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
   <data name="lbl_User.Text" xml:space="preserve">
-    <value>用户:</value>
+    <value>user</value>
+  </data>
+  <data name="lbl_User.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;lbl_User.Name" xml:space="preserve">
     <value>lbl_User</value>
   </data>
   <data name="&gt;&gt;lbl_User.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_User.Parent" xml:space="preserve">
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;lbl_User.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
-  <data name="lbl_App.AutoSizeMode" type="DevExpress.XtraEditors.LabelAutoSizeMode, DevExpress.XtraEditors.v16.1">
-    <value>Horizontal</value>
+  <data name="lbl_Appid.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 5</value>
   </data>
-  <data name="lbl_App.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 9</value>
+  <data name="lbl_Appid.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
   </data>
-  <data name="lbl_App.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 14</value>
+  <data name="lbl_Appid.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 26</value>
   </data>
-  <data name="lbl_App.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="lbl_Appid.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="lbl_App.Text" xml:space="preserve">
-    <value>APP:</value>
+  <data name="lbl_Appid.Text" xml:space="preserve">
+    <value>appid</value>
   </data>
-  <data name="&gt;&gt;lbl_App.Name" xml:space="preserve">
-    <value>lbl_App</value>
+  <data name="lbl_Appid.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
-  <data name="&gt;&gt;lbl_App.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  <data name="&gt;&gt;lbl_Appid.Name" xml:space="preserve">
+    <value>lbl_Appid</value>
   </data>
-  <data name="&gt;&gt;lbl_App.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lbl_Appid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_Appid.Parent" xml:space="preserve">
     <value>panel2</value>
   </data>
-  <data name="&gt;&gt;lbl_App.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;lbl_Appid.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="panel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -5438,6 +5551,12 @@
   <data name="&gt;&gt;rightClickBarManager.Type" xml:space="preserve">
     <value>DevExpress.XtraBars.BarManager, DevExpress.XtraBars.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
+  <data name="&gt;&gt;timer100ms.Name" xml:space="preserve">
+    <value>timer100ms</value>
+  </data>
+  <data name="&gt;&gt;timer100ms.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>XSheetDesigner</value>
   </data>
@@ -5912,5 +6031,8 @@
   </metadata>
   <metadata name="popupSpread.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 56</value>
+  </metadata>
+  <metadata name="timer100ms.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>618, 56</value>
   </metadata>
 </root>

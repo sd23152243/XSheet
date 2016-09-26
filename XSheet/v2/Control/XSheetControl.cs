@@ -35,7 +35,7 @@ namespace XSheet.v2.Control
         private AreasCollection currSelected { get; set; }//记录当前选择的区域
         private AreasCollection oldSelected { get; set; }//记录上次选择的区域
         private SpreadsheetControl spreadsheetMain { get; set; }//spreadsheet主控件
-        private Dictionary<String, LabelControl> labels { get; set; }//各标签页
+        private Dictionary<String, Label> labels { get; set; }//各标签页
         private String curUserPrivilege { get; set; }
         private XSheetUser user { get; set; }
         private Dictionary<String, PopupMenu> menus { get; set; }
@@ -44,12 +44,12 @@ namespace XSheet.v2.Control
         private XtraForm form;
         private AlertControl alert;
         //构造函数
-        public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels,Dictionary<String,PopupMenu> menus,BarManager barmanager, XtraForm form,AlertControl alert)
+        public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels,Dictionary<String,PopupMenu> menus,BarManager barmanager, XtraForm form,AlertControl alert)
         {
-            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\XSheetTemplate20160822.xlsx", menus,barmanager,form,alert);
+            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\在库管理系统2.xlsx", menus,barmanager,form,alert);
         }
         //带参数的初始化
-        public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager,XtraForm form, AlertControl alert)
+        public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager,XtraForm form, AlertControl alert)
         {
             this.buttons = buttons;
             this.labels = labels;
@@ -77,7 +77,7 @@ namespace XSheet.v2.Control
 
         }
         //带参数的构造函数
-        public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, LabelControl> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager, XtraForm form, AlertControl alert)
+        public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager, XtraForm form, AlertControl alert)
         {
             controlInit(spreadsheetMain, buttons, labels, path, menus, barmanager,form,alert);
         }
@@ -301,8 +301,10 @@ namespace XSheet.v2.Control
             }
             cfgData = new XCfgData(cfgsheet);
             app = new XApp(spreadsheetMain.Document, cfgData);
-            labels["lbl_App"].Text = "APP:" + app.getFullAppName();
-            labels["lbl_User"].Text = "当前用户:" + this.user.getFullUserName();
+            labels["lbl_AppID"].Text = app.AppID;
+            labels["lbl_User"].Text = String.Format("{0}" , user.getFullUserName());
+            labels["lbl_AppName"].Text =  app.AppName;
+            labels["lbl_Version"].Text =  app.cfg.app.Version;
             if (app.statu == SysStatu.Designer)
             {
                 MessageBox.Show("进入设计者模式！");
@@ -441,18 +443,25 @@ namespace XSheet.v2.Control
             {
                 XRSheet opSheet = app.getRSheetByName(spreadsheetMain.ActiveWorksheet.Name);
                 //遍历当前Sheet全部命名区域，依次判断是否在区域范围内
-                foreach (var dicname in opSheet.ranges)
+                if (opSheet != null)
                 {
-                    XRange xname = dicname.Value;
-                    int i = xname.isInRange(areas);
-                    if (i >= 0)
+                    foreach (var dicname in opSheet.ranges)
                     {
-                        this.currentXRange = xname;
-                        rightClickBarManager.SetPopupContextMenu(spreadsheetMain, menus["Normal"]);
-                        //当选择点为命名区域时，将当前坐标写入单元格
-                        //this.currentXRange.onMouseDown();
-                        break;//如果判断到第一个区域，将该区域存储为currentXRange，退出循环判断
+                        XRange xname = dicname.Value;
+                        int i = xname.isInRange(areas);
+                        if (i >= 0)
+                        {
+                            this.currentXRange = xname;
+                            rightClickBarManager.SetPopupContextMenu(spreadsheetMain, menus["Normal"]);
+                            //当选择点为命名区域时，将当前坐标写入单元格
+                            //this.currentXRange.onMouseDown();
+                            break;//如果判断到第一个区域，将该区域存储为currentXRange，退出循环判断
+                        }
                     }
+                }
+                else
+                {
+                    currentXRange = null;
                 }
             }
         }
@@ -550,8 +559,13 @@ namespace XSheet.v2.Control
         //刷新当前Sheet
         private void RefreshCurrentSheet()
         {
+            
             this.currentSheet = app.getRSheetByName(spreadsheetMain.ActiveWorksheet.Name);
-            curUserPrivilege = user.getPrivilege(currentSheet);
+            if (app.statu>0)
+            {
+                curUserPrivilege = user.getPrivilege(currentSheet);
+            }
+            
         }
         //获取用户权限
         public string GetUserPrivilege()

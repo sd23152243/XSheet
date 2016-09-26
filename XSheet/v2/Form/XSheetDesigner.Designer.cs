@@ -743,8 +743,11 @@ namespace XSheet.v2.Form
             this.spreadsheetFormulaBarControl1 = new DevExpress.XtraSpreadsheet.SpreadsheetFormulaBarControl();
             this.spreadsheetFormulaBarPanel = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.lbl_User = new DevExpress.XtraEditors.LabelControl();
-            this.lbl_App = new DevExpress.XtraEditors.LabelControl();
+            this.lbl_AppName = new System.Windows.Forms.Label();
+            this.lbl_Version = new System.Windows.Forms.Label();
+            this.lbl_Time = new System.Windows.Forms.Label();
+            this.lbl_User = new System.Windows.Forms.Label();
+            this.lbl_Appid = new System.Windows.Forms.Label();
             this.splitterControl = new DevExpress.XtraEditors.SplitterControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.dbtn_Search = new DevExpress.XtraEditors.DropDownButton();
@@ -775,6 +778,7 @@ namespace XSheet.v2.Form
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.timer100ms = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appMenu)).BeginInit();
@@ -1378,7 +1382,7 @@ namespace XSheet.v2.Form
             this.ts_multiSelect,
             this.btn_DesignSearch});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 350;
+            this.ribbonControl.MaxItemId = 352;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -5436,21 +5440,38 @@ namespace XSheet.v2.Form
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.lbl_AppName);
+            this.panel2.Controls.Add(this.lbl_Version);
+            this.panel2.Controls.Add(this.lbl_Time);
             this.panel2.Controls.Add(this.lbl_User);
-            this.panel2.Controls.Add(this.lbl_App);
+            this.panel2.Controls.Add(this.lbl_Appid);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
+            // 
+            // lbl_AppName
+            // 
+            resources.ApplyResources(this.lbl_AppName, "lbl_AppName");
+            this.lbl_AppName.Name = "lbl_AppName";
+            // 
+            // lbl_Version
+            // 
+            resources.ApplyResources(this.lbl_Version, "lbl_Version");
+            this.lbl_Version.Name = "lbl_Version";
+            // 
+            // lbl_Time
+            // 
+            resources.ApplyResources(this.lbl_Time, "lbl_Time");
+            this.lbl_Time.Name = "lbl_Time";
             // 
             // lbl_User
             // 
             resources.ApplyResources(this.lbl_User, "lbl_User");
-            this.lbl_User.LineLocation = DevExpress.XtraEditors.LineLocation.Right;
             this.lbl_User.Name = "lbl_User";
             // 
-            // lbl_App
+            // lbl_Appid
             // 
-            resources.ApplyResources(this.lbl_App, "lbl_App");
-            this.lbl_App.Name = "lbl_App";
+            resources.ApplyResources(this.lbl_Appid, "lbl_Appid");
+            this.lbl_Appid.Name = "lbl_Appid";
             // 
             // splitterControl
             // 
@@ -5953,7 +5974,6 @@ namespace XSheet.v2.Form
             // 
             this.popupSpread.ItemLinks.Add(this.btn_Redo);
             this.popupSpread.ItemLinks.Add(this.btn_Undo);
-            this.popupSpread.ItemLinks.Add(this.executeList);
             this.popupSpread.ItemLinks.Add(this.ts_multiSelect);
             this.popupSpread.Name = "popupSpread";
             this.popupSpread.Ribbon = this.ribbonControl;
@@ -5992,6 +6012,10 @@ namespace XSheet.v2.Form
             // 
             this.barDockControlRight.CausesValidation = false;
             resources.ApplyResources(this.barDockControlRight, "barDockControlRight");
+            // 
+            // timer100ms
+            // 
+            this.timer100ms.Tick += new System.EventHandler(this.timer100ms_Tick);
             // 
             // XSheetDesigner
             // 
@@ -6053,7 +6077,6 @@ namespace XSheet.v2.Form
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetNameBoxControl.Properties)).EndInit();
             this.spreadsheetFormulaBarPanel.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetBarController1)).EndInit();
@@ -6560,8 +6583,6 @@ namespace XSheet.v2.Form
         private DevExpress.XtraBars.BarButtonItem iHelp;
         public DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.SimpleButton btn_Delete;
-        private DevExpress.XtraEditors.LabelControl lbl_User;
-        private DevExpress.XtraEditors.LabelControl lbl_App;
         private DropDownButton dbtn_Execute;
         private DevExpress.XtraBars.Alerter.AlertControl alertcontrolMain;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
@@ -6582,5 +6603,11 @@ namespace XSheet.v2.Form
         private DevExpress.XtraBars.BarDockControl barDockControlBottom;
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private System.Windows.Forms.Label lbl_Appid;
+        private System.Windows.Forms.Label lbl_User;
+        private System.Windows.Forms.Label lbl_AppName;
+        private System.Windows.Forms.Label lbl_Time;
+        private System.Windows.Forms.Label lbl_Version;
+        private System.Windows.Forms.Timer timer100ms;
     }
 }
