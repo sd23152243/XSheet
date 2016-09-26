@@ -30,7 +30,7 @@ namespace XSheet.Data
         
         public XApp(IWorkbook book,XCfgData cfg)
         {
-            statu = SysStatu.Designer;
+            statu = SysStatu.Single;
             this.book = book;
             rsheets = new Dictionary<string, XRSheet>();
             ranges = new Dictionary<string, XRange>();
@@ -138,6 +138,7 @@ namespace XSheet.Data
                     ranges.Add(range.Name, range);
                     if (range.getRange() == null)
                     {
+                        MessageBox.Show("Range对应命名区域不存在或配置异异常，RangeId：" + cfg.RangeName );
                         statu = SysStatu.Designer;
                     }
                     
