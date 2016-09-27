@@ -11,7 +11,7 @@ namespace XSheet.v2.Data.XSheetAction
 {
     class ActionSQL_Search : XAction
     {
-        public override string doAction()
+        public override string doOwnAction()
         {
             Range range = dRange.getRange();
             /*String rangeName = dRange.Name;

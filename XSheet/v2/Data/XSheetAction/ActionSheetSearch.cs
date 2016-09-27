@@ -11,7 +11,7 @@ namespace XSheet.Data.Action
 {
     class ActionSheetSearch : XAction
     {
-        public override string doAction()
+        public override string doOwnAction()
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("col0", System.Type.GetType("System.String"));

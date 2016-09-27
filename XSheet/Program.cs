@@ -34,11 +34,9 @@ namespace XSheet
             else
             {
                 String param = args[0];
-                if (Directory.Exists(param))
-                {
-                    Application.Run(new XSheetDesigner(args[0]));
-                }
-                Application.Run(new XSheetMain());
+
+                Application.Run(new XSheetDesigner(args[0]));
+                //Application.Run(new XSheetMain());
             }
             
         }

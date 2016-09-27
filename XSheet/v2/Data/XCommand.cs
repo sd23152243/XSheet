@@ -64,23 +64,43 @@ namespace XSheet.Data
             }
 
             actions = actions.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
+            int i = 0;
+            while (i<=actions.Keys.Max())
+            {
+                if (actions.Keys.Contains(i))
+                {
+                    ans = actions[i].doAction();
+                    i = actions[i].getNextIndex(ans,i);
+                }
+                else
+                {
+                    i++;
+                }
+            }
             foreach (KeyValuePair<int, XAction> kv in actions)
             {
-                try
-                {
-                    ans = kv.Value.doAction();
-                    
-                }
-                catch (Exception e)
-                {
-                    System.Windows.Forms.MessageBox.Show(e.ToString());
-                    ans= "FAILED";
-                    break;
-                }
+                
                 
                 kv.Value.dRange.getRange().Worksheet.Calculate();
             }
             FinishNotify();
+            return ans;
+        }
+
+        public String doActionByID(int id)
+        {
+            String ans = "OK";
+            try
+            {
+                ans = actions[id].doAction();
+
+            }
+            catch (Exception e)
+            {
+                //System.Windows.Forms.MessageBox.Show(e.ToString());
+                Console.WriteLine(e.ToString());
+                ans = "FAILED";
+            }
             return ans;
         }
 

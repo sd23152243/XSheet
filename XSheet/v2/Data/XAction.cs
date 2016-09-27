@@ -59,7 +59,17 @@ namespace XSheet.v2.Data
 
         }
 
-        public abstract string doAction();
+        public string doAction()
+        {
+            String ans = "OK";
+            if (getValiedFlag())
+            {
+                ans = doOwnAction();
+            }
+            return ans;
+        }
+
+        public abstract string doOwnAction();
 
         protected virtual List<String> getRealStatement()
         {
@@ -76,6 +86,31 @@ namespace XSheet.v2.Data
                 r1c1 = r1c1.Remove(0, 1);
                 dRange.getRange().Worksheet[r1c1].Offset(0, 1).Value = rowIndex + 1;
             }*/
+        }
+
+        internal int getNextIndex(string ans, int i)
+        {
+            int nextid;
+            if (ans == "OK")
+            {
+                if (!int.TryParse( cfg.OnSuccess,out nextid))
+                {
+                    nextid = i + 1;
+                }
+            }
+            else
+            {
+                nextid = i + 1;
+            }
+            return nextid;
+        }
+
+        public Boolean getValiedFlag()
+        {
+            //TODO
+            dRange.getRange().Worksheet.Workbook.Calculate();
+            String statement = dRange.getRange().Worksheet.Workbook.Worksheets["Config"][cfg.Invalid][0].DisplayText;
+            return statement.Length==0;
         }
     }
 }

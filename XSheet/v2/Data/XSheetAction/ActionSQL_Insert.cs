@@ -14,7 +14,7 @@ namespace XSheet.v2.Data.XSheetAction
 {
     public class ActionSQL_Insert : XAction
     {
-        public override string doAction()
+        public override string doOwnAction()
         {
             List<String> statements = getRealStatement();
             if (statements[0] == "")

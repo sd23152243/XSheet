@@ -121,7 +121,7 @@ namespace XSheet.v2.CfgBean
                 action.ActionDesc = actCfgTable.Range[i, 5].DisplayText;
                 action.SRange = actCfgTable.Range[i, 6].DisplayText;
                 action.DRange = actCfgTable.Range[i, 7].DisplayText;
-                action.Invalid = actCfgTable.Range[i, 8].DisplayText;
+                action.Invalid = actCfgTable.Range[i, 8].GetReferenceA1();
                 action.OnSuccess = actCfgTable.Range[i, 9].DisplayText;
                 action.OnFail = actCfgTable.Range[i, 10].DisplayText;
                 action.ActionStatement = actCfgTable.Range[i, 11].GetReferenceA1();
