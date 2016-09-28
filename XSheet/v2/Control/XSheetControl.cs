@@ -95,7 +95,7 @@ namespace XSheet.v2.Control
         //通用事件响应，用于调用各类事件
         public void EventCall(SysEvent e,int i)
         {
-            if (e == SysEvent.Btn_New)
+            if (e == SysEvent.Btn_New)//NEW按钮
             {
                 if (currentXRange.getDataTable() == null)
                 {
@@ -104,19 +104,19 @@ namespace XSheet.v2.Control
                 ChangeToStatu(SysStatu.Insert);
                 currentXRange.newData(1);
             }
-            else  if(e== SysEvent.Btn_Edit)
+            else  if(e== SysEvent.Btn_Edit)//EDIT按钮
             {
                 ChangeToStatu(SysStatu.Update);
             }
-            else if(e == SysEvent.Btn_Delete)
+            else if(e == SysEvent.Btn_Delete)//DELETE按钮
             {
                 ChangeToStatu(SysStatu.Delete);
             }
-            else if (e == SysEvent.Btn_Search)
+            else if (e == SysEvent.Btn_Search)//SEARC按钮
             {
                 executer.executeCmd(currentXRange, e, i);
             }
-            else if(e == SysEvent.Btn_Save)
+            else if(e == SysEvent.Btn_Save)//SAVE按钮
             {
                 
                 switch (app.statu)
@@ -155,7 +155,7 @@ namespace XSheet.v2.Control
                         break;
                 }
             }
-            else if (e == SysEvent.Event_Search)
+            else if (e == SysEvent.Event_Search)//右键->查看数据时间
             {
                 Table table = null;
                 for (int ti = 0; ti < spreadsheetMain.ActiveWorksheet.Tables.Count; ti++)
