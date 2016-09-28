@@ -232,7 +232,7 @@ namespace XSheet.v2.Data.XSheetRange
             List<string> ans = new List<string>();
             try
             {
-                ans.Add(getRange().Areas[col][0].ToString());
+                ans.Add(getRange().Areas[col][0].DisplayText);
             }
             catch (Exception)
             {
