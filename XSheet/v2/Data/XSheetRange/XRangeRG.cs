@@ -152,12 +152,6 @@ namespace XSheet.v2.Data.XSheetRange
             return null;
         }
 
-        public override String doSearch()
-        {
-            List<String> sqls = getRealStatement(cfg.InitStatement);
-            return doSearch(sqls);
-        }
-
         public override String doSearch(List<String> sqls)
         {
             String sql = sqls[0];

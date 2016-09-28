@@ -229,13 +229,17 @@ namespace XSheet.v2.Data.XSheetRange
 
         public override List<string> getSelectedValueByColIndex(int col)
         {
-            return null;
-        }
-
-        public override String doSearch()
-        {
-            List<String> sqls = getRealStatement(cfg.InitStatement);
-            return doSearch(sqls);
+            List<string> ans = new List<string>();
+            try
+            {
+                ans.Add(getRange().Areas[col][0].ToString());
+            }
+            catch (Exception)
+            {
+                ans = null;
+                throw;
+            }
+            return ans;
         }
 
         public override void onUpdateSelect()

@@ -53,7 +53,6 @@ namespace XSheet.Data
         {
             StartNotify();
             String ans = "OK";
-            int nextid=-1;
             foreach (char item in cfg.CRUDP)
             {
                 /*if (!user.getPrivilege(rsheet).Contains(item))
@@ -79,8 +78,6 @@ namespace XSheet.Data
             }
             foreach (KeyValuePair<int, XAction> kv in actions)
             {
-                
-                
                 kv.Value.dRange.getRange().Worksheet.Calculate();
             }
             FinishNotify();

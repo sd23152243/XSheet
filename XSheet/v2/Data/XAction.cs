@@ -69,7 +69,7 @@ namespace XSheet.v2.Data
             return ans;
         }
 
-        public abstract string doOwnAction();
+        protected abstract string doOwnAction();
 
         protected virtual List<String> getRealStatement()
         {

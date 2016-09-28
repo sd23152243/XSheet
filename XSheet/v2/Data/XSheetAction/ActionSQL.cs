@@ -14,7 +14,7 @@ namespace XSheet.Data.Action
 {
     public class ActionSQL : XAction
     {
-        public override string doOwnAction()
+        protected override string doOwnAction()
         {
             Range range = dRange.getRange();
             for (int row = 1; row < range.RowCount; row++)

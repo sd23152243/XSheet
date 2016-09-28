@@ -10,7 +10,7 @@ namespace XSheet.Data.Action
 {
     class ActionMoveTo : XAction
     {
-        public override string doOwnAction()
+        protected override string doOwnAction()
         {
             String statement = getRealStatement()[0];
             try

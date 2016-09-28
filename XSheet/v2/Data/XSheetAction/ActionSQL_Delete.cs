@@ -12,7 +12,7 @@ namespace XSheet.v2.Data.XSheetAction
 {
     public class ActionSQL_Delete : XAction
     {
-        public override string doOwnAction()
+        protected override string doOwnAction()
         {
             if (getRealStatement()[0] == "")
             {

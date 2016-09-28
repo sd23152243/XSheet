@@ -10,7 +10,7 @@ namespace XSheet.Data.Action
 {
     public class ActionFactory
     {
-        public static XAction MakeAction(ActionCfg cfg,XApp app)
+        protected static XAction MakeAction(ActionCfg cfg,XApp app)
         {
             XAction action = null;
             String nametype = cfg.ActionType;

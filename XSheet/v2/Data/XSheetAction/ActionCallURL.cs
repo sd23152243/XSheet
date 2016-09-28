@@ -9,7 +9,7 @@ namespace XSheet.Data.Action
 {
     class ActionCallURL : XAction
     {
-        public override string doOwnAction()
+        protected override string doOwnAction()
         {
             throw new NotImplementedException();
         }

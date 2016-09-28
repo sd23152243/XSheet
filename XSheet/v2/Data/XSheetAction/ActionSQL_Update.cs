@@ -14,7 +14,7 @@ namespace XSheet.v2.Data.XSheetAction
 {
     public class ActionSQL_Update : XAction
     {
-        public override string doOwnAction()
+        protected override string doOwnAction()
         {
             List<String> sqls = getRealStatement();
             if (sqls[0] == "")

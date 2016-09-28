@@ -59,6 +59,10 @@ namespace XSheet.v2.Data
         public List<string> getValueByTableCol(String tablename,int col)
         {
             XRange PRange = rsheet.SearchRangeByName(tablename);
+            if (PRange == null)
+            {
+                return null;
+            }
             return PRange.getSelectedValueByColIndex(col);
         }
 
@@ -107,7 +111,7 @@ namespace XSheet.v2.Data
                         }
 
                         List<String> values = getValueByTableCol(tableName, col);
-                        if (values.Count == 0)
+                        if (values==null ||values.Count == 0)
                         {
                             values.Add("NULL");
                         }
@@ -289,7 +293,11 @@ namespace XSheet.v2.Data
 
         public abstract List<String> getValiedLFunList();//接口，获取当前Range可用功能列表 返回C R U D P CS CM US RO
 
-        public abstract String doSearch();
+        public virtual String doSearch()
+        {
+            List<String> sqls = getRealStatement(cfg.InitStatement);
+            return doSearch(sqls);
+        }
 
         public abstract String doUpdate();
 
