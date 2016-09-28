@@ -114,7 +114,7 @@ namespace XSheet.v2.Data
                 return true;
             }
             String statement = dRange.getRange().Worksheet.Workbook.Worksheets["Config"][cfg.Invalid][0].DisplayText;
-            return statement.Length==0;
+            return statement.Length==0||statement=="0";
         }
     }
 }
