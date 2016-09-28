@@ -109,6 +109,10 @@ namespace XSheet.v2.Data
         {
             //TODO
             dRange.getRange().Worksheet.Workbook.Calculate();
+            if (cfg.Invalid == null)
+            {
+                return true;
+            }
             String statement = dRange.getRange().Worksheet.Workbook.Worksheets["Config"][cfg.Invalid][0].DisplayText;
             return statement.Length==0;
         }
