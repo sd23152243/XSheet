@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XSheet.v2.Util;
 
 namespace XSheet.v2.CfgBean
 {   //静态库，读取配置文件
@@ -49,7 +50,8 @@ namespace XSheet.v2.CfgBean
                 }
                 if (data.RangeName.Length ==0 )
                 {
-                    break;
+                    AlertUtil.Show("error", String.Format("Data:{0} 未配置Range,此Data将不被系统使用！", data.DataName));
+                    continue;
                 }
                 datas.Add(data);
             }

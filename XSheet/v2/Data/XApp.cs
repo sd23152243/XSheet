@@ -12,6 +12,7 @@ using XSheet.Util;
 using XSheet.v2.Data.XSheetRange;
 using XSheet.v2.Data;
 using System.Text.RegularExpressions;
+using XSheet.v2.Util;
 
 namespace XSheet.Data
 {
@@ -150,6 +151,11 @@ namespace XSheet.Data
                     this.statu = SysStatu.RangeError;
                     return;
                 }
+            }
+            if (ranges.Count == 0)
+            {
+                this.statu = SysStatu.Designer;
+                AlertUtil.Show("info","未查询到有效DATA，进入设计模式！");
             }
         }
 
