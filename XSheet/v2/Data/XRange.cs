@@ -113,6 +113,7 @@ namespace XSheet.v2.Data
                         List<String> values = getValueByTableCol(tableName, col);
                         if (values==null ||values.Count == 0)
                         {
+                            values = new List<string>();
                             values.Add("NULL");
                         }
                         lists.Add(values);
