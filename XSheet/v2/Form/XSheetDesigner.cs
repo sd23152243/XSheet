@@ -13,6 +13,7 @@ using System.Drawing;
 using DevExpress.Utils.Menu;
 using XSheet.v2.Control;
 using XSheet.v2.Data;
+using XSheet.Util;
 
 namespace XSheet.v2.Form
 {
@@ -36,7 +37,7 @@ namespace XSheet.v2.Form
             InitializeComponent();
             InitSkinGallery();
             setDefaultParam();
-            //string path = "\\\\ichart3d\\XSheetModel\\在库管理系统3.xlsx";
+            //string path = "\\\\ichart3d\\XSheetModel\\在库管理系统2.xlsx";
             this.control = new XSheetControl(spreadsheetMain, buttons, labels,  menus, rightClickBarManager, this, alertcontrolMain);
             timer100ms.Start();
         }
@@ -218,6 +219,30 @@ namespace XSheet.v2.Form
         private void btn_Flash_ItemClick(object sender, ItemClickEventArgs e)
         {
 
+        }
+
+        private void btn_Encode_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            String str = spreadsheetMain.ActiveCell.DisplayText;
+            String key = DESUtil.GenerateKey();
+            String[] strs = new string[] {
+            "Provider=IBMDA400;Data Source=172.31.96.210;User Id=ITSDTS;Password = STD008;",
+            "Data Source=srf-sql;User Id=MARS_E;Password = rs@996t!ty",
+            "Data Source=ichart3d;User Id=MARS_E;Password = rs@996t!ty",
+            "Data Source=ichart3d;User Id=MARS_E;Password = rs@996t!ty"};
+            str = DESUtil.EncryptString(str, key);
+            Console.WriteLine(str);
+            foreach (string item in strs)
+            {
+                Console.WriteLine("//////////////////////");
+                Console.WriteLine(item);
+                Console.WriteLine(" ");
+                String tmp = DESUtil.EncryptString(item, key);
+                Console.WriteLine(tmp);
+                Console.WriteLine(" ");
+                Console.WriteLine(DESUtil.DecryptString(tmp, key));
+
+            }
         }
     }
 }

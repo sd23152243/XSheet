@@ -12,9 +12,10 @@ namespace XSheet.Util
     {
         public static string GenerateKey()
         {
-            DESCryptoServiceProvider desCrypto = (DESCryptoServiceProvider)DESCryptoServiceProvider.Create();
+            /*DESCryptoServiceProvider desCrypto = (DESCryptoServiceProvider)DESCryptoServiceProvider.Create();
             Console.WriteLine(ASCIIEncoding.ASCII.GetString(desCrypto.Key));
-            return ASCIIEncoding.ASCII.GetString(desCrypto.Key);
+            return ASCIIEncoding.ASCII.GetString(desCrypto.Key);*/
+            return "fg2357k9";
         }
         // 加密字符串   
         public static string EncryptString(string sInputString, string sKey)

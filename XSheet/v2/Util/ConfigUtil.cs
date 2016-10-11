@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using XSheet.Util;
 
 namespace XSheet.v2.Util
 {
@@ -14,7 +15,10 @@ namespace XSheet.v2.Util
 
         public static string GetConnectionString(string key)
         {
-            return GetAttributeValue("//connectionStrings", key, "connectionString");
+            String connstr =  GetAttributeValue("//connectionStrings", key, "connectionString");
+
+            connstr = DESUtil.DecryptString(connstr, DESUtil.GenerateKey());
+            return connstr;
         }
 
         public static string GetProviderName(string key)

@@ -213,7 +213,6 @@
       <DependentUpon>XSheetMain.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
-    <None Include="DBConn.config" />
     <None Include="DOC\XSheetFC流程.xlsx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

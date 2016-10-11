@@ -780,6 +780,7 @@ namespace XSheet.v2.Form
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.timer100ms = new System.Windows.Forms.Timer(this.components);
+            this.btn_Encode = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appMenu)).BeginInit();
@@ -1382,9 +1383,10 @@ namespace XSheet.v2.Form
             this.barButtonItem3,
             this.ts_multiSelect,
             this.btn_DesignSearch,
-            this.btn_Flash});
+            this.btn_Flash,
+            this.btn_Encode});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 357;
+            this.ribbonControl.MaxItemId = 359;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -5991,6 +5993,7 @@ namespace XSheet.v2.Form
             // popupDataCfg
             // 
             this.popupDataCfg.ItemLinks.Add(this.btn_DesignSearch);
+            this.popupDataCfg.ItemLinks.Add(this.btn_Encode);
             this.popupDataCfg.Name = "popupDataCfg";
             this.popupDataCfg.Ribbon = this.ribbonControl;
             // 
@@ -6026,6 +6029,13 @@ namespace XSheet.v2.Form
             // timer100ms
             // 
             this.timer100ms.Tick += new System.EventHandler(this.timer100ms_Tick);
+            // 
+            // btn_Encode
+            // 
+            resources.ApplyResources(this.btn_Encode, "btn_Encode");
+            this.btn_Encode.Id = 358;
+            this.btn_Encode.Name = "btn_Encode";
+            this.btn_Encode.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_Encode_ItemClick);
             // 
             // XSheetDesigner
             // 
@@ -6620,5 +6630,6 @@ namespace XSheet.v2.Form
         private System.Windows.Forms.Label lbl_Version;
         private System.Windows.Forms.Timer timer100ms;
         private DevExpress.XtraBars.BarButtonItem btn_Flash;
+        private DevExpress.XtraBars.BarButtonItem btn_Encode;
     }
 }
