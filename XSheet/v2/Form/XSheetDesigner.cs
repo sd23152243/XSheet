@@ -36,8 +36,8 @@ namespace XSheet.v2.Form
             InitializeComponent();
             InitSkinGallery();
             setDefaultParam();
-            string path = "\\\\ichart3d\\XSheetModel\\在库管理系统2.xlsx";
-            this.control = new XSheetControl(spreadsheetMain, buttons, labels, path, menus, rightClickBarManager, this, alertcontrolMain);
+            //string path = "\\\\ichart3d\\XSheetModel\\在库管理系统3.xlsx";
+            this.control = new XSheetControl(spreadsheetMain, buttons, labels,  menus, rightClickBarManager, this, alertcontrolMain);
             timer100ms.Start();
         }
         public XSheetDesigner(string path)
@@ -213,6 +213,11 @@ namespace XSheet.v2.Form
         private void timer100ms_Tick(object sender, EventArgs e)
         {
             this.lbl_Time.Text = DateTime.Now.ToLongTimeString();
+        }
+
+        private void btn_Flash_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
         }
     }
 }

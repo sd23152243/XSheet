@@ -24,10 +24,10 @@ namespace XSheet.v2.Form
         {
             buttons = new Dictionary<string, SimpleButton>();
             /*提取按钮，将按钮与自定义事件名称绑定*/
-            buttons.Add("Btn_Search".ToUpper(), btn_Search);
+            buttons.Add("Btn_Search".ToUpper(), dbtn_Search);
             buttons.Add("Btn_Delete".ToUpper(), btn_Delete);
-            buttons.Add("Btn_Edit".ToUpper(), btn_Edit);
-            buttons.Add("Btn_New".ToUpper(), btn_New);
+            buttons.Add("Btn_Edit".ToUpper(), dbtn_Edit);
+            buttons.Add("Btn_New".ToUpper(), dbtn_New);
 
             labels = new Dictionary<String, Label>();
             //labels.Add("lbl_App", this.lbl_App);

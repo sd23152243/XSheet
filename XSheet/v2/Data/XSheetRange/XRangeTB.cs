@@ -397,7 +397,7 @@ namespace XSheet.v2.Data.XSheetRange
             List<string> cmdFunc = getCommandFunList();
             foreach (char item in cfg.CRUDP)
             {
-                if (data.avaliableList.Contains(item.ToString()) || item == 'P')
+                if (data.avaliableList.Contains(item.ToString())|| cmdFunc.Contains(item.ToString()) || item == 'P')
                 {
                     list.Add(item.ToString());
                 }
@@ -444,6 +444,19 @@ namespace XSheet.v2.Data.XSheetRange
             List<String> list = new List<string>();
             foreach (SysEvent e in commands.Keys)
             {
+                int flag = 0;
+                foreach (XCommand cmd in commands[e].Values)
+                {
+                    if (cmd.CommandName.StartsWith("dft_cmd_"))
+                    {
+                        flag = -1;
+                        break;
+                    }
+                }
+                if (flag ==-1)
+                {
+                    continue;
+                }
                 switch (e)
                 {
                     case SysEvent.Sheet_Init:
@@ -486,10 +499,11 @@ namespace XSheet.v2.Data.XSheetRange
 
         public override void newData(int count)
         {
-            int rowcouont = table.Range.RowCount;
-            rowcouont = rowcouont + count;
-            doResize(rowcouont);
+            int rowcount = table.Range.RowCount;
+            rowcount = rowcount + count;
+            doResize(rowcount);
             Range range = getRowRange(getRange().RowCount-1);
+            selectedRows.Add(rowcount-2,1);
             range.FillColor = Color.Yellow;
         }
 

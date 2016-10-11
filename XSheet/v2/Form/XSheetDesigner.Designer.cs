@@ -652,6 +652,7 @@ namespace XSheet.v2.Form
             this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
             this.ts_multiSelect = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.btn_DesignSearch = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_Flash = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonImageCollectionLarge = new DevExpress.Utils.ImageCollection(this.components);
             this.pivotTableToolsRibbonPageCategory1 = new DevExpress.XtraSpreadsheet.UI.PivotTableToolsRibbonPageCategory();
             this.pivotTableDesignRibbonPage1 = new DevExpress.XtraSpreadsheet.UI.PivotTableDesignRibbonPage();
@@ -1380,9 +1381,10 @@ namespace XSheet.v2.Form
             this.executeList,
             this.barButtonItem3,
             this.ts_multiSelect,
-            this.btn_DesignSearch});
+            this.btn_DesignSearch,
+            this.btn_Flash});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 353;
+            this.ribbonControl.MaxItemId = 357;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -4752,6 +4754,13 @@ namespace XSheet.v2.Form
             this.btn_DesignSearch.Name = "btn_DesignSearch";
             this.btn_DesignSearch.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_DesignSearch_ItemClick);
             // 
+            // btn_Flash
+            // 
+            resources.ApplyResources(this.btn_Flash, "btn_Flash");
+            this.btn_Flash.Id = 355;
+            this.btn_Flash.Name = "btn_Flash";
+            this.btn_Flash.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_Flash_ItemClick);
+            // 
             // ribbonImageCollectionLarge
             // 
             resources.ApplyResources(this.ribbonImageCollectionLarge, "ribbonImageCollectionLarge");
@@ -5975,6 +5984,7 @@ namespace XSheet.v2.Form
             this.popupSpread.ItemLinks.Add(this.btn_Redo);
             this.popupSpread.ItemLinks.Add(this.btn_Undo);
             this.popupSpread.ItemLinks.Add(this.ts_multiSelect);
+            this.popupSpread.ItemLinks.Add(this.btn_Flash);
             this.popupSpread.Name = "popupSpread";
             this.popupSpread.Ribbon = this.ribbonControl;
             // 
@@ -6609,5 +6619,6 @@ namespace XSheet.v2.Form
         private System.Windows.Forms.Label lbl_Time;
         private System.Windows.Forms.Label lbl_Version;
         private System.Windows.Forms.Timer timer100ms;
+        private DevExpress.XtraBars.BarButtonItem btn_Flash;
     }
 }

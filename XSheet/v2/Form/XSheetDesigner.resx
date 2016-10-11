@@ -4945,6 +4945,12 @@
   <data name="&gt;&gt;btn_DesignSearch.Type" xml:space="preserve">
     <value>DevExpress.XtraBars.BarButtonItem, DevExpress.XtraBars.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
+  <data name="&gt;&gt;btn_Flash.Name" xml:space="preserve">
+    <value>btn_Flash</value>
+  </data>
+  <data name="&gt;&gt;btn_Flash.Type" xml:space="preserve">
+    <value>DevExpress.XtraBars.BarButtonItem, DevExpress.XtraBars.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
   <data name="&gt;&gt;ribbonImageCollectionLarge.Name" xml:space="preserve">
     <value>ribbonImageCollectionLarge</value>
   </data>
@@ -5607,6 +5613,9 @@
   </data>
   <data name="ts_multiSelect.Caption" xml:space="preserve">
     <value>多选模式</value>
+  </data>
+  <data name="btn_Flash.Caption" xml:space="preserve">
+    <value>快照</value>
   </data>
   <metadata name="ribbonImageCollectionLarge.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>312, 17</value>

@@ -46,7 +46,7 @@ namespace XSheet.v2.Control
         //构造函数
         public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels,Dictionary<String,PopupMenu> menus,BarManager barmanager, XtraForm form,AlertControl alert)
         {
-            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\在库管理系统2.xlsx", menus,barmanager,form,alert);
+            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\在库管理系统3.xlsx", menus,barmanager,form,alert);
         }
         //带参数的初始化
         public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager,XtraForm form, AlertControl alert)
@@ -102,6 +102,7 @@ namespace XSheet.v2.Control
                     executer.executeCmd(currentXRange, SysEvent.Btn_Search);
                 }
                 ChangeToStatu(SysStatu.Insert);
+                
                 currentXRange.newData(1);
             }
             else  if(e== SysEvent.Btn_Edit)//EDIT按钮

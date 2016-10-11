@@ -14,11 +14,16 @@ namespace XSheet.v2.Data.XSheetAction
     {
         protected override string doOwnAction()
         {
-            if (getRealStatement()[0] == "")
+            List<String> sqls = getRealStatement();
+            if (sqls[0] == "")
             {
                 dRange.doDelete();
                 dRange.Refresh();
                 return "OK";
+            }
+            else
+            {
+                dRange.ExecuteSql(sqls);
             }
             return "false";
         }
