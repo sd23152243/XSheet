@@ -46,7 +46,7 @@ namespace XSheet.v2.Control
         //构造函数
         public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels,Dictionary<String,PopupMenu> menus,BarManager barmanager, XtraForm form,AlertControl alert)
         {
-            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\在库管理系统3.xlsx", menus,barmanager,form,alert);
+            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\数据仓库管理系统.xlsx", menus,barmanager,form,alert);
         }
         //带参数的初始化
         public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager,XtraForm form, AlertControl alert)
@@ -424,10 +424,11 @@ namespace XSheet.v2.Control
         public void setSelectedNamed()
         {
             AreasCollection areas = spreadsheetMain.Selection.Areas;
-            if (currentXRange != null && RangeUtil.isInRange(areas, currentXRange.getRange()) < 0)
+            /*if (currentXRange != null && RangeUtil.isInRange(areas, currentXRange.getRange()) < 0)
             {
                 this.currentXRange = null;
-            }
+            }*/
+            this.currentXRange = null;
             rightClickBarManager.SetPopupContextMenu(spreadsheetMain, null);
             if (currentSheet.sheetName == "Config")
             {
