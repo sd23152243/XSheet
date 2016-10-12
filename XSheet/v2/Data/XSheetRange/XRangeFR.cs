@@ -86,12 +86,12 @@ namespace XSheet.v2.Data.XSheetRange
             List<string> cmdFunc = getCommandFunList();
             foreach (char item in cfg.CRUDP)
             {
-                if (data.avaliableList.Contains(item.ToString()) || item == 'P')
+                if (data.avaliableList.Contains(item.ToString()) || cmdFunc.Contains(item.ToString()) || item == 'P')
                 {
                     list.Add(item.ToString());
                 }
             }
-           
+
             if (getCommandByEvent(SysEvent.Btn_Search) != null && getCommandByEvent(SysEvent.Btn_Search).Count > 1)
             {
                 list.Add("RO");
@@ -116,6 +116,19 @@ namespace XSheet.v2.Data.XSheetRange
             List<String> list = new List<string>();
             foreach (SysEvent e in commands.Keys)
             {
+                int flag = 0;
+                foreach (XCommand cmd in commands[e].Values)
+                {
+                    if (cmd.CommandName.StartsWith("dft_cmd_"))
+                    {
+                        flag = -1;
+                        break;
+                    }
+                }
+                if (flag == -1)
+                {
+                    continue;
+                }
                 switch (e)
                 {
                     case SysEvent.Sheet_Init:
