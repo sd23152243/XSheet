@@ -215,8 +215,9 @@ namespace XSheet.v2.Data
                 }
                 DBTrans.Commit();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                AlertUtil.Show("error",e.ToString());
                 ans = "FAILED";
                 DBTrans.Rollback();
             }

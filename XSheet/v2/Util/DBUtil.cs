@@ -35,11 +35,11 @@ namespace XSheet.v2.Util
             }*/
             if (DBType.Contains(".xlsx"))
             {
-                connStr = "Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + DBType + ";" + ";Extended Properties=\"Excel 12.0;HDR=YES;IMEX=2\"";
+                connStr = "Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + DBType + ";" + ";Extended Properties=\"Excel 12.0;HDR=YES;IMEX=0\"";
             }
             else if (DBType.Contains(".xls"))
             {
-                connStr = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=" + DBType + ";" + ";Extended Properties=\"Excel 8.0;HDR=YES;IMEX=2\"";
+                connStr = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=" + DBType + ";" + ";Extended Properties=\"Excel 8.0;HDR=YES;IMEX=0\"";
             }
             else
             {
