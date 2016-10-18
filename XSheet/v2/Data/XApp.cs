@@ -264,7 +264,7 @@ namespace XSheet.Data
             catch (Exception)
             {
                 rsheet = new XRSheet(book.Worksheets.ActiveWorksheet);
-                System.Windows.Forms.MessageBox.Show("Sheet：" + name + "未注册!请检查配置！");
+                AlertUtil.Show("error","Sheet：" + name + "未注册!请检查配置！");
                 statu = SysStatu.Designer;
                 if (rsheet.sheetName != name)
                 {
@@ -296,9 +296,10 @@ namespace XSheet.Data
             {
                 range = ranges[name];
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 System.Windows.Forms.MessageBox.Show("RANGE：" + name + "未注册!请检查配置！");
+                MessageBox.Show(e.ToString());
             }
             return range;
         }

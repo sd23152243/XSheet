@@ -4951,6 +4951,12 @@
   <data name="&gt;&gt;btn_Flash.Type" xml:space="preserve">
     <value>DevExpress.XtraBars.BarButtonItem, DevExpress.XtraBars.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
+  <data name="&gt;&gt;btn_Encode.Name" xml:space="preserve">
+    <value>btn_Encode</value>
+  </data>
+  <data name="&gt;&gt;btn_Encode.Type" xml:space="preserve">
+    <value>DevExpress.XtraBars.BarButtonItem, DevExpress.XtraBars.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
   <data name="&gt;&gt;ribbonImageCollectionLarge.Name" xml:space="preserve">
     <value>ribbonImageCollectionLarge</value>
   </data>
@@ -5562,12 +5568,6 @@
   </data>
   <data name="&gt;&gt;timer100ms.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_Encode.Name" xml:space="preserve">
-    <value>btn_Encode</value>
-  </data>
-  <data name="&gt;&gt;btn_Encode.Type" xml:space="preserve">
-    <value>DevExpress.XtraBars.BarButtonItem, DevExpress.XtraBars.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>XSheetDesigner</value>

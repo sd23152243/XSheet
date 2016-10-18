@@ -71,7 +71,7 @@ namespace XSheet.v2.Data.XSheetRange
 
         public override Range getRange()
         {
-            return dname.Range;
+            return dname != null?dname.Range:null;
         }
 
         public override bool setRange(Range range)

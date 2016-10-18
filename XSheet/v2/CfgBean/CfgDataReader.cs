@@ -32,25 +32,22 @@ namespace XSheet.v2.CfgBean
                 }
                 DataCfg data = new DataCfg();
                 //DataName	ObjectName	ObjectType	DBName	ServerName	BaseSQLStatement	RangeName	CRUDP	SVK	InitStatement
-                data.DataName = dataCfgTable.Range[i, 0].DisplayText;
-                data.DataDescription = dataCfgTable.Range[i, 1].DisplayText;
-                data.ObjectName = dataCfgTable.Range[i, 2].DisplayText;
-                data.ObjectType = dataCfgTable.Range[i, 3].DisplayText;
-                data.DBName = dataCfgTable.Range[i, 4].DisplayText;
-                data.ServerName = dataCfgTable.Range[i, 5].DisplayText;
-                data.BaseSQLStatement = dataCfgTable.Range[i, 6].GetReferenceA1();
-                data.RangeName = dataCfgTable.Range[i, 7].DisplayText;
-                data.CRUDP = dataCfgTable.Range[i, 8].DisplayText;
-                data.SVK = dataCfgTable.Range[i, 9].DisplayText;
-                data.InitStatement = dataCfgTable.Range[i, 10].GetReferenceA1();
-                if ((data.ServerName == null || data.ServerName.Length < 2) && data.DataName.Split('_')[0] =="TB")
+                data.TableTitle = dataCfgTable.Range[i, 0].DisplayText;
+                data.TableDesc = dataCfgTable.Range[i, 1].DisplayText;
+                data.CRUDP = dataCfgTable.Range[i, 2].DisplayText;
+                data.SVK = dataCfgTable.Range[i, 3].DisplayText;
+                data.RangeName = dataCfgTable.Range[i, 4].DisplayText;
+                data.DBName = dataCfgTable.Range[i, 5].DisplayText;
+                data.ServerName = dataCfgTable.Range[i, 6].DisplayText;
+                data.DefalutStatement = dataCfgTable.Range[i, 7].GetReferenceA1();
+                if ((data.ServerName == null || data.ServerName.Length < 2) && data.RangeName.Split('_')[0] =="TB")
                 {
-                    Console.WriteLine("区域:" + data.DataName + "服务器类型配置错误，当前配置为：" + data.ServerName);
+                    Console.WriteLine("区域:" + data.TableTitle + "服务器类型配置错误，当前配置为：" + data.ServerName);
                     return null;
                 }
                 if (data.RangeName.Length ==0 )
                 {
-                    AlertUtil.Show("error", String.Format("Data:{0} 未配置Range,此Data将不被系统使用！", data.DataName));
+                    AlertUtil.Show("error", String.Format("Data:{0} 未配置Range,此Data将不被系统使用！", data.TableTitle));
                     continue;
                 }
                 datas.Add(data);

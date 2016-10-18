@@ -11,7 +11,6 @@ namespace XSheet.v2.CfgBean
 {
     public class XCfgData
     {
-        Worksheet cfgsheet { get; set; }
         Dictionary<String,Table> cfgtables { get; set; }
         public AppCfg app { get; set; }
         public List<SheetCfg> sheets { get; set; }
@@ -19,16 +18,19 @@ namespace XSheet.v2.CfgBean
         public List<CommandCfg> commands { get; set; }
         public List<ActionCfg> actions { get; set; }
         public String flag;
-        public XCfgData(Worksheet cfgsheet)
+        public XCfgData(List<Worksheet> cfgsheets)
         {
+
             cfgtables = new Dictionary<string, Table>();
             flag = "OK";
-            this.cfgsheet = cfgsheet;
-            TableCollection tables = cfgsheet.Tables;
-            foreach (Table table in tables)
+            for (int i = 0; i < cfgsheets.Count; i++)
             {
-                cfgtables.Add(table.Name.ToUpper(), table);
+                foreach (Table table in cfgsheets[i].Tables)
+                {
+                    cfgtables.Add(table.Name.ToUpper(), table);
+                }
             }
+            
             InitCfg();
         }
         //配置文件初始化读取

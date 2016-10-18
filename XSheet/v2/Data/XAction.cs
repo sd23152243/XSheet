@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using XSheet.Data;
 using XSheet.v2.CfgBean;
 using XSheet.v2.Data.XSheetRange;
+using XSheet.v2.Util;
 
 namespace XSheet.v2.Data
 {
@@ -35,7 +36,7 @@ namespace XSheet.v2.Data
             }
             catch
             {
-                MessageBox.Show(String.Format("Action {0} Seq设置异常，设置值为{}1",ActionName,cfg.ActSeq));
+                AlertUtil.Show("error",String.Format("Action {0} Seq设置异常，设置值为{1}", ActionName,cfg.ActSeq));
             }
             try
             {
@@ -75,7 +76,7 @@ namespace XSheet.v2.Data
         {
             String statement = cfg.ActionStatement;
 
-            return dRange.getRealStatement(statement);
+            return dRange.getRealStatement("Config_Action", statement);
         }
 
         public virtual void setSelectIndex(int rowIndex)
@@ -113,7 +114,7 @@ namespace XSheet.v2.Data
             {
                 return true;
             }
-            String statement = dRange.getRange().Worksheet.Workbook.Worksheets["Config"][cfg.Invalid][0].DisplayText;
+            String statement = dRange.getRange().Worksheet.Workbook.Worksheets["Config_Action"][cfg.Invalid][0].DisplayText;
             return statement.Length==0||statement=="0";
         }
     }

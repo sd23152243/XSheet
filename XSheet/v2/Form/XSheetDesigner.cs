@@ -14,6 +14,7 @@ using DevExpress.Utils.Menu;
 using XSheet.v2.Control;
 using XSheet.v2.Data;
 using XSheet.Util;
+using XSheet.v2.Util;
 
 namespace XSheet.v2.Form
 {
@@ -34,12 +35,25 @@ namespace XSheet.v2.Form
         private AreasCollection oldSelected { get; set; }*/
         public XSheetDesigner()
         {
+            DateTime date = DateTime.Now;
+            StreamWriter sw = new StreamWriter(@"ConsoleOutput.txt", true);
+            TextWriter temp = Console.Out;
             InitializeComponent();
             InitSkinGallery();
             setDefaultParam();
-            //string path = "\\\\ichart3d\\XSheetModel\\在库管理系统2.xlsx";
+            Console.SetOut(sw);
+            Console.WriteLine("beforeDsp:" + date.ToString());
+            sw.Close();
+            Console.SetOut(temp);
             this.control = new XSheetControl(spreadsheetMain, buttons, labels,  menus, rightClickBarManager, this, alertcontrolMain);
             timer100ms.Start();
+            date = DateTime.Now;
+            sw = new StreamWriter(@"ConsoleOutput.txt", true);
+            Console.SetOut(sw);
+            Console.WriteLine("end:" + date.ToString());
+            sw.Close();
+            Console.SetOut(temp);
+
         }
         public XSheetDesigner(string path)
         {

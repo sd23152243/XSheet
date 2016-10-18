@@ -98,18 +98,26 @@ namespace XSheet.v2.Util
         public static DbDataAdapter getDbDataAdapter(String DBType, String Sql, String sqlType, DbConnection dbConn)
         {
             DbDataAdapter da = null;
-            switch (DBType.ToUpper())
+            try
             {
-                case "AS400":
-                    da =  getOleDbDataAdapter(dbConn, Sql, sqlType);
-                    break;
-                case "SRF-SQL":
-                case "ICHART3D":
-                    da =  getSqlDataAdapter(dbConn, Sql, sqlType);
-                    break;
-                default:
-                    da = getOleDbDataAdapter(dbConn, Sql, sqlType);
-                    break;
+                switch (DBType.ToUpper())
+                {
+                    case "AS400":
+                        da =  getOleDbDataAdapter(dbConn, Sql, sqlType);
+                        break;
+                    case "SRF-SQL":
+                    case "ICHART3D":
+                        da =  getSqlDataAdapter(dbConn, Sql, sqlType);
+                        break;
+                    default:
+                        da = getOleDbDataAdapter(dbConn, Sql, sqlType);
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+
+                AlertUtil.Show("error",e.ToString());
             }
             return da;
         }

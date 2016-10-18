@@ -20,6 +20,7 @@ using XSheet.v2.Util;
 using DevExpress.Utils.Menu;
 using System.Data;
 using System.Data.Common;
+using System.IO;
 
 namespace XSheet.v2.Control
 {
@@ -46,7 +47,7 @@ namespace XSheet.v2.Control
         //构造函数
         public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels,Dictionary<String,PopupMenu> menus,BarManager barmanager, XtraForm form,AlertControl alert)
         {
-            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\数据仓库管理系统.xlsx", menus,barmanager,form,alert);
+            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\数据仓库管理系统(新配置).xlsx", menus,barmanager,form,alert);
         }
         //带参数的初始化
         public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager,XtraForm form, AlertControl alert)
@@ -67,7 +68,16 @@ namespace XSheet.v2.Control
             /*加载文档，后续根据不同设置配置，待修改TODO*/
             try
             {
+                DateTime date = new DateTime();
+                StreamWriter sw = new StreamWriter(@"ConsoleOutput.txt", true);
+                TextWriter temp = Console.Out;
+                Console.SetOut(sw);
+                date = DateTime.Now;
+                Console.WriteLine("beforeLoadDoc:" + date.ToString());
                 spreadsheetMain.Document.LoadDocument(path);
+                sw.Flush();
+                sw.Close();
+                Console.SetOut(temp);
             }
             catch (Exception e)
             {
@@ -291,16 +301,19 @@ namespace XSheet.v2.Control
         //控制器初始化，读取Config，初始化整个APP
         public void init()
         {
-            Worksheet cfgsheet = null;
+            List<Worksheet> cfgsheets = new List<Worksheet>();
             try
             {
-                cfgsheet = spreadsheetMain.Document.Worksheets["Config"];
+                cfgsheets.Add(spreadsheetMain.Document.Worksheets["Config_APP"]);
+                cfgsheets.Add(spreadsheetMain.Document.Worksheets["Config_Data"]);
+                cfgsheets.Add(spreadsheetMain.Document.Worksheets["Config_ShtCmd"]);
+                cfgsheets.Add(spreadsheetMain.Document.Worksheets["Config_Action"]);
             }
             catch (Exception)
             {
                 MessageBox.Show("当前App中缺少Config配置页，请确认文件未损坏货配置页名称正确");
             }
-            cfgData = new XCfgData(cfgsheet);
+            cfgData = new XCfgData(cfgsheets);
             app = new XApp(spreadsheetMain.Document, cfgData);
             labels["lbl_AppID"].Text = app.AppID;
             labels["lbl_User"].Text = String.Format("{0}" , user.getFullUserName());

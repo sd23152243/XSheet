@@ -31,7 +31,7 @@ namespace XSheet.v2.Data.XSheetRange
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                System.Windows.Forms.MessageBox.Show("DATA："+cfg.DataName+"无法识别类型："+nametype);
+                System.Windows.Forms.MessageBox.Show("DATA："+cfg.TableTitle+"无法识别类型："+nametype);
             }
             return named;
         }

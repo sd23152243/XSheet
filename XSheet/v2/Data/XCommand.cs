@@ -10,6 +10,7 @@ using XSheet.v2.CfgBean;
 using XSheet.v2.Data;
 using XSheet.v2.Privilege;
 using XSheet.v2.Task;
+using XSheet.v2.Util;
 
 namespace XSheet.Data
 {
@@ -61,25 +62,32 @@ namespace XSheet.Data
                     return ans;
                 }*/
             }
-
-            actions = actions.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
-            int i = 0;
-            while (i<=actions.Keys.Max())
+            if (actions.Count <= 0)
             {
-                if (actions.Keys.Contains(i))
+                AlertUtil.Show("error", String.Format("Command :{0} 中未找到对应的Action，Command无法执行", this.CommandName));
+            }
+            else
+            {
+                actions = actions.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
+                int i = 0;
+                while (i <= actions.Keys.Max())
                 {
-                    ans = actions[i].doAction();
-                    i = actions[i].getNextIndex(ans,i);
-                }
-                else
-                {
-                    i++;
+                    if (actions.Keys.Contains(i))
+                    {
+                        actions[i].dRange.getRange().Worksheet.Calculate();
+                        ans = actions[i].doAction();
+                        i = actions[i].getNextIndex(ans, i);
+                    }
+                    else
+                    {
+                        i++;
+                    }
                 }
             }
-            foreach (KeyValuePair<int, XAction> kv in actions)
+            /*foreach (KeyValuePair<int, XAction> kv in actions)
             {
                 kv.Value.dRange.getRange().Worksheet.Calculate();
-            }
+            }*/
             FinishNotify();
             return ans;
         }

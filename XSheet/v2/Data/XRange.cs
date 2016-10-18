@@ -51,7 +51,7 @@ namespace XSheet.v2.Data
                 this.data = new XData();
                 data.ServerName = cfg.ServerName;
                 data.DBName = cfg.DBName;
-                this.InitStatement = cfg.InitStatement;
+                this.InitStatement = cfg.DefalutStatement;
                 p_init();
             }
         }
@@ -72,7 +72,7 @@ namespace XSheet.v2.Data
 
         public abstract Boolean setRange(Range range);
 
-        public virtual List<String> getRealStatement(String statement)
+        public virtual List<String> getRealStatement(String sheetName,String statement)
         {
             //return getRange().Worksheet.Workbook.Worksheets["Config"].Range[cfg.InitStatement][0].DisplayText;  
             String tableName = null;
@@ -80,8 +80,8 @@ namespace XSheet.v2.Data
             List<String> result = new List<string>() ;
             if (statement.Length > 0)
             {
-                rsheet.app.getSheetByName("Config").Calculate();
-                statement = rsheet.app.getSheetByName("Config")[statement][0].DisplayText;
+                rsheet.app.getSheetByName(sheetName).Calculate();
+                statement = rsheet.app.getSheetByName(sheetName)[statement][0].DisplayText;
                 Regex reg = new Regex("@#(.+?)#@");
                 MatchCollection matches = reg.Matches(statement);
 
@@ -140,7 +140,7 @@ namespace XSheet.v2.Data
             return result;
         }
 
-        public virtual String getRealStatement(String statement,int seq)
+        /*public virtual String getRealStatement(String statement, int seq)
         {
             String tableName = null;
             List<List<String>> lists = new List<List<string>>();
@@ -199,7 +199,7 @@ namespace XSheet.v2.Data
                 }
             }
             return result;
-        }
+        }*/
 
         public abstract void fill(DataTable dt);
 
@@ -296,7 +296,7 @@ namespace XSheet.v2.Data
 
         public virtual String doSearch()
         {
-            List<String> sqls = getRealStatement(cfg.InitStatement);
+            List<String> sqls = getRealStatement("Config_Data",cfg.DefalutStatement);
             return doSearch(sqls);
         }
 
