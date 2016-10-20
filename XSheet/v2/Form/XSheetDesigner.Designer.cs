@@ -653,6 +653,7 @@ namespace XSheet.v2.Form
             this.ts_multiSelect = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.btn_DesignSearch = new DevExpress.XtraBars.BarButtonItem();
             this.btn_Flash = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_Encode = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonImageCollectionLarge = new DevExpress.Utils.ImageCollection(this.components);
             this.pivotTableToolsRibbonPageCategory1 = new DevExpress.XtraSpreadsheet.UI.PivotTableToolsRibbonPageCategory();
             this.pivotTableDesignRibbonPage1 = new DevExpress.XtraSpreadsheet.UI.PivotTableDesignRibbonPage();
@@ -780,7 +781,7 @@ namespace XSheet.v2.Form
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.timer100ms = new System.Windows.Forms.Timer(this.components);
-            this.btn_Encode = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_Exel = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appMenu)).BeginInit();
@@ -1386,7 +1387,7 @@ namespace XSheet.v2.Form
             this.btn_Flash,
             this.btn_Encode});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 359;
+            this.ribbonControl.MaxItemId = 360;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -4763,6 +4764,13 @@ namespace XSheet.v2.Form
             this.btn_Flash.Name = "btn_Flash";
             this.btn_Flash.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_Flash_ItemClick);
             // 
+            // btn_Encode
+            // 
+            resources.ApplyResources(this.btn_Encode, "btn_Encode");
+            this.btn_Encode.Id = 358;
+            this.btn_Encode.Name = "btn_Encode";
+            this.btn_Encode.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_Encode_ItemClick);
+            // 
             // ribbonImageCollectionLarge
             // 
             resources.ApplyResources(this.ribbonImageCollectionLarge, "ribbonImageCollectionLarge");
@@ -5496,6 +5504,7 @@ namespace XSheet.v2.Form
             this.panelControl1.Controls.Add(this.dbtn_Edit);
             this.panelControl1.Controls.Add(this.dbtn_New);
             this.panelControl1.Controls.Add(this.dbtn_Execute);
+            this.panelControl1.Controls.Add(this.btn_Exel);
             this.panelControl1.Controls.Add(this.btn_Save);
             this.panelControl1.Controls.Add(this.btn_Cancel);
             this.panelControl1.Controls.Add(this.btn_Delete);
@@ -6030,12 +6039,12 @@ namespace XSheet.v2.Form
             // 
             this.timer100ms.Tick += new System.EventHandler(this.timer100ms_Tick);
             // 
-            // btn_Encode
+            // btn_Exel
             // 
-            resources.ApplyResources(this.btn_Encode, "btn_Encode");
-            this.btn_Encode.Id = 358;
-            this.btn_Encode.Name = "btn_Encode";
-            this.btn_Encode.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_Encode_ItemClick);
+            resources.ApplyResources(this.btn_Exel, "btn_Exel");
+            this.btn_Exel.Image = ((System.Drawing.Image)(resources.GetObject("btn_Exel.Image")));
+            this.btn_Exel.Name = "btn_Exel";
+            this.btn_Exel.Click += new System.EventHandler(this.btn_Exel_Click);
             // 
             // XSheetDesigner
             // 
@@ -6631,5 +6640,6 @@ namespace XSheet.v2.Form
         private System.Windows.Forms.Timer timer100ms;
         private DevExpress.XtraBars.BarButtonItem btn_Flash;
         private DevExpress.XtraBars.BarButtonItem btn_Encode;
+        private SimpleButton btn_Exel;
     }
 }

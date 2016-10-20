@@ -110,6 +110,7 @@ namespace XSheet.v2.Data
         {
             //TODO
             dRange.getRange().Worksheet.Workbook.Calculate();
+            dRange.getRange().Worksheet.Workbook.Worksheets["Config_Action"].Calculate();
             if (cfg.Invalid == null)
             {
                 return true;

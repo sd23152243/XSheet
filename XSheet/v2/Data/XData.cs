@@ -28,27 +28,35 @@ namespace XSheet.v2.Data
         public String search(String Sql)
         {
             avaliableList.Clear();
-            conn = DBUtil.getConnection(ServerName);
-            conn.Open();
-            DBTrans = conn.BeginTransaction();
-            conn.Close();
-            da = DBUtil.getDbDataAdapter(ServerName, Sql, "",conn);
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            dt = ds.Tables[0];
-            avaliableList.Add("R");
-            if (da.UpdateCommand != null)
+            try
             {
-                avaliableList.Add("U");
+                conn = DBUtil.getConnection(ServerName);
+                conn.Open();
+                DBTrans = conn.BeginTransaction();
+                conn.Close();
+                da = DBUtil.getDbDataAdapter(ServerName, Sql, "", conn);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                dt = ds.Tables[0];
+                avaliableList.Add("R");
+                if (da.UpdateCommand != null)
+                {
+                    avaliableList.Add("U");
+                }
+                if (da.InsertCommand != null)
+                {
+                    avaliableList.Add("C");
+                }
+                if (da.DeleteCommand != null)
+                {
+                    avaliableList.Add("D");
+                }
             }
-            if (da.InsertCommand != null)
+            catch (Exception e)
             {
-                avaliableList.Add("C");
+                AlertUtil.Show("err", e.ToString());
             }
-            if (da.DeleteCommand != null)
-            {
-                avaliableList.Add("D");
-            }
+           
             return "OK";
         } 
 
