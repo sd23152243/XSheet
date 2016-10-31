@@ -756,6 +756,7 @@ namespace XSheet.v2.Form
             this.dbtn_Edit = new DevExpress.XtraEditors.DropDownButton();
             this.dbtn_New = new DevExpress.XtraEditors.DropDownButton();
             this.dbtn_Execute = new DevExpress.XtraEditors.DropDownButton();
+            this.btn_Exel = new DevExpress.XtraEditors.SimpleButton();
             this.btn_Save = new DevExpress.XtraEditors.SimpleButton();
             this.btn_Cancel = new DevExpress.XtraEditors.SimpleButton();
             this.btn_Delete = new DevExpress.XtraEditors.SimpleButton();
@@ -781,7 +782,6 @@ namespace XSheet.v2.Form
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.timer100ms = new System.Windows.Forms.Timer(this.components);
-            this.btn_Exel = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appMenu)).BeginInit();
@@ -1387,7 +1387,7 @@ namespace XSheet.v2.Form
             this.btn_Flash,
             this.btn_Encode});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 360;
+            this.ribbonControl.MaxItemId = 364;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -5545,6 +5545,13 @@ namespace XSheet.v2.Form
             this.dbtn_Execute.Name = "dbtn_Execute";
             this.dbtn_Execute.Click += new System.EventHandler(this.dbtn_Execute_Click);
             // 
+            // btn_Exel
+            // 
+            resources.ApplyResources(this.btn_Exel, "btn_Exel");
+            this.btn_Exel.Image = ((System.Drawing.Image)(resources.GetObject("btn_Exel.Image")));
+            this.btn_Exel.Name = "btn_Exel";
+            this.btn_Exel.Click += new System.EventHandler(this.btn_Exel_Click);
+            // 
             // btn_Save
             // 
             resources.ApplyResources(this.btn_Save, "btn_Save");
@@ -6038,13 +6045,6 @@ namespace XSheet.v2.Form
             // timer100ms
             // 
             this.timer100ms.Tick += new System.EventHandler(this.timer100ms_Tick);
-            // 
-            // btn_Exel
-            // 
-            resources.ApplyResources(this.btn_Exel, "btn_Exel");
-            this.btn_Exel.Image = ((System.Drawing.Image)(resources.GetObject("btn_Exel.Image")));
-            this.btn_Exel.Name = "btn_Exel";
-            this.btn_Exel.Click += new System.EventHandler(this.btn_Exel_Click);
             // 
             // XSheetDesigner
             // 

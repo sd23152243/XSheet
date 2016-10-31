@@ -178,11 +178,6 @@ namespace XSheet.v2.Form
             
         }
 
-        private void testttt()
-        {
-            dbtn_Execute.DropDownControl = CreateDXPopupMenu();
-        }
-
         private DXPopupMenu CreateDXPopupMenu()
         {
             DXPopupMenu menu = new DXPopupMenu();

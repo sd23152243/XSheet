@@ -19,7 +19,7 @@ namespace XSheet
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             DateTime date = new DateTime();
-            StreamWriter sw = new StreamWriter(@"ConsoleOutput.txt",true);
+            StreamWriter sw = new StreamWriter(date.ToLongDateString()+".txt",true);
             TextWriter temp = Console.Out;
             Console.SetOut(sw);
             date = DateTime.Now;
@@ -30,12 +30,12 @@ namespace XSheet
             {
                 try
                 {
-                    date = DateTime.Now;
-                    Console.WriteLine("before:" + date.ToString());
-                    sw.Flush();
-                    sw.Close();
-                    Console.SetOut(temp);
-                    Application.Run(new XSheetDesigner());
+                    //date = DateTime.Now;
+                    //Console.WriteLine("before:" + date.ToString());
+                    //sw.Flush();
+                    //sw.Close();
+                    //Console.SetOut(temp);
+                    Application.Run(new XSheetMain());
                 }
                 catch (Exception e)
                 {
@@ -46,7 +46,7 @@ namespace XSheet
             {
                 String param = args[0];
 
-                Application.Run(new XSheetDesigner(args[0]));
+                Application.Run(new XSheetMain(args[0]));
                 //Application.Run(new XSheetMain());
             }
             

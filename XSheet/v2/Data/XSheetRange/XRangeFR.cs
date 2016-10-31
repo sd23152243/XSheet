@@ -35,7 +35,16 @@ namespace XSheet.v2.Data.XSheetRange
             for (int i = 0; i < ranges.Areas.Count; i++)
             {
                 Range range = ranges.Areas[i];
-                range.Value = dt.Rows[0][i].ToString();
+                try
+                {
+                    range.Value = dt.Rows[0][i].ToString();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    //range.Clear();
+                }
+                
             }
         }
 
