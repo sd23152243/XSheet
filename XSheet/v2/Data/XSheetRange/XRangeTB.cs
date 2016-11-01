@@ -97,7 +97,11 @@ namespace XSheet.v2.Data.XSheetRange
             selectedRows = new Dictionary<int, int>();
             drawRows = new Dictionary<int, int>();
             Range range = getRange();
-            
+            if (dt== null )
+            {
+                AlertUtil.Show("error", "查询结果为空，请确认查询语句");
+                return;
+            }
             Cell data1stcell = range[0, 0];
             string[,] arrtmp = new string[range.RowCount, dt.Columns.Count];
             range.Worksheet.Import(arrtmp, data1stcell.RowIndex, data1stcell.ColumnIndex);
