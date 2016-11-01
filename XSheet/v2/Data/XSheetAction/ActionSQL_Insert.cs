@@ -22,7 +22,7 @@ namespace XSheet.v2.Data.XSheetAction
                 try
                 {
                     dRange.doInsert();
-                    dRange.Refresh();
+                    
                     return "OK";
                 }
                 catch (Exception)
@@ -43,6 +43,7 @@ namespace XSheet.v2.Data.XSheetAction
                     throw;
                 }
             }
+            dRange.Refresh();
             return "OK";
         }
     }

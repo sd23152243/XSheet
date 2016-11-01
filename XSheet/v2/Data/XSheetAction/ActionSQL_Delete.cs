@@ -18,13 +18,14 @@ namespace XSheet.v2.Data.XSheetAction
             if (sqls[0] == "")
             {
                 dRange.doDelete();
-                dRange.Refresh();
+                
                 return "OK";
             }
             else
             {
                 dRange.ExecuteSql(sqls);
             }
+            dRange.Refresh();
             return "false";
         }
     }

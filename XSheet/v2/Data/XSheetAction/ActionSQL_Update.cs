@@ -20,12 +20,12 @@ namespace XSheet.v2.Data.XSheetAction
             if (sqls[0] == "")
             {
                 dRange.doUpdate();
-                dRange.Refresh();
             }
             else
             {
                 dRange.ExecuteSql(sqls);
             }
+            dRange.Refresh();
             return "OK";
         }
     }
