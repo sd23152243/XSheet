@@ -52,9 +52,9 @@
             this.labelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.labelControl1.Location = new System.Drawing.Point(23, 264);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(131, 14);
+            this.labelControl1.Size = new System.Drawing.Size(51, 14);
             this.labelControl1.TabIndex = 6;
-            this.labelControl1.Text = "Copyright © 1998-2013";
+            this.labelControl1.Text = "ITS 2016";
             // 
             // labelControl2
             // 
@@ -66,6 +66,7 @@
             // 
             // pictureEdit2
             // 
+            this.pictureEdit2.Cursor = System.Windows.Forms.Cursors.Default;
             this.pictureEdit2.EditValue = ((object)(resources.GetObject("pictureEdit2.EditValue")));
             this.pictureEdit2.Location = new System.Drawing.Point(12, 11);
             this.pictureEdit2.Name = "pictureEdit2";
@@ -80,8 +81,9 @@
             // 
             // pictureEdit1
             // 
+            this.pictureEdit1.Cursor = System.Windows.Forms.Cursors.Default;
             this.pictureEdit1.EditValue = ((object)(resources.GetObject("pictureEdit1.EditValue")));
-            this.pictureEdit1.Location = new System.Drawing.Point(278, 246);
+            this.pictureEdit1.Location = new System.Drawing.Point(275, 246);
             this.pictureEdit1.Name = "pictureEdit1";
             this.pictureEdit1.Properties.AllowFocused = false;
             this.pictureEdit1.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
@@ -89,7 +91,7 @@
             this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.pictureEdit1.Properties.ShowMenu = false;
             this.pictureEdit1.Properties.ZoomAccelerationFactor = 1D;
-            this.pictureEdit1.Size = new System.Drawing.Size(160, 44);
+            this.pictureEdit1.Size = new System.Drawing.Size(163, 44);
             this.pictureEdit1.TabIndex = 8;
             // 
             // WaitingScreen

@@ -47,7 +47,7 @@ namespace XSheet.v2.Control
         //构造函数
         public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels,Dictionary<String,PopupMenu> menus,BarManager barmanager, XtraForm form,AlertControl alert)
         {
-            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\数据仓库管理系统(新配置).xlsx", menus,barmanager,form,alert);
+            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\人员Dashboard.xlsx", menus,barmanager,form,alert);
         }
         //带参数的初始化
         public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager,XtraForm form, AlertControl alert)

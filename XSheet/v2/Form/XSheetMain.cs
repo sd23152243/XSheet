@@ -238,10 +238,14 @@ namespace XSheet.v2.Form
 
         private void btn_Exel_Click(object sender, EventArgs e)
         {
-            spreadsheetMain.Document.SaveDocument("tmp.xlsx");
+            //spreadsheetMain.Document.SaveDocument("tmp.xlsx");
             //System.Diagnostics.Process.Start("tmp.xlsx");
-            XDashBoard dashborad = new XDashBoard();
+            //XDashBoard dashborad = new XDashBoard();
             //dashborad.Show();
+            /**/
+            DictionaryForm select =new DictionaryForm(this.spreadsheetMain.Document);
+            //select.Show();
+            select.Show();
         }
     }
 }

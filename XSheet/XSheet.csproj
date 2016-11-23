@@ -90,9 +90,7 @@
     <Reference Include="DevExpress.Data.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.DataAccess.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.DataAccess.v16.1.UI, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Docs.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <Reference Include="DevExpress.Docs.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Map.v16.1.Core, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Office.v16.1.Core, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.PivotGrid.v16.1.Core, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -169,6 +167,12 @@
     <Compile Include="v2\Data\XSheetAction\ActionSQL_Insert.cs" />
     <Compile Include="v2\Data\XSheetAction\ActionSQL_Update.cs" />
     <Compile Include="v2\Data\XSheetAction\ActionMoveTo.cs" />
+    <Compile Include="v2\Form\DictionaryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="v2\Form\DictionaryForm.Designer.cs">
+      <DependentUpon>DictionaryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="v2\Form\WaitingScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,6 +229,9 @@
       <DependentUpon>XSheetMain.cs</DependentUpon>
     </Compile>
     <Compile Include="v2\Util\SystemInfo.cs" />
+    <EmbeddedResource Include="v2\Form\DictionaryForm.resx">
+      <DependentUpon>DictionaryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="v2\Form\WaitingScreen.resx">
       <DependentUpon>WaitingScreen.cs</DependentUpon>
     </EmbeddedResource>
@@ -249,7 +256,6 @@
     <EmbeddedResource Include="v2\Form\XSheetMain.resx">
       <DependentUpon>XSheetMain.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="DOC\XSheetFC流程.xlsx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

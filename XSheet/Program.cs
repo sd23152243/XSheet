@@ -30,11 +30,6 @@ namespace XSheet
             {
                 try
                 {
-                    //date = DateTime.Now;
-                    //Console.WriteLine("before:" + date.ToString());
-                    //sw.Flush();
-                    //sw.Close();
-                    //Console.SetOut(temp);
                     Application.Run(new XSheetMain());
                 }
                 catch (Exception e)
