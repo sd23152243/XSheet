@@ -604,14 +604,14 @@ namespace XSheet.v2.Data.XSheetRange
             return data.insert();
         }
 
-        public override List<string> getSelectedValueByColIndex(int col)
+        public override List<string> getSelectedValueByColIndex(int col , String param)
         {
             List<String> list = new List<string>();
             foreach (var item in selectedRows)
             {
                 if (item.Value%2 == 1)
                 {
-                    list.Add(getRowRangeByIndex(item.Key)[col].DisplayText);
+                    list.Add(param =="DATA"?data.getDataTable().Rows[item.Key][col].ToString():getRowRangeByIndex(item.Key)[col].DisplayText);
                 }
             }
             return list;

@@ -56,17 +56,17 @@ namespace XSheet.v2.Data
             }
         }
 
-        public List<string> getValueByTableCol(String tablename,int col)
+        public List<string> getValueByTableCol(String tablename,int col,String Param)
         {
             XRange PRange = rsheet.SearchRangeByName(tablename);
             if (PRange == null)
             {
                 return null;
             }
-            return PRange.getSelectedValueByColIndex(col);
+            return PRange.getSelectedValueByColIndex(col, Param);
         }
 
-        public abstract List<string> getSelectedValueByColIndex(int col);
+        public abstract List<string> getSelectedValueByColIndex(int col ,String param);
 
         protected abstract Boolean LocateRange(IWorkbook book);//设置存入区域内容
 
@@ -109,8 +109,16 @@ namespace XSheet.v2.Data
                             AlertUtil.Show("error", e.ToString());
                             return null;
                         }
-
-                        List<String> values = getValueByTableCol(tableName, col);
+                        List<String> values = null;
+                        if (strParams.Count()== 3 && strParams[2].ToUpper()=="DATA")
+                        {
+                            values = getValueByTableCol(tableName, col, "DATA");
+                        }
+                        else
+                        {
+                            values = getValueByTableCol(tableName, col ,"TABLE");
+                        }
+                         
                         if (values==null ||values.Count == 0)
                         {
                             values = new List<string>();
