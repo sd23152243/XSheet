@@ -64,11 +64,11 @@ namespace XSheet.v2.Form
             buttons.Add("Btn_Cancel".ToUpper(), btn_Cancel);
             buttons.Add("Btn_Save".ToUpper(), btn_Save);
             labels = new Dictionary<String, Label>();
-            labels.Add("lbl_AppID", this.lbl_Appid);
-            labels.Add("lbl_User", this.lbl_User);
+            //labels.Add("lbl_AppID", this.lbl_Appid);
+            //labels.Add("lbl_User", this.lbl_User);
             labels.Add("lbl_AppName", this.lbl_AppName);
             labels.Add("lbl_Time", this.lbl_Time);
-            labels.Add("lbl_Version", this.lbl_Version);
+            //labels.Add("lbl_Version", this.lbl_Version);
             //CELLCHANGE
 
             /*executer = new CommandExecuter();
@@ -90,6 +90,7 @@ namespace XSheet.v2.Form
         private void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
             control.spreadsheetMain_DocumentLoaded(sender, e);
+            this.Text = control.getTitle();
         }
 
         private void btn_Search_Click(object sender, EventArgs e)

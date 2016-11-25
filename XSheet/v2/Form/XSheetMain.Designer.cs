@@ -34,11 +34,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XSheetMain));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_dashboard = new DevExpress.XtraEditors.SimpleButton();
-            this.lbl_AppName = new System.Windows.Forms.Label();
-            this.lbl_Version = new System.Windows.Forms.Label();
             this.lbl_Time = new System.Windows.Forms.Label();
-            this.lbl_User = new System.Windows.Forms.Label();
-            this.lbl_Appid = new System.Windows.Forms.Label();
+            this.lbl_AppName = new System.Windows.Forms.Label();
             this.spreadsheetMain = new DevExpress.XtraSpreadsheet.SpreadsheetControl();
             this.rightClickBarManager = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
@@ -76,10 +73,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel1.Controls.Add(this.btn_dashboard);
-            this.panel1.Controls.Add(this.lbl_Version);
             this.panel1.Controls.Add(this.lbl_Time);
-            this.panel1.Controls.Add(this.lbl_User);
-            this.panel1.Controls.Add(this.lbl_Appid);
             this.panel1.Controls.Add(this.lbl_AppName);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -101,6 +95,17 @@
             this.btn_dashboard.TabStop = false;
             this.btn_dashboard.Click += new System.EventHandler(this.btn_dashboard_Click);
             // 
+            // lbl_Time
+            // 
+            this.lbl_Time.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lbl_Time.Location = new System.Drawing.Point(12, 3);
+            this.lbl_Time.Name = "lbl_Time";
+            this.lbl_Time.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbl_Time.Size = new System.Drawing.Size(70, 26);
+            this.lbl_Time.TabIndex = 6;
+            this.lbl_Time.Text = "time";
+            this.lbl_Time.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lbl_AppName
             // 
             this.lbl_AppName.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -113,51 +118,6 @@
             this.lbl_AppName.TabIndex = 4;
             this.lbl_AppName.Text = "AppName";
             this.lbl_AppName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_Version
-            // 
-            this.lbl_Version.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_Version.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lbl_Version.Location = new System.Drawing.Point(830, 2);
-            this.lbl_Version.Name = "lbl_Version";
-            this.lbl_Version.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lbl_Version.Size = new System.Drawing.Size(70, 26);
-            this.lbl_Version.TabIndex = 5;
-            this.lbl_Version.Text = "version";
-            this.lbl_Version.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbl_Time
-            // 
-            this.lbl_Time.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lbl_Time.Location = new System.Drawing.Point(208, 2);
-            this.lbl_Time.Name = "lbl_Time";
-            this.lbl_Time.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lbl_Time.Size = new System.Drawing.Size(70, 26);
-            this.lbl_Time.TabIndex = 6;
-            this.lbl_Time.Text = "time";
-            this.lbl_Time.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lbl_User
-            // 
-            this.lbl_User.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lbl_User.Location = new System.Drawing.Point(96, 2);
-            this.lbl_User.Name = "lbl_User";
-            this.lbl_User.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lbl_User.Size = new System.Drawing.Size(93, 26);
-            this.lbl_User.TabIndex = 7;
-            this.lbl_User.Text = "user";
-            this.lbl_User.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lbl_Appid
-            // 
-            this.lbl_Appid.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lbl_Appid.Location = new System.Drawing.Point(28, 2);
-            this.lbl_Appid.Name = "lbl_Appid";
-            this.lbl_Appid.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lbl_Appid.Size = new System.Drawing.Size(70, 26);
-            this.lbl_Appid.TabIndex = 8;
-            this.lbl_Appid.Text = "appid";
-            this.lbl_Appid.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // spreadsheetMain
             // 
@@ -394,10 +354,7 @@
         private DevExpress.XtraSpreadsheet.SpreadsheetControl spreadsheetMain;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private System.Windows.Forms.Label lbl_AppName;
-        private System.Windows.Forms.Label lbl_Version;
         private System.Windows.Forms.Label lbl_Time;
-        private System.Windows.Forms.Label lbl_User;
-        private System.Windows.Forms.Label lbl_Appid;
         private DevExpress.XtraEditors.DropDownButton dbtn_Search;
         private DevExpress.XtraEditors.DropDownButton dbtn_Edit;
         private DevExpress.XtraEditors.DropDownButton dbtn_New;

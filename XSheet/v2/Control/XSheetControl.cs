@@ -87,6 +87,12 @@ namespace XSheet.v2.Control
             }
 
         }
+
+        internal string getTitle()
+        {
+            return  app.AppID +"("+ user.getFullUserName()+")" + app.cfg.app.Version;
+        }
+
         //带参数的构造函数
         public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager, XtraForm form, AlertControl alert)
         {
@@ -332,10 +338,10 @@ namespace XSheet.v2.Control
             }
             cfgData = new XCfgData(cfgsheets);
             app = new XApp(spreadsheetMain.Document, cfgData);
-            labels["lbl_AppID"].Text = app.AppID;
-            labels["lbl_User"].Text = String.Format("{0}" , user.getFullUserName());
+            //labels["lbl_AppID"].Text = app.AppID;
+            //labels["lbl_User"].Text = String.Format("{0}" , user.getFullUserName());
             labels["lbl_AppName"].Text =  app.AppName;
-            labels["lbl_Version"].Text =  app.cfg.app.Version;
+            //labels["lbl_Version"].Text =  app.cfg.app.Version;
             if (app.statu == SysStatu.Designer)
             {
                 MessageBox.Show("进入设计者模式！");
