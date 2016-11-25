@@ -249,12 +249,12 @@ namespace XSheet.v2.Data.XSheetRange
             return data.insert();
         }
 
-        public override List<string> getSelectedValueByColIndex(int col)
+        public override List<string> getSelectedValueByColIndex(int col , String param)
         {
             List<string> ans = new List<string>();
             try
             {
-                ans.Add(getRange().Areas[col][0].DisplayText);
+                ans.Add(param=="DATA"?this.data.getDataTable().Rows[0][col].ToString():getRange().Areas[col][0].DisplayText);
             }
             catch (Exception)
             {

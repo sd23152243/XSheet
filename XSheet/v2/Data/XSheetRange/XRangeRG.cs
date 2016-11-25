@@ -147,7 +147,7 @@ namespace XSheet.v2.Data.XSheetRange
             return null;
         }
 
-        public override List<string> getSelectedValueByColIndex(int col)
+        public override List<string> getSelectedValueByColIndex(int col, String param)
         {
             return null;
         }

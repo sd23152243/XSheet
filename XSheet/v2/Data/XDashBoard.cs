@@ -8,7 +8,7 @@ namespace XSheet.v2.Data
 {
     public class XDashBoard
     {
-        String url;
-        String connection;
+        string url { get; set; }
+        string connection { get; set; }
     }
 }
