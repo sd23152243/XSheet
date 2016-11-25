@@ -247,5 +247,10 @@ namespace XSheet.v2.Form
             //select.Show();
             select.Show();
         }
+
+        private void btn_dashboard_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

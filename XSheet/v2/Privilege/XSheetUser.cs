@@ -31,7 +31,7 @@ namespace XSheet.v2.Privilege
         {
             String execute = String.Format("EXEC	XSHEET.[dbo].[sp_CheckRight] '{0}', '{1}', '{2}','{3}'", UserDomain, UserName, sheet.app.AppID, sheet.sheetName);
             DataTable dt = DBUtil.getDataTable("MAIN", execute, "", null,null);
-            return "CRUDP";
+            return dt.Rows[0][0].ToString();
         }
 
         public String getFullUserName()

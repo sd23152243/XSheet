@@ -33,6 +33,7 @@
             DevExpress.XtraSplashScreen.SplashScreenManager splashManager = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::XSheet.v2.Form.WaitingScreen), true, true);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XSheetMain));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_dashboard = new DevExpress.XtraEditors.SimpleButton();
             this.lbl_AppName = new System.Windows.Forms.Label();
             this.lbl_Version = new System.Windows.Forms.Label();
             this.lbl_Time = new System.Windows.Forms.Label();
@@ -73,26 +74,42 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.lbl_AppName);
+            this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel1.Controls.Add(this.btn_dashboard);
             this.panel1.Controls.Add(this.lbl_Version);
             this.panel1.Controls.Add(this.lbl_Time);
             this.panel1.Controls.Add(this.lbl_User);
             this.panel1.Controls.Add(this.lbl_Appid);
+            this.panel1.Controls.Add(this.lbl_AppName);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(955, 30);
             this.panel1.TabIndex = 0;
             // 
+            // btn_dashboard
+            // 
+            this.btn_dashboard.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.btn_dashboard.Image = ((System.Drawing.Image)(resources.GetObject("btn_dashboard.Image")));
+            this.btn_dashboard.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btn_dashboard.Location = new System.Drawing.Point(906, 3);
+            this.btn_dashboard.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.UltraFlat;
+            this.btn_dashboard.Name = "btn_dashboard";
+            this.btn_dashboard.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
+            this.btn_dashboard.Size = new System.Drawing.Size(46, 24);
+            this.btn_dashboard.TabIndex = 9;
+            this.btn_dashboard.TabStop = false;
+            this.btn_dashboard.Click += new System.EventHandler(this.btn_dashboard_Click);
+            // 
             // lbl_AppName
             // 
             this.lbl_AppName.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbl_AppName.Font = new System.Drawing.Font("微软雅黑", 15F);
             this.lbl_AppName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lbl_AppName.Location = new System.Drawing.Point(387, 1);
+            this.lbl_AppName.Location = new System.Drawing.Point(0, 1);
             this.lbl_AppName.Name = "lbl_AppName";
             this.lbl_AppName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lbl_AppName.Size = new System.Drawing.Size(183, 26);
+            this.lbl_AppName.Size = new System.Drawing.Size(952, 26);
             this.lbl_AppName.TabIndex = 4;
             this.lbl_AppName.Text = "AppName";
             this.lbl_AppName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -359,6 +376,7 @@
             this.Controls.Add(this.barDockControlTop);
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "XSheetMain";
+            this.Text = "1231";
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.rightClickBarManager)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
@@ -399,6 +417,7 @@
         private DevExpress.XtraEditors.SimpleButton btn_Exel;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarToggleSwitchItem ts_multiSelect;
+        private DevExpress.XtraEditors.SimpleButton btn_dashboard;
     }
 
 }

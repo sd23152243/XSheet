@@ -95,12 +95,20 @@ namespace XSheet.v2.Control
         public void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
             init();
-
-            if ((int)app.statu > 0)
+            String right = GetUserPrivilege();
+            if (right == null || right == "")
             {
-                executer.executeCmd(currentSheet, SysEvent.Sheet_Init);
+                MessageBox.Show("你没有访问该应用初始Sheet的权利");
+                spreadsheetMain.Document.CreateNewDocument();
             }
-            spreadsheetMain.Document.Calculate();
+            else
+            {
+                if ((int)app.statu > 0)
+                {
+                    executer.executeCmd(currentSheet, SysEvent.Sheet_Init);
+                }
+                spreadsheetMain.Document.Calculate();
+            }
         }
         //通用事件响应，用于调用各类事件
         public void EventCall(SysEvent e,int i)
