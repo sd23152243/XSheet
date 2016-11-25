@@ -147,9 +147,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="v2\CfgBean\CfgDataReader.cs" />
+    <Compile Include="v2\CfgBean\DashBoardCfg.cs" />
     <Compile Include="v2\Data\CommandExecuter.cs" />
     <Compile Include="v2\Data\SysEvent.cs" />
     <Compile Include="v2\Data\SysStatu.cs" />
+    <Compile Include="v2\Data\XDashBoard.cs" />
     <Compile Include="v2\Data\XSheetAction\ActionCallEXE.cs" />
     <Compile Include="v2\Data\XSheetAction\ActionCallURL.cs" />
     <Compile Include="v2\Data\XSheetAction\ActionFactory.cs" />
@@ -179,11 +181,11 @@
     <Compile Include="v2\Form\WaitingScreen.Designer.cs">
       <DependentUpon>WaitingScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="v2\Form\XDashBoard.cs">
+    <Compile Include="v2\Form\XDashBoardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="v2\Form\XDashBoard.Designer.cs">
-      <DependentUpon>XDashBoard.cs</DependentUpon>
+    <Compile Include="v2\Form\XDashBoardForm.Designer.cs">
+      <DependentUpon>XDashBoardForm.cs</DependentUpon>
     </Compile>
     <Compile Include="v2\Privilege\UserPrivilege.cs" />
     <Compile Include="v2\Privilege\XSheetUser.cs" />
@@ -235,8 +237,8 @@
     <EmbeddedResource Include="v2\Form\WaitingScreen.resx">
       <DependentUpon>WaitingScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="v2\Form\XDashBoard.resx">
-      <DependentUpon>XDashBoard.cs</DependentUpon>
+    <EmbeddedResource Include="v2\Form\XDashBoardForm.resx">
+      <DependentUpon>XDashBoardForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="v2\Form\XSheetDesigner.resx">
       <DependentUpon>XSheetDesigner.cs</DependentUpon>

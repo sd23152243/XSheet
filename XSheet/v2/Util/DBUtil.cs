@@ -17,22 +17,6 @@ namespace XSheet.v2.Util
         public static String getConnStr(String DBType)
         {
             String connStr = "";
-            /*switch (DBType.ToUpper())
-            {
-                case "AS400":
-                    //Provider=IBMDA400;
-                    connStr = "Provider=IBMDA400;Data Source=172.31.72.37;User Id=ITSDTS;Password = STD008;";
-                    break;
-                case "SRF-SQL":
-                    connStr = "Data Source=srf-sql;User Id=MARS_E;Password = rs@996t!ty";
-                    break;
-                case "ICHART3D":
-                    connStr = "Data Source=ichart3d;User Id=MARS_E;Password = rs@996t!ty";
-                    break;
-                default:
-                    connStr = "UNKNOWN DEVICE";
-                    break;
-            }*/
             if (DBType.Contains(".xlsx"))
             {
                 connStr = "Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + DBType + ";" + ";Extended Properties=\"Excel 12.0;HDR=YES;IMEX=0\"";

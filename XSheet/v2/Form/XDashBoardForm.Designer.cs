@@ -1,6 +1,6 @@
 ﻿namespace XSheet.v2.Form
 {
-    partial class XDashBoard
+    partial class XDashBoardForm
     {
         /// <summary>
         /// Required designer variable.

@@ -11,9 +11,9 @@ using DevExpress.XtraEditors;
 
 namespace XSheet.v2.Form
 {
-    public partial class XDashBoard : DevExpress.XtraEditors.XtraForm
+    public partial class XDashBoardForm : DevExpress.XtraEditors.XtraForm
     {
-        public XDashBoard()
+        public XDashBoardForm()
         {
             InitializeComponent();
             dash_viewMain.Dashboard = new DevExpress.DashboardCommon.Dashboard();

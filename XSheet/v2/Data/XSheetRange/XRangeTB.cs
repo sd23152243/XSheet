@@ -145,14 +145,22 @@ namespace XSheet.v2.Data.XSheetRange
             for (int i = 0;i < rangetmp.RowCount;i++)
             {
                 int tmp;
-                if (int.TryParse(rangetmp[i, 0].Tag.ToString(),out tmp))
+                try
                 {
-                    if (tmp == rowNum)
+                    if (rangetmp[i, 0].Tag!= null && int.TryParse(rangetmp[i, 0].Tag.ToString(), out tmp))
                     {
-                        rowindex = i;
-                        break;
+                        if (tmp == rowNum)
+                        {
+                            rowindex = i;
+                            break;
+                        }
                     }
                 }
+                catch (Exception e)
+                {
+                    AlertUtil.Show("error", e.ToString());
+                }
+               
             }
             if (rowindex>=0)
             {

@@ -21,6 +21,7 @@ using DevExpress.Utils.Menu;
 using System.Data;
 using System.Data.Common;
 using System.IO;
+using XSheet.v2.Form;
 
 namespace XSheet.v2.Control
 {
@@ -47,7 +48,7 @@ namespace XSheet.v2.Control
         //构造函数
         public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels,Dictionary<String,PopupMenu> menus,BarManager barmanager, XtraForm form,AlertControl alert)
         {
-            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\人员Dashboard.xlsx", menus,barmanager,form,alert);
+            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\物流费数据管理.xlsx", menus,barmanager,form,alert);
         }
         //带参数的初始化
         public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager,XtraForm form, AlertControl alert)
@@ -243,6 +244,14 @@ namespace XSheet.v2.Control
             
             return;
         }
+
+        internal void dashboard_Click(object sender, EventArgs e)
+        {
+            XDashBoardForm dashboardFrom = new XDashBoardForm();
+            dashboardFrom.Show();
+            
+        }
+
         //单元格内容变更事件响应
         public void spreadsheetMain_CellValueChanged(object sender, SpreadsheetCellEventArgs e)
         {

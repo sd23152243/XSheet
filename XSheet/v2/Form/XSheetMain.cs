@@ -240,8 +240,7 @@ namespace XSheet.v2.Form
         {
             //spreadsheetMain.Document.SaveDocument("tmp.xlsx");
             //System.Diagnostics.Process.Start("tmp.xlsx");
-            //XDashBoard dashborad = new XDashBoard();
-            //dashborad.Show();
+
             /**/
             DictionaryForm select =new DictionaryForm(this.spreadsheetMain.Document);
             //select.Show();
@@ -250,7 +249,7 @@ namespace XSheet.v2.Form
 
         private void btn_dashboard_Click(object sender, EventArgs e)
         {
-
+            this.control.dashboard_Click(sender, e);
         }
     }
 }
