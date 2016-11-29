@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace XSheet.v2.CfgBean
 {
-    class DashBoardCfg
+    public class DashBoardCfg
     {
     }
 }

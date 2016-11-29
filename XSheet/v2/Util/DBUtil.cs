@@ -89,7 +89,7 @@ namespace XSheet.v2.Util
                     case "AS400":
                         da =  getOleDbDataAdapter(dbConn, Sql, sqlType);
                         break;
-                    case "SRF-SQL":
+                    case "SRFSQL":
                     case "ICHART3D":
                         da =  getSqlDataAdapter(dbConn, Sql, sqlType);
                         break;
@@ -205,7 +205,7 @@ namespace XSheet.v2.Util
                 case "AS400":
                     dbConn = new OleDbConnection();
                     break;
-                case "SRF-SQL":
+                case "SRFSQL":
                 case "ICHART3D":
                 case "MAIN":
                     dbConn = new SqlConnection();
@@ -226,7 +226,7 @@ namespace XSheet.v2.Util
                 case "AS400":
                     cmd = new OleDbCommand(sql,(OleDbConnection)conn);
                     break;
-                case "SRF-SQL":
+                case "SRFSQL":
                 case "ICHART3D":
                     cmd = new SqlCommand(sql, (SqlConnection)conn);
                     break;

@@ -17,6 +17,7 @@ namespace XSheet.v2.CfgBean
         public List<DataCfg> datas { get; set; }
         public List<CommandCfg> commands { get; set; }
         public List<ActionCfg> actions { get; set; }
+        public List<DashBoardCfg> dashboards { get; set; }
         public String flag;
         public XCfgData(List<Worksheet> cfgsheets)
         {

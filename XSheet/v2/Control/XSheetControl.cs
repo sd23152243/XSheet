@@ -48,7 +48,7 @@ namespace XSheet.v2.Control
         //构造函数
         public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels,Dictionary<String,PopupMenu> menus,BarManager barmanager, XtraForm form,AlertControl alert)
         {
-            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\物流费数据管理.xlsx", menus,barmanager,form,alert);
+            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\数据仓库管理系统(新配置原结构).xlsx", menus,barmanager,form,alert);
         }
         //带参数的初始化
         public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager,XtraForm form, AlertControl alert)
@@ -626,12 +626,13 @@ namespace XSheet.v2.Control
         //状态变化
         private void ChangeToStatu(SysStatu newstatu)
         {
-            app.statu = newstatu;
-            labels["lbl_User"].Text = app.statu.ToString();
-            if (currentXRange != null)
+            
+            //labels["lbl_User"].Text = app.statu.ToString();
+            if (currentXRange != null && newstatu != app.statu)
             {
                 currentXRange.ResetSelected();
             }
+            app.statu = newstatu;
             AlertUtil.Show( "状态变更", "状态变更为" + newstatu);
             ChangeButtonsStatu();
         }
