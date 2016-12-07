@@ -39,19 +39,19 @@ namespace XSheet.v2.Control
         private SpreadsheetControl spreadsheetMain { get; set; }//spreadsheet主控件
         private Dictionary<String, Label> labels { get; set; }//各标签页
         private String curUserPrivilege { get; set; }
-        private XSheetUser user { get; set; }
+        public XSheetUser user { get; set; }
         private Dictionary<String, PopupMenu> menus { get; set; }
         private BarManager rightClickBarManager { get; set; }
         private Boolean muiltiFlag = false;
         private XtraForm form;
         private AlertControl alert;
         //构造函数
-        public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels,Dictionary<String,PopupMenu> menus,BarManager barmanager, XtraForm form,AlertControl alert)
+        public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels,Dictionary<String,PopupMenu> menus,BarManager barmanager, XtraForm form,AlertControl alert,XSheetUser user)
         {
-            controlInit(spreadsheetMain, buttons, labels, "\\\\ichart3d\\XSheetModel\\数据仓库管理系统(新配置原结构).xlsx", menus,barmanager,form,alert);
+            controlInit(spreadsheetMain, buttons, labels, "", menus,barmanager,form,alert,user);
         }
         //带参数的初始化
-        public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager,XtraForm form, AlertControl alert)
+        public void controlInit(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager,XtraForm form, AlertControl alert,XSheetUser user)
         {
             this.buttons = buttons;
             this.labels = labels;
@@ -59,7 +59,7 @@ namespace XSheet.v2.Control
             this.menus = menus;
             this.rightClickBarManager = barmanager;
             AlertUtil.setAlert(alert, form);
-            this.user = new XSheetUser(System.Environment.UserDomainName, System.Environment.UserName, System.Environment.MachineName, System.Environment.OSVersion.ToString());
+            this.user = user;
             this.form = form;
             this.alert = alert;
             //CELLCHANGE
@@ -75,7 +75,10 @@ namespace XSheet.v2.Control
                 Console.SetOut(sw);
                 date = DateTime.Now;
                 Console.WriteLine("beforeLoadDoc:" + date.ToString());
-                spreadsheetMain.Document.LoadDocument(path);
+                if (path.Length>0)
+                {
+                    spreadsheetMain.Document.LoadDocument(path);
+                }
                 sw.Flush();
                 sw.Close();
                 Console.SetOut(temp);
@@ -90,32 +93,33 @@ namespace XSheet.v2.Control
 
         internal string getTitle()
         {
-            return  app.AppID +"("+ user.getFullUserName()+")" + app.cfg.app.Version;
+            return  app.statu>0?app.AppID +"("+ user.getFullUserName()+")" + app.cfgdata.app.Version:"";
         }
 
         //带参数的构造函数
-        public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager, XtraForm form, AlertControl alert)
+        public XSheetControl(SpreadsheetControl spreadsheetMain, Dictionary<String, SimpleButton> buttons, Dictionary<String, Label> labels, String path, Dictionary<String, PopupMenu> menus, BarManager barmanager, XtraForm form, AlertControl alert,XSheetUser user)
         {
-            controlInit(spreadsheetMain, buttons, labels, path, menus, barmanager,form,alert);
+            controlInit(spreadsheetMain, buttons, labels, path, menus, barmanager,form,alert,user);
         }
         //文档加载事件，用于初始化
         public void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
             init();
-            String right = GetUserPrivilege();
-            if (right == null || right == "")
+           
+            if ((int)app.statu > 0)
             {
-                MessageBox.Show("你没有访问该应用初始Sheet的权利");
-                spreadsheetMain.Document.CreateNewDocument();
-            }
-            else
-            {
-                if ((int)app.statu > 0)
+                String right = GetUserPrivilege();
+                if (right == null || right == "")
+                {
+                    MessageBox.Show("你没有访问该应用初始Sheet的权利");
+                    spreadsheetMain.Document.CreateNewDocument();
+                }
+                else
                 {
                     executer.executeCmd(currentSheet, SysEvent.Sheet_Init);
                 }
-                spreadsheetMain.Document.Calculate();
             }
+            spreadsheetMain.Document.Calculate();
         }
         //通用事件响应，用于调用各类事件
         public void EventCall(SysEvent e,int i)
@@ -251,9 +255,18 @@ namespace XSheet.v2.Control
             return;
         }
 
+        internal void Excel_Click(object sender, EventArgs e)
+        {
+            DictionaryForm select = new DictionaryForm(this.spreadsheetMain.Document);
+            //select.Show();
+            select.Show();
+        }
+
         internal void dashboard_Click(object sender, EventArgs e)
         {
-            XDashBoardForm dashboardFrom = new XDashBoardForm();
+            DXMenuItem item = (DXMenuItem)sender;
+            int i = int.Parse(item.Caption.Split(':')[0]);
+            XDashBoardForm dashboardFrom = new XDashBoardForm(cfgData.dashboards[i]);
             dashboardFrom.Show();
             
         }
@@ -302,7 +315,7 @@ namespace XSheet.v2.Control
 
             setSelectedNamed();
             ChangeButtonsStatu();
-            if (currentSheet.sheet.SelectedChart == null && currentSheet.sheet.SelectedPicture == null)
+            if (currentSheet != null &&currentSheet.sheet.SelectedChart == null && currentSheet.sheet.SelectedPicture == null)
             {
                 if (e.Button != MouseButtons.Right && currentXRange != null && currentXRange.isSelectable() == true)
                 {
@@ -342,9 +355,9 @@ namespace XSheet.v2.Control
             //labels["lbl_User"].Text = String.Format("{0}" , user.getFullUserName());
             labels["lbl_AppName"].Text =  app.AppName;
             //labels["lbl_Version"].Text =  app.cfg.app.Version;
-            if (app.statu == SysStatu.Designer)
+            if (app.statu <SysStatu.Designer)
             {
-                MessageBox.Show("进入设计者模式！");
+                MessageBox.Show("配置存在错误，请检查配置");
                 return;
             }
             RefreshCurrentSheet();
@@ -459,6 +472,11 @@ namespace XSheet.v2.Control
         //根据当前选择点，判断选择区域
         public void setSelectedNamed()
         {
+            if (app == null)
+            {
+                app = new XApp(this.spreadsheetMain.Document,null);
+                app.statu = SysStatu.SheetError;
+            }
             AreasCollection areas = spreadsheetMain.Selection.Areas;
             /*if (currentXRange != null && RangeUtil.isInRange(areas, currentXRange.getRange()) < 0)
             {
@@ -466,7 +484,7 @@ namespace XSheet.v2.Control
             }*/
             this.currentXRange = null;
             rightClickBarManager.SetPopupContextMenu(spreadsheetMain, null);
-            if (currentSheet.sheetName == "Config")
+            if (currentSheet!= null && currentSheet.sheetName == "Config")
             {
                 IList<Table> tables = spreadsheetMain.ActiveWorksheet.Tables.GetTables(spreadsheetMain.ActiveCell);
                 if (tables.Count >0 && tables[0].Name == "CFG_DATA")

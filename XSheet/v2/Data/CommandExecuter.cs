@@ -8,6 +8,7 @@ using XSheet.Data;
 using XSheet.v2.Data;
 using XSheet.v2.Privilege;
 using XSheet.v2.Task;
+using XSheet.v2.Util;
 
 namespace XSheet
 {
@@ -31,6 +32,7 @@ namespace XSheet
 
         public void executeCmd(XRSheet rsheet, SysEvent e)
         {
+            
             //TODO Sheet_Init 与Sheet_Change区分
             if (e == SysEvent.Sheet_Init|| e == SysEvent.Sheet_Change)
             {
@@ -43,8 +45,8 @@ namespace XSheet
                     executeCmd(range, e);
                 }
             }
+            
         }
-
         public String executeCmd(XRange range ,SysEvent e)
         {
             String ans = "";
@@ -83,6 +85,7 @@ namespace XSheet
         {
             this.executeState = "Executing...";
             String ans = "OK";
+            AlertUtil.StartWait();
             Notify();
             if (cmd != null)
             {
@@ -91,6 +94,7 @@ namespace XSheet
             }
             this.executeState = "OK";
             Notify();
+            AlertUtil.StopWait();
             return ans;
         }
 

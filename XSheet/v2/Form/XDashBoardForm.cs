@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using System.Xml;
 using System.Data.Common;
 using XSheet.v2.Util;
+using XSheet.v2.CfgBean;
 
 namespace XSheet.v2.Form
 {
@@ -20,7 +21,7 @@ namespace XSheet.v2.Form
 
         XmlDeclaration xmldecl;
         
-        public XDashBoardForm()
+        public XDashBoardForm(DashBoardCfg cfg)
         {
             InitializeComponent();
             dash_viewMain.Dashboard = new DevExpress.DashboardCommon.Dashboard();

@@ -33,10 +33,7 @@
             DevExpress.XtraSplashScreen.SplashScreenManager splashManager = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::XSheet.v2.Form.WaitingScreen), true, true);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XSheetMain));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btn_dashboard = new DevExpress.XtraEditors.SimpleButton();
-            this.lbl_Time = new System.Windows.Forms.Label();
-            this.lbl_AppName = new System.Windows.Forms.Label();
-            this.spreadsheetMain = new DevExpress.XtraSpreadsheet.SpreadsheetControl();
+            this.btn_Dashboard = new DevExpress.XtraEditors.DropDownButton();
             this.rightClickBarManager = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
@@ -44,6 +41,9 @@
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.ts_multiSelect = new DevExpress.XtraBars.BarToggleSwitchItem();
+            this.lbl_Time = new System.Windows.Forms.Label();
+            this.lbl_AppName = new System.Windows.Forms.Label();
+            this.spreadsheetMain = new DevExpress.XtraSpreadsheet.SpreadsheetControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.btn_Exel = new DevExpress.XtraEditors.SimpleButton();
             this.dbtn_Search = new DevExpress.XtraEditors.DropDownButton();
@@ -72,7 +72,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel1.Controls.Add(this.btn_dashboard);
+            this.panel1.Controls.Add(this.btn_Dashboard);
             this.panel1.Controls.Add(this.lbl_Time);
             this.panel1.Controls.Add(this.lbl_AppName);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -81,61 +81,18 @@
             this.panel1.Size = new System.Drawing.Size(955, 30);
             this.panel1.TabIndex = 0;
             // 
-            // btn_dashboard
+            // btn_Dashboard
             // 
-            this.btn_dashboard.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.btn_dashboard.Image = ((System.Drawing.Image)(resources.GetObject("btn_dashboard.Image")));
-            this.btn_dashboard.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
-            this.btn_dashboard.Location = new System.Drawing.Point(906, 3);
-            this.btn_dashboard.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.UltraFlat;
-            this.btn_dashboard.Name = "btn_dashboard";
-            this.btn_dashboard.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
-            this.btn_dashboard.Size = new System.Drawing.Size(46, 24);
-            this.btn_dashboard.TabIndex = 9;
-            this.btn_dashboard.TabStop = false;
-            this.btn_dashboard.Click += new System.EventHandler(this.btn_dashboard_Click);
-            // 
-            // lbl_Time
-            // 
-            this.lbl_Time.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lbl_Time.Location = new System.Drawing.Point(12, 3);
-            this.lbl_Time.Name = "lbl_Time";
-            this.lbl_Time.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lbl_Time.Size = new System.Drawing.Size(70, 26);
-            this.lbl_Time.TabIndex = 6;
-            this.lbl_Time.Text = "time";
-            this.lbl_Time.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lbl_AppName
-            // 
-            this.lbl_AppName.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbl_AppName.Font = new System.Drawing.Font("微软雅黑", 15F);
-            this.lbl_AppName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lbl_AppName.Location = new System.Drawing.Point(0, 1);
-            this.lbl_AppName.Name = "lbl_AppName";
-            this.lbl_AppName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lbl_AppName.Size = new System.Drawing.Size(952, 26);
-            this.lbl_AppName.TabIndex = 4;
-            this.lbl_AppName.Text = "AppName";
-            this.lbl_AppName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // spreadsheetMain
-            // 
-            this.spreadsheetMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spreadsheetMain.Location = new System.Drawing.Point(0, 30);
-            this.spreadsheetMain.MenuManager = this.rightClickBarManager;
-            this.spreadsheetMain.Name = "spreadsheetMain";
-            this.spreadsheetMain.Options.Culture = new System.Globalization.CultureInfo("zh-CN");
-            this.spreadsheetMain.Size = new System.Drawing.Size(955, 548);
-            this.spreadsheetMain.TabIndex = 1;
-            this.spreadsheetMain.Text = "spreadsheetControl1";
-            this.spreadsheetMain.DocumentLoaded += new System.EventHandler(this.spreadsheetMain_DocumentLoaded);
-            this.spreadsheetMain.SelectionChanged += new System.EventHandler(this.spreadsheetMain_SelectionChanged);
-            this.spreadsheetMain.ActiveSheetChanged += new DevExpress.Spreadsheet.ActiveSheetChangedEventHandler(this.spreadsheetMain_ActiveSheetChanged);
-            this.spreadsheetMain.CellValueChanged += new DevExpress.XtraSpreadsheet.CellValueChangedEventHandler(this.spreadsheetMain_CellValueChanged);
-            this.spreadsheetMain.HyperlinkClick += new DevExpress.XtraSpreadsheet.HyperlinkClickEventHandler(this.spreadsheetMain_HyperlinkClick);
-            this.spreadsheetMain.KeyDown += new System.Windows.Forms.KeyEventHandler(this.spreadsheetMain_KeyDown);
-            this.spreadsheetMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.spreadsheetMain_MouseUp);
+            this.btn_Dashboard.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.btn_Dashboard.DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.SplitButton;
+            this.btn_Dashboard.Image = ((System.Drawing.Image)(resources.GetObject("btn_Dashboard.Image")));
+            this.btn_Dashboard.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btn_Dashboard.Location = new System.Drawing.Point(894, 3);
+            this.btn_Dashboard.MenuManager = this.rightClickBarManager;
+            this.btn_Dashboard.Name = "btn_Dashboard";
+            this.btn_Dashboard.Size = new System.Drawing.Size(53, 24);
+            this.btn_Dashboard.TabIndex = 10;
+            this.btn_Dashboard.Click += new System.EventHandler(this.btn_dashboard_Click);
             // 
             // rightClickBarManager
             // 
@@ -189,6 +146,48 @@
             this.ts_multiSelect.Id = 1;
             this.ts_multiSelect.Name = "ts_multiSelect";
             this.ts_multiSelect.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.ts_multiSelect_CheckedChanged);
+            // 
+            // lbl_Time
+            // 
+            this.lbl_Time.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lbl_Time.Location = new System.Drawing.Point(12, 3);
+            this.lbl_Time.Name = "lbl_Time";
+            this.lbl_Time.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbl_Time.Size = new System.Drawing.Size(70, 26);
+            this.lbl_Time.TabIndex = 6;
+            this.lbl_Time.Text = "time";
+            this.lbl_Time.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lbl_AppName
+            // 
+            this.lbl_AppName.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbl_AppName.Font = new System.Drawing.Font("微软雅黑", 15F);
+            this.lbl_AppName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lbl_AppName.Location = new System.Drawing.Point(0, 1);
+            this.lbl_AppName.Name = "lbl_AppName";
+            this.lbl_AppName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbl_AppName.Size = new System.Drawing.Size(952, 26);
+            this.lbl_AppName.TabIndex = 4;
+            this.lbl_AppName.Text = "AppName";
+            this.lbl_AppName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // spreadsheetMain
+            // 
+            this.spreadsheetMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spreadsheetMain.Location = new System.Drawing.Point(0, 30);
+            this.spreadsheetMain.MenuManager = this.rightClickBarManager;
+            this.spreadsheetMain.Name = "spreadsheetMain";
+            this.spreadsheetMain.Options.Culture = new System.Globalization.CultureInfo("zh-CN");
+            this.spreadsheetMain.Size = new System.Drawing.Size(955, 548);
+            this.spreadsheetMain.TabIndex = 1;
+            this.spreadsheetMain.Text = "spreadsheetControl1";
+            this.spreadsheetMain.DocumentLoaded += new System.EventHandler(this.spreadsheetMain_DocumentLoaded);
+            this.spreadsheetMain.SelectionChanged += new System.EventHandler(this.spreadsheetMain_SelectionChanged);
+            this.spreadsheetMain.ActiveSheetChanged += new DevExpress.Spreadsheet.ActiveSheetChangedEventHandler(this.spreadsheetMain_ActiveSheetChanged);
+            this.spreadsheetMain.CellValueChanged += new DevExpress.XtraSpreadsheet.CellValueChangedEventHandler(this.spreadsheetMain_CellValueChanged);
+            this.spreadsheetMain.HyperlinkClick += new DevExpress.XtraSpreadsheet.HyperlinkClickEventHandler(this.spreadsheetMain_HyperlinkClick);
+            this.spreadsheetMain.KeyDown += new System.Windows.Forms.KeyEventHandler(this.spreadsheetMain_KeyDown);
+            this.spreadsheetMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.spreadsheetMain_MouseUp);
             // 
             // panelControl1
             // 
@@ -336,7 +335,9 @@
             this.Controls.Add(this.barDockControlTop);
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "XSheetMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "1231";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.XSheetMain_FormClosing);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.rightClickBarManager)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
@@ -374,7 +375,7 @@
         private DevExpress.XtraEditors.SimpleButton btn_Exel;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarToggleSwitchItem ts_multiSelect;
-        private DevExpress.XtraEditors.SimpleButton btn_dashboard;
+        private DevExpress.XtraEditors.DropDownButton btn_Dashboard;
     }
 
 }

@@ -15,6 +15,7 @@ using XSheet.v2.Control;
 using XSheet.v2.Data;
 using XSheet.Util;
 using XSheet.v2.Util;
+using XSheet.v2.Privilege;
 
 namespace XSheet.v2.Form
 {
@@ -33,8 +34,9 @@ namespace XSheet.v2.Form
         public string appstatu { get; set; }
         private CommandExecuter executer;
         private AreasCollection oldSelected { get; set; }*/
-        public XSheetDesigner()
+        public XSheetDesigner(XSheetUser user)
         {
+            user.logAsDesigner = true;
             DateTime date = DateTime.Now;
             StreamWriter sw = new StreamWriter(@"ConsoleOutput.txt", true);
             TextWriter temp = Console.Out;
@@ -45,7 +47,7 @@ namespace XSheet.v2.Form
             Console.WriteLine("beforeDsp:" + date.ToString());
             sw.Close();
             Console.SetOut(temp);
-            this.control = new XSheetControl(spreadsheetMain, buttons, labels,  menus, rightClickBarManager, this, alertcontrolMain);
+            this.control = new XSheetControl(spreadsheetMain, buttons, labels,  menus, rightClickBarManager, this, alertcontrolMain,user);
             timer100ms.Start();
             date = DateTime.Now;
             sw = new StreamWriter(@"ConsoleOutput.txt", true);
@@ -53,16 +55,6 @@ namespace XSheet.v2.Form
             Console.WriteLine("end:" + date.ToString());
             sw.Close();
             Console.SetOut(temp);
-
-        }
-        public XSheetDesigner(string path)
-        {
-            InitializeComponent();
-            InitSkinGallery();
-            setDefaultParam();
-            
-            this.control = new XSheetControl(spreadsheetMain, buttons,labels,path,menus,rightClickBarManager,this, alertcontrolMain);
-            timer100ms.Start();
         }
 
         private void setDefaultParam()
@@ -77,11 +69,8 @@ namespace XSheet.v2.Form
             buttons.Add("Btn_Cancel".ToUpper(), btn_Cancel);
             buttons.Add("Btn_Save".ToUpper(), btn_Save);
             labels = new Dictionary<String, Label>();
-            labels.Add("lbl_AppID", this.lbl_Appid);
-            labels.Add("lbl_User", this.lbl_User);
             labels.Add("lbl_AppName", this.lbl_AppName);
             labels.Add("lbl_Time", this.lbl_Time);
-            labels.Add("lbl_Version", this.lbl_Version);
             //CELLCHANGE
 
             /*executer = new CommandExecuter();
@@ -108,6 +97,7 @@ namespace XSheet.v2.Form
         private void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
             control.spreadsheetMain_DocumentLoaded(sender, e);
+            this.Text = control.getTitle();
         }
 
         private void btn_Search_Click(object sender, EventArgs e)
@@ -258,6 +248,15 @@ namespace XSheet.v2.Form
         {
             spreadsheetMain.Document.SaveDocument("tmp.xlsx");
             System.Diagnostics.Process.Start("tmp.xlsx");
+        }
+
+        private void XSheetDesigner_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.Owner != null)
+            {
+                this.Owner.Show();
+            }
+            
         }
     }
 }

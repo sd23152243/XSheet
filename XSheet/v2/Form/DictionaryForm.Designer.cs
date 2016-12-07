@@ -29,17 +29,18 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DictionaryForm));
-            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.ToolTipSeparatorItem toolTipSeparatorItem2 = new DevExpress.Utils.ToolTipSeparatorItem();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.ToolTipSeparatorItem toolTipSeparatorItem1 = new DevExpress.Utils.ToolTipSeparatorItem();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
             this.btn_SelectPath = new DevExpress.XtraEditors.SimpleButton();
             this.btn_ok = new DevExpress.XtraEditors.SimpleButton();
             this.btn_Cancel = new DevExpress.XtraEditors.SimpleButton();
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.toggleSwitch1 = new DevExpress.XtraEditors.ToggleSwitch();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.splashManager = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::XSheet.v2.Form.process), true, true);
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitch1.Properties)).BeginInit();
             this.SuspendLayout();
@@ -79,16 +80,16 @@
             this.textEdit1.Properties.Appearance.Options.UseFont = true;
             this.textEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
             this.textEdit1.Size = new System.Drawing.Size(149, 22);
-            toolTipTitleItem3.Text = "message";
-            toolTipItem2.LeftIndent = 6;
-            toolTipItem2.Text = "输入地址";
-            toolTipTitleItem4.LeftIndent = 6;
-            toolTipTitleItem4.Text = "ITS";
-            superToolTip2.Items.Add(toolTipTitleItem3);
-            superToolTip2.Items.Add(toolTipItem2);
-            superToolTip2.Items.Add(toolTipSeparatorItem2);
-            superToolTip2.Items.Add(toolTipTitleItem4);
-            this.textEdit1.SuperTip = superToolTip2;
+            toolTipTitleItem1.Text = "message";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "输入地址";
+            toolTipTitleItem2.LeftIndent = 6;
+            toolTipTitleItem2.Text = "ITS";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            superToolTip1.Items.Add(toolTipSeparatorItem1);
+            superToolTip1.Items.Add(toolTipTitleItem2);
+            this.textEdit1.SuperTip = superToolTip1;
             this.textEdit1.TabIndex = 3;
             // 
             // toggleSwitch1
@@ -108,6 +109,10 @@
             this.saveFileDialog1.FileName = "xsheet";
             this.saveFileDialog1.Filter = "EXCEL文件|*.xlsx";
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
+            // 
+            // splashManager
+            // 
+            this.splashManager.ClosingDelay = 500;
             // 
             // DictionaryForm
             // 
@@ -137,5 +142,6 @@
         private DevExpress.XtraEditors.TextEdit textEdit1;
         private DevExpress.XtraEditors.ToggleSwitch toggleSwitch1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private DevExpress.XtraSplashScreen.SplashScreenManager splashManager;
     }
 }

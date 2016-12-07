@@ -46,7 +46,6 @@ namespace XSheet.v2.Form
 
         private void btn_ok_Click(object sender, EventArgs e)
         {
-            this.Hide();
             try
             {
                 export();
@@ -65,6 +64,7 @@ namespace XSheet.v2.Form
 
         private void export()
         {
+            splashManager.ShowWaitForm();
             IWorkbook newbook;
             if (saveAll)
             {
@@ -81,6 +81,7 @@ namespace XSheet.v2.Form
 
             newbook.SaveDocument(path);
             System.Diagnostics.Process.Start(path);
+            splashManager.CloseWaitForm();
             this.Dispose();
            
         }

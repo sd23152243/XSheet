@@ -18,13 +18,13 @@ namespace XSheet.Data
 {
     public class XApp
     {
-        public String AppName { get { return cfg.app.AppName; } }
-        public String AppID { get { return cfg.app.AppID; } }
+        public String AppName { get { return cfgdata==null?"未知":cfgdata.app.AppName; } }
+        public String AppID { get { return cfgdata == null ? "未知" : cfgdata.app.AppID; } }
         public Dictionary<string, XRSheet> rsheets { get; set; }
         public Dictionary<string, XRange> ranges { get; set; }
         public Dictionary<string, XCommand> commands { get; set; }
         public Dictionary<string, XAction> actions;
-        public XCfgData cfg { get; set; }
+        public XCfgData cfgdata { get; set; }
         public IWorkbook book { get; set; }
         public SysStatu statu { get; set; }
         private XApp(){}
@@ -37,11 +37,20 @@ namespace XSheet.Data
             ranges = new Dictionary<string, XRange>();
             commands = new Dictionary<string, XCommand>();
             actions = new Dictionary<string, XAction>();
-            init(cfg);
+            try
+            {
+                init(cfg);
+            }
+            catch (Exception)
+            {
+                //MessageBox.Show(e.ToString());
+                this.cfgdata = null;
+                this.statu = SysStatu.SheetError;
+            }
         }
-        public void init(XCfgData cfg)
+        public void init(XCfgData cfgdata)
         {
-            this.cfg = cfg;
+            this.cfgdata = cfgdata;
            
             if ((int)statu>-10)
             {
@@ -130,7 +139,7 @@ namespace XSheet.Data
 
         private void initRange()
         {
-            foreach (DataCfg cfg in cfg.datas)
+            foreach (DataCfg cfg in cfgdata.datas)
             {
                 XRange range = XRangeFactory.getXRange(cfg);
                 try
@@ -162,7 +171,7 @@ namespace XSheet.Data
         private void initSheet()
         {
             this.rsheets = new Dictionary<string, XRSheet>();
-            foreach (SheetCfg sheetdata in cfg.sheets)
+            foreach (SheetCfg sheetdata in cfgdata.sheets)
             {
                 Worksheet sheet = getSheetByName(sheetdata.SheetName);
                 
@@ -198,7 +207,7 @@ namespace XSheet.Data
         //初始化全部command
         private void initCommands()
         {
-            foreach (CommandCfg cmdcfg in cfg.commands)
+            foreach (CommandCfg cmdcfg in cfgdata.commands)
             {
                 initCommand(cmdcfg);
             }
@@ -215,7 +224,7 @@ namespace XSheet.Data
         private void initActions()
         {
             statu = SysStatu.ActionError;
-            foreach (ActionCfg cfg in cfg.actions)
+            foreach (ActionCfg cfg in cfgdata.actions)
             {
                 initAction(cfg);
             }

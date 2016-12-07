@@ -11,9 +11,9 @@ namespace XSheet.v2.CfgBean
     public static class CfgDataReader
     {
         //读取APP配置
-        public static AppCfg readApp(AppCfg app,Table appCfgTable)
+        public static AppCfg readApp(Table appCfgTable)
         {
-            app = new AppCfg();
+            AppCfg app = new AppCfg();
             app.AppID = appCfgTable.DataRange[0, 0].DisplayText;
             app.AppName = appCfgTable.DataRange[0, 1].DisplayText;
             app.Version = appCfgTable.DataRange[0, 2].DisplayText;
@@ -21,9 +21,9 @@ namespace XSheet.v2.CfgBean
             return app;
         }
         //读取Data配置
-        public static List<DataCfg> readData(List<DataCfg> datas, Table dataCfgTable)
+        public static List<DataCfg> readData(Table dataCfgTable)
         {
-            datas = new List<DataCfg>();
+            List<DataCfg> datas = new List<DataCfg>();
             for (int i = 1; i < dataCfgTable.Range.RowCount; i++)
             {
                 if (dataCfgTable.Range[i, 0].DisplayText.Length == 0)
@@ -54,10 +54,20 @@ namespace XSheet.v2.CfgBean
             }
             return datas;
         }
-        //读取Sheet配置
-        public static List<SheetCfg> readSheet(List<SheetCfg>sheets, Table sheetCfgTable)
+
+        public static List<DashBoardCfg> readDashboard(Table dashboardCfgTable)
         {
-            sheets = new List<SheetCfg>();
+            if (dashboardCfgTable == null)
+            {
+                return null;
+            }
+            return new List<DashBoardCfg>();
+        }
+
+        //读取Sheet配置
+        public static List<SheetCfg> readSheet( Table sheetCfgTable)
+        {
+            List<SheetCfg> sheets = new List<SheetCfg>();
             for (int i = 1; i < sheetCfgTable.Range.RowCount; i++)
             {
                 if (sheetCfgTable.Range[i, 0].DisplayText.Length == 0)
@@ -76,9 +86,9 @@ namespace XSheet.v2.CfgBean
             return sheets;
         }
         //读取Command配置
-        public static List<CommandCfg> readCommand(List<CommandCfg> commands, Table cmdCfgTable)
+        public static List<CommandCfg> readCommand(Table cmdCfgTable)
         {
-            commands = new List<CommandCfg>();
+            List<CommandCfg> commands = new List<CommandCfg>();
             for (int i = 1; i < cmdCfgTable.Range.RowCount; i++)
             {
                 if (cmdCfgTable.Range[i, 0].DisplayText.Length == 0)
@@ -101,9 +111,9 @@ namespace XSheet.v2.CfgBean
             return commands;
         }
         //读取Action配置
-        public static List<ActionCfg> readAction(List<ActionCfg> actions, Table actCfgTable)
+        public static List<ActionCfg> readAction( Table actCfgTable)
         {
-            actions = new List<ActionCfg>();
+            List<ActionCfg> actions = new List<ActionCfg>();
             for (int i = 1; i < actCfgTable.Range.RowCount; i++)
             {
                 if (actCfgTable.Range[i, 0].DisplayText.Length == 0)

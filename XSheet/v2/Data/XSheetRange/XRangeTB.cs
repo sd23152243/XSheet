@@ -574,6 +574,7 @@ namespace XSheet.v2.Data.XSheetRange
             DataTable dt = data.getDataTable();
             int dcount = getDataTable().Rows.Count;
             int maxcount = getRange().RowCount;
+            Boolean Okflag = true;
             for (int i= dcount;i<maxcount;i++)
             {
                 DataRow templet = dt.Rows[0];
@@ -586,22 +587,55 @@ namespace XSheet.v2.Data.XSheetRange
                 {
                     string strRange = getRowRange(i)[j].Value.ToString();
                     Type t = templet[j].GetType();
-
+                    if (strRange.Length == 0)
+                    {
+                        continue;
+                    }
                     if (t.Name == "Decimal")
                     {
-                        Decimal num = Convert.ToDecimal(strRange);
-                        row[j] = (object)num;
+                        try
+                        {
+                            Decimal num = Convert.ToDecimal(strRange);
+                            row[j] = (object)num;
+                        }
+                        catch (Exception)
+                        {
+                            AlertUtil.Show("error", String.Format("输入参数第{0}列与表数据类型不匹配", (j + 1).ToString()));
+                            Okflag = false;
+                        }
+                    }
+                    else if(t.Name == "Int32")
+                    {
+                        try
+                        {
+                            Int32 num = Convert.ToInt32(strRange);
+                            row[j] = (object)num;
+                        }
+                        catch (Exception)
+                        {
+                            AlertUtil.Show("error", String.Format("输入参数第{0}列与表数据类型不匹配,需要类型为{1}", (j+1).ToString(),t.Name));
+                            Okflag = false;
+                        }
                     }
                     else
                     {
-                        row[j] = strRange;
+                        try
+                        {
+                            row[j] = strRange;
+                        }
+                        catch (Exception)
+                        {
+                            AlertUtil.Show("error", String.Format("输入参数第{0}列与表数据类型不匹配或参数类型未定义,需要类型为{1}", (j + 1).ToString(), t.Name));
+                            Okflag = false;
+                        }
+                        
                     }
                     
                 }
                 dt.Rows.Add(row);
             }
             data.setData(dt);
-            return data.insert();
+            return Okflag?data.insert():"Failed";
         }
 
         public override List<string> getSelectedValueByColIndex(int col , String param)

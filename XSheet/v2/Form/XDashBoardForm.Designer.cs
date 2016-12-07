@@ -41,13 +41,14 @@
             this.dash_viewMain.Size = new System.Drawing.Size(511, 262);
             this.dash_viewMain.TabIndex = 0;
             // 
-            // XDashBoard
+            // XDashBoardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(511, 262);
             this.Controls.Add(this.dash_viewMain);
-            this.Name = "XDashBoard";
+            this.Name = "XDashBoardForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "XDashBoard";
             ((System.ComponentModel.ISupportInitialize)(this.dash_viewMain)).EndInit();
             this.ResumeLayout(false);

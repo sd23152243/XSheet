@@ -42,7 +42,19 @@ namespace XSheet.v2.CfgBean
             initSheet();
             initCommand();
             initAction();
+            initDashBoard();
        }
+
+        private void initDashBoard()
+        {
+            Table table = getCfgTable("CFG_DASHBOARD");
+            if (table == null)
+            {
+                return;
+            }
+            this.dashboards = CfgDataReader.readDashboard(table);
+        }
+
         //读取app初始化信息
         private void initApp()
         {
@@ -52,7 +64,7 @@ namespace XSheet.v2.CfgBean
                 flag = "NG";
                 return;
             }
-            this.app = CfgDataReader.readApp(app, table);
+            this.app = CfgDataReader.readApp(table);
         }
         //读取range初始化信息
         private void initData()
@@ -63,7 +75,7 @@ namespace XSheet.v2.CfgBean
                 flag = "NG";
                 return;
             }
-            datas = CfgDataReader.readData(datas, table);
+            datas = CfgDataReader.readData(table);
         }
         //读取Sheet初始化信息
         private void initSheet()
@@ -74,7 +86,7 @@ namespace XSheet.v2.CfgBean
                 flag = "NG";
                 return;
             }
-            sheets = CfgDataReader.readSheet(sheets, table);
+            sheets = CfgDataReader.readSheet(table);
         }
         //读取绑定初始化信息
         private void initCommand()
@@ -85,7 +97,7 @@ namespace XSheet.v2.CfgBean
                 flag = "NG";
                 return;
             }
-            commands = CfgDataReader.readCommand(commands, table);
+            commands = CfgDataReader.readCommand(table);
         }
         //读取action初始化信息
         private void initAction()
@@ -96,7 +108,7 @@ namespace XSheet.v2.CfgBean
                 flag = "NG";
                 return;
             }
-            actions = CfgDataReader.readAction(actions, table);
+            actions = CfgDataReader.readAction(table);
 
         }
         //读取配置文件中的配置表格

@@ -11,6 +11,7 @@ using XSheet.Util;
 using DevExpress.XtraSpreadsheet;
 using DevExpress.Spreadsheet;
 using DevExpress.Utils.Menu;
+using XSheet.v2.Privilege;
 
 namespace XSheet.v2.Form
 {
@@ -20,11 +21,12 @@ namespace XSheet.v2.Form
         private XSheetControl control { get; set; }
         private Dictionary<String, Label> labels { get; set; }
         Dictionary<String, PopupMenu> menus = new Dictionary<string, PopupMenu>();
-        public XSheetMain()
+        public XSheetMain(XSheetUser user)
         {
             this.Hide();
             InitializeComponent();
             DateTime date = DateTime.Now;
+
             //StreamWriter sw = new StreamWriter(date.ToLongDateString() + ".txt", true);
             //TextWriter temp = Console.Out;
             
@@ -33,7 +35,7 @@ namespace XSheet.v2.Form
             //Console.WriteLine("beforeDsp:" + date.ToString());
             //sw.Close();
             //Console.SetOut(temp);
-            this.control = new XSheetControl(spreadsheetMain, buttons, labels, menus, rightClickBarManager, this, alertcontrolMain);
+            this.control = new XSheetControl(spreadsheetMain, buttons, labels, menus, rightClickBarManager, this, alertcontrolMain,user);
             timer100ms.Start();
             //date = DateTime.Now;
             //sw = new StreamWriter(date.ToLongDateString() + ".txt", true);
@@ -43,12 +45,12 @@ namespace XSheet.v2.Form
             //Console.SetOut(temp);
         }
 
-        public XSheetMain(String path)
+        public XSheetMain(String path,XSheetUser user)
         {
             InitializeComponent();
             setDefaultParam();
 
-            this.control = new XSheetControl(spreadsheetMain, buttons, labels, path, menus, rightClickBarManager, this, alertcontrolMain);
+            this.control = new XSheetControl(spreadsheetMain, buttons, labels, path, menus, rightClickBarManager, this, alertcontrolMain,user);
             timer100ms.Start();
         }
 
@@ -208,49 +210,26 @@ namespace XSheet.v2.Form
             this.lbl_Time.Text = DateTime.Now.ToLongTimeString();
         }
 
-        private void btn_Flash_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
-        }
-
-        private void btn_Encode_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            String str = spreadsheetMain.ActiveCell.DisplayText;
-            String key = DESUtil.GenerateKey();
-            String[] strs = new string[] {
-            "Provider=IBMDA400;Data Source=172.31.96.210;User Id=ITSDTS;Password = STD008;",
-            "Data Source=srf-sql;User Id=MARS_E;Password = rs@996t!ty",
-            "Data Source=ichart3d;User Id=MARS_E;Password = rs@996t!ty",
-            "Data Source=ichart3d;User Id=MARS_E;Password = rs@996t!ty"};
-            str = DESUtil.EncryptString(str, key);
-            Console.WriteLine(str);
-            foreach (string item in strs)
-            {
-                Console.WriteLine("//////////////////////");
-                Console.WriteLine(item);
-                Console.WriteLine(" ");
-                String tmp = DESUtil.EncryptString(item, key);
-                Console.WriteLine(tmp);
-                Console.WriteLine(" ");
-                Console.WriteLine(DESUtil.DecryptString(tmp, key));
-
-            }
-        }
 
         private void btn_Exel_Click(object sender, EventArgs e)
         {
             //spreadsheetMain.Document.SaveDocument("tmp.xlsx");
             //System.Diagnostics.Process.Start("tmp.xlsx");
-
-            /**/
-            DictionaryForm select =new DictionaryForm(this.spreadsheetMain.Document);
-            //select.Show();
-            select.Show();
+            this.control.Excel_Click(sender, e);
+            
         }
 
         private void btn_dashboard_Click(object sender, EventArgs e)
         {
             this.control.dashboard_Click(sender, e);
+        }
+
+        private void XSheetMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.Owner != null)
+            {
+                this.Owner.Show();
+            }
         }
     }
 }
