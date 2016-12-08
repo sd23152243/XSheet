@@ -20,14 +20,23 @@ namespace XSheet
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             DateTime date = new DateTime();
-            StreamWriter sw = new StreamWriter(date.ToLongDateString()+".txt",true);
-            TextWriter temp = Console.Out;
-            Console.SetOut(sw);
+            StreamWriter sw = new StreamWriter(DateTime.Today.ToString("yyyymmdd")+"_info.log",true);
             date = DateTime.Now;
-            Console.WriteLine("start:"+date.ToString());
+            sw.WriteLine("start:"+date.ToString());
+            sw.Close();
             DevExpress.Skins.SkinManager.EnableFormSkins();
             DevExpress.UserSkins.BonusSkins.Register();
-            XSheetUser user = new XSheetUser(System.Environment.UserDomainName, System.Environment.UserName, System.Environment.MachineName, System.Environment.OSVersion.ToString());
+            XSheetUser user = null;
+            try
+            {
+                user = new XSheetUser(System.Environment.UserDomainName, System.Environment.UserName, System.Environment.MachineName, System.Environment.OSVersion.ToString());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                return;
+            }
+            
             if (args.Length == 0)
             {
                 try

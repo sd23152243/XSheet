@@ -71,17 +71,14 @@ namespace XSheet.v2.Control
             {
                 DateTime date = new DateTime();
                 StreamWriter sw = new StreamWriter(@"ConsoleOutput.txt", true);
-                TextWriter temp = Console.Out;
-                Console.SetOut(sw);
                 date = DateTime.Now;
-                Console.WriteLine("beforeLoadDoc:" + date.ToString());
+                sw.WriteLine("beforeLoadDoc:" + date.ToString());
                 if (path.Length>0)
                 {
                     spreadsheetMain.Document.LoadDocument(path);
                 }
                 sw.Flush();
                 sw.Close();
-                Console.SetOut(temp);
             }
             catch (Exception e)
             {
@@ -104,8 +101,10 @@ namespace XSheet.v2.Control
         //文档加载事件，用于初始化
         public void spreadsheetMain_DocumentLoaded(object sender, EventArgs e)
         {
+            AlertUtil.StartWait();
             init();
-           
+            setdashboardButton();
+            AlertUtil.StopWait();
             if ((int)app.statu > 0)
             {
                 String right = GetUserPrivilege();
@@ -264,8 +263,8 @@ namespace XSheet.v2.Control
 
         internal void dashboard_Click(object sender, EventArgs e)
         {
-            DXMenuItem item = (DXMenuItem)sender;
-            int i = int.Parse(item.Caption.Split(':')[0]);
+            DropDownButton button = (DropDownButton)sender;
+            int i = int.Parse(button.Tag.ToString());
             XDashBoardForm dashboardFrom = new XDashBoardForm(cfgData.dashboards[i]);
             dashboardFrom.Show();
             
@@ -526,8 +525,13 @@ namespace XSheet.v2.Control
         {
             foreach (var btndic in buttons)
             {
+                if (btndic.Key == "BTN_DASHBOARD")
+                {
+                    continue;
+                }
                 btndic.Value.Enabled = false;
             }
+            
             ((DropDownButton)buttons["BTN_SEARCH"]).DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.Hide;
             ((DropDownButton)buttons["BTN_EDIT"]).DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.Hide;
             ((DropDownButton)buttons["BTN_EXECUTE"]).DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.Hide;
@@ -587,6 +591,57 @@ namespace XSheet.v2.Control
             }
         }
 
+        private void setdashboardButton()
+        {
+            DropDownButton dashbordbtn = (DropDownButton)buttons["BTN_DASHBOARD"];
+            if (cfgData.dashboards != null)
+            {
+                if (cfgData.dashboards.Count == 1)
+                {
+                    dashbordbtn.Enabled = true;
+                    dashbordbtn.Visible = true;
+                    dashbordbtn.DropDownArrowStyle = DropDownArrowStyle.Hide;
+                    dashbordbtn.ToolTip = cfgData.dashboards[0].DashboardName;
+                    dashbordbtn.Tag = cfgData.dashboards[0].DashboardID;
+                }
+                else if (cfgData.dashboards.Count > 1)
+                {
+                    dashbordbtn.ToolTip = cfgData.dashboards[0].DashboardName;
+                    dashbordbtn.Tag = cfgData.dashboards[0].DashboardID;
+                    dashbordbtn.Enabled = true;
+                    dashbordbtn.Visible = true;
+                    dashbordbtn.DropDownArrowStyle = DropDownArrowStyle.Default;
+                    dashbordbtn.DropDownControl = CreateDashBoardDXPopupMenu();
+                }
+                else
+                {
+                    dashbordbtn.Visible = false;
+                }
+            }
+            else
+            {
+                dashbordbtn.Visible = false;
+            }
+        }
+
+        private IDXDropDownControl CreateDashBoardDXPopupMenu()
+        {
+            DXPopupMenu menu = new DXPopupMenu();
+            foreach (var dashboardconfig in cfgData.dashboards)
+            {
+                if (dashboardconfig.DashboardID == "1")
+                {
+                    continue;
+                }
+                DXMenuItem ditem = new DXMenuItem();
+                ditem.Click += OnDalshboardItemClick;
+                ditem.Tag = dashboardconfig.DashboardID;
+                ditem.Caption = dashboardconfig.DashboardName;
+                menu.Items.Add(ditem);
+            }
+            return menu;
+        }
+
         private IDXDropDownControl CreateDXPopupMenu(Dictionary<int, XCommand> cmds)
         {
             DXPopupMenu menu = new DXPopupMenu();
@@ -598,14 +653,23 @@ namespace XSheet.v2.Control
                 }
                 DXMenuItem ditem = new DXMenuItem();
                 ditem.Caption = item.Key.ToString()+":"+item.Value.CommandName;
-                ditem.Click += OnItemClick;
+                ditem.Click += OnItemClick; 
                 ditem.Tag =item.Value.e;
                 menu.Items.Add(ditem);
             }
             
             return menu;
         }
+        private void OnDalshboardItemClick(object sender, EventArgs e)
+        {
+            DXMenuItem item = (DXMenuItem)sender;
+            int i = int.Parse(item.Tag.ToString());
+            AlertUtil.StartWait();
+            XDashBoardForm dashboardFrom = new XDashBoardForm(cfgData.dashboards[i-1]);
+            dashboardFrom.Show();
+            AlertUtil.StopWait();
 
+        }
         private void OnItemClick(object sender, EventArgs e)
         {
             DXMenuItem item = (DXMenuItem)sender;

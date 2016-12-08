@@ -23,8 +23,15 @@ namespace XSheet.v2.Util
 
         public static void Show(String title,String message)
         {
-            alert.Show(form, title, message);
-            if (title == "error")
+            if (form == null)
+            {
+                System.Windows.Forms.MessageBox.Show(message);
+            }
+            else
+            {
+                alert.Show(form, title, message);
+            }
+            if (title == "error" || title == "err")
             {
                 LogWriter.log(message);
             }
@@ -32,12 +39,18 @@ namespace XSheet.v2.Util
 
         public static void StartWait()
         {
-            splashManager.ShowWaitForm();
+            if (!splashManager.IsSplashFormVisible)
+            {
+                splashManager.ShowWaitForm();
+            }
         }
 
         public static void StopWait()
         {
-            splashManager.CloseWaitForm();
+            if (splashManager.IsSplashFormVisible)
+            {
+                splashManager.CloseWaitForm();
+            }
         }
     }
 }

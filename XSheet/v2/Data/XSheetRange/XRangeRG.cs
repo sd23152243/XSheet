@@ -54,15 +54,23 @@ namespace XSheet.v2.Data.XSheetRange
             Range range = getRange();
             Cell data1stcell = get1stDataCell(range);
             string[,] arrtmp = new string[range.RowCount, range.ColumnCount];
-            range.Worksheet.Import(arrtmp, data1stcell.RowIndex, data1stcell.ColumnIndex);
-            range.Worksheet.Import(dt, false, data1stcell.RowIndex, data1stcell.ColumnIndex);
-            data.setData(dt);
-            //range.Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
-            /*for (int i = 0; i < range.RowCount; i++)
+            try
             {
-                setRowBorderNone(i);
-            }*/
-            doResize(dt.Rows.Count);
+                range.Worksheet.Import(arrtmp, data1stcell.RowIndex, data1stcell.ColumnIndex);
+                range.Worksheet.Import(dt, false, data1stcell.RowIndex, data1stcell.ColumnIndex);
+                data.setData(dt);
+                //range.Borders.SetAllBorders(Color.Black, BorderLineStyle.None);
+                /*for (int i = 0; i < range.RowCount; i++)
+                {
+                    setRowBorderNone(i);
+                }*/
+                doResize(dt.Rows.Count);
+            }
+            catch(Exception e)
+            {
+                AlertUtil.Show("error", e.ToString());
+            }
+            
         }
         public virtual Cell get1stDataCell(Range range)
         {

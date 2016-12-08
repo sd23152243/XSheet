@@ -749,6 +749,13 @@ namespace XSheet.v2.Form
             this.spreadsheetFormulaBarControl1 = new DevExpress.XtraSpreadsheet.SpreadsheetFormulaBarControl();
             this.spreadsheetFormulaBarPanel = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btn_Dashboard = new DevExpress.XtraEditors.DropDownButton();
+            this.rightClickBarManager = new DevExpress.XtraBars.BarManager(this.components);
+            this.popupDataCfg = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.lbl_Time = new System.Windows.Forms.Label();
             this.lbl_AppName = new System.Windows.Forms.Label();
             this.splitterControl = new DevExpress.XtraEditors.SplitterControl();
@@ -776,12 +783,6 @@ namespace XSheet.v2.Form
             this.iHelp = new DevExpress.XtraBars.BarButtonItem();
             this.alertcontrolMain = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
             this.popupSpread = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.popupDataCfg = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.rightClickBarManager = new DevExpress.XtraBars.BarManager(this.components);
-            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
-            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
-            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
-            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.timer100ms = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
@@ -825,12 +826,12 @@ namespace XSheet.v2.Form
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetNameBoxControl.Properties)).BeginInit();
             this.spreadsheetFormulaBarPanel.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rightClickBarManager)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupDataCfg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetBarController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupSpread)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.popupDataCfg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rightClickBarManager)).BeginInit();
             this.SuspendLayout();
             // 
             // stylesRibbonPageGroup1
@@ -1390,7 +1391,7 @@ namespace XSheet.v2.Form
             this.bitDashBoardDesign,
             this.bitDashBoardView});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 375;
+            this.ribbonControl.MaxItemId = 378;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -5495,10 +5496,58 @@ namespace XSheet.v2.Form
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.btn_Dashboard);
             this.panel2.Controls.Add(this.lbl_Time);
             this.panel2.Controls.Add(this.lbl_AppName);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
+            // 
+            // btn_Dashboard
+            // 
+            resources.ApplyResources(this.btn_Dashboard, "btn_Dashboard");
+            this.btn_Dashboard.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.btn_Dashboard.DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.SplitButton;
+            this.btn_Dashboard.Image = ((System.Drawing.Image)(resources.GetObject("btn_Dashboard.Image")));
+            this.btn_Dashboard.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btn_Dashboard.MenuManager = this.rightClickBarManager;
+            this.btn_Dashboard.Name = "btn_Dashboard";
+            this.btn_Dashboard.Click += new System.EventHandler(this.btn_Dashboard_Click);
+            // 
+            // rightClickBarManager
+            // 
+            this.rightClickBarManager.DockControls.Add(this.barDockControlTop);
+            this.rightClickBarManager.DockControls.Add(this.barDockControlBottom);
+            this.rightClickBarManager.DockControls.Add(this.barDockControlLeft);
+            this.rightClickBarManager.DockControls.Add(this.barDockControlRight);
+            this.rightClickBarManager.Form = this;
+            this.rightClickBarManager.MaxItemId = 0;
+            // 
+            // popupDataCfg
+            // 
+            this.popupDataCfg.ItemLinks.Add(this.btn_DesignSearch);
+            this.popupDataCfg.ItemLinks.Add(this.btn_Encode);
+            this.popupDataCfg.Name = "popupDataCfg";
+            this.popupDataCfg.Ribbon = this.ribbonControl;
+            // 
+            // barDockControlTop
+            // 
+            this.barDockControlTop.CausesValidation = false;
+            resources.ApplyResources(this.barDockControlTop, "barDockControlTop");
+            // 
+            // barDockControlBottom
+            // 
+            this.barDockControlBottom.CausesValidation = false;
+            resources.ApplyResources(this.barDockControlBottom, "barDockControlBottom");
+            // 
+            // barDockControlLeft
+            // 
+            this.barDockControlLeft.CausesValidation = false;
+            resources.ApplyResources(this.barDockControlLeft, "barDockControlLeft");
+            // 
+            // barDockControlRight
+            // 
+            this.barDockControlRight.CausesValidation = false;
+            resources.ApplyResources(this.barDockControlRight, "barDockControlRight");
             // 
             // lbl_Time
             // 
@@ -6024,42 +6073,6 @@ namespace XSheet.v2.Form
             this.popupSpread.Name = "popupSpread";
             this.popupSpread.Ribbon = this.ribbonControl;
             // 
-            // popupDataCfg
-            // 
-            this.popupDataCfg.ItemLinks.Add(this.btn_DesignSearch);
-            this.popupDataCfg.ItemLinks.Add(this.btn_Encode);
-            this.popupDataCfg.Name = "popupDataCfg";
-            this.popupDataCfg.Ribbon = this.ribbonControl;
-            // 
-            // rightClickBarManager
-            // 
-            this.rightClickBarManager.DockControls.Add(this.barDockControlTop);
-            this.rightClickBarManager.DockControls.Add(this.barDockControlBottom);
-            this.rightClickBarManager.DockControls.Add(this.barDockControlLeft);
-            this.rightClickBarManager.DockControls.Add(this.barDockControlRight);
-            this.rightClickBarManager.Form = this;
-            this.rightClickBarManager.MaxItemId = 0;
-            // 
-            // barDockControlTop
-            // 
-            this.barDockControlTop.CausesValidation = false;
-            resources.ApplyResources(this.barDockControlTop, "barDockControlTop");
-            // 
-            // barDockControlBottom
-            // 
-            this.barDockControlBottom.CausesValidation = false;
-            resources.ApplyResources(this.barDockControlBottom, "barDockControlBottom");
-            // 
-            // barDockControlLeft
-            // 
-            this.barDockControlLeft.CausesValidation = false;
-            resources.ApplyResources(this.barDockControlLeft, "barDockControlLeft");
-            // 
-            // barDockControlRight
-            // 
-            this.barDockControlRight.CausesValidation = false;
-            resources.ApplyResources(this.barDockControlRight, "barDockControlRight");
-            // 
             // timer100ms
             // 
             this.timer100ms.Tick += new System.EventHandler(this.timer100ms_Tick);
@@ -6125,12 +6138,12 @@ namespace XSheet.v2.Form
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetNameBoxControl.Properties)).EndInit();
             this.spreadsheetFormulaBarPanel.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.rightClickBarManager)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupDataCfg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spreadsheetBarController1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupSpread)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.popupDataCfg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rightClickBarManager)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -6661,5 +6674,6 @@ namespace XSheet.v2.Form
         private DevExpress.XtraBars.BarButtonItem bitDashBoardView;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup pgDashBoard;
         private System.Windows.Forms.Label lbl_Time;
+        private DropDownButton btn_Dashboard;
     }
 }

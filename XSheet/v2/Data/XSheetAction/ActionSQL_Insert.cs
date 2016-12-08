@@ -9,6 +9,7 @@ using XSheet.Util;
 using System.Windows.Forms;
 using XSheet.v2.Data;
 using XSheet.v2.Data.XSheetRange;
+using XSheet.v2.Util;
 
 namespace XSheet.v2.Data.XSheetAction
 {
@@ -37,10 +38,9 @@ namespace XSheet.v2.Data.XSheetAction
                 {
                     dRange.ExecuteSql(statements);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-
-                    throw;
+                    AlertUtil.Show("error", e.ToString());
                 }
             }
             dRange.Refresh();

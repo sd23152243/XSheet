@@ -545,6 +545,73 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>974, 630</value>
   </data>
+  <data name="btn_Dashboard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="btn_Dashboard.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
+  </data>
+  <data name="btn_Dashboard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>916, 7</value>
+  </data>
+  <data name="btn_Dashboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 24</value>
+  </data>
+  <data name="btn_Dashboard.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="btn_Dashboard.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;btn_Dashboard.Name" xml:space="preserve">
+    <value>btn_Dashboard</value>
+  </data>
+  <data name="&gt;&gt;btn_Dashboard.Type" xml:space="preserve">
+    <value>DevExpress.XtraEditors.DropDownButton, DevExpress.XtraEditors.v16.1, Version=16.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
+  <data name="&gt;&gt;btn_Dashboard.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;btn_Dashboard.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="lbl_Time.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -576,7 +643,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;lbl_Time.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="lbl_AppName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -615,7 +682,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;lbl_AppName.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="panel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -5456,6 +5523,18 @@
   <data name="&gt;&gt;pgDashBoard.Type" xml:space="preserve">
     <value>DevExpress.XtraBars.Ribbon.RibbonPageGroup, DevExpress.XtraBars.v16.1, Version=16.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
+  <data name="&gt;&gt;rightClickBarManager.Name" xml:space="preserve">
+    <value>rightClickBarManager</value>
+  </data>
+  <data name="&gt;&gt;rightClickBarManager.Type" xml:space="preserve">
+    <value>DevExpress.XtraBars.BarManager, DevExpress.XtraBars.v16.1, Version=16.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
+  <data name="&gt;&gt;popupDataCfg.Name" xml:space="preserve">
+    <value>popupDataCfg</value>
+  </data>
+  <data name="&gt;&gt;popupDataCfg.Type" xml:space="preserve">
+    <value>DevExpress.XtraBars.PopupMenu, DevExpress.XtraBars.v16.1, Version=16.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
   <data name="&gt;&gt;spreadsheetBarController1.Name" xml:space="preserve">
     <value>spreadsheetBarController1</value>
   </data>
@@ -5545,18 +5624,6 @@
   </data>
   <data name="&gt;&gt;popupSpread.Type" xml:space="preserve">
     <value>DevExpress.XtraBars.PopupMenu, DevExpress.XtraBars.v16.1, Version=16.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
-  </data>
-  <data name="&gt;&gt;popupDataCfg.Name" xml:space="preserve">
-    <value>popupDataCfg</value>
-  </data>
-  <data name="&gt;&gt;popupDataCfg.Type" xml:space="preserve">
-    <value>DevExpress.XtraBars.PopupMenu, DevExpress.XtraBars.v16.1, Version=16.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
-  </data>
-  <data name="&gt;&gt;rightClickBarManager.Name" xml:space="preserve">
-    <value>rightClickBarManager</value>
-  </data>
-  <data name="&gt;&gt;rightClickBarManager.Type" xml:space="preserve">
-    <value>DevExpress.XtraBars.BarManager, DevExpress.XtraBars.v16.1, Version=16.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;timer100ms.Name" xml:space="preserve">
     <value>timer100ms</value>

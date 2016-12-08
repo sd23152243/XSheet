@@ -12,6 +12,7 @@ using System.Xml;
 using System.Data.Common;
 using XSheet.v2.Util;
 using XSheet.v2.CfgBean;
+using System.IO;
 
 namespace XSheet.v2.Form
 {
@@ -25,10 +26,15 @@ namespace XSheet.v2.Form
         {
             InitializeComponent();
             dash_viewMain.Dashboard = new DevExpress.DashboardCommon.Dashboard();
-            LoadXml("\\\\ichart3d\\XSheetModel\\Dashboard/Inventory.xml");
+            LoadXml(cfg.fileLocation);
             dash_viewMain.Dashboard.LoadFromXml("dashboard.xml");
             this.WindowState = FormWindowState.Maximized;
+            if (File.Exists("dashboard.xml"))
+            {
+                File.Delete("dashboard.xml");
+            }
             this.Show();
+            
         }
 
 
@@ -64,7 +70,15 @@ namespace XSheet.v2.Form
             values.Add("");
             foreach (XmlNode node in nodeList)
             {
-                String connstr = DBUtil.getConnStr(node.Attributes["ComponentName"].Value);
+                if (node.Name.Contains("OLAP"))
+                {
+                    continue;
+                }
+                String connstr = DBUtil.getConnStr(node.SelectSingleNode("Name").InnerText);
+                if (connstr == "")
+                {
+                    continue;
+                }
                 String[] tmp = connstr.Split(';');
                 foreach (String item in tmp)
                 {

@@ -57,11 +57,27 @@ namespace XSheet.v2.CfgBean
 
         public static List<DashBoardCfg> readDashboard(Table dashboardCfgTable)
         {
+
             if (dashboardCfgTable == null)
             {
                 return null;
             }
-            return new List<DashBoardCfg>();
+            List<DashBoardCfg> dashboards = new List<DashBoardCfg>();
+            for (int i = 1; i < dashboardCfgTable.Range.RowCount; i++)
+            {
+                if (dashboardCfgTable.Range[i, 0].DisplayText.Length == 0)
+                {
+                    break;
+                }
+                //SheetName	SheetDesc	CRUDP	NeedHide	NeedLog
+                DashBoardCfg dashboard = new DashBoardCfg();
+                dashboard.DashboardID = dashboardCfgTable.Range[i, 0].DisplayText;
+                dashboard.DashboardName = dashboardCfgTable.Range[i, 1].DisplayText;
+                dashboard.Version = dashboardCfgTable.Range[i, 2].DisplayText;
+                dashboard.fileLocation = dashboardCfgTable.Range[i, 3].DisplayText;
+                dashboards.Add(dashboard);
+            }
+            return dashboards;
         }
 
         //读取Sheet配置

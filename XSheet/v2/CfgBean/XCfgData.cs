@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using XSheet.Util;
+using XSheet.v2.Util;
 
 namespace XSheet.v2.CfgBean
 {
@@ -120,13 +121,13 @@ namespace XSheet.v2.CfgBean
                 table = cfgtables[tableName];
                 if (table.Range == null)
                 {
-                    MessageBox.Show("名称为" + tableName + "的EXCEL Table区域配置异常，请确认配置");
+                    AlertUtil.Show("error","名称为" + tableName + "的EXCEL Table区域配置异常，请确认配置");
                     return null;
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("未找到名称为" + tableName + "的EXCEL Table区域，请确认配置");
+                AlertUtil.Show("warning","未找到名称为" + tableName + "的EXCEL Table区域，请确认配置");
 
             }
             return table;

@@ -55,19 +55,21 @@ namespace XSheet.v2.Form
             Console.WriteLine("end:" + date.ToString());
             sw.Close();
             Console.SetOut(temp);
+            this.Show();
         }
 
         private void setDefaultParam()
         {
             buttons = new Dictionary<string, SimpleButton>();
             /*提取按钮，将按钮与自定义事件名称绑定*/
-            buttons.Add("Btn_Search".ToUpper(), dbtn_Search);
-            buttons.Add("Btn_Execute".ToUpper(), dbtn_Execute);
-            buttons.Add("Btn_Delete".ToUpper(), btn_Delete);
-            buttons.Add("Btn_Edit".ToUpper(), dbtn_Edit);
-            buttons.Add("Btn_New".ToUpper(), dbtn_New);
-            buttons.Add("Btn_Cancel".ToUpper(), btn_Cancel);
-            buttons.Add("Btn_Save".ToUpper(), btn_Save);
+            buttons.Add("BTN_SEARCH".ToUpper(), dbtn_Search);
+            buttons.Add("BTN_EXECUTE".ToUpper(), dbtn_Execute);
+            buttons.Add("BTN_DELETE".ToUpper(), btn_Delete);
+            buttons.Add("BTN_EDIT".ToUpper(), dbtn_Edit);
+            buttons.Add("BTN_NEW".ToUpper(), dbtn_New);
+            buttons.Add("BTN_CANCEL".ToUpper(), btn_Cancel);
+            buttons.Add("BTN_SAVE", btn_Save);
+            buttons.Add("BTN_DASHBOARD", btn_Dashboard);
             labels = new Dictionary<String, Label>();
             labels.Add("lbl_AppName", this.lbl_AppName);
             labels.Add("lbl_Time", this.lbl_Time);
@@ -98,6 +100,7 @@ namespace XSheet.v2.Form
         {
             control.spreadsheetMain_DocumentLoaded(sender, e);
             this.Text = control.getTitle();
+            this.BringToFront();
         }
 
         private void btn_Search_Click(object sender, EventArgs e)
@@ -166,17 +169,6 @@ namespace XSheet.v2.Form
         private void spreadsheetMain_KeyDown(object sender, KeyEventArgs e)
         {
             
-        }
-
-        private DXPopupMenu CreateDXPopupMenu()
-        {
-            DXPopupMenu menu = new DXPopupMenu();
-            menu.Items.Add(new DXMenuItem("Item", OnItemClick));
-            menu.Items.Add(new DXMenuCheckItem("CheckItem", false, null, OnItemClick));
-            DXSubMenuItem subMenu = new DXSubMenuItem("SubMenu");
-            subMenu.Items.Add(new DXMenuItem("SubItem", OnItemClick));
-            menu.Items.Add(subMenu);
-            return menu;
         }
         private void OnItemClick(object sender, EventArgs e)
         {
@@ -255,8 +247,14 @@ namespace XSheet.v2.Form
             if (this.Owner != null)
             {
                 this.Owner.Show();
+                this.Owner.Refresh();
             }
             
+        }
+
+        private void btn_Dashboard_Click(object sender, EventArgs e)
+        {
+            control.dashboard_Click(sender, e);
         }
     }
 }

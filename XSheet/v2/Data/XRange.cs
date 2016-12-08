@@ -124,13 +124,15 @@ namespace XSheet.v2.Data
                             values = new List<string>();
                             values.Add("NULL");
                         }
+                        
                         lists.Add(values);
                     }
                     for (int i = 0; i < lists[0].Count; i++)
                     {
-                        String tmp = statement;
+                        String tmp = statement;  
                         for (int j = 0; j < matches.Count; j++)
                         {
+                            lists[j][i] = lists[j][i].Replace("'", "''");//SQL语句中存在 ' 时替换成 ''  2016/12/08
                             tmp = tmp.Replace(matches[j].Value, lists[j][i]);
                         }
                         result.Add(tmp);

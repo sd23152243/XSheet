@@ -28,7 +28,14 @@ namespace XSheet.v2.Privilege
             this.UserDomain = domain;
             this.machineName = machineName;
             this.OSVersion = OSVersion;
+            this.logAsDesigner = CheckDesigner();
+        }
 
+        private Boolean CheckDesigner()
+        {
+            String execute = String.Format("EXEC	XSHEET.[dbo].[sp_CheckRight] '{0}', '{1}', '{2}','{3}'", UserDomain, UserName, "DashboardDesigner", "*");
+            DataTable dt = DBUtil.getDataTable("MAIN", execute, "", null, null);
+            return dt.Rows[0][0].ToString()==""? false:true;
         }
 
         public XSheetUser(String domain, String name,String machineName,String OSVersion)

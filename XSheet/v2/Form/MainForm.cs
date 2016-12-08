@@ -25,6 +25,16 @@ namespace XSheet.v2.Form
             items = new List<TileBarItem>();
             InitializeComponent();
             this.splashManager = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::XSheet.v2.Form.process), true, true);
+            init();
+        }
+
+        private void init()
+        {
+            if (!user.logAsDesigner)
+            {
+                btn_Designer.Visible = false;
+            }
+            lbl_user.Text = user.getFullUserName();
         }
 
         private void btn_Designer_Click(object sender, EventArgs e)
@@ -33,8 +43,11 @@ namespace XSheet.v2.Form
             XSheetDesigner designer = new XSheetDesigner(user);
             this.Hide();
             designer.Owner = this;
-            designer.Show();
+            
             splashManager.CloseWaitForm();
+            
+            
+
         }
     }
 }

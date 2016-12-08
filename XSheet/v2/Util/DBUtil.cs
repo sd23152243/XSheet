@@ -39,8 +39,8 @@ namespace XSheet.v2.Util
                 }
                 catch (Exception e)
                 {
-                    System.Windows.Forms.MessageBox.Show("链接类型："+DBType+"不存在");
-                    Console.WriteLine(e.ToString());
+                    //System.Windows.Forms.MessageBox.Show("链接类型："+DBType+"不存在");
+                    AlertUtil.Show("error", e.ToString());
                 }
               
             }

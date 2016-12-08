@@ -83,6 +83,7 @@
             // 
             // btn_Dashboard
             // 
+            this.btn_Dashboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Dashboard.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.btn_Dashboard.DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.SplitButton;
             this.btn_Dashboard.Image = ((System.Drawing.Image)(resources.GetObject("btn_Dashboard.Image")));
@@ -92,6 +93,7 @@
             this.btn_Dashboard.Name = "btn_Dashboard";
             this.btn_Dashboard.Size = new System.Drawing.Size(53, 24);
             this.btn_Dashboard.TabIndex = 10;
+            this.btn_Dashboard.Visible = false;
             this.btn_Dashboard.Click += new System.EventHandler(this.btn_dashboard_Click);
             // 
             // rightClickBarManager
