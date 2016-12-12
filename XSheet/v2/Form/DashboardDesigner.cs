@@ -11,9 +11,9 @@ using DevExpress.XtraEditors;
 
 namespace XSheet.v2.Form
 {
-    public partial class SnapForm : DevExpress.XtraEditors.XtraForm
+    public partial class DashboardDesigner : DevExpress.XtraEditors.XtraForm
     {
-        public SnapForm()
+        public DashboardDesigner()
         {
             InitializeComponent();
             this.Show();

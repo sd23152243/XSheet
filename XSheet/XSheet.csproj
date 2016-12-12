@@ -172,6 +172,12 @@
     <Compile Include="v2\Data\XSheetAction\ActionSQL_Insert.cs" />
     <Compile Include="v2\Data\XSheetAction\ActionSQL_Update.cs" />
     <Compile Include="v2\Data\XSheetAction\ActionMoveTo.cs" />
+    <Compile Include="v2\Form\DashboardDesigner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="v2\Form\DashboardDesigner.Designer.cs">
+      <DependentUpon>DashboardDesigner.cs</DependentUpon>
+    </Compile>
     <Compile Include="v2\Form\DictionaryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -252,6 +258,9 @@
       <DependentUpon>XSheetMain.cs</DependentUpon>
     </Compile>
     <Compile Include="v2\Util\SystemInfo.cs" />
+    <EmbeddedResource Include="v2\Form\DashboardDesigner.resx">
+      <DependentUpon>DashboardDesigner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="v2\Form\DictionaryForm.resx">
       <DependentUpon>DictionaryForm.cs</DependentUpon>
     </EmbeddedResource>

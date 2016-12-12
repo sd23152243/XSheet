@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.TileItemElement tileItemElement17 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem5 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem5 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.XtraEditors.TileItemElement tileItemElement18 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement19 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement20 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement1 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.XtraEditors.TileItemElement tileItemElement2 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement3 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement4 = new DevExpress.XtraEditors.TileItemElement();
             this.navButton2 = new DevExpress.XtraBars.Navigation.NavButton();
-            this.tileBar1 = new DevExpress.XtraBars.Navigation.TileBar();
-            this.tileBarGroup2 = new DevExpress.XtraBars.Navigation.TileBarGroup();
+            this.tileBar = new DevExpress.XtraBars.Navigation.TileBar();
+            this.tbGroup = new DevExpress.XtraBars.Navigation.TileBarGroup();
             this.tileBarItem1 = new DevExpress.XtraBars.Navigation.TileBarItem();
             this.tileBarItem2 = new DevExpress.XtraBars.Navigation.TileBarItem();
             this.tileBarItem3 = new DevExpress.XtraBars.Navigation.TileBarItem();
@@ -53,54 +53,55 @@
             this.navButton2.IsMain = true;
             this.navButton2.Name = "navButton2";
             // 
-            // tileBar1
+            // tileBar
             // 
-            this.tileBar1.AllowDrag = false;
-            this.tileBar1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.tileBar1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.tileBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tileBar1.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            this.tileBar1.Groups.Add(this.tileBarGroup2);
-            this.tileBar1.Location = new System.Drawing.Point(0, 98);
-            this.tileBar1.MaxId = 10;
-            this.tileBar1.Name = "tileBar1";
-            this.tileBar1.ScrollMode = DevExpress.XtraEditors.TileControlScrollMode.ScrollButtons;
-            this.tileBar1.Size = new System.Drawing.Size(620, 126);
-            this.tileBar1.TabIndex = 0;
-            this.tileBar1.Text = "tileBar1";
+            this.tileBar.AllowDrag = false;
+            this.tileBar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.tileBar.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tileBar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tileBar.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            this.tileBar.Groups.Add(this.tbGroup);
+            this.tileBar.Location = new System.Drawing.Point(0, 98);
+            this.tileBar.MaxId = 10;
+            this.tileBar.Name = "tileBar";
+            this.tileBar.ScrollMode = DevExpress.XtraEditors.TileControlScrollMode.ScrollButtons;
+            this.tileBar.Size = new System.Drawing.Size(620, 126);
+            this.tileBar.TabIndex = 0;
+            this.tileBar.Text = "tileBar1";
             // 
-            // tileBarGroup2
+            // tbGroup
             // 
-            this.tileBarGroup2.Items.Add(this.tileBarItem1);
-            this.tileBarGroup2.Items.Add(this.tileBarItem2);
-            this.tileBarGroup2.Items.Add(this.tileBarItem3);
-            this.tileBarGroup2.Items.Add(this.tileBarItem4);
-            this.tileBarGroup2.Name = "tileBarGroup2";
+            this.tbGroup.Items.Add(this.tileBarItem1);
+            this.tbGroup.Items.Add(this.tileBarItem2);
+            this.tbGroup.Items.Add(this.tileBarItem3);
+            this.tbGroup.Items.Add(this.tileBarItem4);
+            this.tbGroup.Name = "tbGroup";
+            this.tbGroup.Text = "APP选择";
             // 
             // tileBarItem1
             // 
             this.tileBarItem1.AppearanceItem.Normal.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.tileBarItem1.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileBarItem1.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement17.Text = "人员管理系统";
-            this.tileBarItem1.Elements.Add(tileItemElement17);
+            tileItemElement1.Text = "人员管理系统";
+            this.tileBarItem1.Elements.Add(tileItemElement1);
             this.tileBarItem1.Id = 6;
             this.tileBarItem1.ItemSize = DevExpress.XtraBars.Navigation.TileBarItemSize.Medium;
             this.tileBarItem1.Name = "tileBarItem1";
-            toolTipTitleItem5.Text = "tttt";
-            toolTipItem5.LeftIndent = 6;
-            toolTipItem5.Text = "ttttttttttt";
-            superToolTip5.Items.Add(toolTipTitleItem5);
-            superToolTip5.Items.Add(toolTipItem5);
-            this.tileBarItem1.SuperTip = superToolTip5;
+            toolTipTitleItem1.Text = "tttt";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "ttttttttttt";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            this.tileBarItem1.SuperTip = superToolTip1;
             // 
             // tileBarItem2
             // 
             this.tileBarItem2.AppearanceItem.Normal.BackColor = System.Drawing.Color.LimeGreen;
             this.tileBarItem2.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileBarItem2.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement18.Text = "考勤系统";
-            this.tileBarItem2.Elements.Add(tileItemElement18);
+            tileItemElement2.Text = "考勤系统";
+            this.tileBarItem2.Elements.Add(tileItemElement2);
             this.tileBarItem2.Id = 7;
             this.tileBarItem2.ItemSize = DevExpress.XtraBars.Navigation.TileBarItemSize.Medium;
             this.tileBarItem2.Name = "tileBarItem2";
@@ -110,8 +111,8 @@
             this.tileBarItem3.AppearanceItem.Normal.BackColor = System.Drawing.Color.Orange;
             this.tileBarItem3.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileBarItem3.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement19.Text = "EFC维护";
-            this.tileBarItem3.Elements.Add(tileItemElement19);
+            tileItemElement3.Text = "EFC维护";
+            this.tileBarItem3.Elements.Add(tileItemElement3);
             this.tileBarItem3.Id = 8;
             this.tileBarItem3.ItemSize = DevExpress.XtraBars.Navigation.TileBarItemSize.Medium;
             this.tileBarItem3.Name = "tileBarItem3";
@@ -121,8 +122,8 @@
             this.tileBarItem4.AppearanceItem.Normal.BackColor = System.Drawing.Color.Red;
             this.tileBarItem4.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileBarItem4.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement20.Text = "iChart维护";
-            this.tileBarItem4.Elements.Add(tileItemElement20);
+            tileItemElement4.Text = "iChart维护";
+            this.tileBarItem4.Elements.Add(tileItemElement4);
             this.tileBarItem4.Id = 9;
             this.tileBarItem4.ItemSize = DevExpress.XtraBars.Navigation.TileBarItemSize.Medium;
             this.tileBarItem4.Name = "tileBarItem4";
@@ -174,7 +175,7 @@
             this.Controls.Add(this.btn_Designer);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lbl_user);
-            this.Controls.Add(this.tileBar1);
+            this.Controls.Add(this.tileBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -187,8 +188,8 @@
         #endregion
 
         private DevExpress.XtraBars.Navigation.NavButton navButton2;
-        private DevExpress.XtraBars.Navigation.TileBar tileBar1;
-        private DevExpress.XtraBars.Navigation.TileBarGroup tileBarGroup2;
+        private DevExpress.XtraBars.Navigation.TileBar tileBar;
+        private DevExpress.XtraBars.Navigation.TileBarGroup tbGroup;
         private DevExpress.XtraBars.Navigation.TileBarItem tileBarItem1;
         private DevExpress.XtraBars.Navigation.TileBarItem tileBarItem2;
         private DevExpress.XtraBars.Navigation.TileBarItem tileBarItem3;

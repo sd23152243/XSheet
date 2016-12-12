@@ -92,7 +92,6 @@ namespace XSheet.v2.Form
 
         private void spreadsheetMain_SelectionChanged(object sender, EventArgs e)
         {
-            
             control.spreadsheetMain_SelectionChanged(sender, e);
         }
         
@@ -255,6 +254,27 @@ namespace XSheet.v2.Form
         private void btn_Dashboard_Click(object sender, EventArgs e)
         {
             control.dashboard_Click(sender, e);
+        }
+
+        private void bitDashBoardDesign_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            DashboardDesigner form = new DashboardDesigner();
+        }
+
+        private void bitSnap_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            SnapForm form = new SnapForm();
+            
+        }
+
+        private void spreadsheetMain_DoubleClick(object sender, EventArgs e)
+        {
+            control.EventCall(SysEvent.Btn_Edit, 0);
+        }
+
+        private void spreadsheetMain_CellBeginEdit(object sender, SpreadsheetCellCancelEventArgs e)
+        {
+            control.EventCall(SysEvent.Btn_Edit, 0);
         }
     }
 }

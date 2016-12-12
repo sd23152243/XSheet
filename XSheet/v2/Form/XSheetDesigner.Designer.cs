@@ -655,7 +655,7 @@ namespace XSheet.v2.Form
             this.btn_Flash = new DevExpress.XtraBars.BarButtonItem();
             this.btn_Encode = new DevExpress.XtraBars.BarButtonItem();
             this.bitDashBoardDesign = new DevExpress.XtraBars.BarButtonItem();
-            this.bitDashBoardView = new DevExpress.XtraBars.BarButtonItem();
+            this.bitSnap = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonImageCollectionLarge = new DevExpress.Utils.ImageCollection(this.components);
             this.pivotTableToolsRibbonPageCategory1 = new DevExpress.XtraSpreadsheet.UI.PivotTableToolsRibbonPageCategory();
             this.pivotTableDesignRibbonPage1 = new DevExpress.XtraSpreadsheet.UI.PivotTableDesignRibbonPage();
@@ -742,6 +742,7 @@ namespace XSheet.v2.Form
             this.mailMergeBindingRibbonPageGroup1 = new DevExpress.XtraSpreadsheet.UI.MailMergeBindingRibbonPageGroup();
             this.Advance = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.pgDashBoard = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.pgSnap = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.popupControlContainer2 = new DevExpress.XtraBars.PopupControlContainer(this.components);
             this.buttonEdit = new DevExpress.XtraEditors.ButtonEdit();
             this.formulaBarNameBoxSplitContainerControl = new DevExpress.XtraEditors.SplitContainerControl();
@@ -1389,9 +1390,9 @@ namespace XSheet.v2.Form
             this.btn_Flash,
             this.btn_Encode,
             this.bitDashBoardDesign,
-            this.bitDashBoardView});
+            this.bitSnap});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
-            this.ribbonControl.MaxItemId = 378;
+            this.ribbonControl.MaxItemId = 382;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotTableToolsRibbonPageCategory1,
@@ -3398,8 +3399,10 @@ namespace XSheet.v2.Form
             this.spreadsheetMain.DocumentLoaded += new System.EventHandler(this.spreadsheetMain_DocumentLoaded);
             this.spreadsheetMain.SelectionChanged += new System.EventHandler(this.spreadsheetMain_SelectionChanged);
             this.spreadsheetMain.ActiveSheetChanged += new DevExpress.Spreadsheet.ActiveSheetChangedEventHandler(this.spreadsheetMain_ActiveSheetChanged);
+            this.spreadsheetMain.CellBeginEdit += new DevExpress.XtraSpreadsheet.CellBeginEditEventHandler(this.spreadsheetMain_CellBeginEdit);
             this.spreadsheetMain.CellValueChanged += new DevExpress.XtraSpreadsheet.CellValueChangedEventHandler(this.spreadsheetMain_CellValueChanged);
             this.spreadsheetMain.HyperlinkClick += new DevExpress.XtraSpreadsheet.HyperlinkClickEventHandler(this.spreadsheetMain_HyperlinkClick);
+            this.spreadsheetMain.DoubleClick += new System.EventHandler(this.spreadsheetMain_DoubleClick);
             this.spreadsheetMain.KeyDown += new System.Windows.Forms.KeyEventHandler(this.spreadsheetMain_KeyDown);
             this.spreadsheetMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.spreadsheetMain_MouseUp);
             // 
@@ -4785,14 +4788,18 @@ namespace XSheet.v2.Form
             this.bitDashBoardDesign.Name = "bitDashBoardDesign";
             this.bitDashBoardDesign.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
+            this.bitDashBoardDesign.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bitDashBoardDesign_ItemClick);
             // 
-            // bitDashBoardView
+            // bitSnap
             // 
-            resources.ApplyResources(this.bitDashBoardView, "bitDashBoardView");
-            this.bitDashBoardView.Glyph = ((System.Drawing.Image)(resources.GetObject("bitDashBoardView.Glyph")));
-            this.bitDashBoardView.Id = 368;
-            this.bitDashBoardView.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bitDashBoardView.LargeGlyph")));
-            this.bitDashBoardView.Name = "bitDashBoardView";
+            resources.ApplyResources(this.bitSnap, "bitSnap");
+            this.bitSnap.Glyph = ((System.Drawing.Image)(resources.GetObject("bitSnap.Glyph")));
+            this.bitSnap.Id = 379;
+            this.bitSnap.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("bitSnap.LargeGlyph")));
+            this.bitSnap.Name = "bitSnap";
+            this.bitSnap.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
+            | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
+            this.bitSnap.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bitSnap_ItemClick);
             // 
             // ribbonImageCollectionLarge
             // 
@@ -5430,16 +5437,22 @@ namespace XSheet.v2.Form
             // Advance
             // 
             this.Advance.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.pgDashBoard});
+            this.pgDashBoard,
+            this.pgSnap});
             this.Advance.Name = "Advance";
             resources.ApplyResources(this.Advance, "Advance");
             // 
             // pgDashBoard
             // 
             this.pgDashBoard.ItemLinks.Add(this.bitDashBoardDesign);
-            this.pgDashBoard.ItemLinks.Add(this.bitDashBoardView);
             this.pgDashBoard.Name = "pgDashBoard";
             resources.ApplyResources(this.pgDashBoard, "pgDashBoard");
+            // 
+            // pgSnap
+            // 
+            this.pgSnap.ItemLinks.Add(this.bitSnap);
+            this.pgSnap.Name = "pgSnap";
+            resources.ApplyResources(this.pgSnap, "pgSnap");
             // 
             // popupControlContainer2
             // 
@@ -6671,9 +6684,10 @@ namespace XSheet.v2.Form
         private SimpleButton btn_Exel;
         private DevExpress.XtraBars.Ribbon.RibbonPage Advance;
         private DevExpress.XtraBars.BarButtonItem bitDashBoardDesign;
-        private DevExpress.XtraBars.BarButtonItem bitDashBoardView;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup pgDashBoard;
         private System.Windows.Forms.Label lbl_Time;
         private DropDownButton btn_Dashboard;
+        private DevExpress.XtraBars.BarButtonItem bitSnap;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup pgSnap;
     }
 }

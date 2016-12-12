@@ -35,6 +35,8 @@
             // 
             // dash_viewMain
             // 
+            this.dash_viewMain.AllowDrop = true;
+            this.dash_viewMain.AllowPrintDashboardItems = true;
             this.dash_viewMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dash_viewMain.Location = new System.Drawing.Point(0, 0);
             this.dash_viewMain.Name = "dash_viewMain";

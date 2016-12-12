@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using XSheet.v2.Privilege;
 using DevExpress.XtraSplashScreen;
 using DevExpress.XtraBars.Navigation;
+using XSheet.v2.CfgBean;
 
 namespace XSheet.v2.Form
 {
@@ -19,6 +20,7 @@ namespace XSheet.v2.Form
         XSheetUser user { get; set; }
         private SplashScreenManager splashManager;
         private List<TileBarItem> items;
+        private List<AppCfg> apps;
         public MainForm(XSheetUser user)
         {
             this.user = user;
@@ -43,11 +45,7 @@ namespace XSheet.v2.Form
             XSheetDesigner designer = new XSheetDesigner(user);
             this.Hide();
             designer.Owner = this;
-            
             splashManager.CloseWaitForm();
-            
-            
-
         }
     }
 }
