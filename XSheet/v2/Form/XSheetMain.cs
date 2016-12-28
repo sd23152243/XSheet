@@ -21,37 +21,28 @@ namespace XSheet.v2.Form
         private XSheetControl control { get; set; }
         private Dictionary<String, Label> labels { get; set; }
         Dictionary<String, PopupMenu> menus = new Dictionary<string, PopupMenu>();
-        public XSheetMain(XSheetUser user)
-        {
-            this.Hide();
-            InitializeComponent();
-            DateTime date = DateTime.Now;
+        
 
-            //StreamWriter sw = new StreamWriter(date.ToLongDateString() + ".txt", true);
-            //TextWriter temp = Console.Out;
-            
-            setDefaultParam();
-            //Console.SetOut(sw);
-            //Console.WriteLine("beforeDsp:" + date.ToString());
-            //sw.Close();
-            //Console.SetOut(temp);
-            this.control = new XSheetControl(spreadsheetMain, buttons, labels, menus, rightClickBarManager, this, alertcontrolMain,user);
-            timer100ms.Start();
-            //date = DateTime.Now;
-            //sw = new StreamWriter(date.ToLongDateString() + ".txt", true);
-            //Console.SetOut(sw);
-            //Console.WriteLine("end:" + date.ToString());
-            //sw.Close();
-            //Console.SetOut(temp);
-        }
-
-        public XSheetMain(String path,XSheetUser user)
+        public XSheetMain(String APPid)
         {
+            XSheetUser user = null;
+            String path = null;
+            try
+            {
+                user = new XSheetUser(System.Environment.UserDomainName, System.Environment.UserName, System.Environment.MachineName, System.Environment.OSVersion.ToString());
+                path = user.apps[APPid];
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                return;
+            }
             InitializeComponent();
             setDefaultParam();
 
             this.control = new XSheetControl(spreadsheetMain, buttons, labels, path, menus, rightClickBarManager, this, alertcontrolMain,user);
             timer100ms.Start();
+            this.Show();
         }
 
         private void setDefaultParam()

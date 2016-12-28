@@ -248,7 +248,6 @@ namespace XSheet.v2.Form
                 this.Owner.Show();
                 this.Owner.Refresh();
             }
-            
         }
 
         private void btn_Dashboard_Click(object sender, EventArgs e)
@@ -269,12 +268,12 @@ namespace XSheet.v2.Form
 
         private void spreadsheetMain_DoubleClick(object sender, EventArgs e)
         {
-            control.EventCall(SysEvent.Btn_Edit, 0);
+            //control.EventCall(SysEvent.Btn_Edit, 0);
         }
 
         private void spreadsheetMain_CellBeginEdit(object sender, SpreadsheetCellCancelEventArgs e)
         {
-            control.EventCall(SysEvent.Btn_Edit, 0);
+            //control.EventCall(SysEvent.Btn_Edit, 0);
         }
     }
 }

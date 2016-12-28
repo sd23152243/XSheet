@@ -265,7 +265,7 @@ namespace XSheet.v2.Control
         {
             DropDownButton button = (DropDownButton)sender;
             int i = int.Parse(button.Tag.ToString());
-            XDashBoardForm dashboardFrom = new XDashBoardForm(cfgData.dashboards[i]);
+            XDashBoardForm dashboardFrom = new XDashBoardForm(cfgData.dashboards[i-1]);
             dashboardFrom.Show();
             
         }

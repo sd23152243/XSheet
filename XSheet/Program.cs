@@ -26,22 +26,13 @@ namespace XSheet
             sw.Close();
             DevExpress.Skins.SkinManager.EnableFormSkins();
             DevExpress.UserSkins.BonusSkins.Register();
-            XSheetUser user = null;
-            try
-            {
-                user = new XSheetUser(System.Environment.UserDomainName, System.Environment.UserName, System.Environment.MachineName, System.Environment.OSVersion.ToString());
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.ToString());
-                return;
-            }
+            
             
             if (args.Length == 0)
             {
                 try
                 {
-                    Application.Run(new MainForm(user));
+                    Application.Run(new MainForm());
                     //Application.Run(new XSheetMain());
                 }
                 catch (Exception e)
@@ -52,7 +43,7 @@ namespace XSheet
             else
             {
                 String param = args[0];
-                Application.Run(new XSheetMain(args[0],user));
+                Application.Run(new XSheetMain(args[0]));
                 //Application.Run(new XSheetMain());
             }
             
