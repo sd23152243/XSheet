@@ -23,5 +23,11 @@ namespace tools
             String input = txt_Input.Text;
             txt_Des.Text = DESUtil.EncryptString(input, DESUtil.GenerateKey());
         }
+
+        private void txt_Des_EditValueChanged(object sender, EventArgs e)
+        {
+            String input = txt_Des.Text;
+            txt_Input.Text = DESUtil.DecryptString(input, DESUtil.GenerateKey());
+        }
     }
 }

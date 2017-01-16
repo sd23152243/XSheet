@@ -93,6 +93,9 @@ namespace XSheet.v2.Util
                     case "ICHART3D":
                         da =  getSqlDataAdapter(dbConn, Sql, sqlType);
                         break;
+                    case "ICHART3T":
+                        da = getSqlDataAdapter(dbConn, Sql, sqlType);
+                        break;
                     default:
                         da = getOleDbDataAdapter(dbConn, Sql, sqlType);
                         break;

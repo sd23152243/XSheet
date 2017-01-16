@@ -46,7 +46,7 @@ namespace XSheet.v2.Privilege
             int colorindex = 0;
             foreach (DataRow row in dt.Rows)
             {
-                apps.Add(row[0].ToString(), row[3].ToString());
+                apps.Add(row[0].ToString().ToUpper(), row[3].ToString());
                 TileBarItem item = new TileBarItem();
                 item.AppearanceItem.Normal.BackColor = ItemColorList.colorList[colorindex];
                 item.AppearanceItem.Normal.Options.UseBackColor = true;
@@ -66,7 +66,7 @@ namespace XSheet.v2.Privilege
                 supertooltip.Items.Add(tooltip);
                 item.SuperTip = supertooltip;
 
-                item.Tag = row[3].ToString();
+                item.Tag = row[0].ToString();
                 colorindex++;
                 if (colorindex >= 4)
                 {

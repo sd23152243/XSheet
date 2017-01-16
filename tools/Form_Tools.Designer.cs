@@ -46,9 +46,9 @@
             // 
             this.txt_Des.Location = new System.Drawing.Point(59, 60);
             this.txt_Des.Name = "txt_Des";
-            this.txt_Des.Properties.ReadOnly = true;
             this.txt_Des.Size = new System.Drawing.Size(241, 20);
             this.txt_Des.TabIndex = 1;
+            this.txt_Des.EditValueChanged += new System.EventHandler(this.txt_Des_EditValueChanged);
             // 
             // Form_Tools
             // 

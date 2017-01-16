@@ -21,7 +21,6 @@ namespace XSheet.v2.Form
         XSheetUser user { get; set; }
         private SplashScreenManager splashManager;
         private List<TileBarItem> items;
-        private List<AppCfg> apps;
         public MainForm()
         {
             try

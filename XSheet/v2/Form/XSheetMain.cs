@@ -30,7 +30,16 @@ namespace XSheet.v2.Form
             try
             {
                 user = new XSheetUser(System.Environment.UserDomainName, System.Environment.UserName, System.Environment.MachineName, System.Environment.OSVersion.ToString());
-                path = user.apps[APPid];
+                try
+                {
+                    path = user.apps[APPid.ToUpper()];
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("你没有APP:"+APPid+"的权限");
+                    return;
+                }
+                
             }
             catch (Exception e)
             {
