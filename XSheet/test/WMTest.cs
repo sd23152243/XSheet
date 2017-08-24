@@ -25,7 +25,7 @@ namespace XSheet.test
         public DataTable GetUserList()
         {
             string sql = "SELECT Sheet名,隐藏标志,修改标志 FROM[ABC]";
-            DataTable dt = ExcelHelper.GetReader(sql);
+            DataTable dt = ExcelHelper.GetReader(sql,"");
             return dt;
         }
 
@@ -34,7 +34,7 @@ namespace XSheet.test
             string sql = "INSERT INTO [ABC](APP,Sheet名,隐藏标志,修改标志) VALUES('ddd','ddd','BdddBB','BBB')";
             try
             {
-                int result = ExcelHelper.ExecuteCommand(sql);
+                int result = ExcelHelper.ExecuteCommand(sql,"");
                 System.Windows.Forms.MessageBox.Show(result.ToString());
             }
             catch (Exception e)

@@ -20,7 +20,7 @@ namespace XSheet.v2.Form
     {
         XmlDocument xmlDoc = new XmlDocument();
 
-        XmlDeclaration xmldecl;
+        //XmlDeclaration xmldecl;
         
         public XDashBoardForm(DashBoardCfg cfg)
         {

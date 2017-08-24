@@ -11,8 +11,8 @@ namespace XSheet.v2.Util
 {
     class ConfigUtil
     {
-        private static string file = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"DBConn.config";
-
+        private static string file = @"\\ichart3t\发行文件\DBConn.config";
+        //private static string file = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"DBConn.config";
         public static string GetConnectionString(string key)
         {
             String connstr =  GetAttributeValue("//connectionStrings", key, "connectionString");
@@ -32,7 +32,7 @@ namespace XSheet.v2.Util
 
             try
             {
-                if (File.Exists(file))
+                if (File.Exists(@"\\ichart3t\发行文件\DBConn.config"))
                 {
                     XmlDocument xml = new XmlDocument();
 
@@ -42,10 +42,18 @@ namespace XSheet.v2.Util
 
                     XmlElement element = (XmlElement)xNode.SelectSingleNode("//add[@name='" + key + "']");
                     value = element.GetAttribute(name).ToString();
-                    
+                    return value;
                 }
+                else
+                {
+                    AlertUtil.Show("error", "DBConfig无法定位！！");
+                    return null;
+                }
+                
             }
-            catch { }
+            catch {
+                AlertUtil.Show("error", "DBConfig异常！");
+            }
 
             return value;
         }

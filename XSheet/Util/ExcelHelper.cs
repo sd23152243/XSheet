@@ -10,40 +10,36 @@ namespace XSheet.Util
 {
     class ExcelHelper
     {
-        private static string fileName = "//ichart3d/XSheetModel/AAA.xlsx";
-
-        private static OleDbConnection connection;
-        public static OleDbConnection Connection
+        //private static string fileName = "//ichart3d/XSheetModel/AAA.xlsx";
+        public static OleDbConnection getConnection(String fileName)
         {
-            get
+            OleDbConnection connection = new OleDbConnection();
+            string connectionString = "";
+            string fileType = System.IO.Path.GetExtension(fileName);
+            if (string.IsNullOrEmpty(fileType)) return null;
+            if (fileType == ".xls")
             {
-                string connectionString = "";
-                string fileType = System.IO.Path.GetExtension(fileName);
-                if (string.IsNullOrEmpty(fileType)) return null;
-                if (fileType == ".xls")
-                {
-                    connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=" + fileName + ";" + ";Extended Properties=\"Excel 8.0;HDR=YES;IMEX=1\"";
-                }
-                else
-                {
-                    connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileName + ";" + ";Extended Properties=\"Excel 12.0;HDR=YES;\"";
-                }
-                if (connection == null)
-                {
-                    connection = new OleDbConnection(connectionString);
-                    connection.Open();
-                }
-                else if (connection.State == System.Data.ConnectionState.Closed)
-                {
-                    connection.Open();
-                }
-                else if (connection.State == System.Data.ConnectionState.Broken)
-                {
-                    connection.Close();
-                    connection.Open();
-                }
-                return connection;
+                connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=" + fileName + ";" + ";Extended Properties=\"Excel 8.0;HDR=YES;IMEX=1\"";
             }
+            else
+            {
+                connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileName + ";" + ";Extended Properties=\"Excel 12.0;HDR=YES;\"";
+            }
+            if (connection == null)
+            {
+                connection = new OleDbConnection(connectionString);
+                connection.Open();
+            }
+            else if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+            else if (connection.State == System.Data.ConnectionState.Broken)
+            {
+                connection.Close();
+                connection.Open();
+            }
+            return connection;
         }
 
         /// <summary>  
@@ -51,9 +47,10 @@ namespace XSheet.Util
         /// </summary>  
         /// <param name="sql">SQL语句</param>  
         /// <returns>返回受SQL语句影响的行数</returns>  
-        public static int ExecuteCommand(string sql)
+        public static int ExecuteCommand(string sql, String fileName)
         {
-            OleDbCommand cmd = new OleDbCommand(sql, Connection);
+            OleDbConnection connection = getConnection(fileName);
+            OleDbCommand cmd = new OleDbCommand(sql, connection);
             int result = cmd.ExecuteNonQuery();
             connection.Close();
             return result;
@@ -65,9 +62,10 @@ namespace XSheet.Util
         /// <param name="sql">SQL语句</param>  
         /// <param name="values">参数集合</param>  
         /// <returns>返回受SQL语句影响的行数</returns>  
-        public static int ExecuteCommand(string sql, params OleDbParameter[] values)
+        public static int ExecuteCommand(string sql, String fileName, params OleDbParameter[] values)
         {
-            OleDbCommand cmd = new OleDbCommand(sql, Connection);
+            OleDbConnection connection = getConnection(fileName);
+            OleDbCommand cmd = new OleDbCommand(sql, connection);
             cmd.Parameters.AddRange(values);
             int result = cmd.ExecuteNonQuery();
             connection.Close();
@@ -79,9 +77,10 @@ namespace XSheet.Util
         /// </summary>  
         /// <param name="sql">SQL语句</param>  
         /// <returns>返回受SQL语句查询的行数</returns>  
-        public static int GetScalar(string sql)
+        public static int GetScalar(string sql,String fileName)
         {
-            OleDbCommand cmd = new OleDbCommand(sql, Connection);
+            OleDbConnection connection = getConnection(fileName);
+            OleDbCommand cmd = new OleDbCommand(sql, connection);
             int result = Convert.ToInt32(cmd.ExecuteScalar());
             connection.Close();
             return result;
@@ -93,9 +92,10 @@ namespace XSheet.Util
         /// <param name="sql">SQL语句</param>  
         /// <param name="parameters">参数集合</param>  
         /// <returns>返回受SQL语句查询的行数</returns>  
-        public static int GetScalar(string sql, params OleDbParameter[] parameters)
+        public static int GetScalar(string sql, String fileName, params OleDbParameter[] parameters)
         {
-            OleDbCommand cmd = new OleDbCommand(sql, Connection);
+            OleDbConnection connection = getConnection(fileName);
+            OleDbCommand cmd = new OleDbCommand(sql, connection);
             cmd.Parameters.AddRange(parameters);
             int result = Convert.ToInt32(cmd.ExecuteScalar());
             connection.Close();
@@ -107,9 +107,10 @@ namespace XSheet.Util
         /// </summary>  
         /// <param name="sql">SQL语句</param>  
         /// <returns>返回数据集</returns>  
-        public static DataTable GetReader(string sql)
+        public static DataTable GetReader(string sql,String fileName)
         {
-            OleDbDataAdapter da = new OleDbDataAdapter(sql, Connection);
+            OleDbConnection connection = getConnection(fileName);
+            OleDbDataAdapter da = new OleDbDataAdapter(sql, connection);
             DataTable dt = new DataTable();
             da.Fill(dt);
             connection.Close();
@@ -122,9 +123,10 @@ namespace XSheet.Util
         /// <param name="sql">SQL语句</param>  
         /// <param name="parameters">参数集合</param>  
         /// <returns>返回数据集</returns>  
-        public static DataSet GetReader(string sql, params OleDbParameter[] parameters)
+        public static DataSet GetReader(string sql,String fileName, params OleDbParameter[] parameters)
         {
-            OleDbDataAdapter da = new OleDbDataAdapter(sql, Connection);
+            OleDbConnection connection = getConnection(fileName);
+            OleDbDataAdapter da = new OleDbDataAdapter(sql, connection);
             da.SelectCommand.Parameters.AddRange(parameters);
             DataSet ds = new DataSet();
             da.Fill(ds);

@@ -45,6 +45,7 @@
             this.lbl_user = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_Designer = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // navButton2
@@ -146,9 +147,9 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(35, 24);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 36);
+            this.label2.Size = new System.Drawing.Size(78, 36);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Hello!";
+            this.label2.Text = "你好!";
             // 
             // btn_Designer
             // 
@@ -165,6 +166,17 @@
             this.btn_Designer.UseVisualStyleBackColor = false;
             this.btn_Designer.Click += new System.EventHandler(this.btn_Designer_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 15F);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(128, 59);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(158, 27);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "欢迎使用XSheet";
+            // 
             // MainForm
             // 
             this.Appearance.BackColor = System.Drawing.Color.Navy;
@@ -173,13 +185,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(620, 224);
             this.Controls.Add(this.btn_Designer);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lbl_user);
             this.Controls.Add(this.tileBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MainForm";
+            this.Text = "欢迎使用XSheet";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,5 +210,6 @@
         private System.Windows.Forms.Label lbl_user;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_Designer;
+        private System.Windows.Forms.Label label1;
     }
 }

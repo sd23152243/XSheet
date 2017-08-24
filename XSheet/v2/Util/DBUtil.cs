@@ -81,6 +81,7 @@ namespace XSheet.v2.Util
         /// <returns></returns>
         public static DbDataAdapter getDbDataAdapter(String DBType, String Sql, String sqlType, DbConnection dbConn)
         {
+            
             DbDataAdapter da = null;
             try
             {
@@ -90,14 +91,10 @@ namespace XSheet.v2.Util
                         da =  getOleDbDataAdapter(dbConn, Sql, sqlType);
                         break;
                     case "SRFSQL":
-                    case "ICHART3D":
-                        da =  getSqlDataAdapter(dbConn, Sql, sqlType);
-                        break;
                     case "ICHART3T":
-                        da = getSqlDataAdapter(dbConn, Sql, sqlType);
-                        break;
+                    case "ICHART3D":
                     default:
-                        da = getOleDbDataAdapter(dbConn, Sql, sqlType);
+                        da = getSqlDataAdapter(dbConn, Sql, sqlType);
                         break;
                 }
             }
@@ -209,12 +206,11 @@ namespace XSheet.v2.Util
                     dbConn = new OleDbConnection();
                     break;
                 case "SRFSQL":
+                case "ICHART3T":
                 case "ICHART3D":
                 case "MAIN":
-                    dbConn = new SqlConnection();
-                    break;
                 default:
-                    dbConn = new OleDbConnection();
+                    dbConn = new SqlConnection();
                     break;
             }
             dbConn.ConnectionString = getConnStr(DBType);
@@ -230,11 +226,10 @@ namespace XSheet.v2.Util
                     cmd = new OleDbCommand(sql,(OleDbConnection)conn);
                     break;
                 case "SRFSQL":
+                case "ICHART3T":
                 case "ICHART3D":
-                    cmd = new SqlCommand(sql, (SqlConnection)conn);
-                    break;
                 default:
-                    cmd = new OleDbCommand(sql, (OleDbConnection)conn);
+                    cmd = new SqlCommand(sql, (SqlConnection)conn);
                     break;
             }
             return cmd;
