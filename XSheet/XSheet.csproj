@@ -159,7 +159,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="v2\CfgBean\CfgDataReader.cs" />
     <Compile Include="v2\CfgBean\DashBoardCfg.cs" />
-    <Compile Include="v2\Data\CommandExecuter.cs" />
+    <Compile Include="v2\Data\XSheetRange\CommandExecuter.cs" />
     <Compile Include="v2\Data\SysEvent.cs" />
     <Compile Include="v2\Data\SysStatu.cs" />
     <Compile Include="v2\Data\XDashBoard.cs" />

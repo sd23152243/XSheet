@@ -10,35 +10,38 @@ using XSheet.v2.Util;
 
 namespace XSheet.v2.Data
 {
+    /*存放实际datatable，并执行增删改查*/
     public class XData
     {
-        private DataTable dt;
-        public DbDataAdapter da { get; set; }
-        public String ServerName { get; set; }
+        private DataTable dt;//实际的数据对象
+        public DbDataAdapter da { get; set; }//数据适配器，用于进行数据库操作
+        public String ServerName { get; set; }//数据对象服务器名
         //public List<String> XSQLParams { get; set; }
-        public String DBName { get; set; }
-        private DbConnection conn ;
-        private DbTransaction DBTrans;
-        public List<String> avaliableList = new List<string>();
+        public String DBName { get; set; }//数据对象数据库名
+        private DbConnection conn ;//数据库连接对象
+        private DbTransaction DBTrans;//事务对象
+        public List<String> avaliableList = new List<string>();//可用功能列表，初始化后自动生成 包含C、R、U、D
+        //初始化，默认仅有读的功能
         public XData()
         {
             avaliableList = new List<string>();
             avaliableList.Add("R");
         }
+        //查询功能，通过查询SQL可判定该对象具有的功能权限
         public String search(String Sql)
         {
-            avaliableList.Clear();
+            avaliableList.Clear();//清空功能列表
             try
             {
                 conn = DBUtil.getConnection(ServerName);
                 conn.Open();
                 DBTrans = conn.BeginTransaction();
                 conn.Close();
-                da = DBUtil.getDbDataAdapter(ServerName, Sql, "", conn);
+                da = DBUtil.getDbDataAdapter(ServerName, Sql, "", conn);//根据查询语句，初始化适配器
                 DataSet ds = new DataSet();
                 da.Fill(ds);
                 dt = ds.Tables[0];
-                avaliableList.Add("R");
+                avaliableList.Add("R");//根据适配器设定可用功能列表
                 if (da.UpdateCommand != null)
                 {
                     avaliableList.Add("U");
@@ -59,7 +62,7 @@ namespace XSheet.v2.Data
            
             return "OK";
         } 
-
+        //更新数据功能
         public String update()
         {
             String ans = "OK";
@@ -89,6 +92,7 @@ namespace XSheet.v2.Data
             }
             return ans;
         }
+        //插入数据功能
         public String insert()
         {
             String ans = "OK";
@@ -118,6 +122,7 @@ namespace XSheet.v2.Data
             }
             return ans;
         }
+        //删除数据功能
         public String delete()
         {
             String ans = "OK";
@@ -147,8 +152,7 @@ namespace XSheet.v2.Data
             }
             return ans;
         }
-
-
+        //筛选功能，在本地内存中筛选数据
         public DataTable select(string filterExpression)
         {
             DataRow[] rows =  dt.Select(filterExpression);
@@ -159,7 +163,7 @@ namespace XSheet.v2.Data
             }
             return ndt;
         }
-
+        //对象异常检测，如果存放数据失败，则返回FALSE
         public Boolean isValied()
         {
             if (dt == null)
@@ -168,22 +172,22 @@ namespace XSheet.v2.Data
             }
             return true;
         }
-
+        //手动存放/更新数据对象
         public void setData(DataTable dt)
         {
             this.dt = dt;
         }
-
+        //获取数据对象
         public DataTable getDataTable()
         {
             return this.dt;
         }
-
+        //初始化---未实现
         internal void init()
         {
             throw new NotImplementedException();
         }
-
+        //刷新数据
         public void Refresh()
         {
             DataSet ds = new DataSet();
@@ -203,7 +207,7 @@ namespace XSheet.v2.Data
                 avaliableList.Add("D");
             }
         }
-
+        //如果执行存储过程（执行存储过程不修改本地数据对象，可用来执行任意SQL语句）
         public String Execute(List<String> sqls)
         {
             String ans = "OK";

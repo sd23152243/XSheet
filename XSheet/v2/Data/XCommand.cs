@@ -14,6 +14,7 @@ using XSheet.v2.Util;
 
 namespace XSheet.Data
 {
+    /*Command类，事件触发，绑定多个Action*/
     public class XCommand:TaskSubject
     {
         public int CommandSeq { get; set; }

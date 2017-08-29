@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace XSheet.Util
 {
+    /*加密解密工具类*/
     public class DESUtil
     {
         public static string GenerateKey()

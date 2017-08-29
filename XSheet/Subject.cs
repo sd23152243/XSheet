@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace XSheet
 {
+    //被观察者
     public abstract class Subject
     {
         protected IList<Observer> observers = new List<Observer>();

@@ -14,6 +14,7 @@ using XSheet.v2.Util;
 
 namespace XSheet.v2.Data
 {
+    //Action父类，抽象出Action的公共方法
     public abstract class XAction
     {
         public String ActionName { get; set; }
@@ -54,10 +55,6 @@ namespace XSheet.v2.Data
                 MessageBox.Show("Action：" + ActionName + "的sRange、dRange配置错误！");
                 return;
             }
-
-
-            
-
         }
 
         public string doAction()
@@ -69,16 +66,16 @@ namespace XSheet.v2.Data
             }
             return ans;
         }
-
+        //具体实现Action交由子类实现
         protected abstract string doOwnAction();
-
+        //获取当前状态的执行语句
         protected virtual List<String> getRealStatement()
         {
             String statement = cfg.ActionStatement;
 
             return dRange.getRealStatement("Config_Action", statement);
         }
-
+        //抽象类中不再实现
         public virtual void setSelectIndex(int rowIndex)
         {
             /*String r1c1 = cfg.actionStatement;
@@ -88,7 +85,7 @@ namespace XSheet.v2.Data
                 dRange.getRange().Worksheet[r1c1].Offset(0, 1).Value = rowIndex + 1;
             }*/
         }
-
+        //读取下一个Action 序号
         internal int getNextIndex(string ans, int i)
         {
             int nextid;
@@ -105,17 +102,17 @@ namespace XSheet.v2.Data
             }
             return nextid;
         }
-
+        //获取有效标记
         public Boolean getValiedFlag()
         {
-            //TODO
             dRange.getRange().Worksheet.Workbook.Calculate();
-            dRange.getRange().Worksheet.Workbook.Worksheets["Config_Action"].Calculate();
+            dRange.getRange().Worksheet.Workbook.Worksheets["Config_Action"].Calculate();//刷新工作簿及Config表
             if (cfg.Invalid == null)
             {
+                //如果CONFIG中InValid配置为空，则直接认为有效
                 return true;
             }
-            String statement = dRange.getRange().Worksheet.Workbook.Worksheets["Config_Action"][cfg.Invalid][0].DisplayText;
+            String statement = dRange.getRange().Worksheet.Workbook.Worksheets["Config_Action"][cfg.Invalid][0].DisplayText;//获取当前情况下的实时cfg的配置显示
             return statement.Length==0||statement=="0";
         }
     }

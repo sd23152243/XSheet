@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace XSheet.Util
 {
+    /*EXCEL 读取 工具类*/
     class ExcelHelper
     {
         //private static string fileName = "//ichart3d/XSheetModel/AAA.xlsx";

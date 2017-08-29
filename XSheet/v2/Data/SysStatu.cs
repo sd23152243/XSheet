@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace XSheet.v2.Data
 {
+    /*系统状态枚举*/
     public enum SysStatu
     {
         Designer = 0,

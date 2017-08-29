@@ -10,6 +10,7 @@ using XSheet.v2.Data.XSheetRange;
 
 namespace XSheet.Util
 {
+    /*区域工具类*/
     public class RangeUtil
     {
         //判断某个区域是否在命名区域中
@@ -24,6 +25,7 @@ namespace XSheet.Util
             }
             return null;
         }
+        /*根据区域名称、文档获取全局区域*/
         public static Range getRangeByName(String name,IWorkbook book)
         {
             Range range = null;
@@ -37,7 +39,7 @@ namespace XSheet.Util
             }
             return range;
         }
-
+        /*根据区域名称、Sheet获取Sheet内区域*/
         public static Range getRangeByName(String name, Worksheet sheet)
         {
             Range range = null;
@@ -51,7 +53,7 @@ namespace XSheet.Util
             }
             return range;
         }
-        //0表示正常 <0异常
+        //判断是否在所选area是否在range内，0表示正常 <0异常
         public static int isInRange(AreasCollection areas,Range range)
         {
             int i = 0;

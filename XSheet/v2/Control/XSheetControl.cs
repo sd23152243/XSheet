@@ -590,7 +590,7 @@ namespace XSheet.v2.Control
                 }                
             }
         }
-
+        //设置DASHBORD 按钮
         private void setdashboardButton()
         {
             DropDownButton dashbordbtn = (DropDownButton)buttons["BTN_DASHBOARD"];

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace XSheet.v2.Data
 {
+    /*响应事件枚举*/
     public enum SysEvent
     {
         Sheet_Init=0,
