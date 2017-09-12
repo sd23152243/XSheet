@@ -67,7 +67,7 @@ namespace XSheet.Util
             }
             return i;
         }
-
+        
         public static int isInRange(Range x,Range range)//判断x是否在range中
         {
             int result = 0;
@@ -112,7 +112,7 @@ namespace XSheet.Util
             range.EndUpdateFormatting(rangeFormatting);
         }
 
-
+        //重定义RANGE大小
         public static Range rangeResize(Range range,int rowcount)
         {
             //range.Fill.BackgroundColor = Color.White;
@@ -136,7 +136,7 @@ namespace XSheet.Util
             Range newrange = range.Worksheet.Range[string.Join("$", tmp)];
             return newrange;
         }
-
+        //获取序列索引
         private static int getIndexAddedDataCount(Range range ,int dataCount)
         {
             int rowIndex = range.TopRowIndex;

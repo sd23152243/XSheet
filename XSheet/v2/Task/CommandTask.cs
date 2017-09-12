@@ -18,7 +18,7 @@ namespace XSheet.v2.Task
         public DateTime endTime { get; set; }
         public XSheetUser user { get; set; }
         public String statu { get; set; }
-        public UserPrivilege up { get; set; }
+        //public UserPrivilege up { get; set; } --删除，后续权限通过SQL存储过程实现
         private CommandTask(){}
         public CommandTask(XCommand cmd, XSheetUser user)
         {
@@ -26,7 +26,7 @@ namespace XSheet.v2.Task
             this.user = user;
             this.submitTime = DateTime.Now;
         }
-        
+        //实际执行模块
         public String doTask()
         {
             String ans = "";

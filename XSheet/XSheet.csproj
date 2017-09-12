@@ -222,7 +222,6 @@
     <Compile Include="v2\Form\SnapForm.Designer.cs">
       <DependentUpon>SnapForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="v2\Privilege\UserPrivilege.cs" />
     <Compile Include="v2\Privilege\XSheetUser.cs" />
     <Compile Include="v2\Task\CommandTask.cs" />
     <Compile Include="v2\Util\AlertUtil.cs" />
